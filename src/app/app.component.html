@@ -1,47 +1,109 @@
-<mat-card class="example-card">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Rain</mat-card-title>
-    <mat-card-subtitle>First blood</mat-card-subtitle>
-  </mat-card-header>
-  <img
-    mat-card-image
-    src="https://i.imgur.com/jGGnBKH.jpg"
-    alt="Photo of a Shiba Inu"
-  />
-  <mat-card-content>
-    <p>
-      Working on a new dev project, getting a new domain. Trying to run heroku
-      cli with angular 7x. Chad beside me, and a cup of coffee.. My domain name
-      sucks right now. Typo string of words, not formatted. *Objectives: A LOT
-      .. API TESTING
-    </p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
-  </mat-card-actions>
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Rain</mat-card-title>
-    <mat-card-subtitle>Tenerifea Sea</mat-card-subtitle>
-  </mat-card-header>
-  <img
-    mat-card-image
-    src="https://i.imgur.com/SsNTU0K.jpg"
-    alt="Photo of a Shiba Inu"
-  />
-  <mat-card-content>
-    <p>
-      I need photo module and date module.. Fast tracking when trying to link
-      server. My brain, literally my head is going cuckooo right now, api
-      testing and design. Buy domain!! Buttons don't work for now. Still working
-      on a different project. This is the front end design, enormous load for
-      backend.
-    </p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
-  </mat-card-actions>
-</mat-card>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button
+      mat-icon-button
+      (click)="sidenav.toggle()"
+      fxShow="true"
+      fxHide.gt-sm
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Ner Web Application</span>
+    <span class="menu-spacer"></span>
+    <div fxShow="true" fxHide.lt-md>
+      <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+      <a href="#" mat-button>Angular</a>
+      <a href="#" mat-button>Javascript</a>
+      <a href="#" mat-button>Journal</a>
+      <a href="#" mat-button>Jiujitsu</a>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container class="example-sidenav-container" fxFlexFill>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+      <a href="#" mat-list-item>Angular</a>
+      <a href="#" mat-list-item>Javascript</a>
+      <a href="#" mat-list-item>Journal</a>
+      <a href="#" mat-list-item>Jiujitsu</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-card class="example-card">
+      <div class="postSection">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Rain</mat-card-title>
+          <mat-card-subtitle>Knex.js migrations</mat-card-subtitle>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="https://i.imgur.com/xZEfcDm.jpg"
+          alt="Photo of a Shiba Inu"
+        />
+        <mat-card-content>
+          <p>
+            Changing tables.. from the database. What's the design schema?The
+            date created, hour timestamp, and month method?^&*. How about the
+            increment and decrement, How to work it to the API? Menu navigation,
+            still on the works.
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </div>
+      <div class="postSection">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Rain</mat-card-title>
+          <mat-card-subtitle>First blood</mat-card-subtitle>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="https://i.imgur.com/jGGnBKH.jpg"
+          alt="Photo of a Shiba Inu"
+        />
+        <mat-card-content>
+          <p>
+            Working on a new dev project, getting a new domain. Trying to run
+            heroku cli with angular 7x. Chad beside me, and a cup of coffee.. My
+            domain name sucks right now. Typo string of words, not formatted.
+            *Objectives: A LOT .. API TESTING
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </div>
+      <div>
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Rain</mat-card-title>
+          <mat-card-subtitle>Tenerifea Sea</mat-card-subtitle>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="https://i.imgur.com/SsNTU0K.jpg"
+          alt="Photo of a Shiba Inu"
+        />
+        <mat-card-content>
+          <p>
+            I need photo module and date module.. Fast tracking when trying to
+            link server. My brain, literally my head is going cuckooo right now,
+            api testing and design. Buy domain!! Buttons don't work for now.
+            Still working on a different project. This is the front end design,
+            enormous load for backend.
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </div>
+    </mat-card>
+  </mat-sidenav-content>
+</mat-sidenav-container>

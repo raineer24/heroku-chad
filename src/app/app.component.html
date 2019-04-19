@@ -12,25 +12,48 @@
     <span class="menu-spacer"></span>
     <div fxShow="true" fxHide.lt-md>
       <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-      <a href="#" mat-button>Angular</a>
-      <a href="#" mat-button>Javascript</a>
-      <a href="#" mat-button>Journal</a>
-      <a href="#" mat-button>Jiujitsu</a>
+      <a mat-button>Angular</a>
+      <a mat-button>Javascript</a>
+      <a mat-button>Journal</a>
+      <a mat-button>Jiujitsu</a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-sidenav-container class="example-sidenav-container" fxFlexFill>
   <mat-sidenav #sidenav>
     <mat-nav-list>
-      <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
-      <a href="#" mat-list-item>Angular</a>
-      <a href="#" mat-list-item>Javascript</a>
-      <a href="#" mat-list-item>Journal</a>
-      <a href="#" mat-list-item>Jiujitsu</a>
+      <a (click)="sidenav.toggle()" mat-list-item>Close</a>
+      <a mat-list-item>Angular</a>
+      <a mat-list-item>Javascript</a>
+      <a mat-list-item>Journal</a>
+      <a mat-list-item>Jiujitsu</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-card class="example-card">
+      <div class="postSection">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Rain</mat-card-title>
+          <mat-card-subtitle>Thinking tool</mat-card-subtitle>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="https://i.imgur.com/BalUhjX.jpg"
+          alt="Thinking tool"
+        />
+        <mat-card-content>
+          <p>
+            Working on a coding standard structure. Rethinking of how the tables
+            and server side works. Adding new tables from existing tables, seeds
+            and migrations.
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </div>
       <div class="postSection">
         <mat-card-header>
           <div mat-card-avatar class="example-header-image"></div>

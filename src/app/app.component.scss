@@ -9,14 +9,15 @@
 .menu-spacer {
   flex: 1 1 auto;
 }
-@media screen and (min-width: 600px) {
-  .cards {
+@media screen and (max-width: 600px) {
+  .example-card {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    max-width: 600px;
   }
 
-  .card {
+  .mat-card {
     flex: 0 1 calc(25% - 1em);
   }
 }

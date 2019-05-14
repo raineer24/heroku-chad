@@ -1,0 +1,19 @@
+.example-card {
+  max-width: 400px;
+}
+
+.menu-spacer {
+  flex: 1 1 auto;
+}
+@media screen and (max-width: 600px) {
+  .example-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 600px;
+  }
+
+  .mat-card {
+    flex: 0 1 calc(25% - 1em);
+  }
+}

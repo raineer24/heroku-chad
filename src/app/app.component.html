@@ -5,7 +5,6 @@
       (click)="sidenav.toggle()"
       fxShow="true"
       fxHide.gt-sm
-      
     >
       <mat-icon>menu</mat-icon>
     </button>
@@ -621,6 +620,7 @@
             <button mat-button>LIKE</button>
             <button mat-button>SHARE</button>
           </mat-card-actions>
+          <button class="upTop" *ngIf="isShow" (click)="gotoTop()">👆</button>
         </div>
       </mat-card>
     </div>

@@ -7,7 +7,8 @@ import {
   MatToolbarModule,
   MatIconModule,
   MatSidenavModule,
-  MatListModule
+  MatListModule,
+  MatButtonModule
 } from "@angular/material";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -23,6 +24,7 @@ import { AppComponent } from "./app.component";
     MatIconModule,
     MatSidenavModule,
     MatListModule,
+    MatButtonModule,
     FlexLayoutModule,
     BrowserAnimationsModule
   ],

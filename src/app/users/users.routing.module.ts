@@ -1,22 +1,26 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { UsersComponent } from "./users.component";
+import { UserComponent } from "./pages";
 
-import {
-  UserComponent,
-  RightsComponent,
-  DashboardComponent,
-  AdminComponent
-} from "./pages";
+//import { UsersComponent } from "./pages";
 
 const routes: Routes = [
+  // {
+  //   path: "admin",
+  //   component: AdminComponent,
+  //   children: [
+  //     { path: "dashboard", component: DashboardComponent },
+  //     { path: "user", component: UserComponent },
+  //     { path: "rights", component: RightsComponent }
+  //   ]
+  // }
+  { path: "users", component: UsersComponent },
+  { path: "user", component: UserComponent },
   {
-    path: "admin",
-    component: AdminComponent,
-    children: [
-      { path: "dashboard", component: DashboardComponent },
-      { path: "user", component: UserComponent },
-      { path: "rights", component: RightsComponent }
-    ]
+    path: "",
+    redirectTo: "users",
+    pathMatch: "full"
   }
 ];
 

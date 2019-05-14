@@ -1,11 +1,11 @@
-import { Component, HostListener, ElementRef } from "@angular/core";
-import { MediaMatcher } from "@angular/cdk/layout";
+import { Component, HostListener } from "@angular/core";
+
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  selector: "app-users",
+  templateUrl: "./users.component.html",
+  styleUrls: ["./users.component.scss"]
 })
-export class AppComponent {
+export class UsersComponent {
   isShow: boolean;
   topPosToStartShowing = 100;
 
@@ -31,6 +31,4 @@ export class AppComponent {
       behavior: "smooth"
     });
   }
-
-  // mobileQuery: MediaQueryList;
 }

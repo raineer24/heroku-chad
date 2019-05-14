@@ -620,7 +620,11 @@
             <button mat-button>LIKE</button>
             <button mat-button>SHARE</button>
           </mat-card-actions>
-          <button class="upTop" *ngIf="isShow" (click)="gotoTop()">👆</button>
+          <button mat-button color="accent" class="upTop" *ngIf="isShow">
+            <mat-icon (click)="gotoTop()">
+              keyboard_arrow_up
+            </mat-icon>
+          </button>
         </div>
       </mat-card>
     </div>

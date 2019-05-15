@@ -630,8 +630,12 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container> -->
-<a routerLinkActive="active" class="navi" routerLink="/users/users">Posts</a> |
-<a routerLinkActive="active" class="navi" routerLink="/users/user"
-  >My profile</a
->
+<button mat-button>
+  <a routerLinkActive="active" class="navi" routerLink="/users/users">Posts</a>
+</button>
+<button mat-button>
+  <a routerLinkActive="active" class="navi" routerLink="/users/user"
+    >My profile</a
+  >
+</button>
 <router-outlet></router-outlet>

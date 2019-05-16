@@ -1,18 +1,18 @@
-<!-- <mat-toolbar color="primary">
+<mat-toolbar color="primary">
   <mat-toolbar-row>
     <button
       mat-icon-button
       (click)="sidenav.toggle()"
       fxShow="true"
-      fxHide.gt-sm
+      fxHide.lt-md
     >
       <mat-icon>menu</mat-icon>
     </button>
     <span>Ner Web Application</span>
     <span class="menu-spacer"></span>
     <div fxShow="true" fxHide.lt-md>
-   
-      <a mat-list-item>Angular</a>
+      <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+      <a mat-list-item routerLink="/users/user">My profile</a>
       <a mat-list-item>Ecommerce</a>
       <a mat-list-item>Blog</a>
       <a mat-list-item>DevOps</a>
@@ -23,7 +23,7 @@
   <mat-sidenav #sidenav>
     <mat-nav-list>
       <a (click)="sidenav.toggle()" mat-list-item>Close</a>
-      <a mat-list-item>Angular</a>
+      <a mat-list-item routerLink="/users/user">My profile</a>
       <a mat-list-item>Ecommerce</a>
       <a mat-list-item>Blog</a>
       <a mat-list-item>DevOps</a>
@@ -38,6 +38,64 @@
       fxLayoutAlign="center"
     >
       <mat-card class="example-card">
+        <div class="postSection">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Rain</mat-card-title>
+            <mat-card-subtitle>Bad guy, duh.</mat-card-subtitle>
+          </mat-card-header>
+          <img
+            mat-card-image
+            src="https://i.imgur.com/GrKsjmE.jpg"
+            alt="bad guy"
+          />
+          <mat-card-content>
+            <p>
+              Fix header post profile button links. Menu Item responsive,
+              broken. Fix it tomorrow. Posts getting longer, database not yet
+              done.
+            </p>
+
+            <span class="card-meta">
+              Published: May 17th, 2019
+            </span>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions>
+        </div>
+        <div class="postSection">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Rain</mat-card-title>
+            <mat-card-subtitle>HashLocationStrategy</mat-card-subtitle>
+          </mat-card-header>
+          <img
+            mat-card-image
+            src="https://i.imgur.com/dIjiVXW.jpg"
+            alt="HashLocationStrategy"
+          />
+          <mat-card-content>
+            <p>
+              Uploadly mistaken gist files.Form data setting when post request
+              content-type. Created new migration from knex.js. Alter table add
+              column image. Next, post api data including image row column from
+              table. Burnt Out. Saving files and images to database is not the
+              best idea. Use amazon S3, large applications. Fix menu-icon from
+              angular- chad. Create router link about page to http server? Add
+              up top scroll feature.
+            </p>
+
+            <span class="card-meta">
+              Published: May 15th, 2019
+            </span>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions>
+        </div>
         <div class="postSection">
           <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
@@ -629,13 +687,5 @@
       </mat-card>
     </div>
   </mat-sidenav-content>
-</mat-sidenav-container> -->
-<button mat-button>
-  <a routerLinkActive="active" class="navi" routerLink="/users/users">Posts</a>
-</button>
-<button mat-button>
-  <a routerLinkActive="active" class="navi" routerLink="/users/user"
-    >My profile</a
-  >
-</button>
+</mat-sidenav-container>
 <router-outlet></router-outlet>

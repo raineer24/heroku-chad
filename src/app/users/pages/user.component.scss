@@ -1,0 +1,49 @@
+.example-card {
+  max-width: 400px;
+}
+
+.mat-card img {
+  object-fit: cover; /*this makes de image in src fit to the size of specified below*/
+  width: 100%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  margin: 0 auto;
+}
+.mat-card h2 {
+  color: #673ab7;
+  font-size: 2.8rem;
+}
+
+.mat-card p {
+  font-size: 18px;
+  color: #737373;
+  line-height: 1.5em;
+}
+.menu-spacer {
+  flex: 1 1 auto;
+}
+@media (max-width: 991px) {
+  .example-card {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+@media screen and (max-width: 600px) {
+  .example-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 600px;
+  }
+
+  .mat-card {
+    flex: 0 1 calc(25% - 1em);
+  }
+  .mat-card img {
+    object-fit: cover; /*this makes de image in src fit to the size of specified below*/
+    width: 100%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+    height: 80%;
+  }
+  .mat-card h2 {
+    width: 100%;
+    font-size: 2.4rem;
+  }
+}

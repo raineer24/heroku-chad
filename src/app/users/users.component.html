@@ -631,7 +631,7 @@
             <button mat-button>SHARE</button>
           </mat-card-actions>
         </div>
-        <div>
+        <div class="postSection">
           <mat-card-header>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Tenerifea Sea</mat-card-subtitle>
@@ -654,12 +654,12 @@
             <button mat-button>LIKE</button>
             <button mat-button>SHARE</button>
           </mat-card-actions>
-          <button mat-button color="accent" class="upTop" *ngIf="isShow">
-            <mat-icon (click)="gotoTop()">
-              keyboard_arrow_up
-            </mat-icon>
-          </button>
         </div>
+        <button mat-button color="accent" class="upTop" *ngIf="isShow">
+          <mat-icon (click)="gotoTop()">
+            keyboard_arrow_up
+          </mat-icon>
+        </button>
       </mat-card>
     </div>
   </mat-sidenav-content>

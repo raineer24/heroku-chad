@@ -1,28 +1,34 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <button
-      mat-icon-button
-      (click)="sidenav.toggle()"
-      fxShow="true"
-      fxHide.lt-md
-    >
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>Ner Web Application</span>
-    <span class="menu-spacer"></span>
-    <div fxShow="true" fxHide.lt-md>
-      <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-      <a mat-list-item routerLink="/users/user">My profile</a>
-      <a mat-list-item>Ecommerce</a>
-      <a mat-list-item>Blog</a>
-      <a mat-list-item>DevOps</a>
-    </div>
-  </mat-toolbar-row>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button
+        mat-icon-button
+        (click)="sidenav.toggle()"
+        fxShow="true"
+        fxHide.gt-sm
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Ner Web Application</span>
+      <span class="menu-spacer"></span>
+      <div fxShow="true" fxHide.lt-md>
+        <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+        <a mat-button routerLink="/users/user">My profile</a>
+        <a mat-button>Ecommerce</a>
+        <a mat-button>Blog</a>
+        <a mat-button>DevOps</a>
+        <!-- <a mat-list-item routerLink="/users/user">My profile</a>
+        <a mat-list-item>Ecommerce</a>
+        <a mat-list-item>Blog</a>
+        <a mat-list-item>DevOps</a> -->
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
 </mat-toolbar>
 <mat-sidenav-container class="example-sidenav-container" fxFlexFill>
   <mat-sidenav #sidenav>
     <mat-nav-list>
-      <a (click)="sidenav.toggle()" mat-list-item>Close</a>
+      <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
       <a mat-list-item routerLink="/users/user">My profile</a>
       <a mat-list-item>Ecommerce</a>
       <a mat-list-item>Blog</a>
@@ -40,7 +46,120 @@
       <mat-card class="example-card">
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Rain</mat-card-title>
+            <mat-card-subtitle>Parabellum</mat-card-subtitle>
+          </mat-card-header>
+          <img
+            mat-card-image
+            src="https://i.imgur.com/PW9SIsS.jpg"
+            alt="Parabellum"
+          />
+          <mat-card-content>
+            <p>
+              Post table. Date timestamp now(). Batch 2 run: 1 migrations. Post
+              request and get request returning null.. Fixing how to return json
+              objects/array when calling the API. Forgot seed implementation.
+              How about faker. Js? Dummy data for generating tons of
+              real-looking fake data. No npm modules for fake.js Working
+              properties for post request, weird. Date now and datetime.
+              Construct multer image cloudinary.
+            </p>
+
+            <span class="card-meta">
+              Published: May 24th, 2019
+            </span>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions>
+        </div>
+        <div class="postSection">
+          <mat-card-header>
+            <mat-card-title>Rain</mat-card-title>
+            <mat-card-subtitle>Storing data</mat-card-subtitle>
+          </mat-card-header>
+          <img
+            mat-card-image
+            src="https://i.imgur.com/Y4Ds1AZ.jpg"
+            alt="storing data"
+          />
+          <mat-card-content>
+            <p>
+              Save method post using bookshelf.js. Creating, installing new npm
+              init. Git initilization repository. Remove node modules and
+              package lock.json. Work on routes, models and bookshelf
+              integration. Migrations and seeds. Confused with module exports
+              dotenv config.
+            </p>
+
+            <span class="card-meta">
+              Published: May 22th, 2019
+            </span>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions>
+        </div>
+        <div class="postSection">
+          <mat-card-header>
+            <mat-card-title>Rain</mat-card-title>
+            <mat-card-subtitle>Ocean eyes</mat-card-subtitle>
+          </mat-card-header>
+          <img
+            mat-card-image
+            src="https://i.imgur.com/BgYyoQ3.jpg"
+            alt="Ocean Eyes"
+          />
+          <mat-card-content>
+            <p>
+              Will work again bookshelf.js for using create / save method? Code
+              project structure for bookshelf.js. Backbone was the first ORM
+              besides bookshelf.js. Documentation for bookshelf.js, currently
+              reading.
+            </p>
+
+            <span class="card-meta">
+              Published: May 20th, 2019
+            </span>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions>
+        </div>
+        <div class="postSection">
+          <mat-card-header>
+            <mat-card-title>Rain</mat-card-title>
+            <mat-card-subtitle>Data URI</mat-card-subtitle>
+          </mat-card-header>
+          <img
+            mat-card-image
+            src="https://i.imgur.com/7g4CG8B.jpg"
+            alt="Data URI"
+          />
+          <mat-card-content>
+            <p>
+              Image upload amazon S3. AWS SDK for javascript. Change favicon.
+              Integration of amazon s3 bucket for image upload. Angular
+              integration for aws amazon s3 upload using multer. DIfference
+              between SDK and REST API like angular firebase. Integration of
+              google fontz, kinda lazy. Blockers, not using AWS Amazon s3,
+              Instead , cloudinary.
+            </p>
+
+            <span class="card-meta">
+              Published: May 18th, 2019
+            </span>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions>
+        </div>
+        <div class="postSection">
+          <mat-card-header>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Bad guy, duh.</mat-card-subtitle>
           </mat-card-header>
@@ -53,11 +172,14 @@
             <p>
               Fix header post profile button links. Menu Item responsive,
               broken. Fix it tomorrow. Posts getting longer, database not yet
-              done.
+              done. Fix menu nav header when viewing to desktop and also
+              responsive menu icon. Storing image file from db? Using multer
+              middleware. Layout width needs to adjust. Viewing profile from
+              mobile, width not center. Font sucks.
             </p>
 
             <span class="card-meta">
-              Published: May 17th, 2019
+              Published: May 16th, 2019
             </span>
           </mat-card-content>
           <mat-card-actions>
@@ -67,7 +189,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>HashLocationStrategy</mat-card-subtitle>
           </mat-card-header>
@@ -98,7 +219,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Kaleidoscope</mat-card-subtitle>
           </mat-card-header>
@@ -125,7 +245,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Hackathon</mat-card-subtitle>
           </mat-card-header>
@@ -151,7 +270,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>River</mat-card-subtitle>
           </mat-card-header>
@@ -181,7 +299,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Payload</mat-card-subtitle>
           </mat-card-header>
@@ -209,7 +326,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>SQL ORM</mat-card-subtitle>
           </mat-card-header>
@@ -238,7 +354,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>inevitable</mat-card-subtitle>
           </mat-card-header>
@@ -268,7 +383,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Quantum Realm</mat-card-subtitle>
           </mat-card-header>
@@ -299,7 +413,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Bourne Crisis</mat-card-subtitle>
           </mat-card-header>
@@ -329,7 +442,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Phase IV</mat-card-subtitle>
           </mat-card-header>
@@ -356,7 +468,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Undefined of</mat-card-subtitle>
           </mat-card-header>
@@ -386,7 +497,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Reset hard:HEAD</mat-card-subtitle>
           </mat-card-header>
@@ -414,7 +524,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Swagger.yaml</mat-card-subtitle>
           </mat-card-header>
@@ -439,7 +548,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>DB Relation</mat-card-subtitle>
           </mat-card-header>
@@ -463,7 +571,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Media queries</mat-card-subtitle>
           </mat-card-header>
@@ -490,7 +597,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Build Prod</mat-card-subtitle>
           </mat-card-header>
@@ -513,7 +619,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Crazydomains</mat-card-subtitle>
           </mat-card-header>
@@ -537,7 +642,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Advance DNS</mat-card-subtitle>
           </mat-card-header>
@@ -560,7 +664,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Thinking tool</mat-card-subtitle>
           </mat-card-header>
@@ -584,7 +687,6 @@
 
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Local storage array</mat-card-subtitle>
           </mat-card-header>
@@ -608,7 +710,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Knex.js migrations</mat-card-subtitle>
           </mat-card-header>
@@ -632,7 +733,6 @@
         </div>
         <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>First blood</mat-card-subtitle>
           </mat-card-header>
@@ -654,16 +754,15 @@
             <button mat-button>SHARE</button>
           </mat-card-actions>
         </div>
-        <div>
+        <div class="postSection">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Rain</mat-card-title>
             <mat-card-subtitle>Tenerifea Sea</mat-card-subtitle>
           </mat-card-header>
           <img
             mat-card-image
             src="https://i.imgur.com/SsNTU0K.jpg"
-            alt="Photo of a Shiba Inu"
+            alt="Tenerifea Sea"
           />
           <mat-card-content>
             <p>
@@ -678,12 +777,12 @@
             <button mat-button>LIKE</button>
             <button mat-button>SHARE</button>
           </mat-card-actions>
-          <button mat-button color="accent" class="upTop" *ngIf="isShow">
-            <mat-icon (click)="gotoTop()">
-              keyboard_arrow_up
-            </mat-icon>
-          </button>
         </div>
+        <button mat-button color="accent" class="upTop" *ngIf="isShow">
+          <mat-icon (click)="gotoTop()">
+            keyboard_arrow_up
+          </mat-icon>
+        </button>
       </mat-card>
     </div>
   </mat-sidenav-content>

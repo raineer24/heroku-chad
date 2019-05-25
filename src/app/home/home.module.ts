@@ -4,9 +4,9 @@ import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./pages";
 
 import { SharedModule } from "../shared";
-
+import { UsersModule } from "../users/users.module";
 @NgModule({
-  imports: [HomeRoutingModule, SharedModule],
+  imports: [HomeRoutingModule, SharedModule, UsersModule],
   providers: [],
   declarations: [HomeComponent]
 })

@@ -7,6 +7,14 @@ const routes: Routes = [
     loadChildren: "./users/users.module#UsersModule"
   },
   {
+    path: "shared",
+    loadChildren: "./shared/shared.module#SharedModule"
+  },
+  {
+    path: "home",
+    loadChildren: "./home/home.module#HomeModule"
+  },
+  {
     path: "",
     redirectTo: "users",
     pathMatch: "full"

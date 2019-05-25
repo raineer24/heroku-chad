@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
-import { UsersRoutingModule } from "./users.routing.module";
-import { SharedModule } from "../shared";
-import { UsersComponent } from "./users.component";
+import { HomeRoutingModule } from "./home-routing.module";
+
+import { HomeComponent } from "./pages";
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { SharedModule } from "../shared";
 import { CommonModule } from "@angular/common";
 import {
   MatCardModule,
@@ -13,21 +13,21 @@ import {
   MatListModule,
   MatButtonModule
 } from "@angular/material";
-import { UserComponent } from "./pages";
 @NgModule({
-  declarations: [UsersComponent, UserComponent],
   imports: [
+    HomeRoutingModule,
+    SharedModule,
     CommonModule,
-    UsersRoutingModule,
+
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
-    FlexLayoutModule,
-    SharedModule
+    FlexLayoutModule
   ],
-  providers: []
+  providers: [],
+  declarations: [HomeComponent]
 })
-export class UsersModule {}
+export class HomeModule {}

@@ -1,8 +1,20 @@
+.logo {
+  float: left;
+  width: 15%;
+}
+.logo a img {
+  width: 28%;
+}
 @media screen and (max-width: 600px) {
   .logo {
-    width: 15%;
+    width: 8%;
   }
-  a img {
-    width: 93%;
+  .logo a img {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .logo {
+    width: 12%;
   }
 }

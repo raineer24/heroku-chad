@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { UsersRoutingModule } from "./users.routing.module";
+import { SharedModule } from "../shared";
 import { UsersComponent } from "./users.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -24,7 +25,8 @@ import { UserComponent } from "./pages";
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    SharedModule
   ],
   providers: []
 })

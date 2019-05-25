@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { HeaderComponent, FooterComponent } from "./layout";
+import { UsersModule } from "../users/users.module";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import {
   MatCardModule,

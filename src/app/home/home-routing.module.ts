@@ -2,13 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./pages";
 
-const routes: Routes = [
-  { path: "", component: HomeComponent },
-  {
-    path: "users",
-    loadChildren: "./users/users.module#UsersModule"
-  }
-];
+const routes: Routes = [{ path: "", component: HomeComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

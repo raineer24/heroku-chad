@@ -5,27 +5,37 @@ import { HomeComponent } from "./pages";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { SharedModule } from "../shared";
 import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   MatCardModule,
   MatToolbarModule,
   MatIconModule,
   MatSidenavModule,
   MatListModule,
-  MatButtonModule
+  MatButtonModule,
+  MatGridListModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  MatInputModule
 } from "@angular/material";
 @NgModule({
   imports: [
     HomeRoutingModule,
     SharedModule,
     CommonModule,
-
+    MatFormFieldModule,
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatGridListModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatSelectModule,
+    MatInputModule
   ],
   providers: [],
   declarations: [HomeComponent]

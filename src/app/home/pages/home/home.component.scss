@@ -13,6 +13,9 @@
 .search-form {
   width: 90%;
 }
+mat-card img {
+  margin: 0 auto;
+}
 @media screen and (max-width: 600px) {
   .example-card {
     display: flex;

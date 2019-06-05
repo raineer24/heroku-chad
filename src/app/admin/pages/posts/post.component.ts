@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 
 @Component({
-  template: `
-    <h1>Dashboard Component</h1>
-  `
+  selector: "app-posts",
+  templateUrl: "./posts.component.html",
+  styleUrls: ["./posts.component.scss"]
 })
 export class PostsComponent {
   title = "";

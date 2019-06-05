@@ -1,0 +1,25 @@
+<mat-accordion multi="true" *ngIf="contents.length > 0">
+  <!-- <mat-expansion-panel *ngFor="let content of contents"> -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <!-- <span *ngIf="content !== editContent">{{ content.title }}</span> -->
+      <!-- <input
+        *ngIf="content === editContent"
+        [(ngModel)]="content.title"
+        (blur)="updateContent()"
+        (keyup.enter)="updateContent()"
+      /> -->
+      <input type="text" />
+    </mat-expansion-panel-header>
+    <p>{{ content.content }}</p>
+    <mat-action-row>
+      <!-- <button mat-button color="primary" (click)="edit(content)">EDIT</button> -->
+      <button mat-button color="warn" (click)="removePost(content.id)">
+        DELETE
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="text-align mat-body-1" *ngIf="contents.length <= 0">
+  No Posts added yet!
+</p>

@@ -18,7 +18,12 @@ const routes: Routes = [
   { path: "dashboard", component: DashboardComponent },
   { path: "users", component: UsersComponent },
   { path: "posts", component: PostsComponent },
-  { path: "posts-list", component: PostsListComponent }
+  { path: "posts-list", component: PostsListComponent },
+  {
+    path: "",
+    redirectTo: "posts",
+    pathMatch: "full"
+  }
 ];
 
 @NgModule({

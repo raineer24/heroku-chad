@@ -1,10 +1,12 @@
 import { NgModule } from "@angular/core";
 import { AdminRoutingModule } from "./admin.routing.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   DashboardComponent,
   UsersComponent,
   PostsComponent,
-  PostsListComponent
+  PostsListComponent,
+  PostCreateComponent
 } from "./pages";
 import {
   MatCardModule,
@@ -13,7 +15,9 @@ import {
   MatSidenavModule,
   MatListModule,
   MatButtonModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatInputModule
 } from "@angular/material";
 
 @NgModule({
@@ -21,7 +25,8 @@ import {
     UsersComponent,
     PostsComponent,
     DashboardComponent,
-    PostsListComponent
+    PostsListComponent,
+    PostCreateComponent
   ],
   imports: [
     AdminRoutingModule,
@@ -31,7 +36,11 @@ import {
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: []
 })

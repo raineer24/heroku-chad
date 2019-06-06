@@ -45,7 +45,6 @@ export class PostCreateComponent implements OnInit {
 
   onSubmit() {
     //const values = this.postForm.value;
-
     // if (this.postForm.valid) {
     //   const data = {
     //     title: values.title,
@@ -55,9 +54,8 @@ export class PostCreateComponent implements OnInit {
     //     console.log(data);
     //   });
     // }
-
-    this.postsService.addPost(this.postForm.value).subscribe(posts => {
-      console.log(`SAVED SUCCESSFULLY. ${JSON.stringify(posts)}`);
-    });
+    // this.postsService.addPost(this.postForm.value).subscribe(posts => {
+    //   console.log(`SAVED SUCCESSFULLY. ${JSON.stringify(posts)}`);
+    // });
   }
 }

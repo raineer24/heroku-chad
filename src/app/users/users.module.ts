@@ -28,6 +28,7 @@ import { UserComponent } from "./pages";
     FlexLayoutModule,
     SharedModule
   ],
+  exports: [UsersComponent],
   providers: []
 })
 export class UsersModule {}

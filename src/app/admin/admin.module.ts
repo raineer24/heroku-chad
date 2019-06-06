@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { AdminRoutingModule } from "./admin.routing.module";
+import { UsersModule } from "../users/users.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   DashboardComponent,
@@ -40,7 +41,8 @@ import {
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    UsersModule
   ],
   providers: []
 })

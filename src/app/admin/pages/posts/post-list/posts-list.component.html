@@ -1,4 +1,4 @@
-<!-- <mat-accordion multi="true" *ngIf="contents.length > 0"> -->
+<mat-accordion multi="true" *ngIf="contents.length > 0"> -->
 <mat-accordion>
   <!-- <mat-expansion-panel *ngFor="let content of contents"> -->
   <mat-expansion-panel>
@@ -12,10 +12,10 @@
       /> -->
       <input type="text" />
     </mat-expansion-panel-header>
-    <p>{{ content.content }}</p>
+    <!-- <p>{{ content.content }}</p> -->
     <mat-action-row>
       <!-- <button mat-button color="primary" (click)="edit(content)">EDIT</button> -->
-      <button mat-button color="warn" (click)="removePost(content.id)">
+      <!-- <button mat-button color="warn" (click)="removePost(content.id)"> -->
         DELETE
       </button>
     </mat-action-row>
@@ -23,4 +23,4 @@
 </mat-accordion>
 <!-- <p class="text-align mat-body-1" *ngIf="contents.length <= 0">
   No Posts added yet!
-</p> -->
+</p>

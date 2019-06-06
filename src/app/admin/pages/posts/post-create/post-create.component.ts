@@ -17,6 +17,7 @@ export class PostCreateComponent implements OnInit {
   private posts: Posts[];
   private postsUpdated = new Subject<Posts[]>();
   constructor(public postsService: PostsService, private fb: FormBuilder) {}
+  public showMessage = false;
 
   ngOnInit() {
     this.initForm();
@@ -57,5 +58,9 @@ export class PostCreateComponent implements OnInit {
     // this.postsService.addPost(this.postForm.value).subscribe(posts => {
     //   console.log(`SAVED SUCCESSFULLY. ${JSON.stringify(posts)}`);
     // });
+
+    setTimeout(() => {
+      alert("Under Construction");
+    }, 2000);
   }
 }

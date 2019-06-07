@@ -5,6 +5,7 @@ import { SharedModule } from "./shared/shared.module";
 import { HashLocationStrategy, LocationStrategy } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ToastrModule } from "ngx-toastr";
 import {
   MatCardModule,
   MatToolbarModule,
@@ -34,7 +35,8 @@ import { AppComponent } from "./app.component";
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    ToastrModule.forRoot()
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]

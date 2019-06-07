@@ -3,7 +3,7 @@ import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { PostsService } from "../../../../core/services/post.service";
 import { Subscription, Subject, Observable } from "rxjs";
 import { Posts } from "../../../../core/models/posts";
-
+import { ToastrService } from "ngx-toastr";
 @Component({
   selector: "app-post-create",
   templateUrl: "./post-create.component.html",
@@ -16,8 +16,11 @@ export class PostCreateComponent implements OnInit {
   postSubs: Subscription;
   private posts: Posts[];
   private postsUpdated = new Subject<Posts[]>();
-  constructor(public postsService: PostsService, private fb: FormBuilder) {}
-  public showMessage = false;
+  constructor(
+    public postsService: PostsService,
+    private fb: FormBuilder,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.initForm();
@@ -25,6 +28,12 @@ export class PostCreateComponent implements OnInit {
     //   this.getAllContent();
     // });
     // this.getAllContent();
+  }
+
+  showSuccess() {
+    this.toastr.warning("CODE in-progress", "Under Construction", {
+      timeOut: 3000
+    });
   }
 
   initForm() {
@@ -59,8 +68,9 @@ export class PostCreateComponent implements OnInit {
     //   console.log(`SAVED SUCCESSFULLY. ${JSON.stringify(posts)}`);
     // });
 
-    setTimeout(() => {
-      alert("Under Construction");
-    }, 2000);
+    this.toastr.warning("CODE in-progress", "Under Construction", {
+      timeOut: 200000,
+      closeButton: true
+    });
   }
 }

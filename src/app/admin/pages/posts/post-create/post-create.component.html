@@ -3,7 +3,7 @@
     <mat-form-field>
       <input
         matInput
-        placeholder="Post Title"
+        placeholder="Input title here"
         type="text"
         name="title"
         formControlName="title"
@@ -14,7 +14,7 @@
     </mat-form-field>
     <mat-form-field>
       <textarea
-        placeholder="Post Content"
+        placeholder="Input your content"
         matInput
         rows="4"
         name="content"
@@ -28,3 +28,5 @@
     <button mat-raised-button color="accent">Save post</button>
   </form>
 </mat-card>
+
+<button (click)="showSuccess()">showSuccess</button><br />

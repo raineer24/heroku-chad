@@ -36,7 +36,9 @@ import { AppComponent } from "./app.component";
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({
+      positionClass: "toast-top-center"
+    })
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]

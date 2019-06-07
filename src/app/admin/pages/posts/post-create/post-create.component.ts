@@ -64,13 +64,13 @@ export class PostCreateComponent implements OnInit {
     //     console.log(data);
     //   });
     // }
-    this.postsService.addPost(this.postForm.value).subscribe(posts => {
-      console.log(`SAVED SUCCESSFULLY. ${JSON.stringify(posts)}`);
-    });
-
-    // this.toastr.warning("CODE in-progress", "Under Construction", {
-    //   timeOut: 200000,
-    //   closeButton: true
+    // this.postsService.addPost(this.postForm.value).subscribe(posts => {
+    //   console.log(`SAVED SUCCESSFULLY. ${JSON.stringify(posts)}`);
     // });
+
+    this.toastr.warning("CODE in-progress", "Under Construction", {
+      timeOut: 200000,
+      closeButton: true
+    });
   }
 }

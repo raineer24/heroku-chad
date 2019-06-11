@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { PostsService } from "../../../../core/services/post.service";
 import { Subscription, Subject, Observable } from "rxjs";
@@ -19,7 +19,8 @@ export class PostCreateComponent implements OnInit {
   constructor(
     public postsService: PostsService,
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -42,7 +43,8 @@ export class PostCreateComponent implements OnInit {
       content: [
         "",
         Validators.compose([Validators.required, Validators.minLength(6)])
-      ]
+      ],
+      file: [null, Validators.required]
     });
     //this.postsService.getPosts();
   }
@@ -52,6 +54,24 @@ export class PostCreateComponent implements OnInit {
   //     .getPosts()
   //     .subscribe((posts: Content[]) => (this.posts = posts));
   // }
+
+  onFileChange(event) {
+    let reader = new FileReader();
+
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        this.postForm.patchValue({
+          file: reader.result
+        });
+
+        // need to run CD since file load runs outside of zone
+        this.cd.markForCheck();
+      };
+    }
+  }
 
   onSubmit() {
     //const values = this.postForm.value;
@@ -64,13 +84,13 @@ export class PostCreateComponent implements OnInit {
     //     console.log(data);
     //   });
     // }
-    // this.postsService.addPost(this.postForm.value).subscribe(posts => {
-    //   console.log(`SAVED SUCCESSFULLY. ${JSON.stringify(posts)}`);
-    // });
-
-    this.toastr.warning("CODE in-progress", "Under Construction", {
-      timeOut: 200000,
-      closeButton: true
+    this.postsService.addPost(this.postForm.value).subscribe(posts => {
+      console.log(`SAVED SUCCESSFULLY. ${JSON.stringify(posts)}`);
     });
+
+    // this.toastr.warning("CODE in-progress", "Under Construction", {
+    //   timeOut: 200000,
+    //   closeButton: true
+    // });
   }
 }

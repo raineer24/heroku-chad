@@ -16,12 +16,15 @@ export class PostCreateComponent implements OnInit {
   postSubs: Subscription;
   private posts: Posts[];
   private postsUpdated = new Subject<Posts[]>();
+  fd = new FormData();
   constructor(
     public postsService: PostsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
     private cd: ChangeDetectorRef
-  ) {}
+  ) {
+    this.initForm();
+  }
 
   ngOnInit() {
     this.initForm();
@@ -31,21 +34,15 @@ export class PostCreateComponent implements OnInit {
     // this.getAllContent();
   }
 
-  showSuccess() {
-    this.toastr.warning("CODE in-progress", "Under Construction", {
-      timeOut: 3000
-    });
-  }
-
   initForm() {
-    this.postForm = this.fb.group({
+    return (this.postForm = this.fb.group({
       title: ["", Validators.compose([Validators.required])],
       content: [
         "",
         Validators.compose([Validators.required, Validators.minLength(6)])
       ],
-      file: [null, Validators.required]
-    });
+      image: [null, Validators.required]
+    }));
     //this.postsService.getPosts();
   }
 
@@ -55,25 +52,25 @@ export class PostCreateComponent implements OnInit {
   //     .subscribe((posts: Content[]) => (this.posts = posts));
   // }
 
-  onFileChange(event) {
-    let reader = new FileReader();
+  // onFileChange(event) {
+  //   let reader = new FileReader();
 
-    if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
+  //   if (event.target.files && event.target.files.length) {
+  //     const [file] = event.target.files;
+  //     reader.readAsDataURL(file);
 
-      reader.onload = () => {
-        this.postForm.patchValue({
-          file: reader.result
-        });
+  //     reader.onload = () => {
+  //       this.postForm.patchValue({
+  //         file: reader.result
+  //       });
 
-        // need to run CD since file load runs outside of zone
-        this.cd.markForCheck();
-      };
-    }
-  }
+  //       // need to run CD since file load runs outside of zone
+  //       this.cd.markForCheck();
+  //     };
+  //   }
+  // }
 
-  onSubmit() {
+  onSubmit(e) {
     //const values = this.postForm.value;
     // if (this.postForm.valid) {
     //   const data = {
@@ -84,13 +81,23 @@ export class PostCreateComponent implements OnInit {
     //     console.log(data);
     //   });
     // }
-    this.postsService.addPost(this.postForm.value).subscribe(posts => {
-      console.log(`SAVED SUCCESSFULLY. ${JSON.stringify(posts)}`);
-    });
-
+    // this.postsService.addPost(this.postForm.value).subscribe(posts => {
+    //   console.log(`SAVED SUCCESSFULLY. ${JSON.stringify(posts)}`);
+    // });
     // this.toastr.warning("CODE in-progress", "Under Construction", {
     //   timeOut: 200000,
     //   closeButton: true
     // });
+
+    if (e.target !== undefined) {
+      this.fd.append("image", e.target.files[0]);
+      return (this.postForm.value.image = this.fd);
+    }
+    this.fd.append("title", this.postForm.value.title);
+    this.fd.append("content", this.postForm.value.content);
+
+    return this.postsService.upload(this.fd).subscribe(data => {
+      this.fd = new FormData();
+    });
   }
 }

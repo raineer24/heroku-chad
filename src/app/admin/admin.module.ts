@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { AdminRoutingModule } from "./admin.routing.module";
 import { UsersModule } from "../users/users.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
 import {
   DashboardComponent,
   UsersComponent,
@@ -42,7 +43,8 @@ import {
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    UsersModule
+    UsersModule,
+    CommonModule
   ],
   providers: []
 })

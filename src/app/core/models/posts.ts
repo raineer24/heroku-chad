@@ -2,5 +2,5 @@ export interface Posts {
   id: number;
   title: string;
   content: string;
-  image: string;
+  image_url: string;
 }

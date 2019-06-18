@@ -37,4 +37,10 @@ export class PostsService {
     const url = `${this.baseUrl}/api/v2/blog`;
     return this.http.post(url, form);
   }
+
+  getPosts(): Observable<Posts[]> {
+    const url = `${this.baseUrl}/api/v2/blog`;
+    console.log(url);
+    return this.http.get<Posts[]>(url);
+  }
 }

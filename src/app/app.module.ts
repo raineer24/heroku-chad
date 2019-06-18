@@ -13,7 +13,8 @@ import {
   MatSidenavModule,
   MatListModule,
   MatButtonModule,
-  MatInputModule
+  MatInputModule,
+  MatExpansionModule
 } from "@angular/material";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -35,6 +36,7 @@ import { AppComponent } from "./app.component";
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    MatExpansionModule,
     MatInputModule,
     ToastrModule.forRoot({
       positionClass: "toast-top-center"

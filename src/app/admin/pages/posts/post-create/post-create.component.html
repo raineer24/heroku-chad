@@ -1,5 +1,5 @@
 <mat-card>
-  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="postForm" #f="ngForm" (ngSubmit)="onSubmit(f)">
     <mat-form-field>
       <input
         matInput
@@ -9,6 +9,7 @@
         formControlName="title"
         required
         minlength="3"
+        class="form-control"
       />
       <!-- <mat-error *ngIf="title.invalid">Please enter a post title.</mat-error> -->
     </mat-form-field>
@@ -20,11 +21,21 @@
         name="content"
         formControlName="content"
         required
+        class="form-control"
       ></textarea>
       <!-- <mat-error *ngIf="content.invalid"
         >Please enter a post content.</mat-error
       > -->
     </mat-form-field>
+
+    <input
+      class="input-file"
+      type="file"
+      (change)="onSubmit($event)"
+      formControlName="image"
+      class="form-control"
+    />
+
     <button mat-raised-button color="accent">Save post</button>
   </form>
 </mat-card>

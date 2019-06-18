@@ -1,5 +1,5 @@
 export interface Posts {
   id: number;
-  name: string;
-  description: string;
+  title: string;
+  content: string;
 }

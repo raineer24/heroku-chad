@@ -32,4 +32,9 @@ export class PostsService {
       })
     );
   }
+
+  upload(form) {
+    const url = `${this.baseUrl}/api/v2/blog`;
+    return this.http.post(url, form);
+  }
 }

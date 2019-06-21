@@ -21,21 +21,25 @@ export class PostsService {
     return this._refreshNeeded$;
   }
 
-  addPost(posts: Posts): Observable<Posts> {
-    // const post: Content = data;
-    // this.posts.push(post);
-    // this.postsUpdated.next([...this.posts]);
+  // addPost(posts: Posts): Observable<Posts> {
+  //   // const post: Content = data;
+  //   // this.posts.push(post);
+  //   // this.postsUpdated.next([...this.posts]);
+  //   const url = `${this.baseUrl}/api/v2/blog`;
+  //   return this.http.post<Posts>(url, posts).pipe(
+  //     tap(() => {
+  //       this._refreshNeeded$.next();
+  //     })
+  //   );
+  // }
+
+  upload(form) {
     const url = `${this.baseUrl}/api/v2/blog`;
-    return this.http.post<Posts>(url, posts).pipe(
+    return this.http.post(url, form).pipe(
       tap(() => {
         this._refreshNeeded$.next();
       })
     );
-  }
-
-  upload(form) {
-    const url = `${this.baseUrl}/api/v2/blog`;
-    return this.http.post(url, form);
   }
 
   getPosts(): Observable<Posts[]> {

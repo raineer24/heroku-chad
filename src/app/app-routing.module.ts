@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: "./shared/shared.module#SharedModule"
   },
   {
+    path: "auth",
+    loadChildren: "./auth/auth.module#AuthModule"
+  },
+  {
     path: "home",
     loadChildren: "./home/home.module#HomeModule"
   },

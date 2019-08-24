@@ -11,7 +11,9 @@ import {
   MatIconModule,
   MatSidenavModule,
   MatListModule,
-  MatButtonModule
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule
 } from "@angular/material";
 import { RegisterComponent } from "./pages";
 import { LoginComponent } from "./pages";
@@ -27,7 +29,9 @@ import { LoginComponent } from "./pages";
     MatListModule,
     MatButtonModule,
     FlexLayoutModule,
-    SharedModule
+    SharedModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [RegisterComponent, LoginComponent],
   providers: []

@@ -14,8 +14,9 @@ import {
   MatButtonModule
 } from "@angular/material";
 import { RegisterComponent } from "./pages";
+import { LoginComponent } from "./pages";
 @NgModule({
-  declarations: [RegisterComponent],
+  declarations: [RegisterComponent, LoginComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
@@ -28,7 +29,7 @@ import { RegisterComponent } from "./pages";
     FlexLayoutModule,
     SharedModule
   ],
-  exports: [RegisterComponent],
+  exports: [RegisterComponent, LoginComponent],
   providers: []
 })
 export class AuthModule {}

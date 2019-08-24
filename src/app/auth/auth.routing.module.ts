@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 //import { UsersComponent } from "./users.component";
 import { RegisterComponent } from "./pages";
+import { LoginComponent } from "./pages";
 
 //import { UsersComponent } from "./pages";
 
@@ -15,7 +16,7 @@ const routes: Routes = [
   //     { path: "rights", component: RightsComponent }
   //   ]
   // }
-  //{ path: "users", component: UsersComponent },
+  { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   {
     path: "",

@@ -5,6 +5,7 @@ import { SharedModule } from "../shared";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   MatCardModule,
   MatToolbarModule,
@@ -31,7 +32,9 @@ import { LoginComponent } from "./pages";
     FlexLayoutModule,
     SharedModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [RegisterComponent, LoginComponent],
   providers: []

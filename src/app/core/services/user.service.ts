@@ -4,6 +4,7 @@ import { Subject, Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 import { map, tap } from "rxjs/operators";
+import { LoginComponent } from "src/app/auth/pages";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -36,6 +37,15 @@ export class AuthService {
     const url = `${this.baseUrl}/api/v2/blog`;
     console.log(url);
     return this.http.get<Posts[]>(url);
+  }
+
+  login(email: string, password: string) {
+    const url = `${this.baseUrl}/api/v2/useraccount/login`;
+    return this.http.post<any>(url, { email, password }).pipe(
+      map(user => {
+        console.log(user);
+      })
+    );
   }
 }
 

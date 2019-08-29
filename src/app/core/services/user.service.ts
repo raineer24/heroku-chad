@@ -1,20 +1,27 @@
 import { Posts } from "./../models/posts";
 import { Injectable } from "@angular/core";
-import { Subject, Observable } from "rxjs";
+import { Subject, Observable, BehaviorSubject } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 import { map, tap } from "rxjs/operators";
 import { LoginComponent } from "src/app/auth/pages";
+import { User } from "../models/user";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
   private baseUrl = environment.apiUrl;
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<User>(
+      JSON.parse(localStorage.getItem("currentUser"))
+    );
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
-  constructor(private http: HttpClient) {}
-
-  //   httpOptions = {
-  //     headers: new HttpHeaders({ "Content-Type": "application/json" })
-  //   };
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
 
   private _refreshNeeded$ = new Subject<void>();
 
@@ -43,7 +50,13 @@ export class AuthService {
     const url = `${this.baseUrl}/api/v2/useraccount/login`;
     return this.http.post<any>(url, { email, password }).pipe(
       map(user => {
-        console.log(user);
+        if (user && user.token) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem("currentUser", JSON.stringify(user));
+          this.currentUserSubject.next(user);
+        }
+
+        return user;
       })
     );
   }

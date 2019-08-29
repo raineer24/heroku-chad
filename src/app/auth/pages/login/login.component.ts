@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../../../core/services/user.service";
 import { first } from "rxjs/operators";
+
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -49,7 +50,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data);
+          console.log(data.token);
         },
         error => {
           this.error = error;

@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data.token);
+          this.router.navigate([this.returnUrl]);
         },
         error => {
           this.error = error;

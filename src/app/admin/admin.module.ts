@@ -11,6 +11,7 @@ import {
   PostsListComponent,
   PostCreateComponent
 } from "./pages";
+import { SharedModule } from "../shared";
 import {
   MatCardModule,
   MatToolbarModule,
@@ -45,7 +46,8 @@ import {
     MatFormFieldModule,
     MatInputModule,
     UsersModule,
-    CommonModule
+    CommonModule,
+    SharedModule
   ],
   providers: [AuthGuardService]
 })

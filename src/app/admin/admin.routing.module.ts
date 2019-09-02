@@ -22,8 +22,7 @@ const routes: Routes = [
   { path: "posts", component: PostsComponent, canActivate: [AuthGuardService] },
   {
     path: "posts-list",
-    component: PostsListComponent,
-    canActivate: [AuthGuardService]
+    component: PostsListComponent
   },
   {
     path: "",

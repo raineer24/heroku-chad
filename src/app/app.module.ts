@@ -19,7 +19,8 @@ import {
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-
+import { CoreModule } from "./core/core.module";
+import { AdminModule } from "./admin/admin.module";
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -38,6 +39,8 @@ import { AppComponent } from "./app.component";
     ReactiveFormsModule,
     MatExpansionModule,
     MatInputModule,
+    CoreModule,
+    AdminModule,
     ToastrModule.forRoot({
       positionClass: "toast-top-center"
     })

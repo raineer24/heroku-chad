@@ -23,6 +23,7 @@ import {
   MatFormFieldModule,
   MatInputModule
 } from "@angular/material";
+import { AuthService } from "../core/services/user.service";
 
 @NgModule({
   declarations: [
@@ -49,6 +50,6 @@ import {
     CommonModule,
     SharedModule
   ],
-  providers: [AuthGuardService]
+  providers: [AuthGuardService, AuthService]
 })
 export class AdminModule {}

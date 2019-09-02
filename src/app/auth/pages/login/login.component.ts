@@ -43,6 +43,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = false;
+    const user1 = JSON.parse(localStorage.getItem("currentUser"));
+    console.log(user1);
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {

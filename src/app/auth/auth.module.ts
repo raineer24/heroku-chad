@@ -6,6 +6,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AuthService } from "../core/services/user.service";
+import { AuthGuardService } from "../core/guards/auth-guard.service";
 import {
   MatCardModule,
   MatToolbarModule,
@@ -37,6 +39,6 @@ import { LoginComponent } from "./pages";
     ReactiveFormsModule
   ],
   exports: [RegisterComponent, LoginComponent],
-  providers: []
+  providers: [AuthGuardService, AuthService]
 })
 export class AuthModule {}

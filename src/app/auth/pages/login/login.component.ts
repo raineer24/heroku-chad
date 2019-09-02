@@ -34,6 +34,9 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
     let currentUrl = this.router.url;
     console.log(currentUrl);
+
+    let user2 = JSON.parse(localStorage.getItem("currentUser"));
+    console.log(user2);
   }
 
   // convenience getter for easy access to form fields

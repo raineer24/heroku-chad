@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit {
       email: ["", Validators.required],
       password: ["", Validators.required]
     });
+    const user1 = this.authenticationService.currentUserValue;
+    console.log(user1);
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
@@ -55,6 +57,7 @@ export class LoginComponent implements OnInit {
         error => {
           this.error = error;
           this.loading = false;
+          console.log("wrong error");
         }
       );
   }

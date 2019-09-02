@@ -3,6 +3,7 @@ import { AdminRoutingModule } from "./admin.routing.module";
 import { UsersModule } from "../users/users.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
+import { AuthGuardService } from "../core/guards/auth-guard.service";
 import {
   DashboardComponent,
   UsersComponent,
@@ -46,6 +47,6 @@ import {
     UsersModule,
     CommonModule
   ],
-  providers: []
+  providers: [AuthGuardService]
 })
 export class AdminModule {}

@@ -12,6 +12,7 @@ export class AuthService {
   private baseUrl = environment.apiUrl;
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
+
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem("currentUser"))
@@ -20,6 +21,7 @@ export class AuthService {
   }
 
   public get currentUserValue(): User {
+    console.log("this", this.currentUserSubject.value);
     return this.currentUserSubject.value;
   }
 
@@ -50,9 +52,15 @@ export class AuthService {
     const url = `${this.baseUrl}/api/v2/useraccount/login`;
     return this.http.post<any>(url, { email, password }).pipe(
       map(user => {
+        console.log("user", user);
+        console.log("tae");
+
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem("currentUser", JSON.stringify(user));
+          const user1 = JSON.parse(localStorage.getItem("currentUser"));
+          console.log("user1", user1.token);
+
           this.currentUserSubject.next(user);
         }
 

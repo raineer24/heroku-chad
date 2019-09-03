@@ -12,6 +12,8 @@ export class AuthService {
   private baseUrl = environment.apiUrl;
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
+  private redirectUrl: string = "/";
+  private loginUrl: string = "/auth/login";
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(
@@ -29,6 +31,13 @@ export class AuthService {
 
   get refreshNeed$() {
     return this._refreshNeeded$;
+  }
+
+  setRedirectUrl(url: string): void {
+    this.redirectUrl = url;
+  }
+  getLoginUrl(): string {
+    return this.loginUrl;
   }
 
   public registerUsers(obj) {

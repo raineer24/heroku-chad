@@ -3,6 +3,7 @@ import { AdminRoutingModule } from "./admin.routing.module";
 import { UsersModule } from "../users/users.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
+import { AuthGuardService } from "../core/guards/auth-guard.service";
 import {
   DashboardComponent,
   UsersComponent,
@@ -10,6 +11,7 @@ import {
   PostsListComponent,
   PostCreateComponent
 } from "./pages";
+import { SharedModule } from "../shared";
 import {
   MatCardModule,
   MatToolbarModule,
@@ -21,6 +23,7 @@ import {
   MatFormFieldModule,
   MatInputModule
 } from "@angular/material";
+import { AuthService } from "../core/services/user.service";
 
 @NgModule({
   declarations: [
@@ -44,8 +47,9 @@ import {
     MatFormFieldModule,
     MatInputModule,
     UsersModule,
-    CommonModule
+    CommonModule,
+    SharedModule
   ],
-  providers: []
+  providers: [AuthGuardService, AuthService]
 })
 export class AdminModule {}

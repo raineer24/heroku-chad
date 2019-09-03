@@ -7,6 +7,7 @@ import { RouterModule } from "@angular/router";
 import { HeaderComponent, FooterComponent } from "./layout";
 import { UsersModule } from "../users/users.module";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { AuthModule } from "../auth/auth.module";
 import {
   MatCardModule,
   MatToolbarModule,

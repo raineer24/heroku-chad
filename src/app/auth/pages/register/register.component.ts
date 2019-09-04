@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "../../../core/services/user.service";
 import { Subscription } from "rxjs";
+import { Router } from "@angular/router";
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
@@ -11,7 +12,11 @@ export class RegisterComponent implements OnInit {
   signUpForm: FormGroup;
   registerSubs: Subscription;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.initForm();
@@ -40,6 +45,7 @@ export class RegisterComponent implements OnInit {
         .registerUsers(data)
         .subscribe(data => {
           console.log(data);
+          this.router.navigate(["/auth/login"]);
         });
     }
   }

@@ -50,6 +50,6 @@ import { AuthService } from "../core/services/user.service";
     CommonModule,
     SharedModule
   ],
-  providers: [AuthGuardService, AuthService]
+  providers: [AuthGuardService]
 })
 export class AdminModule {}

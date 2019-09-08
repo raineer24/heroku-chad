@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../../../core/services/user.service";
 import { first } from "rxjs/operators";
-import { Subscription } from "rxjs";
+import { Subscription, BehaviorSubject, Observable } from "rxjs";
 import { User } from "../../../core/models/user";
 @Component({
   selector: "app-login",
@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   submitted = false;
   loading = false;
+  data: any;
   loginSubs: Subscription;
   currentUser: User;
 
@@ -35,16 +36,11 @@ export class LoginComponent implements OnInit {
       email: ["", Validators.required],
       password: ["", Validators.required]
     });
-    const user1 = this.authenticationService.currentUserValue;
-    //  console.log(user1);
+    this.authenticationService.currentUserValue;
+    this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
-    let currentUrl = this.router.url;
-    //console.log(currentUrl);
-
-    let user2 = JSON.parse(localStorage.getItem("currentUser"));
-    //console.log(user2);
   }
 
   ngOnDestroy() {
@@ -61,7 +57,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = false;
     const values = this.loginForm.value;
-
+    console.log(this.authenticationService.currentUserValue);
     const data = {
       email: values.email,
       password: values.password
@@ -82,7 +78,6 @@ export class LoginComponent implements OnInit {
         error => {
           this.error = error;
           this.loading = false;
-          console.log("wrong error");
         }
       );
   }

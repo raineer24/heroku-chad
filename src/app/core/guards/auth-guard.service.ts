@@ -32,7 +32,7 @@ export class AuthGuardService implements CanActivate {
     // }
     // this.authService.setRedirectUrl(url);
     // this.router.navigate([this.authService.getLoginUrl()]);
-    console.log("not logged in");
+
     this.authenticationService.setRedirectUrl(url);
     this.router.navigate([this.authenticationService.getLoginUrl()]);
     return false;
@@ -40,11 +40,9 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authenticationService.currentUserValue;
-    console.log("currentUSer", currentUser);
+    console.log("currentUSer2", currentUser);
 
     if (currentUser) {
-      console.log("logged in1");
-
       //logged in so return true
       return true;
     }

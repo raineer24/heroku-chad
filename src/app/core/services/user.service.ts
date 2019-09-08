@@ -20,10 +20,10 @@ export class AuthService {
       JSON.parse(localStorage.getItem("currentUser"))
     );
     this.currentUser = this.currentUserSubject.asObservable();
+    console.log(this.currentUserSubject.value);
   }
 
   public get currentUserValue(): User {
-    console.log("this", this.currentUserSubject.value);
     return this.currentUserSubject.value;
   }
 
@@ -57,18 +57,13 @@ export class AuthService {
     return this.http.get<Posts[]>(url);
   }
 
-  login(data): Observable<any> {
+  login(data): Observable<User> {
     const url = `${this.baseUrl}/api/v2/useraccount/login`;
-    return this.http.post<any>(url, data).pipe(
+    return this.http.post<User>(url, data).pipe(
       map(user => {
-        console.log("user", user);
-        console.log("tae");
-
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem("currentUser", JSON.stringify(user));
-          // const user1 = JSON.parse(localStorage.getItem("currentUser"));
-          // console.log("user1", user1.token);
 
           this.currentUserSubject.next(user);
         }
@@ -80,7 +75,6 @@ export class AuthService {
 
   logout() {
     // remove user from local storage to log user out
-    console.log("clicked");
 
     localStorage.removeItem("currentUser");
     this.currentUserSubject.next(null);

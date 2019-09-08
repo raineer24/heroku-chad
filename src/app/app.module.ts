@@ -16,11 +16,18 @@ import {
   MatInputModule,
   MatExpansionModule
 } from "@angular/material";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+
+import { ErrorInterceptor } from "./core/guards/error.interceptor";
+import { JwtInterceptor } from "./core/guards/jwt.interceptor";
+import { AuthGuardService } from "./core/guards/auth-guard.service";
+import { AuthService } from "./core/services/user.service";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { CoreModule } from "./core/core.module";
 import { AdminModule } from "./admin/admin.module";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -45,7 +52,11 @@ import { AdminModule } from "./admin/admin.module";
       positionClass: "toast-top-center"
     })
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

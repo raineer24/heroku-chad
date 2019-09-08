@@ -6,7 +6,6 @@ const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-  providers: [AuthGuardService, AuthService]
+  exports: [RouterModule]
 })
 export class CoreRoutingModule {}

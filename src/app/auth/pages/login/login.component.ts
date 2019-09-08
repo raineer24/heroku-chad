@@ -3,7 +3,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../../../core/services/user.service";
 import { first } from "rxjs/operators";
-
+import { Subscription } from "rxjs";
+import { User } from "../../../core/models/user";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -14,13 +15,20 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   submitted = false;
   loading = false;
+  loginSubs: Subscription;
+  currentUser: User;
+
   error = "";
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthService
-  ) {}
+  ) {
+    this.authenticationService.currentUser.subscribe(
+      x => (this.currentUser = x)
+    );
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -28,15 +36,21 @@ export class LoginComponent implements OnInit {
       password: ["", Validators.required]
     });
     const user1 = this.authenticationService.currentUserValue;
-    console.log(user1);
+    //  console.log(user1);
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
     let currentUrl = this.router.url;
-    console.log(currentUrl);
+    //console.log(currentUrl);
 
     let user2 = JSON.parse(localStorage.getItem("currentUser"));
-    console.log(user2);
+    //console.log(user2);
+  }
+
+  ngOnDestroy() {
+    if (this.loginSubs) {
+      this.loginSubs.unsubscribe();
+    }
   }
 
   // convenience getter for easy access to form fields
@@ -46,16 +60,20 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = false;
-    const user1 = JSON.parse(localStorage.getItem("currentUser"));
-    console.log(user1);
+    const values = this.loginForm.value;
+
+    const data = {
+      email: values.email,
+      password: values.password
+    };
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
     this.loading = true;
-    this.authenticationService
-      .login(this.f.email.value, this.f.password.value)
+    this.loginSubs = this.authenticationService
+      .login(data)
       .pipe(first())
       .subscribe(
         data => {

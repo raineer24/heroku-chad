@@ -57,9 +57,9 @@ export class AuthService {
     return this.http.get<Posts[]>(url);
   }
 
-  login(email: string, password: string) {
+  login(data): Observable<any> {
     const url = `${this.baseUrl}/api/v2/useraccount/login`;
-    return this.http.post<any>(url, { email, password }).pipe(
+    return this.http.post<any>(url, data).pipe(
       map(user => {
         console.log("user", user);
         console.log("tae");

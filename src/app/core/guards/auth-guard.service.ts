@@ -22,7 +22,7 @@ export class AuthGuardService implements CanActivate {
     console.log("Url:" + url);
     const currentUser = this.authenticationService.currentUserValue;
     if (currentUser) {
-      console.log("logged in1");
+      console.log("logged in12");
 
       //logged in so return true
       return true;

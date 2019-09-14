@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "../../../core/services/user.service";
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
+import { AlertService } from "../../../core/services/alert.service";
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) {}
 
   ngOnInit() {
@@ -41,12 +43,17 @@ export class RegisterComponent implements OnInit {
         password: values.password
       };
 
-      this.registerSubs = this.authService
-        .registerUsers(data)
-        .subscribe(data => {
+      this.registerSubs = this.authService.registerUsers(data).subscribe(
+        data => {
           console.log(data);
+          this.alertService.success("Registration successful", true);
           this.router.navigate(["/auth/login"]);
-        });
+        },
+        error => {
+          this.alertService.error(error);
+          // this.loading = false;
+        }
+      );
     }
   }
 }

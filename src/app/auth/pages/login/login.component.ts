@@ -5,6 +5,7 @@ import { AuthService } from "../../../core/services/user.service";
 import { first } from "rxjs/operators";
 import { Subscription, BehaviorSubject, Observable } from "rxjs";
 import { User } from "../../../core/models/user";
+import { AlertService } from "../../../core/services/alert.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthService
+    private authenticationService: AuthService,
+    private alertService: AlertService
   ) {
     this.authenticationService.currentUser.subscribe(
       x => (this.currentUser = x)
@@ -76,7 +78,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.error = error;
+          //this.error = error;
+          this.alertService.error(error);
           this.loading = false;
         }
       );

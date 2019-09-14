@@ -4,7 +4,7 @@ import { SharedRoutingModule } from "./shared.routing.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
-import { HeaderComponent, FooterComponent } from "./layout";
+import { HeaderComponent, FooterComponent, AlertComponent } from "./layout";
 import { UsersModule } from "../users/users.module";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { AuthModule } from "../auth/auth.module";
@@ -32,7 +32,7 @@ import {
     MatButtonModule,
     FlexLayoutModule
   ],
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent, FooterComponent, AlertComponent],
   exports: [
     CommonModule,
     FormsModule,
@@ -40,7 +40,8 @@ import {
     HttpClientModule,
     RouterModule,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AlertComponent
   ]
 })
 export class SharedModule {}

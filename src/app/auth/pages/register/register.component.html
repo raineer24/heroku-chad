@@ -24,6 +24,14 @@
           name="email"
           formControlName="email"
         />
+        <div *ngIf="officialEmail.errors">
+          <div *ngIf="officialEmail.errors.required">
+            Official Email required.
+          </div>
+          <div *ngIf="officialEmail.errors.pattern">
+            Official Email not valid.
+          </div>
+        </div>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label>Password</mat-label>
@@ -32,6 +40,7 @@
           placeholder="Password"
           name="password"
           formControlName="password"
+          type="password"
         />
       </mat-form-field>
 

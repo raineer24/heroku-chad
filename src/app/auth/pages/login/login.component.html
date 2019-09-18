@@ -1,3 +1,4 @@
+<app-header></app-header>
 <mat-toolbar>
   <span>Login</span>
 </mat-toolbar>
@@ -24,6 +25,7 @@
         name="password"
         formControlName="password"
         [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+        type="password"
       />
       <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
         <div *ngIf="f.password.errors.required">Password is required</div>
@@ -31,7 +33,7 @@
     </mat-form-field>
     <mat-card-content>
       <button class="login" mat-raised-button color="primary">Login</button
-      ><a [routerLink]="['/auth/register']">Register</a>
+      >Don't have an account?<a [routerLink]="['/auth/register']">Sign Up</a>
     </mat-card-content>
   </form>
 </mat-card-content>

@@ -17,7 +17,11 @@ const routes: Routes = [
   //   { path: "users", component: UsersComponent },
   //   { path: "posts", component: PostsComponent }
   // ]
-  { path: "dashboard", component: DashboardComponent },
+  {
+    path: "dashboard",
+    component: DashboardComponent,
+    canActivate: [AuthGuardService]
+  },
   { path: "users", component: UsersComponent },
   { path: "posts", component: PostsComponent, canActivate: [AuthGuardService] },
   {
@@ -26,7 +30,7 @@ const routes: Routes = [
   },
   {
     path: "",
-    redirectTo: "posts",
+    redirectTo: "dashboard",
     pathMatch: "full"
   }
 ];

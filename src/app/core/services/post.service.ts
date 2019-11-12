@@ -34,7 +34,7 @@ export class PostsService {
   // }
 
   upload(form) {
-    const url = `${this.baseUrl}/api/v2/blog`;
+    const url = `${this.baseUrl}/api/v2/blogs`;
     return this.http.post(url, form).pipe(
       tap(() => {
         this._refreshNeeded$.next();
@@ -43,7 +43,7 @@ export class PostsService {
   }
 
   getPosts(): Observable<Posts[]> {
-    const url = `${this.baseUrl}/api/v2/blog`;
+    const url = `${this.baseUrl}/api/v2/blogs`;
     console.log(url);
     return this.http.get<Posts[]>(url);
   }

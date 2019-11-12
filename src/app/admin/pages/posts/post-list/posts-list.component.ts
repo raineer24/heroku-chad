@@ -21,7 +21,9 @@ export class PostsListComponent implements OnInit {
 
   private getAllPosts() {
     this.postsService.getPosts().subscribe((posts: Posts[]) => {
-      this.posts = posts["blogs"];
+      this.posts = posts;
+      console.log(this.posts);
+
       console.log(posts["blogs"]);
     });
   }

@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { UsersComponent } from "./users.component";
-import { UserComponent } from "./pages";
+import { UserComponent, VerifyComponent } from "./pages";
 
 //import { UsersComponent } from "./pages";
 
@@ -16,6 +16,7 @@ const routes: Routes = [
   //   ]
   // }
   { path: "users", component: UsersComponent },
+  { path: "verify", component: VerifyComponent },
   { path: "user", component: UserComponent },
   {
     path: "",

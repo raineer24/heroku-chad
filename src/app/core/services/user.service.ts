@@ -52,13 +52,13 @@ export class AuthService {
   }
 
   getPosts(): Observable<Posts[]> {
-    const url = `${this.baseUrl}/api/v2/blog`;
+    const url = `${this.baseUrl}/api/v2/blogs`;
     console.log(url);
     return this.http.get<Posts[]>(url);
   }
 
   login(data): Observable<User> {
-    const url = `${this.baseUrl}/api/v2/useraccount/login`;
+    const url = `${this.baseUrl}/api/v2/users/login`;
     return this.http.post<User>(url, data).pipe(
       map(user => {
         if (user && user.token) {

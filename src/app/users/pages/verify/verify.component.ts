@@ -7,7 +7,7 @@ import { Subscription } from "rxjs";
   templateUrl: "./verify.component.html"
 })
 export class VerifyComponent implements OnInit {
-  //token: string;
+  token;
 
   private subscription: Subscription;
   constructor(private route: ActivatedRoute) {}
@@ -20,6 +20,9 @@ export class VerifyComponent implements OnInit {
     // console.log(this.route.snapshot.params["token"]);
 
     //const token = this.route.queryParams["token"];
+
+    const url = window.location.href;
+    console.log(url);
 
     this.route.queryParams.subscribe(params => {
       console.log(params);

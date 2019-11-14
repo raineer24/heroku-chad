@@ -57,6 +57,39 @@ export class AuthService {
     return this.http.get<Posts[]>(url);
   }
 
+  // public verifyToken(token) {
+  //   const url = `${this.baseUrl}/api/v2/users/verify/:token`;
+  //   return this.http
+  //     .post(url, token, {
+  //       headers: new HttpHeaders({
+  //         "Content-Type": "application/json"
+  //       })
+  //     })
+  //     .pipe(map(data => data));
+  // }
+
+  // public verifyToken(token): Observable<User> {
+  //   const url = `${this.baseUrl}/api/v2/users/verify/:token`;
+  //   return this.http.post<User>(url, token).pipe(
+  //     map(data => {
+  //       console.log(data);
+  //       console.log("clicked");
+
+  //       return data;
+  //     })
+  //   );
+  // }
+
+  public verifyToken(token): Observable<User> {
+    const url = `${this.baseUrl}/api/v2/users/verify/:token`;
+    return this.http.post<User>(url, token).pipe(
+      tap(data => {
+        console.log(data);
+        console.log("clicked");
+      })
+    );
+  }
+
   login(data): Observable<User> {
     const url = `${this.baseUrl}/api/v2/users/login`;
     return this.http.post<User>(url, data).pipe(

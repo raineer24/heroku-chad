@@ -42,9 +42,16 @@ export class PostsService {
     );
   }
 
+  // getPosts(): Observable<Posts[]> {
+  //   const url = `${this.baseUrl}/api/v2/blogs`;
+  //   console.log(url);
+  //   return this.http.get<Posts[]>(url);
+  // }
+
   getPosts(): Observable<Posts[]> {
-    const url = `${this.baseUrl}/api/v2/blogs`;
+    // const url = `${this.baseUrl}/api/v2/blogs`;
+    const url = `api/v2/blogs`;
     console.log(url);
-    return this.http.get<Posts[]>(url);
+    return this.http.get<Posts[]>("api/v2/blogs");
   }
 }

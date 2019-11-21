@@ -3,8 +3,9 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "../../../core/services/user.service";
 import { AlertService } from "../../../core/services/alert.service";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { environment } from "../../../../environments/environment";
+import { map, tap } from "rxjs/operators";
 @Component({
   selector: "app-verify",
   templateUrl: "./verify.component.html"
@@ -31,19 +32,29 @@ export class VerifyComponent implements OnInit {
     //const token = this.route.queryParams["token"];
 
     const url = window.location.href;
+
+    const url1 =
+      "http://localhost:4200/#/users/verify?token=OBKdC-MFfjkypf2m6pSiuUNRdWCuFRW8F3nlswHN8JBRLZcYiN-jvpZ8Rg2vb5R";
     console.log(url);
 
     this.route.queryParams.subscribe(params => {
-      this.token = params["token"];
-      console.log(typeof this.token);
-      // const url = `${this.baseUrl}/api/v2/users/verify/:token`;
+      console.log(params);
+
+      const token = params["token"];
+
+      //console.log(params1.toString());
+
+      const x = "sdsd";
+      console.log(x);
+
+      console.log(typeof params);
+
       const url = `api/v2/verify/:token`;
 
       return this.http
-        .post("api/v2/verify/:token", this.token, {
+        .post(`api/v2/users/verify/${params.token}`, params, {
           headers: new HttpHeaders({
-            "Content-Type": "application/json",
-            Accept: "application/json"
+            "Content-Type": "application/json"
           })
         })
         .subscribe(
@@ -56,22 +67,6 @@ export class VerifyComponent implements OnInit {
             console.log("error");
           }
         );
-
-      // this.authService.verifyToken(this.token).subscribe(
-      //   token => {
-      //     console.log("clicked");
-
-      //     console.log(token);
-
-      //     // console.log(this.token);
-      //     //this.alertService.success("Registration successful", true);
-      //     //this.router.navigate(["/auth/login"]);
-      //   },
-      //   error => {
-      //     this.alertService.error(error);
-      //     // this.loading = false;
-      //   }
-      // );
     });
   }
 }

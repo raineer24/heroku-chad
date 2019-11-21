@@ -1,7 +1,7 @@
 import { Posts } from "./../models/posts";
 import { Injectable } from "@angular/core";
 import { Subject, Observable, BehaviorSubject } from "rxjs";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 import { map, tap } from "rxjs/operators";
 import { LoginComponent } from "src/app/auth/pages";
@@ -63,6 +63,12 @@ export class AuthService {
     console.log(url);
     return this.http.get<Posts[]>(url);
   }
+
+  url2 =
+    "https://api.github.com/users/tekTutorialsHub/repos?sort=description&page=2";
+
+  url3 =
+    "http://localhost:4200/#/users/verify/?token=OBKdC-MFfjkypf2m6pSiuUNRdWCuFRW8F3nlswHN8JBRLZcYiN-jvpZ8Rg2vb5R";
 
   // public verifyToken(token) {
   //   const url = `${this.baseUrl}/api/v2/users/verify/:token`;

@@ -7,7 +7,8 @@ import {
   UsersComponent,
   DashboardComponent,
   PostsComponent,
-  PostsListComponent
+  PostsListComponent,
+  PostsDetailComponent
 } from "./pages";
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: "posts-list",
     component: PostsListComponent
+  },
+  {
+    path: "posts-detail",
+    component: PostsDetailComponent
   },
   {
     path: "",

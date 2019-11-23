@@ -6,6 +6,7 @@ import { AlertService } from "../../../core/services/alert.service";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { environment } from "../../../../environments/environment";
 import { map, tap } from "rxjs/operators";
+import { Router } from "@angular/router";
 @Component({
   selector: "app-verify",
   templateUrl: "./verify.component.html"
@@ -19,7 +20,8 @@ export class VerifyComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private alertService: AlertService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -52,7 +54,7 @@ export class VerifyComponent implements OnInit {
       const url = `api/v2/verify/:token`;
 
       return this.http
-        .post(`api/v2/users/verify/${params.token}`, params, {
+        .post(`api/v2/users/verify/${params.token}`, {
           headers: new HttpHeaders({
             "Content-Type": "application/json"
           })
@@ -61,6 +63,9 @@ export class VerifyComponent implements OnInit {
           result => {
             console.log(result);
             console.log("clicked");
+            //console.log(data);
+            this.alertService.success("Verify Successful", true);
+            this.router.navigate(["/auth/login"]);
           },
           error => {
             console.log(error);

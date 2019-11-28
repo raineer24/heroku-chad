@@ -1,10 +1,45 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { Posts } from "../../../../core/models/posts";
+import { PostsService } from "../../../../core/services/post.service";
 
 @Component({
   selector: "app-posts-detail",
   templateUrl: "./posts-detail.component.html",
   styleUrls: ["./posts-detail.component.scss"]
 })
-export class PostsDetailComponent {
-  title = "";
+export class PostsDetailComponent implements OnInit {
+  id = this.route.snapshot.params["id"];
+  //id: number;
+  data: Posts;
+  constructor(
+    private postService: PostsService,
+    private route: ActivatedRoute
+  ) {
+    this.data = new Posts();
+  }
+
+  ngOnInit() {
+    console.log(this.route.snapshot.params);
+
+    //console.log(id);
+
+    //console.log(id);
+
+    this.postService.getBlogId(this.id).subscribe(data => {
+      console.log(data);
+    });
+
+    // this.route.paramMap.subscribe(params => {
+    //   console.log(params.get("blog_id"));
+    //   console.log(params);
+
+    //   this.postService.getBlogId(params.get("blog_id")).subscribe(b => {
+    //     console.log(b);
+    //   });
+    // });
+
+    const x = "tae";
+    console.log(typeof x);
+  }
 }

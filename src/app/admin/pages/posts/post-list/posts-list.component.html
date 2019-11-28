@@ -20,7 +20,9 @@
               <mat-card-title>{{ post.title }}</mat-card-title>
             </mat-card-header>
             <img mat-card-image src="{{ post.image_url }}" alt="" />
-            <a [routerLink]="['/admin/posts-detail']">Go to details</a>
+            <a [routerLink]="['/admin/posts-detail', post.blog_id]"
+              >Go to details</a
+            >
             <mat-card-content>
               <p>
                 {{ post.content }}

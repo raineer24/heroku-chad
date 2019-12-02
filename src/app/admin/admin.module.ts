@@ -9,7 +9,8 @@ import {
   UsersComponent,
   PostsComponent,
   PostsListComponent,
-  PostCreateComponent
+  PostCreateComponent,
+  PostsDetailComponent
 } from "./pages";
 import { SharedModule } from "../shared";
 import {
@@ -31,7 +32,8 @@ import { AuthService } from "../core/services/user.service";
     PostsComponent,
     DashboardComponent,
     PostsListComponent,
-    PostCreateComponent
+    PostCreateComponent,
+    PostsDetailComponent
   ],
   imports: [
     AdminRoutingModule,
@@ -50,6 +52,6 @@ import { AuthService } from "../core/services/user.service";
     CommonModule,
     SharedModule
   ],
-  providers: [AuthGuardService, AuthService]
+  providers: [AuthGuardService]
 })
 export class AdminModule {}

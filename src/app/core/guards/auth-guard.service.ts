@@ -22,7 +22,7 @@ export class AuthGuardService implements CanActivate {
     console.log("Url:" + url);
     const currentUser = this.authenticationService.currentUserValue;
     if (currentUser) {
-      console.log("logged in1");
+      console.log("logged in12");
 
       //logged in so return true
       return true;
@@ -32,19 +32,17 @@ export class AuthGuardService implements CanActivate {
     // }
     // this.authService.setRedirectUrl(url);
     // this.router.navigate([this.authService.getLoginUrl()]);
-    console.log("not logged in");
-    this.authenticationService.setRedirectUrl(url);
+
+    //this.authenticationService.setRedirectUrl(url);
     this.router.navigate([this.authenticationService.getLoginUrl()]);
     return false;
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authenticationService.currentUserValue;
-    console.log("currentUSer", currentUser);
+    console.log("currentUSer2", currentUser);
 
     if (currentUser) {
-      console.log("logged in1");
-
       //logged in so return true
       return true;
     }

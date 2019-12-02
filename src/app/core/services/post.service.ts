@@ -1,13 +1,19 @@
 import { Posts } from "./../models/posts";
 import { Injectable } from "@angular/core";
-import { Subject, Observable } from "rxjs";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Subject, Observable, throwError } from "rxjs";
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse
+} from "@angular/common/http";
 import { environment } from "../../../environments/environment";
-import { map, tap } from "rxjs/operators";
+import { map, tap, catchError } from "rxjs/operators";
 
 @Injectable({ providedIn: "root" })
 export class PostsService {
   private baseUrl = environment.apiUrl;
+
+  headers = new HttpHeaders().set("Content-Type", "application/json");
 
   constructor(private http: HttpClient) {}
 
@@ -21,30 +27,68 @@ export class PostsService {
     return this._refreshNeeded$;
   }
 
-  // addPost(posts: Posts): Observable<Posts> {
-  //   // const post: Content = data;
-  //   // this.posts.push(post);
-  //   // this.postsUpdated.next([...this.posts]);
-  //   const url = `${this.baseUrl}/api/v2/blog`;
-  //   return this.http.post<Posts>(url, posts).pipe(
-  //     tap(() => {
-  //       this._refreshNeeded$.next();
-  //     })
-  //   );
-  // }
-
   upload(form) {
-    const url = `${this.baseUrl}/api/v2/blog`;
+    const url = `${this.baseUrl}/api/v2/blogs`;
     return this.http.post(url, form).pipe(
+      map(data => {
+        console.log(data);
+        const jsondata = JSON.stringify(data["blogs"]);
+        console.log(jsondata);
+
+        console.log(data["message"]);
+        if (data["message"] == "Saved") {
+          localStorage.setItem("blog", jsondata);
+        }
+      }),
       tap(() => {
         this._refreshNeeded$.next();
       })
     );
   }
 
-  getPosts(): Observable<Posts[]> {
-    const url = `${this.baseUrl}/api/v2/blog`;
+  getBlogId(blog_id): Observable<any> {
+    const url = `api/v2/blogs/${blog_id}`;
     console.log(url);
-    return this.http.get<Posts[]>(url);
+
+    return this.http.get(url, { headers: this.headers }).pipe(
+      map(data => {
+        console.log(data);
+      }),
+      catchError(this.errorMgmt)
+    );
+  }
+
+  // getPosts(): Observable<Posts[]> {
+  //   const url = `${this.baseUrl}/api/v2/blogs`;
+  //   console.log(url);
+  //   return this.http.get<Posts[]>(url);
+  // }
+
+  getPosts() {
+    // const url = `${this.baseUrl}/api/v2/blogs`;
+    const url = `api/v2/blogs`;
+    console.log(url);
+    return this.http
+      .get<Posts[]>("api/v2/blogs", { headers: this.headers })
+      .pipe(
+        map(data => {
+          console.log(data);
+          return data;
+        })
+      );
+  }
+
+  // error handling
+  errorMgmt(error: HttpErrorResponse) {
+    let errorMessage = "";
+    if (error.error instanceof ErrorEvent) {
+      // get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
   }
 }

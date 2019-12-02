@@ -20,6 +20,9 @@
               <mat-card-title>{{ post.title }}</mat-card-title>
             </mat-card-header>
             <img mat-card-image src="{{ post.image_url }}" alt="" />
+            <a [routerLink]="['/admin/posts-detail', post.blog_id]"
+              >Go to details</a
+            >
             <mat-card-content>
               <p>
                 {{ post.content }}
@@ -34,7 +37,9 @@
             </mat-card-actions>
           </mat-card>
           <mat-action-row>
-            <button mat-button color="primary">EDIT</button>
+            <button mat-button color="primary" (click)="onUpdate()">
+              EDIT
+            </button>
             <button mat-button color="warn">DELETE</button>
           </mat-action-row>
         </mat-expansion-panel>

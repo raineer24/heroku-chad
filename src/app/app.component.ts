@@ -1,5 +1,8 @@
 import { Component, HostListener, ElementRef } from "@angular/core";
 import { MediaMatcher } from "@angular/cdk/layout";
+import { User } from "./core/models/user";
+import { AuthService } from "./core/services/user.service";
+import { Router } from "@angular/router";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -8,6 +11,16 @@ import { MediaMatcher } from "@angular/cdk/layout";
 export class AppComponent {
   isShow: boolean;
   topPosToStartShowing = 100;
+  currentUser: User;
+
+  constructor(
+    private router: Router,
+    private authenticationService: AuthService
+  ) {
+    this.authenticationService.currentUser.subscribe(
+      x => (this.currentUser = x)
+    );
+  }
 
   @HostListener("window:scroll")
   checkScroll() {

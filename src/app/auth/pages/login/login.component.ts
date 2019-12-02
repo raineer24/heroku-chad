@@ -3,7 +3,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../../../core/services/user.service";
 import { first } from "rxjs/operators";
-
+import { Subscription, BehaviorSubject, Observable } from "rxjs";
+import { User } from "../../../core/models/user";
+import { AlertService } from "../../../core/services/alert.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -14,29 +16,39 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   submitted = false;
   loading = false;
+  data: any;
+  loginSubs: Subscription;
+  currentUser: User;
+
   error = "";
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthService
-  ) {}
+    private authenticationService: AuthService,
+    private alertService: AlertService
+  ) {
+    this.authenticationService.currentUser.subscribe(
+      x => (this.currentUser = x)
+    );
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ["", Validators.required],
       password: ["", Validators.required]
     });
-    const user1 = this.authenticationService.currentUserValue;
-    console.log(user1);
+    this.authenticationService.currentUserValue;
+    this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
-    let currentUrl = this.router.url;
-    console.log(currentUrl);
+  }
 
-    let user2 = JSON.parse(localStorage.getItem("currentUser"));
-    console.log(user2);
+  ngOnDestroy() {
+    if (this.loginSubs) {
+      this.loginSubs.unsubscribe();
+    }
   }
 
   // convenience getter for easy access to form fields
@@ -46,25 +58,29 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = false;
-    const user1 = JSON.parse(localStorage.getItem("currentUser"));
-    console.log(user1);
+    const values = this.loginForm.value;
+    console.log(this.authenticationService.currentUserValue);
+    const data = {
+      email: values.email,
+      password: values.password
+    };
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
     this.loading = true;
-    this.authenticationService
-      .login(this.f.email.value, this.f.password.value)
+    this.loginSubs = this.authenticationService
+      .login(data)
       .pipe(first())
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.error = error;
+          //this.error = error;
+          this.alertService.error(error);
           this.loading = false;
-          console.log("wrong error");
         }
       );
   }

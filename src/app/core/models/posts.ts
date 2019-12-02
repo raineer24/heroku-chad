@@ -1,5 +1,5 @@
-export interface Posts {
-  id: number;
+export class Posts {
+  blog_id: number;
   title: string;
   content: string;
   image_url: string;

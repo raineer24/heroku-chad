@@ -39,6 +39,6 @@ import { LoginComponent } from "./pages";
     ReactiveFormsModule
   ],
   exports: [RegisterComponent, LoginComponent],
-  providers: [AuthGuardService, AuthService]
+  providers: []
 })
 export class AuthModule {}

@@ -1,7 +1,7 @@
 import { Posts } from "./../models/posts";
 import { Injectable } from "@angular/core";
 import { Subject, Observable, BehaviorSubject } from "rxjs";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 import { map, tap } from "rxjs/operators";
 import { LoginComponent } from "src/app/auth/pages";
@@ -20,10 +20,10 @@ export class AuthService {
       JSON.parse(localStorage.getItem("currentUser"))
     );
     this.currentUser = this.currentUserSubject.asObservable();
+    console.log(this.currentUserSubject.value);
   }
 
   public get currentUserValue(): User {
-    console.log("this", this.currentUserSubject.value);
     return this.currentUserSubject.value;
   }
 
@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   public registerUsers(obj) {
-    const url = `${this.baseUrl}/api/v2/useraccount/signup`;
+    const url = `${this.baseUrl}/api/v2/users/register`;
     return this.http
       .post(url, obj, {
         headers: new HttpHeaders({
@@ -51,24 +51,37 @@ export class AuthService {
       .pipe(map(data => data));
   }
 
+  // getPosts(): Observable<Posts[]> {
+  //   const url = `${this.baseUrl}/api/v2/blogs`;
+  //   console.log(url);
+  //   return this.http.get<Posts[]>(url);
+  // }
+
   getPosts(): Observable<Posts[]> {
-    const url = `${this.baseUrl}/api/v2/blog`;
+    // const url = `${this.baseUrl}/api/v2/blogs`;
+    const url = `api/v2/blogs`;
     console.log(url);
     return this.http.get<Posts[]>(url);
   }
 
-  login(email: string, password: string) {
-    const url = `${this.baseUrl}/api/v2/useraccount/login`;
-    return this.http.post<any>(url, { email, password }).pipe(
-      map(user => {
-        console.log("user", user);
-        console.log("tae");
+  public verifyToken(token: string): Observable<any> {
+    const url = `${this.baseUrl}/api/v2/users/verify/:token`;
+    //const url = `verify/:token`;
+    return this.http.post(url, token).pipe(
+      tap(data => {
+        console.log(data);
+        console.log("clicked");
+      })
+    );
+  }
 
+  login(data): Observable<User> {
+    const url = `${this.baseUrl}/api/v2/users/login`;
+    return this.http.post<User>(url, data).pipe(
+      map(user => {
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem("currentUser", JSON.stringify(user));
-          // const user1 = JSON.parse(localStorage.getItem("currentUser"));
-          // console.log("user1", user1.token);
 
           this.currentUserSubject.next(user);
         }
@@ -80,11 +93,11 @@ export class AuthService {
 
   logout() {
     // remove user from local storage to log user out
-    console.log("clicked");
 
     localStorage.removeItem("currentUser");
     this.currentUserSubject.next(null);
   }
+
 }
 
 // addPost(posts: Posts): Observable<Posts> {

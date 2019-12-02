@@ -13,9 +13,9 @@ import {
   MatListModule,
   MatButtonModule
 } from "@angular/material";
-import { UserComponent } from "./pages";
+import { UserComponent, VerifyComponent } from "./pages";
 @NgModule({
-  declarations: [UsersComponent, UserComponent],
+  declarations: [UsersComponent, UserComponent, VerifyComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,

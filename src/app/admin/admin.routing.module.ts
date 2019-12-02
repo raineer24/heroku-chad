@@ -7,7 +7,8 @@ import {
   UsersComponent,
   DashboardComponent,
   PostsComponent,
-  PostsListComponent
+  PostsListComponent,
+  PostsDetailComponent
 } from "./pages";
 
 const routes: Routes = [
@@ -17,7 +18,11 @@ const routes: Routes = [
   //   { path: "users", component: UsersComponent },
   //   { path: "posts", component: PostsComponent }
   // ]
-  { path: "dashboard", component: DashboardComponent },
+  {
+    path: "dashboard",
+    component: DashboardComponent,
+    canActivate: [AuthGuardService]
+  },
   { path: "users", component: UsersComponent },
   { path: "posts", component: PostsComponent, canActivate: [AuthGuardService] },
   {
@@ -25,8 +30,12 @@ const routes: Routes = [
     component: PostsListComponent
   },
   {
+    path: "posts-detail/:id",
+    component: PostsDetailComponent
+  },
+  {
     path: "",
-    redirectTo: "posts",
+    redirectTo: "dashboard",
     pathMatch: "full"
   }
 ];

@@ -43,6 +43,7 @@ export class PostCreateComponent implements OnInit {
       ],
       image: [null, Validators.required]
     }));
+
     //this.postsService.getPosts();
   }
 
@@ -99,6 +100,7 @@ export class PostCreateComponent implements OnInit {
     return this.postsService.upload(this.fd).subscribe(data => {
       this.fd = new FormData();
       console.log(`SAVED SUCCESSFULLY. ${JSON.stringify(data)}`);
+      this.postForm.reset();
     });
   }
 }

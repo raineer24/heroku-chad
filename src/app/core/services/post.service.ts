@@ -30,6 +30,16 @@ export class PostsService {
   upload(form) {
     const url = `${this.baseUrl}/api/v2/blogs`;
     return this.http.post(url, form).pipe(
+      map(data => {
+        console.log(data);
+        const jsondata = JSON.stringify(data["blogs"]);
+        console.log(jsondata);
+
+        console.log(data["message"]);
+        if (data["message"] == "Saved") {
+          localStorage.setItem("blog", jsondata);
+        }
+      }),
       tap(() => {
         this._refreshNeeded$.next();
       })

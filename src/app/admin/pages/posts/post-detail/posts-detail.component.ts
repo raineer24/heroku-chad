@@ -20,7 +20,9 @@ export class PostsDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.route.snapshot.params);
+    console.log(localStorage.getItem("blog"));
+
+    //console.log(this.route.snapshot.params.get("id"));
 
     //console.log(id);
 

@@ -4,6 +4,32 @@
 <mat-card class="my-card">
   <mat-card-content>
     <form class="my-form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+    <mat-label>Profile Picture: </mat-label>
+       <img [src]="url ? url : 'https://www.w3schools.com/howto/img_avatar.png'"> <br/>
+<input
+      class="input-file"
+      type="file"
+      (change)="onSubmit($event)"
+      formControlName="image"
+      class="form-control"
+    />
+    <mat-form-field class="full-width">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          placeholder="Username"
+          name="username"
+          formControlName="username"
+        />
+        <!-- <div *ngIf="officialEmail.errors">
+          <div *ngIf="officialEmail.errors.required">
+            Official Email required.
+          </div>
+          <div *ngIf="officialEmail.errors.pattern">
+            Official Email not valid.
+          </div>
+        </div> -->
+      </mat-form-field>
       <!-- <mat-form-field class="full-width">
         <mat-label>First Name</mat-label>
         <input matInput placeholder="First name" name="fname" required />
@@ -34,6 +60,23 @@
         </div>
       </mat-form-field>
       <mat-form-field class="full-width">
+        <mat-label>First Name</mat-label>
+        <input
+          matInput
+          placeholder="First Name"
+          name="first_name"
+          formControlName="first_name"
+        />
+        <!-- <div *ngIf="officialEmail.errors">
+          <div *ngIf="officialEmail.errors.required">
+            Official Email required.
+          </div>
+          <div *ngIf="officialEmail.errors.pattern">
+            Official Email not valid.
+          </div>
+        </div> -->
+      </mat-form-field>
+      <mat-form-field class="full-width">
         <mat-label>Password</mat-label>
         <input
           matInput
@@ -43,8 +86,8 @@
           type="password"
         />
       </mat-form-field>
-
-      <button mat-raised-button color="primary">
+       
+             <button mat-raised-button color="primary">
         REGISTER
       </button>
     </form>

@@ -42,6 +42,7 @@ export class AuthService {
 
   public registerUsers(obj) {
     const url = `${this.baseUrl}/api/v2/users/register`;
+    //const url = `api/v2/users/register`;
     return this.http
       .post(url, obj, {
         headers: new HttpHeaders({
@@ -77,6 +78,7 @@ export class AuthService {
 
   login(data): Observable<User> {
     const url = `${this.baseUrl}/api/v2/users/login`;
+    //const url = `api/v2/users/login`;
     return this.http.post<User>(url, data).pipe(
       map(user => {
         if (user && user.token) {
@@ -97,7 +99,6 @@ export class AuthService {
     localStorage.removeItem("currentUser");
     this.currentUserSubject.next(null);
   }
-
 }
 
 // addPost(posts: Posts): Observable<Posts> {

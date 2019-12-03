@@ -5,11 +5,10 @@
   <mat-card-content>
     <form class="my-form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
     <mat-label>Profile Picture: </mat-label>
-       <img [src]="url ? url : 'https://www.w3schools.com/howto/img_avatar.png'"> <br/>
+       <img src="https://www.w3schools.com/howto/img_avatar.png"> <br/>
 <input
       class="input-file"
       type="file"
-      (change)="onSubmit($event)"
       formControlName="image"
       class="form-control"
     />

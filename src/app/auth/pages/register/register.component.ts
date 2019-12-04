@@ -13,13 +13,16 @@ export class RegisterComponent implements OnInit {
   signUpForm: FormGroup;
   registerSubs: Subscription;
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$";
+  fd = new FormData();
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private alertService: AlertService
-  ) {}
+  ) {
+    this.initForm();
+  }
 
   ngOnInit() {
     this.initForm();
@@ -42,14 +45,23 @@ export class RegisterComponent implements OnInit {
         "",
         Validators.compose([Validators.required, Validators.minLength(6)])
       ],
-      username: ['', Validators.required],
-      first_name: ['', Validators.required],
-       image: [null, Validators.required]
+      username: ["", Validators.required],
+      first_name: ["", Validators.required],
+      image: [null, Validators.required]
     });
   }
 
-  onSubmit() {
+  onSubmit(e) {
     const values = this.signUpForm.value;
+    if (e.target !== undefined) {
+      this.fd.append("image", e.target.files[0]);
+      return (this.signUpForm.value.image = this.fd);
+    }
+
+    this.fd.append("email", this.signUpForm.value.email);
+    this.fd.append("password", this.signUpForm.value.password);
+    this.fd.append("username", this.signUpForm.value.username);
+    this.fd.append("first_name", this.signUpForm.value.first_name);
 
     if (this.signUpForm.valid) {
       const data = {
@@ -57,9 +69,10 @@ export class RegisterComponent implements OnInit {
         password: values.password
       };
 
-      this.registerSubs = this.authService.registerUsers(data).subscribe(
+      this.registerSubs = this.authService.registerUsers(this.fd).subscribe(
         data => {
-          console.log(data);
+          this.fd = new FormData();
+          console.log(this.fd);
           this.alertService.success("Registration successful", true);
           this.router.navigate(["/auth/login"]);
         },

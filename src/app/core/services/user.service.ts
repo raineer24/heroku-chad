@@ -43,13 +43,7 @@ export class AuthService {
   public registerUsers(obj) {
     const url = `${this.baseUrl}/api/v2/users/register`;
     //const url = `api/v2/users/register`;
-    return this.http
-      .post(url, obj, {
-        headers: new HttpHeaders({
-          "Content-Type": "application/json"
-        })
-      })
-      .pipe(map(data => data));
+    return this.http.post(url, obj).pipe(map(data => data));
   }
 
   // getPosts(): Observable<Posts[]> {

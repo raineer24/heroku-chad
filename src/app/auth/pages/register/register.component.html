@@ -3,16 +3,22 @@
 </mat-toolbar>
 <mat-card class="my-card">
   <mat-card-content>
-    <form class="my-form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-    <mat-label>Profile Picture: </mat-label>
-       <img src="https://www.w3schools.com/howto/img_avatar.png"> <br/>
-<input
-      class="input-file"
-      type="file"
-      formControlName="image"
-      class="form-control"
-    />
-    <mat-form-field class="full-width">
+    <form
+      class="my-form"
+      [formGroup]="signUpForm"
+      #f="ngForm"
+      (ngSubmit)="onSubmit(f)"
+    >
+      <mat-label>Profile Picture: </mat-label>
+      <img src="https://www.w3schools.com/howto/img_avatar.png" /> <br />
+      <input
+        class="input-file"
+        type="file"
+        (change)="onSubmit($event)"
+        formControlName="image"
+        class="form-control"
+      />
+      <mat-form-field class="full-width">
         <mat-label>Username</mat-label>
         <input
           matInput
@@ -85,8 +91,8 @@
           type="password"
         />
       </mat-form-field>
-       
-             <button mat-raised-button color="primary">
+
+      <button mat-raised-button color="primary">
         REGISTER
       </button>
     </form>

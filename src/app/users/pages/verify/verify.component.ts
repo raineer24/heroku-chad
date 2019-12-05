@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { environment } from "../../../../environments/environment";
 import { map, tap } from "rxjs/operators";
 import { Router } from "@angular/router";
+
 @Component({
   selector: "app-verify",
   templateUrl: "./verify.component.html"
@@ -53,25 +54,29 @@ export class VerifyComponent implements OnInit {
 
       const url = `api/v2/verify/:token`;
 
-      return this.http
-        .post(`api/v2/users/verify/${params.token}`, {
-          headers: new HttpHeaders({
-            "Content-Type": "application/json"
-          })
-        })
-        .subscribe(
-          result => {
-            console.log(result);
-            console.log("clicked");
-            //console.log(data);
-            this.alertService.success("Verify Successful", true);
-            this.router.navigate(["/auth/login"]);
-          },
-          error => {
-            console.log(error);
-            console.log("error");
-          }
-        );
+      // return this.http
+      //   .post(`api/v2/users/verify/${params.token}`, {
+      //     headers: new HttpHeaders({
+      //       "Content-Type": "application/json"
+      //     })
+      //   })
+      //   .subscribe(
+      //     result => {
+      //       console.log(result);
+      //       console.log("clicked");
+      //       //console.log(data);
+      //       this.alertService.success("Verify Successful", true);
+      //       this.router.navigate(["/auth/login"]);
+      //     },
+      //     error => {
+      //       console.log(error);
+      //       console.log("error");
+      //     }
+      //   );
+      this.authService.verifyToken(token).subscribe(result => {
+        this.alertService.success("Verify Successful", true);
+        this.router.navigate(["/auth/login"]);
+      });
     });
   }
 }

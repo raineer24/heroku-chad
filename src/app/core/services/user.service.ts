@@ -60,6 +60,7 @@ export class AuthService {
   }
 
   public verifyToken(token: string): Observable<any> {
+    //const url = `api/v2/users/verify/:token`;
     const url = `${this.baseUrl}/api/v2/users/verify/:token`;
     //const url = `verify/:token`;
     return this.http.post(url, token).pipe(

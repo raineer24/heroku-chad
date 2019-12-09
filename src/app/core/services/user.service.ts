@@ -22,7 +22,7 @@ export class AuthService {
       JSON.parse(localStorage.getItem("currentUser"))
     );
     this.currentUser = this.currentUserSubject.asObservable();
-    console.log(this.currentUserSubject.value);
+    console.log("currentuservalue", this.currentUserSubject.value);
   }
 
   public get currentUserValue(): User {
@@ -43,8 +43,8 @@ export class AuthService {
   }
 
   public registerUsers(obj) {
-    const url = `${this.baseUrl}/api/v2/users/register`;
-    //const url = `api/v2/users/register`;
+    //const url = `${this.baseUrl}/api/v2/users/register`;
+    const url = `api/v2/users/register`;
     return this.http.post(url, obj).pipe(map(data => data));
   }
 
@@ -98,9 +98,17 @@ export class AuthService {
     //const url = `api/v2/users/login`;
     return this.http.post<User>(url, data).pipe(
       map(user => {
+        console.log(user);
+        
         if (user && user.token) {
+          console.log("user", user);
+
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem("currentUser", JSON.stringify(user));
+          console.log(
+            "currentuser: ",
+            JSON.parse(localStorage.getItem("currentUser"))
+          );
 
           this.currentUserSubject.next(user);
         }

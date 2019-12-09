@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Posts } from "../../../../core/models/posts";
 import { ActivatedRoute } from "@angular/router";
 import { PostsService } from "../../../../core/services/post.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 @Component({
   selector: "posts-edit",
   templateUrl: "./posts-edit.component.html",
@@ -12,10 +13,12 @@ export class PostsEditComponent implements OnInit {
   userData: {
     blog_id: string;
   };
+  editForm: FormGroup;
 
   constructor(
     public postsService: PostsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {

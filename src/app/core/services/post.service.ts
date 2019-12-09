@@ -83,7 +83,9 @@ export class PostsService {
   }
 
   deletePost(id: number): Observable<Posts> {
-    return this.http.delete<Posts>(this.baseUrl + id);
+    return this.http
+      .delete<Posts>(this.baseUrl + id)
+      .pipe(catchError(this.errorMgmt));
   }
 
   // error handling

@@ -10,7 +10,8 @@ import {
   PostsComponent,
   PostsListComponent,
   PostCreateComponent,
-  PostsDetailComponent
+  PostsDetailComponent,
+  PostsEditComponent
 } from "./pages";
 import { SharedModule } from "../shared";
 import {
@@ -33,7 +34,8 @@ import { AuthService } from "../core/services/user.service";
     DashboardComponent,
     PostsListComponent,
     PostCreateComponent,
-    PostsDetailComponent
+    PostsDetailComponent,
+    PostsEditComponent
   ],
   imports: [
     AdminRoutingModule,

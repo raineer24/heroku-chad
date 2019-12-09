@@ -58,6 +58,10 @@ export class PostsService {
     );
   }
 
+  updateBlog(blog: Posts): Observable<Posts> {
+    return this.http.put<Posts>(this.baseUrl + blog.blog_id, blog);
+  }
+
   // getPosts(): Observable<Posts[]> {
   //   const url = `${this.baseUrl}/api/v2/blogs`;
   //   console.log(url);
@@ -76,6 +80,10 @@ export class PostsService {
           return data;
         })
       );
+  }
+
+  deletePost(id: number): Observable<Posts> {
+    return this.http.delete<Posts>(this.baseUrl + id);
   }
 
   // error handling

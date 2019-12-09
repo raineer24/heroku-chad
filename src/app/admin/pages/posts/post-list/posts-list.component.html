@@ -37,10 +37,12 @@
             </mat-card-actions>
           </mat-card>
           <mat-action-row>
-            <button mat-button color="primary" (click)="onUpdate()">
+            <button mat-button color="primary" (click)="editBlog(post)">
               EDIT
             </button>
-            <button mat-button color="warn">DELETE</button>
+            <button mat-button color="warn" (click)="deleteBlog(post)">
+              DELETE
+            </button>
           </mat-action-row>
         </mat-expansion-panel>
       </mat-accordion>

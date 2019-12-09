@@ -40,7 +40,7 @@ export class PostsListComponent implements OnInit {
 
   deleteBlog(blog: Posts): void {
     this.postsService.deletePost(blog.blog_id).subscribe(data => {
-      console.log(data);
+      this.router.navigate(["posts"]);
     });
   }
 

@@ -1,5 +1,5 @@
 export class Posts {
-  blog_id: number;
+  blog_id: string;
   title: string;
   content: string;
   image_url: string;

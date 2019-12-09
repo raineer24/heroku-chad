@@ -1,22 +1,24 @@
 import { Component, OnInit } from "@angular/core";
 import { Posts } from "../../../../core/models/posts";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { PostsService } from "../../../../core/services/post.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 @Component({
-  selector: "posts-list",
-  templateUrl: "./posts-list.component.html",
-  styleUrls: ["./posts-list.component.scss"]
+  selector: "posts-edit",
+  templateUrl: "./posts-edit.component.html",
+  styleUrls: ["./posts-edit.component.scss"]
 })
-export class PostsListComponent implements OnInit {
+export class PostsEditComponent implements OnInit {
   posts: Posts[] = [];
   userData: {
     blog_id: string;
   };
+  editForm: FormGroup;
 
   constructor(
     public postsService: PostsService,
     private route: ActivatedRoute,
-    private router: Router
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -31,17 +33,6 @@ export class PostsListComponent implements OnInit {
     // this.postsService.getBlogId(this.userData.blog_id).subscribe(data => {
     //   console.log(data);
     // });
-  }
-
-  editBlog(blog: Posts): void {
-    window.localStorage.setItem("editBlogId", blog.blog_id.toString());
-    this.router.navigate(["posts-edit"]);
-  }
-
-  deleteBlog(blog: Posts): void {
-    this.postsService.deletePost(blog.blog_id).subscribe(data => {
-      this.router.navigate(["posts"]);
-    });
   }
 
   private getAllPosts() {

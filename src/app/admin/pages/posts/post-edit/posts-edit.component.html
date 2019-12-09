@@ -1,0 +1,26 @@
+<div class="col-md-6">
+  <h2>Edit Post</h2>
+  <form [formGroup]="editForm">
+    <div class="hidden">
+      <input
+        type="text"
+        formControlName="id"
+        placeholder="id"
+        name="id"
+        class="form-control"
+        id="id"
+      />
+    </div>
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input
+        type="text"
+        formControlName="title"
+        placeholder="title"
+        name="title"
+        class="form-control"
+        id="title"
+      />
+    </div>
+  </form>
+</div>

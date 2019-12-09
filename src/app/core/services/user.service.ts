@@ -15,12 +15,14 @@ export class AuthService {
   private redirectUrl: string = "/";
   private loginUrl: string = "/auth/login";
 
+  headers = new HttpHeaders().set("Content-Type", "application/json");
+
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem("currentUser"))
     );
     this.currentUser = this.currentUserSubject.asObservable();
-    console.log(this.currentUserSubject.value);
+    console.log("currentuservalue", this.currentUserSubject.value);
   }
 
   public get currentUserValue(): User {
@@ -41,14 +43,9 @@ export class AuthService {
   }
 
   public registerUsers(obj) {
-    const url = `${this.baseUrl}/api/v2/users/register`;
-    return this.http
-      .post(url, obj, {
-        headers: new HttpHeaders({
-          "Content-Type": "application/json"
-        })
-      })
-      .pipe(map(data => data));
+    //const url = `${this.baseUrl}/api/v2/users/register`;
+    const url = `api/v2/users/register`;
+    return this.http.post(url, obj).pipe(map(data => data));
   }
 
   // getPosts(): Observable<Posts[]> {
@@ -65,9 +62,10 @@ export class AuthService {
   }
 
   public verifyToken(token: string): Observable<any> {
-    const url = `${this.baseUrl}/api/v2/users/verify/:token`;
+    const url = `api/v2/users/verify/:token`;
+    // url = `${this.baseUrl}/api/v2/users/verify/:token`;
     //const url = `verify/:token`;
-    return this.http.post(url, token).pipe(
+    return this.http.post(url, token, { headers: this.headers }).pipe(
       tap(data => {
         console.log(data);
         console.log("clicked");
@@ -75,13 +73,42 @@ export class AuthService {
     );
   }
 
+  // return this.http
+  //   .post(`api/v2/users/verify/${params.token}`, {
+  //     headers: new HttpHeaders({
+  //       "Content-Type": "application/json"
+  //     })
+  //   })
+  //   .subscribe(
+  //     result => {
+  //       console.log(result);
+  //       console.log("clicked");
+  //       //console.log(data);
+  //       this.alertService.success("Verify Successful", true);
+  //       this.router.navigate(["/auth/login"]);
+  //     },
+  //     error => {
+  //       console.log(error);
+  //       console.log("error");
+  //     }
+  //   );
+
   login(data): Observable<User> {
     const url = `${this.baseUrl}/api/v2/users/login`;
+    //const url = `api/v2/users/login`;
     return this.http.post<User>(url, data).pipe(
       map(user => {
+        console.log(user);
+        
         if (user && user.token) {
+          console.log("user", user);
+
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem("currentUser", JSON.stringify(user));
+          console.log(
+            "currentuser: ",
+            JSON.parse(localStorage.getItem("currentUser"))
+          );
 
           this.currentUserSubject.next(user);
         }
@@ -97,38 +124,4 @@ export class AuthService {
     localStorage.removeItem("currentUser");
     this.currentUserSubject.next(null);
   }
-
 }
-
-// addPost(posts: Posts): Observable<Posts> {
-//   // const post: Content = data;
-//   // this.posts.push(post);
-//   // this.postsUpdated.next([...this.posts]);
-//   const url = `getPosts(): Observable<Posts[]> {
-//   const url = `${this.baseUrl}/api/v2/blog`;
-//   console.log(url);
-//   return this.http.get<Posts[]>(url);
-// }.baseUrl}/api/v2/blog`;
-//   return this.hgetPosts(): Observable<Posts[]> {
-//   const url = `${this.baseUrl}/api/v2/blog`;
-//   console.log(url);
-//   return this.http.get<Posts[]>(url);
-// }st<Posts>(url, posts).pipe(
-//     tap(() => {getPosts(): Observable<Posts[]> {
-//   const url = `${this.baseUrl}/api/v2/blog`;
-//   console.log(url);
-//   return this.http.get<Posts[]>(url);
-// }
-//       this._refreshNeeded$.next();
-//     })
-//   );
-// }
-
-// upload(form) {
-//   const url = `${this.baseUrl}/api/v2/blog`;
-//   return this.http.post(url, form).pipe(
-//     tap(() => {
-//       this._refreshNeeded$.next();
-//     })
-//   );
-// }

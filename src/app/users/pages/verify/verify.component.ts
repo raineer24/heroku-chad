@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { environment } from "../../../../environments/environment";
 import { map, tap } from "rxjs/operators";
 import { Router } from "@angular/router";
+
 @Component({
   selector: "app-verify",
   templateUrl: "./verify.component.html"
@@ -42,7 +43,7 @@ export class VerifyComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       console.log(params);
 
-      const token = params["token"];
+      let token = params["token"];
 
       //console.log(params1.toString());
 
@@ -51,10 +52,14 @@ export class VerifyComponent implements OnInit {
 
       console.log(typeof params);
 
-      const url = `api/v2/verify/:token`;
+      //const url = `api/v2/verify/:token`;
+
+      const baseUrl = "https://nerblog-app.herokuapp.com";
+
+      const url = `${this.baseUrl}/api/v2/users/verify/${params.token}`;
 
       return this.http
-        .post(`api/v2/users/verify/${params.token}`, {
+        .post(url, {
           headers: new HttpHeaders({
             "Content-Type": "application/json"
           })
@@ -72,6 +77,11 @@ export class VerifyComponent implements OnInit {
             console.log("error");
           }
         );
+
+      // this.authService.verifyToken(params["token"]).subscribe(result => {
+      //   this.alertService.success("Verify Successful", true);
+      //   this.router.navigate(["/auth/login"]);
+      // });
     });
   }
 }

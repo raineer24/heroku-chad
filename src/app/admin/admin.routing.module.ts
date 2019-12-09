@@ -8,7 +8,8 @@ import {
   DashboardComponent,
   PostsComponent,
   PostsListComponent,
-  PostsDetailComponent
+  PostsDetailComponent,
+  PostsEditComponent
 } from "./pages";
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: "posts-list",
     component: PostsListComponent
+  },
+  {
+    path: "posts-edit",
+    component: PostsEditComponent
   },
   {
     path: "posts-detail/:id",

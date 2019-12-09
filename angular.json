@@ -65,8 +65,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-chad:build",
-            "proxyConfig": "proxy.conf.json"
+            "browserTarget": "angular-chad:build"
           },
           "configurations": {
             "production": {

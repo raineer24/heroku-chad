@@ -58,6 +58,18 @@ export class PostsService {
     );
   }
 
+  updateBlog(blog: Posts) {
+    return this.http.put(this.baseUrl + blog.blog_id, blog);
+  }
+
+  // updateBlog(id, post): Observable<any> {
+  //   const url = `${this.baseUrl}/${id}`;
+  //   return this.http.put(url, post, httpOptions).pipe(
+  //     tap(_ => console.log(`updated post id=${id}`)),
+  //     catchError(this.errorMgmt<any>("updateProduct"))
+  //   );
+  // }
+
   // getPosts(): Observable<Posts[]> {
   //   const url = `${this.baseUrl}/api/v2/blogs`;
   //   console.log(url);
@@ -76,6 +88,14 @@ export class PostsService {
           return data;
         })
       );
+  }
+
+  deletePost(id: string) {
+    const url = `${this.baseUrl}/api/v2/blogs/${id}`;
+    return this.http.delete(url).pipe(
+      tap(_ => console.log(`deleted post id = ${id}`)),
+      catchError(this.errorMgmt)
+    );
   }
 
   // error handling

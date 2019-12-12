@@ -7,10 +7,13 @@ import { LoadingService } from "./loading.service";
   styleUrls: ["./loading.component.scss"]
 })
 export class LoadingComponent implements OnInit {
-  public loading$;
+  loading: boolean;
 
   constructor(private loadingService: LoadingService) {
-    this.loading$ = this.loadingService.loading$;
+    this.loadingService.isloading.subscribe(v => {
+      console.log(v);
+      this.loading = v;
+    });
   }
 
   ngOnInit() {}

@@ -1,2 +1,4 @@
-<div *ngIf="loading$ | async">Loading in progress...</div>
-<div *ngIf="!(loading$ | async)">Loading finished.</div>
+<!-- loader.component.html -->
+<div class="progress-loader" [hidden]="!loading">
+  <mat-progress-spinner [mode]="'indeterminate'"> </mat-progress-spinner>
+</div>

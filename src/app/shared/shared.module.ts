@@ -19,7 +19,8 @@ import {
   MatIconModule,
   MatSidenavModule,
   MatListModule,
-  MatButtonModule
+  MatButtonModule,
+  MatProgressSpinnerModule
 } from "@angular/material";
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import {
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
     FlexLayoutModule
   ],
   declarations: [

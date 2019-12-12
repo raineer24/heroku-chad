@@ -1,4 +1,40 @@
-<mat-sidenav-container class="example-sidenav-container" fxFlexFill>
+<mat-toolbar color="primary">
+  <span>Posts</span>
+</mat-toolbar>
+<mat-card class="example-card" *ngFor="let post of posts">
+  <mat-card-header>
+    <div
+      mat-card-avatar
+      [ngStyle]="{
+        background: '#fff url(' + post.image_url + ') no-repeat 0 0'
+      }"
+    ></div>
+    <mat-card-title class="title">{{ post.title }}</mat-card-title>
+  </mat-card-header>
+  <img
+    mat-card-image
+    class="img-article"
+    src="{{ post.image_url }}"
+    alt=""
+    [routerLink]="['/admin/posts-detail', post.blog_id]"
+  />
+  <mat-card-content>
+    <p>
+      {{ post.content }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions class="action-buttons">
+    <button mat-button color="primary">
+      <mat-icon>thumb_up_alt</mat-icon> 12
+    </button>
+    <button mat-button color="primary">
+      <mat-icon>comment</mat-icon> Comments
+    </button>
+    <button mat-button color="primary"><mat-icon>share</mat-icon> Share</button>
+  </mat-card-actions>
+</mat-card>
+
+<!-- <mat-sidenav-container class="example-sidenav-container" fxFlexFill>
   <mat-sidenav-content>
     <div
       fxFlex="25"
@@ -51,4 +87,4 @@
       No Posts added yet!
     </p>
   </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-sidenav-container> -->

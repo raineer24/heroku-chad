@@ -23,7 +23,8 @@ import {
   MatButtonModule,
   MatExpansionModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatMenuModule
 } from "@angular/material";
 import { AuthService } from "../core/services/user.service";
 
@@ -52,7 +53,8 @@ import { AuthService } from "../core/services/user.service";
     MatInputModule,
     UsersModule,
     CommonModule,
-    SharedModule
+    SharedModule,
+    MatMenuModule
   ],
   providers: [AuthGuardService]
 })

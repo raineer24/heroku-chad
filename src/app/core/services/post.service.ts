@@ -47,12 +47,14 @@ export class PostsService {
   }
 
   getBlogId(blog_id): Observable<any> {
-    const url = `api/v2/blogs/${blog_id}`;
-    console.log(url);
+    const url = `${this.baseUrl}/api/v2/blogs/${blog_id}`;
+    //const url = `api/v2/blogs/${blog_id}`;
+    //console.log(url);
 
     return this.http.get(url, { headers: this.headers }).pipe(
-      map(data => {
-        console.log(data);
+      map(response => {
+        //console.log(response["data"][0]);
+        return response["data"][0];
       }),
       catchError(this.errorMgmt)
     );
@@ -77,17 +79,15 @@ export class PostsService {
   // }
 
   getPosts() {
-    // const url = `${this.baseUrl}/api/v2/blogs`;
-    const url = `api/v2/blogs`;
+    const url = `${this.baseUrl}/api/v2/blogs`;
+    //const url = `api/v2/blogs`;
     console.log(url);
-    return this.http
-      .get<Posts[]>("api/v2/blogs", { headers: this.headers })
-      .pipe(
-        map(data => {
-          console.log(data);
-          return data;
-        })
-      );
+    return this.http.get<Posts[]>(url, { headers: this.headers }).pipe(
+      map(data => {
+        console.log(data);
+        return data;
+      })
+    );
   }
 
   deletePost(id: string) {

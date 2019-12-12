@@ -1,5 +1,6 @@
 .example-card {
-  max-width: 400px;
+  max-width: 35%;
+  margin: 0 auto;
 }
 .upTop {
   position: fixed;
@@ -22,6 +23,7 @@
   object-fit: cover; /*this makes de image in src fit to the size of specified below*/
   width: 100%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
   height: 80%;
+  margin-left: 1px;
 }
 
 @media screen and (max-width: 600px) {
@@ -35,6 +37,7 @@
   .mat-card {
     flex: 0 1 calc(25% - 1em);
   }
+
   .mat-toolbar-row {
     padding: 0px;
   }

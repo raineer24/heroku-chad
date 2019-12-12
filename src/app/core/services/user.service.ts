@@ -43,8 +43,8 @@ export class AuthService {
   }
 
   public registerUsers(obj) {
-    //const url = `${this.baseUrl}/api/v2/users/register`;
-    const url = `api/v2/users/register`;
+    const url = `${this.baseUrl}/api/v2/users/register`;
+    //const url = `api/v2/users/register`;
     return this.http.post(url, obj).pipe(map(data => data));
   }
 

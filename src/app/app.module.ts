@@ -22,12 +22,14 @@ import { ErrorInterceptor } from "./core/guards/error.interceptor";
 import { JwtInterceptor } from "./core/guards/jwt.interceptor";
 import { AuthGuardService } from "./core/guards/auth-guard.service";
 import { AuthService } from "./core/services/user.service";
+import { LoadingInterceptor } from "./shared/layout/loading/loading.interceptor";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { CoreModule } from "./core/core.module";
 import { AdminModule } from "./admin/admin.module";
 import { AlertComponent } from "./shared/layout/alert/alert.component";
+import { LoadingService } from "./shared/layout/loading/loading.service";
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -55,7 +57,9 @@ import { AlertComponent } from "./shared/layout/alert/alert.component";
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    LoadingService
   ],
   bootstrap: [AppComponent]
 })

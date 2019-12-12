@@ -19,6 +19,15 @@ export class PostsDetailComponent implements OnInit {
     this.data = new Posts();
   }
 
+  post: Posts = {
+    blog_id: "",
+    title: "",
+    content: "",
+    created_at: "",
+    updated_at: "",
+    image_url: ""
+  };
+
   ngOnInit() {
     console.log(localStorage.getItem("blog"));
 
@@ -29,7 +38,8 @@ export class PostsDetailComponent implements OnInit {
     //console.log(id);
 
     this.postService.getBlogId(this.id).subscribe(data => {
-      console.log(data);
+      this.post = data;
+      console.log(this.post);
     });
 
     // this.route.paramMap.subscribe(params => {

@@ -4,7 +4,12 @@ import { SharedRoutingModule } from "./shared.routing.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
-import { HeaderComponent, FooterComponent, AlertComponent } from "./layout";
+import {
+  HeaderComponent,
+  FooterComponent,
+  AlertComponent,
+  LoadingComponent
+} from "./layout";
 import { UsersModule } from "../users/users.module";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { AuthModule } from "../auth/auth.module";
@@ -14,7 +19,8 @@ import {
   MatIconModule,
   MatSidenavModule,
   MatListModule,
-  MatButtonModule
+  MatButtonModule,
+  MatProgressSpinnerModule
 } from "@angular/material";
 @NgModule({
   imports: [
@@ -30,9 +36,15 @@ import {
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
     FlexLayoutModule
   ],
-  declarations: [HeaderComponent, FooterComponent, AlertComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    AlertComponent,
+    LoadingComponent
+  ],
   exports: [
     CommonModule,
     FormsModule,
@@ -41,7 +53,8 @@ import {
     RouterModule,
     HeaderComponent,
     FooterComponent,
-    AlertComponent
+    AlertComponent,
+    LoadingComponent
   ]
 })
 export class SharedModule {}

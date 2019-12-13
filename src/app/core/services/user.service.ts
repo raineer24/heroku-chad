@@ -1,9 +1,14 @@
 import { Posts } from "./../models/posts";
 import { Injectable } from "@angular/core";
-import { Subject, Observable, BehaviorSubject } from "rxjs";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { Subject, Observable, BehaviorSubject, throwError } from "rxjs";
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpErrorResponse
+} from "@angular/common/http";
 import { environment } from "../../../environments/environment";
-import { map, tap } from "rxjs/operators";
+import { map, tap, catchError } from "rxjs/operators";
 import { LoginComponent } from "src/app/auth/pages";
 import { User } from "../models/user";
 
@@ -45,7 +50,10 @@ export class AuthService {
   public registerUsers(obj) {
     const url = `${this.baseUrl}/api/v2/users/register`;
     //const url = `api/v2/users/register`;
-    return this.http.post(url, obj).pipe(map(data => data));
+    return this.http.post(url, obj).pipe(
+      map(data => data),
+      catchError(this.errorMgmt)
+    );
   }
 
   // getPosts(): Observable<Posts[]> {
@@ -99,7 +107,7 @@ export class AuthService {
     return this.http.post<User>(url, data).pipe(
       map(user => {
         console.log(user);
-        
+
         if (user && user.token) {
           console.log("user", user);
 
@@ -114,7 +122,8 @@ export class AuthService {
         }
 
         return user;
-      })
+      }),
+      catchError(this.errorMgmt)
     );
   }
 
@@ -123,5 +132,19 @@ export class AuthService {
 
     localStorage.removeItem("currentUser");
     this.currentUserSubject.next(null);
+  }
+
+  // error handling
+  errorMgmt(error: HttpErrorResponse) {
+    let errorMessage = "";
+    if (error.error instanceof ErrorEvent) {
+      // get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
   }
 }

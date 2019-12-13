@@ -10,6 +10,11 @@ import { ToastrService } from "ngx-toastr";
   styleUrls: ["./post-create.component.scss"]
 })
 export class PostCreateComponent implements OnInit {
+  fileData: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
+
   enteredTitle = "";
   enteredContent = "";
   postForm: FormGroup;
@@ -34,6 +39,25 @@ export class PostCreateComponent implements OnInit {
     // this.getAllContent();
   }
 
+  fileProgress(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.previewUrl();
+  }
+
+  preview() {
+    // show preview
+    const mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = _event => {
+      this.previewUrl = reader.result;
+    };
+  }
+
   initForm() {
     return (this.postForm = this.fb.group({
       title: ["", Validators.compose([Validators.required])],
@@ -47,16 +71,14 @@ export class PostCreateComponent implements OnInit {
     //this.postsService.getPosts();
   }
 
-
   onSubmit(e) {
- 
-
     if (e.target !== undefined) {
       this.fd.append("image", e.target.files[0]);
       return (this.postForm.value.image = this.fd);
     }
     this.fd.append("title", this.postForm.value.title);
     this.fd.append("content", this.postForm.value.content);
+    this.preview;
 
     return this.postsService.upload(this.fd).subscribe(data => {
       this.fd = new FormData();

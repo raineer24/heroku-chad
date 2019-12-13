@@ -27,14 +27,21 @@
         >Please enter a post content.</mat-error
       > -->
     </mat-form-field>
-
-    <input
-      class="input-file"
-      type="file"
-      (change)="onSubmit($event)"
-      formControlName="image"
-      class="form-control"
-    />
+    <div class="container">
+      <div class="row">
+        <h3>Choose FIle</h3>
+        <div class="col-md-6 offset-md-3">
+          <input
+            class="input-file"
+            type="file"
+            (change)="onSubmit($event)"
+            formControlName="image"
+            enctype="multipart/form-data"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </div>
 
     <button mat-raised-button color="accent">Save post</button>
   </form>

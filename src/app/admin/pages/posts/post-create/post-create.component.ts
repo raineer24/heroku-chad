@@ -13,7 +13,10 @@ export class PostCreateComponent implements OnInit {
   fileData: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
-  uploadedFilePath: string = null;
+  //uploadedFilePath: string = null;
+
+  uploadResponse = { status: "", message: "", filePath: "" };
+  error: string;
 
   enteredTitle = "";
   enteredContent = "";
@@ -71,17 +74,33 @@ export class PostCreateComponent implements OnInit {
     //this.postsService.getPosts();
   }
 
-  onSubmit(e) {
-    if (e.target !== undefined) {
-      this.fd.append("image", e.target.files[0]);
-      return (this.postForm.value.image = this.fd);
+  onFileChange(event) {
+    if (event.target.files.length > 0) {
+      // const file = event.target.files[0];
+      // this.postForm.get("image").setValue(file);
+      if (event.target !== undefined) {
+        this.fd.append("image", event.target.files[0]);
+        return (this.postForm.value.image = this.fd);
+      }
     }
+  }
+
+  onSubmit() {
+    // if (e.target !== undefined) {
+    //   this.fd.append("image", e.target.files[0]);
+    //   return (this.postForm.value.image = this.fd);
+    // }
     this.fd.append("title", this.postForm.value.title);
     this.fd.append("content", this.postForm.value.content);
-    this.preview;
+    // this.fd.append("file", this.postForm.get("image").value);
+    //this.preview;
 
     return this.postsService.upload(this.fd).subscribe(data => {
       this.fd = new FormData();
+      console.log("this.fd", this.fd);
+
+      this.uploadResponse = data;
+      console.log(this.uploadResponse);
       console.log(`SAVED SUCCESSFULLY. ${JSON.stringify(data)}`);
       this.postForm.reset();
     });

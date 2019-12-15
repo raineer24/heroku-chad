@@ -1,5 +1,5 @@
 <mat-card>
-  <form [formGroup]="postForm" #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <input
         matInput
@@ -29,16 +29,26 @@
     </mat-form-field>
     <div class="container">
       <div class="row">
-        <h3>Choose FIle</h3>
+        <h3>Choose File</h3>
         <div class="col-md-6 offset-md-3">
-          <input
-            class="input-file"
-            type="file"
-            (change)="onSubmit($event)"
-            formControlName="image"
-            enctype="multipart/form-data"
-            class="form-control"
-          />
+          <div *ngIf="error">
+            {{ error.message }}
+          </div>
+          <div *ngIf="uploadResponse.status === 'error'">
+            {{ uploadResponse.message }}
+          </div>
+          <div *ngIf="uploadResponse.status === 'progress'">
+            <div
+              role="progressbar"
+              [style.width.%]="uploadResponse.message"
+              aria-valuenow="25"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              {{ uploadResponse.message }}%
+            </div>
+          </div>
+          <input type="file" name="image" (change)="onFileChange($event)" />
         </div>
       </div>
     </div>

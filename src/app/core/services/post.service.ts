@@ -37,32 +37,15 @@ export class PostsService {
       })
       .pipe(
         map(data => {
-          if (data.type === HttpEventType.UploadProgress) {
-            console.log("yes yes show");
-          } else {
-            console.log("not");
+         
+          console.log(data);
+          const jsondata = JSON.stringify(data["blogs"]);
+          console.log(jsondata);
+
+          console.log(data["message"]);
+          if (data["message"] == "Saved") {
+            localStorage.setItem("blog", jsondata);
           }
-
-          switch (data.type) {
-            case HttpEventType.UploadProgress:
-              const progress = Math.round((100 * data.loaded) / data.total);
-              // console.log(progress);
-
-              return { status: "progress", message: progress };
-
-            case HttpEventType.Response:
-              return data.body;
-            default:
-              return `Unhandled data: ${data.type}`;
-          }
-          // console.log(data);
-          // const jsondata = JSON.stringify(data["blogs"]);
-          // console.log(jsondata);
-
-          // console.log(data["message"]);
-          // if (data["message"] == "Saved") {
-          //   localStorage.setItem("blog", jsondata);
-          // }
         }),
         tap(() => {
           this._refreshNeeded$.next();

@@ -47,6 +47,15 @@ export class PostCreateComponent implements OnInit {
     this.previewUrl();
   }
 
+  onFileChange(event) {
+    this.fileData = <File>event.target.files[0];
+    this.preview();
+    if (event.target !== undefined) {
+      this.fd.append("image", this.fileData);
+      return (this.postForm.value.image = this.fd);
+    }
+  }
+
   preview() {
     // show preview
     const mimeType = this.fileData.type;
@@ -74,16 +83,16 @@ export class PostCreateComponent implements OnInit {
     //this.postsService.getPosts();
   }
 
-  onFileChange(event) {
-    if (event.target.files.length > 0) {
-      // const file = event.target.files[0];
-      // this.postForm.get("image").setValue(file);
-      if (event.target !== undefined) {
-        this.fd.append("image", event.target.files[0]);
-        return (this.postForm.value.image = this.fd);
-      }
-    }
-  }
+  // onFileChange(event) {
+  //   if (event.target.files.length > 0) {
+  //     // const file = event.target.files[0];
+  //     // this.postForm.get("image").setValue(file);
+  //     if (event.target !== undefined) {
+  //       this.fd.append("image", event.target.files[0]);
+  //       return (this.postForm.value.image = this.fd);
+  //     }
+  //   }
+  // }
 
   onSubmit() {
     // if (e.target !== undefined) {
@@ -99,8 +108,6 @@ export class PostCreateComponent implements OnInit {
       this.fd = new FormData();
       console.log("this.fd", this.fd);
 
-      this.uploadResponse = data;
-      console.log(this.uploadResponse);
       console.log(`SAVED SUCCESSFULLY. ${JSON.stringify(data)}`);
       this.postForm.reset();
     });

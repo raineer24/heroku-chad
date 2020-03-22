@@ -6,3 +6,14 @@ textarea {
   display: block;
   margin-bottom: 1em;
 }
+.test {
+  color: red;
+}
+.show {
+  opacity: 1;
+  transition: opacity 1s;
+}
+.hide {
+  opacity: 0;
+  transition: opacity 1s;
+}

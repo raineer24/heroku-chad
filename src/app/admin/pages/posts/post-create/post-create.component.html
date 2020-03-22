@@ -33,7 +33,7 @@
         <div class="col-md-6 offset-md-3">
           <input type="file" name="image" (change)="onFileChange($event)" />
         </div>
-        <div class="image-preview mb-3" *ngIf="previewUrl">
+        <div #myInput class="image-preview mb-3" *ngIf="previewUrl">
           <img [src]="previewUrl" height="300" />
         </div>
       </div>

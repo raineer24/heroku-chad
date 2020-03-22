@@ -23,6 +23,8 @@ export class PostsListComponent implements OnInit {
     this.route.params.subscribe(params => console.log(params));
 
     this.postsService.refreshNeed$.subscribe(() => {
+      console.log("get all posts");
+
       this.getAllPosts();
     });
 

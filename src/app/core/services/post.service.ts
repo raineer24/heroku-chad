@@ -13,6 +13,7 @@ import { map, tap, catchError } from "rxjs/operators";
 @Injectable({ providedIn: "root" })
 export class PostsService {
   private baseUrl = environment.apiUrl;
+  private heroku = "https://nerblog-app.herokuapp.com";
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
 
@@ -37,17 +38,28 @@ export class PostsService {
       })
       .pipe(
         map(data => {
-         
-          console.log(data);
-          const jsondata = JSON.stringify(data["blogs"]);
-          console.log(jsondata);
+          switch (data.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round((100 * data.loaded) / data.total);
+              return { status: "progress", message: progress };
 
-          console.log(data["message"]);
-          if (data["message"] == "Saved") {
-            localStorage.setItem("blog", jsondata);
+            case HttpEventType.Response:
+              return data.body;
+            default:
+              return `Unhandled event: ${event.type}`;
           }
+          // console.log(data);
+          // const jsondata = JSON.stringify(data["blogs"]);
+          // console.log(jsondata);
+
+          // console.log(data["message"]);
+          // if (data["message"] == "Saved") {
+          //   localStorage.setItem("blog", jsondata);
+          // }
         }),
         tap(() => {
+          console.log("refresh needs");
+
           this._refreshNeeded$.next();
         })
       );

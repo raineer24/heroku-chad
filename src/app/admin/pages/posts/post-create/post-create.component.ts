@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  ViewChild,
+  ElementRef
+} from "@angular/core";
 import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { PostsService } from "../../../../core/services/post.service";
 import { Subscription, Subject, Observable } from "rxjs";
@@ -17,6 +23,16 @@ export class PostCreateComponent implements OnInit {
 
   uploadResponse = { status: "", message: "", filePath: "" };
   error: string;
+  data;
+
+  @ViewChild("myInput") eref;
+  @ViewChild("myInput1")
+  myInputVariable: ElementRef;
+  myInputVariable1: ElementRef;
+
+  isSubmitClicked: boolean;
+
+  public shouldShow = true;
 
   enteredTitle = "";
   enteredContent = "";
@@ -40,18 +56,22 @@ export class PostCreateComponent implements OnInit {
     //   this.getAllContent();
     // });
     // this.getAllContent();
+    console.log(localStorage.getItem("blog"));
   }
 
-  fileProgress(fileInput: any) {
-    this.fileData = <File>fileInput.target.files[0];
+  // fileProgress(fileInput: any) {
+  //   this.fileData = <File>fileInput.target.files[0];
 
-    this.previewUrl();
-  }
+  //   this.previewUrl();
+  // }
 
   onFileChange(event) {
     this.fileData = <File>event.target.files[0];
     this.postForm.get("image").setValue(this.fileData);
+    this.fileData["value"];
     this.preview();
+    console.log(this.shouldShow);
+
     // if (event.target !== undefined) {
     //   this.fd.append("image", this.fileData);
     //   return (this.postForm.value.image = this.fd);
@@ -99,18 +119,28 @@ export class PostCreateComponent implements OnInit {
   onSubmit() {
     const formData = new FormData();
     formData.append("image", this.fileData);
+
     // if (e.target !== undefined) {
     //   this.fd.append("image", e.target.files[0]);
     //   return (this.postForm.value.image = this.fd);
     // }
-    // this.fd.append("title", this.postForm.value.title);
-    // this.fd.append("content", this.postForm.value.content);
-    // this.fd.append("file", this.postForm.get("image").value);
+    formData.append("title", this.postForm.value.title);
+    formData.append("content", this.postForm.value.content);
+    //formData.append("file", this.postForm.get("image").value);
     //this.preview;
 
     return this.postsService.upload(formData).subscribe(data => {
-      //console.log("data", data);
+      console.log("data", data);
+      if (data.message === "Saved") {
+        this.eref.nativeElement.classList.add("hide");
+      }
+      this.data = data;
+      console.log(this.eref.nativeElement);
 
+      // console.log(this.fileData);
+      // console.log(this.eref.nativeElement.classList);
+      // this.myInputVariable.nativeElement;
+      // this.myInputVariable.nativeElement.value = "";
       // this.fd = new FormData();
       //console.log("this.fd", this.fd);
 

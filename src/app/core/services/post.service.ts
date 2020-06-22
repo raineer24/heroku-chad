@@ -4,7 +4,7 @@ import { Subject, Observable, throwError } from "rxjs";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 import { map, tap, catchError } from "rxjs/operators";
@@ -28,9 +28,9 @@ export class PostsService {
   }
 
   upload(form) {
-    const url = `${this.baseUrl}/api/v2/blogs`;
+    const url = `${this.baseUrl}/api/v2/post`;
     return this.http.post(url, form).pipe(
-      map(data => {
+      map((data) => {
         console.log(data);
         const jsondata = JSON.stringify(data["blogs"]);
         console.log(jsondata);
@@ -47,12 +47,12 @@ export class PostsService {
   }
 
   getBlogId(blog_id): Observable<any> {
-    const url = `${this.baseUrl}/api/v2/blogs/${blog_id}`;
+    const url = `${this.baseUrl}/api/v2/post/${blog_id}`;
     //const url = `api/v2/blogs/${blog_id}`;
     //console.log(url);
 
     return this.http.get(url, { headers: this.headers }).pipe(
-      map(response => {
+      map((response) => {
         //console.log(response["data"][0]);
         return response["data"][0];
       }),
@@ -79,21 +79,23 @@ export class PostsService {
   // }
 
   getPosts() {
-    const url = `${this.baseUrl}/api/v2/blogs`;
+    const url = `${this.baseUrl}/api/v2/posts`;
     //const url = `api/v2/blogs`;
     console.log(url);
-    return this.http.get<Posts[]>(url, { headers: this.headers }).pipe(
-      map(data => {
-        console.log(data);
-        return data;
-      })
-    );
+    return this.http
+      .get<Posts[]>(url, { headers: this.headers })
+      .pipe(
+        map((data) => {
+          console.log(data["posts"]);
+          return data["posts"];
+        })
+      );
   }
 
   deletePost(id: string) {
     const url = `${this.baseUrl}/api/v2/blogs/${id}`;
     return this.http.delete(url).pipe(
-      tap(_ => console.log(`deleted post id = ${id}`)),
+      tap((_) => console.log(`deleted post id = ${id}`)),
       catchError(this.errorMgmt)
     );
   }

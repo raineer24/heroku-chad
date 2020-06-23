@@ -16,6 +16,9 @@ import {
   LogIn,
   LogInSuccess,
   LogInFailure,
+  SignUp,
+  SignUpSuccess,
+  SignUpFailure,
 } from "../actions/auth.actions";
 
 @Injectable()
@@ -57,5 +60,37 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   LogInFailure: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGIN_FAILURE)
+  );
+
+  @Effect()
+  SignUp: Observable<any> = this.actions
+    .pipe(ofType(AuthActionTypes.SIGNUP))
+
+    .map((action: SignUp) => action.payload)
+    .switchMap((payload) => {
+      return this.authService
+        .registerUsers(payload)
+        .map((user) => {
+          console.log(user);
+          return new SignUpSuccess(payload);
+        })
+        .catch((error) => {
+          console.log(error);
+          return Observable.of(new SignUpFailure({ error: error }));
+        });
+    });
+
+  @Effect({ dispatch: false })
+  SignUpSuccess: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.SIGNUP_SUCCESS),
+    tap((user) => {
+      localStorage.setItem("token", user.payload.token);
+      this.router.navigateByUrl("/");
+    })
+  );
+
+  @Effect({ dispatch: false })
+  SignUpFailure: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.SIGNUP_FAILURE)
   );
 }

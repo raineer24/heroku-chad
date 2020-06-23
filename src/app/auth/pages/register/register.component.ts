@@ -4,6 +4,11 @@ import { AuthService } from "../../../core/services/user.service";
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import { AlertService } from "../../../core/services/alert.service";
+import { Store } from "@ngrx/store";
+
+import { User } from "../../../core/models/user";
+import { AppState } from "../../../store/app.states";
+import { SignUp } from "../../../store/actions/auth.actions";
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
@@ -15,11 +20,14 @@ export class RegisterComponent implements OnInit {
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$";
   fd = new FormData();
 
+  user: User = new User();
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private store: Store<AppState>
   ) {
     this.initForm();
   }
@@ -66,10 +74,11 @@ export class RegisterComponent implements OnInit {
     this.fd.append("password2", this.signUpForm.value.password2);
 
     if (this.signUpForm.valid) {
-      const data = {
+      const payload = {
         email: values.email,
         password: values.password,
       };
+      this.store.dispatch(new SignUp(payload));
 
       this.registerSubs = this.authService.registerUsers(this.fd).subscribe(
         (data) => {

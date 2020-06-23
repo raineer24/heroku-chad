@@ -68,9 +68,12 @@ export class LoginComponent implements OnInit {
     const values = this.loginForm.value;
     console.log(this.authenticationService.currentUserValue);
     const payload = {
-      email: this.user.email,
-      password: this.user.password,
+      email: values.email,
+      password: values.password,
     };
+
+    console.log(payload);
+
     this.store.dispatch(new LogIn(payload));
 
     // stop here if form is invalid

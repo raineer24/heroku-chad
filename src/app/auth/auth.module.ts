@@ -16,9 +16,12 @@ import {
   MatListModule,
   MatButtonModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
 } from "@angular/material";
 import { RegisterComponent } from "./pages";
+import { EffectsModule } from "@ngrx/effects";
+import { AuthEffects } from "../store/effects/auth.effects";
+
 import { LoginComponent } from "./pages";
 @NgModule({
   declarations: [RegisterComponent, LoginComponent],
@@ -36,9 +39,10 @@ import { LoginComponent } from "./pages";
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    EffectsModule.forRoot([AuthEffects]),
   ],
   exports: [RegisterComponent, LoginComponent],
-  providers: []
+  providers: [],
 })
 export class AuthModule {}

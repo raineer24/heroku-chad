@@ -6,10 +6,14 @@ import { first } from "rxjs/operators";
 import { Subscription, BehaviorSubject, Observable } from "rxjs";
 import { User } from "../../../core/models/user";
 import { AlertService } from "../../../core/services/alert.service";
+
+import { Store } from "@ngrx/store";
+import { AppState } from "../../../store/app.states";
+import { LogIn } from "../../../store/actions/auth.actions";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"]
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -29,14 +33,14 @@ export class LoginComponent implements OnInit {
     private alertService: AlertService
   ) {
     this.authenticationService.currentUser.subscribe(
-      x => (this.currentUser = x)
+      (x) => (this.currentUser = x)
     );
   }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ["", Validators.required],
-      password: ["", Validators.required]
+      password: ["", Validators.required],
     });
     this.authenticationService.currentUserValue;
     this.authenticationService.logout();
@@ -62,7 +66,7 @@ export class LoginComponent implements OnInit {
     console.log(this.authenticationService.currentUserValue);
     const data = {
       email: values.email,
-      password: values.password
+      password: values.password,
     };
 
     // stop here if form is invalid
@@ -74,11 +78,11 @@ export class LoginComponent implements OnInit {
       .login(data)
       .pipe(first())
       .subscribe(
-        data => {
+        (data) => {
           this.router.navigate([this.returnUrl]);
           console.log(this.returnUrl);
         },
-        error => {
+        (error) => {
           //this.error = error;
           this.alertService.error(error);
           this.loading = false;

@@ -14,9 +14,11 @@ import {
   MatListModule,
   MatButtonModule,
   MatInputModule,
-  MatExpansionModule
+  MatExpansionModule,
 } from "@angular/material";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { StoreModule } from "@ngrx/store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 import { ErrorInterceptor } from "./core/guards/error.interceptor";
 import { JwtInterceptor } from "./core/guards/jwt.interceptor";
@@ -30,6 +32,9 @@ import { CoreModule } from "./core/core.module";
 import { AdminModule } from "./admin/admin.module";
 import { AlertComponent } from "./shared/layout/alert/alert.component";
 import { LoadingService } from "./shared/layout/loading/loading.service";
+import { environment } from "../environments/environment";
+//import { AuthReducer } from "./store/reducers/auth.reducers";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -51,16 +56,23 @@ import { LoadingService } from "./shared/layout/loading/loading.service";
     CoreModule,
     AdminModule,
     ToastrModule.forRoot({
-      positionClass: "toast-top-center"
-    })
+      positionClass: "toast-top-center",
+    }),
+    // StoreModule.forRoot({
+    //   auth: AuthReducer,
+    // }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    LoadingService
+    LoadingService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

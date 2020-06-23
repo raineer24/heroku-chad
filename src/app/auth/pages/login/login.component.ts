@@ -24,13 +24,16 @@ export class LoginComponent implements OnInit {
   loginSubs: Subscription;
   currentUser: User;
 
+  user: User = new User();
+
   error = "";
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private store: Store<AppState>
   ) {
     this.authenticationService.currentUser.subscribe(
       (x) => (this.currentUser = x)
@@ -64,10 +67,11 @@ export class LoginComponent implements OnInit {
     this.submitted = false;
     const values = this.loginForm.value;
     console.log(this.authenticationService.currentUserValue);
-    const data = {
-      email: values.email,
-      password: values.password,
+    const payload = {
+      email: this.user.email,
+      password: this.user.password,
     };
+    this.store.dispatch(new LogIn(payload));
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -75,7 +79,7 @@ export class LoginComponent implements OnInit {
     }
     this.loading = true;
     this.loginSubs = this.authenticationService
-      .login(data)
+      .login(this.user.email, this.user.password)
       .pipe(first())
       .subscribe(
         (data) => {

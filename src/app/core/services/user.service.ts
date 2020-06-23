@@ -45,7 +45,7 @@ export class AuthService {
   public registerUsers(obj) {
     const url = `${this.baseUrl}/api/v2/users/register`;
     //const url = `api/v2/users/register`;
-    return this.http.post(url, obj).pipe(map(data => data));
+    return this.http.post(url, obj).pipe(map((data) => data));
   }
 
   // getPosts(): Observable<Posts[]> {
@@ -66,7 +66,7 @@ export class AuthService {
     // url = `${this.baseUrl}/api/v2/users/verify/:token`;
     //const url = `verify/:token`;
     return this.http.post(url, token, { headers: this.headers }).pipe(
-      tap(data => {
+      tap((data) => {
         console.log(data);
         console.log("clicked");
       })
@@ -93,29 +93,31 @@ export class AuthService {
   //     }
   //   );
 
-  login(data): Observable<User> {
+  login(email: string, password: string): Observable<any> {
     const url = `${this.baseUrl}/api/v2/users/login`;
     //const url = `api/v2/users/login`;
-    return this.http.post<User>(url, data).pipe(
-      map(user => {
-        console.log(user);
-        
-        if (user && user.token) {
-          console.log("user", user);
+    return this.http
+      .post<User>(url, { email, password })
+      .pipe(
+        map((user) => {
+          console.log(user);
 
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem("currentUser", JSON.stringify(user));
-          console.log(
-            "currentuser: ",
-            JSON.parse(localStorage.getItem("currentUser"))
-          );
+          if (user && user.token) {
+            console.log("user", user);
 
-          this.currentUserSubject.next(user);
-        }
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem("currentUser", JSON.stringify(user));
+            console.log(
+              "currentuser: ",
+              JSON.parse(localStorage.getItem("currentUser"))
+            );
 
-        return user;
-      })
-    );
+            this.currentUserSubject.next(user);
+          }
+
+          return user;
+        })
+      );
   }
 
   logout() {

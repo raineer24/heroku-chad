@@ -26,6 +26,8 @@ import { AuthGuardService } from "./core/guards/auth-guard.service";
 import { AuthService } from "./core/services/user.service";
 import { LoadingInterceptor } from "./shared/layout/loading/loading.interceptor";
 
+import { reducers } from "./store/app.states";
+
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { CoreModule } from "./core/core.module";
@@ -58,6 +60,7 @@ import { environment } from "../environments/environment";
     ToastrModule.forRoot({
       positionClass: "toast-top-center",
     }),
+    StoreModule.forRoot(reducers, {}),
     // StoreModule.forRoot({
     //   auth: AuthReducer,
     // }),

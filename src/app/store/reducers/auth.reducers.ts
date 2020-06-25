@@ -1,5 +1,8 @@
 import { User } from "../../core/models/user";
 
+/* NgRx */
+import { createFeatureSelector, createSelector } from "@ngrx/store";
+
 import { AuthActionTypes, All } from "../actions/auth.actions";
 
 export interface State {
@@ -33,7 +36,7 @@ export function reducer(state = initialState, action: All): State {
     case AuthActionTypes.LOGIN_FAILURE: {
       return {
         ...state,
-        errorMessage: "Incorrect email and/or password.",
+        errorMessage: action.payload,
       };
     }
     case AuthActionTypes.SIGNUP_SUCCESS: {
@@ -52,6 +55,9 @@ export function reducer(state = initialState, action: All): State {
         ...state,
         errorMessage: "That email is already in use.",
       };
+    }
+    case AuthActionTypes.LOGOUT: {
+      return initialState;
     }
     default: {
       return state;

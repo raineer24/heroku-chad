@@ -8,7 +8,7 @@ import { User } from "../../../core/models/user";
 import { AlertService } from "../../../core/services/alert.service";
 
 import { Store } from "@ngrx/store";
-import { AppState } from "../../../store/app.states";
+import { AppState, selectAuthState } from "../../../store/app.states";
 import { LogIn } from "../../../store/actions/auth.actions";
 @Component({
   selector: "app-login",
@@ -26,6 +26,9 @@ export class LoginComponent implements OnInit {
 
   user: User = new User();
 
+  getState: Observable<any>;
+  errorMessage: string | null;
+
   error = "";
   constructor(
     private formBuilder: FormBuilder,
@@ -38,6 +41,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(
       (x) => (this.currentUser = x)
     );
+    this.getState = this.store.select(selectAuthState);
   }
 
   ngOnInit() {
@@ -50,6 +54,10 @@ export class LoginComponent implements OnInit {
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
+
+    this.getState.subscribe((state) => {
+      this.errorMessage = state.errorMessage;
+    });
   }
 
   ngOnDestroy() {

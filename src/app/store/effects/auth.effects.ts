@@ -39,7 +39,7 @@ export class AuthEffects {
       return this.authService
         .login(payload.email, payload.password)
         .map((user) => {
-          console.log(user);
+          console.log("user", user.token);
           return new LogInSuccess({ token: user.token, email: payload.email });
         })
         .catch((error) => {
@@ -52,6 +52,8 @@ export class AuthEffects {
   LogInSuccess: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGIN_SUCCESS),
     tap((user) => {
+      console.log("user:", user.payload);
+
       localStorage.setItem("token", user.payload.token);
       this.router.navigateByUrl("/");
     })
@@ -92,5 +94,13 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   SignUpFailure: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.SIGNUP_FAILURE)
+  );
+
+  @Effect({ dispatch: false })
+  public LogOut: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.LOGOUT),
+    tap((user) => {
+      localStorage.removeItem("token");
+    })
   );
 }

@@ -6,10 +6,14 @@ import { first } from "rxjs/operators";
 import { Subscription, BehaviorSubject, Observable } from "rxjs";
 import { User } from "../../../core/models/user";
 import { AlertService } from "../../../core/services/alert.service";
+
+/* NgRx */
+import { Store, select } from "@ngrx/store";
+
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"]
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -20,23 +24,26 @@ export class LoginComponent implements OnInit {
   loginSubs: Subscription;
   currentUser: User;
 
+  user: User = new User();
+
   error = "";
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private store: Store<any>
   ) {
     this.authenticationService.currentUser.subscribe(
-      x => (this.currentUser = x)
+      (x) => (this.currentUser = x)
     );
   }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ["", Validators.required],
-      password: ["", Validators.required]
+      password: ["", Validators.required],
     });
     this.authenticationService.currentUserValue;
     this.authenticationService.logout();
@@ -62,8 +69,9 @@ export class LoginComponent implements OnInit {
     console.log(this.authenticationService.currentUserValue);
     const data = {
       email: values.email,
-      password: values.password
+      password: values.password,
     };
+    this.store.dispatch({ type: "TOGGLE_PRODUCT_CODE" });
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -71,14 +79,14 @@ export class LoginComponent implements OnInit {
     }
     this.loading = true;
     this.loginSubs = this.authenticationService
-      .login(data)
+      .login(this.user.email, this.user.password)
       .pipe(first())
       .subscribe(
-        data => {
+        (data) => {
           this.router.navigate([this.returnUrl]);
           console.log(this.returnUrl);
         },
-        error => {
+        (error) => {
           //this.error = error;
           this.alertService.error(error);
           this.loading = false;

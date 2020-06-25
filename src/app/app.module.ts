@@ -14,9 +14,12 @@ import {
   MatListModule,
   MatButtonModule,
   MatInputModule,
-  MatExpansionModule
+  MatExpansionModule,
 } from "@angular/material";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+
+/* NgRx */
+import { StoreModule } from "@ngrx/store";
 
 import { ErrorInterceptor } from "./core/guards/error.interceptor";
 import { JwtInterceptor } from "./core/guards/jwt.interceptor";
@@ -49,18 +52,19 @@ import { LoadingService } from "./shared/layout/loading/loading.service";
     MatExpansionModule,
     MatInputModule,
     CoreModule,
+    StoreModule.forRoot({}),
     AdminModule,
     ToastrModule.forRoot({
-      positionClass: "toast-top-center"
-    })
+      positionClass: "toast-top-center",
+    }),
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    LoadingService
+    LoadingService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,12 +1,20 @@
+import { User } from "../../core/models/user";
+
+export interface UserState {
+  // is a user authenticated?
+  isAuthenticated: boolean;
+  // if authenticated, there should be a user object
+  user: User | null;
+  // error message
+  errorMessage: string | null;
+}
+
 export function reducer(state, action) {
   switch (action.type) {
-    case "LOGIN_SUCCESS":
-      console.log("existing state: ", +JSON.stringify(state));
-      console.log("payload", action.payload);
-
+    case "TOGGLE_PRODUCT_CODE":
       return {
         ...state,
-        isAuthenticated: action.payload,
+        showProductCode: action.payload,
       };
     default:
       return state;

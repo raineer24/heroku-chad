@@ -7,6 +7,8 @@ import { Subscription, BehaviorSubject, Observable } from "rxjs";
 import { User } from "../../../core/models/user";
 import { AlertService } from "../../../core/services/alert.service";
 
+import * as fromUser from "../../state/user.reducer";
+
 /* NgRx */
 import { Store, select } from "@ngrx/store";
 
@@ -33,7 +35,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthService,
     private alertService: AlertService,
-    private store: Store<any>
+    private store: Store<fromUser.State>
   ) {
     this.authenticationService.currentUser.subscribe(
       (x) => (this.currentUser = x)
@@ -71,7 +73,7 @@ export class LoginComponent implements OnInit {
       email: values.email,
       password: values.password,
     };
-    this.store.dispatch({ type: "TOGGLE_PRODUCT_CODE" });
+    this.store.dispatch({ type: "user_dispatch" });
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {

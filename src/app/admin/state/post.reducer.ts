@@ -8,7 +8,7 @@ export interface PostsState {
 
 export function reducer(state, action) {
   switch (action.type) {
-    case "TOGGLE_PRODUCT_CODE":
+    case "POST_STORE":
       return {
         ...state,
         showProductCode: action.payload,

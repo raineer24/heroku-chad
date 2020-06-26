@@ -14,7 +14,13 @@ export interface UserState {
   errorMessage: string | null;
 }
 
-export function reducer(state: UserState, action): UserState {
+const initialState: UserState = {
+  isAuthenticated: false,
+  user: null,
+  errorMessage: null,
+};
+
+export function reducer(state = initialState, action): UserState {
   switch (action.type) {
     case "LOGIN_SUCCESS":
       return {

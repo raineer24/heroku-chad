@@ -1,5 +1,6 @@
 import { User } from "../../core/models/user";
 import * as fromRoot from "../../../app/state/app.state";
+import { UserActions, UserActionTypes } from "../state/user.action";
 
 export interface State extends fromRoot.State {
   users: UserState;
@@ -20,12 +21,16 @@ const initialState: UserState = {
   errorMessage: null,
 };
 
-export function reducer(state = initialState, action): UserState {
+export function reducer(state = initialState, action: UserActions): UserState {
   switch (action.type) {
-    case "LOGIN_SUCCESS":
+    case UserActionTypes.LOGIN_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
+        user: {
+          token: action.payload.token,
+          email: action.payload.email,
+        },
       };
     default:
       return state;

@@ -6,6 +6,7 @@ import { first } from "rxjs/operators";
 import { Subscription, BehaviorSubject, Observable } from "rxjs";
 import { User } from "../../../core/models/user";
 import { AlertService } from "../../../core/services/alert.service";
+import * as userActions from "../../state/user.action";
 
 import * as fromUser from "../../state/user.reducer";
 
@@ -69,19 +70,20 @@ export class LoginComponent implements OnInit {
     this.submitted = false;
     const values = this.loginForm.value;
     console.log(this.authenticationService.currentUserValue);
-    const data = {
+    const payload = {
       email: values.email,
       password: values.password,
     };
-    this.store.dispatch({ type: "user_dispatch" });
+    console.log(payload);
 
+    this.store.dispatch(new userActions.LogIn(payload));
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
     this.loading = true;
     this.loginSubs = this.authenticationService
-      .login(this.user.email, this.user.password)
+      .login(payload.email, payload.password)
       .pipe(first())
       .subscribe(
         (data) => {

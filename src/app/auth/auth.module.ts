@@ -22,6 +22,8 @@ import {
 } from "@angular/material";
 import { RegisterComponent } from "./pages";
 import { LoginComponent } from "./pages";
+import { EffectsModule } from "@ngrx/effects";
+import { UserEffects } from "../auth/state/user.effects";
 
 /* NgRx */
 import { StoreModule } from "@ngrx/store";
@@ -30,6 +32,7 @@ import { StoreModule } from "@ngrx/store";
   imports: [
     CommonModule,
     StoreModule.forFeature("users", reducer),
+    EffectsModule.forFeature([UserEffects]),
     AuthRoutingModule,
     MatCardModule,
     MatToolbarModule,

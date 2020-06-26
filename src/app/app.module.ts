@@ -35,10 +35,13 @@ import { CoreModule } from "./core/core.module";
 import { AdminModule } from "./admin/admin.module";
 import { AlertComponent } from "./shared/layout/alert/alert.component";
 import { LoadingService } from "./shared/layout/loading/loading.service";
+import { EffectsModule } from "@ngrx/effects";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    EffectsModule.forRoot([]),
     AppRoutingModule,
     MatCardModule,
     MatToolbarModule,

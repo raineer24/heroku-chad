@@ -1,4 +1,9 @@
 import { User } from "../../core/models/user";
+import * as fromRoot from "../../../app/state/app.state";
+
+export interface State extends fromRoot.State {
+  users: UserState;
+}
 
 export interface UserState {
   // is a user authenticated?
@@ -9,12 +14,12 @@ export interface UserState {
   errorMessage: string | null;
 }
 
-export function reducer(state, action) {
+export function reducer(state: UserState, action): UserState {
   switch (action.type) {
-    case "TOGGLE_PRODUCT_CODE":
+    case "LOGIN_SUCCESS":
       return {
         ...state,
-        showProductCode: action.payload,
+        isAuthenticated: true,
       };
     default:
       return state;

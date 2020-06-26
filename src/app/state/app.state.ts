@@ -1,3 +1,5 @@
+import { PostsState } from "../../app/admin/state/post.reducer";
+
 export interface State {
-  producst: any;
+  posts: PostsState;
 }

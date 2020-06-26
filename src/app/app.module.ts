@@ -6,6 +6,8 @@ import { HashLocationStrategy, LocationStrategy } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToastrModule } from "ngx-toastr";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { environment } from "../environments/environment";
 import {
   MatCardModule,
   MatToolbarModule,
@@ -53,6 +55,10 @@ import { LoadingService } from "./shared/layout/loading/loading.service";
     MatInputModule,
     CoreModule,
     StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
     AdminModule,
     ToastrModule.forRoot({
       positionClass: "toast-top-center",

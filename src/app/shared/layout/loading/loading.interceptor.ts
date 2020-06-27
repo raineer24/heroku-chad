@@ -5,7 +5,7 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpResponse
+  HttpResponse,
 } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
@@ -32,16 +32,15 @@ export class LoadingInterceptor implements HttpInterceptor {
     this.requests.push(req);
     console.log("No of requests--->" + this.requests.length);
     this.loadingService.isloading.next(true);
-    return Observable.create(observer => {
+    return Observable.create((observer) => {
       const subscription = next.handle(req).subscribe(
-        event => {
+        (event) => {
           if (event instanceof HttpResponse) {
             this.removeRequest(req);
             observer.next(event);
           }
         },
-        err => {
-          alert("error returned");
+        (err) => {
           this.removeRequest(req);
           observer.error(err);
         },

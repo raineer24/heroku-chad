@@ -6,6 +6,7 @@ import { Action } from "@ngrx/store";
 export enum UserActionTypes {
   LOGIN = "[User] Login",
   LOGIN_SUCCESS = "[USER] Login Success",
+  LoginFail = "[User] Login Fail",
 }
 
 export class LogIn implements Action {
@@ -19,4 +20,10 @@ export class LogInSuccess implements Action {
   constructor(public payload: User) {}
 }
 
-export type UserActions = LogIn | LogInSuccess;
+export class LoginFail implements Action {
+  readonly type = UserActionTypes.LoginFail;
+
+  constructor(public payload: string) {}
+}
+
+export type UserActions = LogIn | LogInSuccess | LoginFail;

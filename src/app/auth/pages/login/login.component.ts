@@ -19,6 +19,7 @@ import { Store, select } from "@ngrx/store";
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
+  errorMessage$: Observable<string>;
   loginForm: FormGroup;
   returnUrl: string;
   submitted = false;
@@ -48,6 +49,7 @@ export class LoginComponent implements OnInit {
       email: ["", Validators.required],
       password: ["", Validators.required],
     });
+    this.errorMessage$ = this.store.pipe(select(fromUser.getError));
     this.authenticationService.currentUserValue;
     this.authenticationService.logout();
 

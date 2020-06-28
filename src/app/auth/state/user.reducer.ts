@@ -13,7 +13,7 @@ export interface UserState {
   // if authenticated, there should be a user object
   user: User | null;
   // error message
-  errorMessage: string | null;
+  errorMessage: null;
 }
 
 const initialState: UserState = {
@@ -43,8 +43,12 @@ export function reducer(state = initialState, action: UserActions): UserState {
       };
 
     case UserActionTypes.LoginFail:
+      console.log("state", JSON.stringify(state));
+
+      console.log(action.payload);
       return {
         ...state,
+
         errorMessage: action.payload,
       };
 

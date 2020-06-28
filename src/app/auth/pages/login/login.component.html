@@ -2,7 +2,7 @@
   <span>Login</span>
 </mat-toolbar>
 <div *ngIf="errorMessage$ | async as errorMessage" class="alert alert-danger">
-  Error: {{ errorMessage }}
+  Error:: {{ errorMessage }}
 </div>
 <mat-card-content>
   <form class="my-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">

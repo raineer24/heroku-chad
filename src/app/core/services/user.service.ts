@@ -98,32 +98,31 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<any> {
-    const options = {
-      headers: new HttpHeaders({ "Content-Type": "application/json" }),
-    };
     const json = JSON.stringify({ email: email, password: password });
     const url = `${this.baseUrl}/api/v2/users/login`;
     //const url = `api/v2/users/login`;
-    return this.http.post<User>(url, json, options).pipe(
-      map((user) => {
-        console.log(user);
+    return this.http
+      .post<User>(url, json, { headers: this.headers })
+      .pipe(
+        map((user) => {
+          console.log(user);
 
-        if (user && user.token) {
-          console.log("user", user);
+          if (user && user.token) {
+            console.log("user", user);
 
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem("currentUser", JSON.stringify(user));
-          console.log(
-            "currentuser: ",
-            JSON.parse(localStorage.getItem("currentUser"))
-          );
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem("currentUser", JSON.stringify(user));
+            console.log(
+              "currentuser: ",
+              JSON.parse(localStorage.getItem("currentUser"))
+            );
 
-          this.currentUserSubject.next(user);
-        }
+            this.currentUserSubject.next(user);
+          }
 
-        return user;
-      })
-    );
+          return user;
+        })
+      );
   }
 
   logout() {

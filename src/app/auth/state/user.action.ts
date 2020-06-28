@@ -17,13 +17,13 @@ export class LogIn implements Action {
 
 export class LogInSuccess implements Action {
   readonly type = UserActionTypes.LOGIN_SUCCESS;
-  constructor(public payload: User) {}
+  constructor(public payload: any) {}
 }
 
 export class LoginFail implements Action {
   readonly type = UserActionTypes.LoginFail;
 
-  constructor(public payload: string) {}
+  constructor(public payload: any) {}
 }
 
 export type UserActions = LogIn | LogInSuccess | LoginFail;

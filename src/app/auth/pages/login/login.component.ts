@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
       password: ["", Validators.required],
     });
     this.errorMessage$ = this.store.pipe(select(fromUser.getError));
+    console.log(this.errorMessage$);
     this.authenticationService.currentUserValue;
     this.authenticationService.logout();
 
@@ -94,7 +95,11 @@ export class LoginComponent implements OnInit {
         },
         (error) => {
           //this.error = error;
+          console.log("err: ", error);
+
           this.alertService.error(error);
+          console.log(this.alertService.error(error));
+
           this.loading = false;
         }
       );

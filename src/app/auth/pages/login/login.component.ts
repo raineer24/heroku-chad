@@ -64,6 +64,14 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  // getErrorMessage() {
+  //   return this.loginForm.value.email.hasError("required")
+  //     ? "You must enter a value"
+  //     : this.loginForm.value.email.hasError("email")
+  //     ? "Not a valid email"
+  //     : "";
+  // }
+
   // convenience getter for easy access to form fields
   get f() {
     return this.loginForm.controls;
@@ -90,6 +98,8 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
+          console.log("data", data);
+
           this.router.navigate([this.returnUrl]);
           console.log(this.returnUrl);
         },
@@ -97,10 +107,10 @@ export class LoginComponent implements OnInit {
           //this.error = error;
           console.log("err: ", error);
 
-          this.alertService.error(error);
-          console.log(this.alertService.error(error));
+          // this.alertService.error(error);
+          // console.log(this.alertService.error(error));
 
-          this.loading = false;
+          // this.loading = false;
         }
       );
   }

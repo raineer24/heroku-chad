@@ -30,6 +30,37 @@ export class ErrorInterceptor implements HttpInterceptor {
             `Backend returned code ${err.status},` +
               `body was: ${JSON.stringify(err.error)}`
           );
+          console.log("errors: ", err.error);
+
+          const validationError = err.error.errors;
+
+          if (err.status === 422) {
+            console.log("validation", validationError);
+            if (Array.isArray(validationError)) {
+              console.log("array!");
+            }
+            validationError.forEach((element) => {
+              let x = element;
+              console.log("x", x);
+
+              return throwError(x);
+            });
+          }
+
+          // const extractedErrors = [];
+          // errors.array().map((err) =>
+          //   extractedErrors.push({
+          //     [err.param]: err.msg,
+          //   })array
+          // );error = element;
+
+          // Object.keys(validationErrors).forEach(prop => {
+          //   const formControl = this.form.get(prop);
+          //   if (formControl) {
+          //     formControl.setErrors({
+          //       serverError: validationErrors[prop]
+          //     });
+          //   }
         }
 
         if (err.status === 401) {

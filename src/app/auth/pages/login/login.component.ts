@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ["", Validators.required],
+      email: ["", Validators.required, Validators.email],
       password: ["", Validators.required],
     });
     this.errorMessage$ = this.store.pipe(select(fromUser.getError));
@@ -64,21 +64,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  // getErrorMessage() {
-  //   return this.loginForm.value.email.hasError("required")
-  //     ? "You must enter a value"
-  //     : this.loginForm.value.email.hasError("email")
-  //     ? "Not a valid email"
-  //     : "";
-  // }
-
   // convenience getter for easy access to form fields
   get f() {
     return this.loginForm.controls;
   }
 
   onSubmit() {
-    this.submitted = false;
+    this.submitted = true;
     const values = this.loginForm.value;
     console.log(this.authenticationService.currentUserValue);
     const payload = {
@@ -92,7 +84,8 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    this.loading = true;
+
+    this.loading = false;
     this.loginSubs = this.authenticationService
       .login(payload.email, payload.password)
       .pipe(first())

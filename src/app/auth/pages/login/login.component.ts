@@ -7,7 +7,8 @@ import { Subscription, BehaviorSubject, Observable } from "rxjs";
 import { User } from "../../../core/models/user";
 import { AlertService } from "../../../core/services/alert.service";
 import * as userActions from "../../state/user.action";
-
+import { HttpErrorResponse } from "@angular/common/http";
+import { map, tap, catchError } from "rxjs/operators";
 import * as fromUser from "../../state/user.reducer";
 
 /* NgRx */
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   user: User = new User();
 
-  error = "";
+  error: any;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -69,42 +70,61 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
+  protected handleSubmitError(error: HttpErrorResponse) {
+    console.log("error", error.status);
+  }
+
+  // onSubmit() {
+  //   this.submitted = true;
+  //   const values = this.loginForm.value;
+  //   console.log(this.authenticationService.currentUserValue);
+  //   const payload = {
+  //     email: values.email,
+  //     password: values.password,
+  //   };
+  //   console.log(payload);
+
+  //   this.store.dispatch(new userActions.LogIn(payload));
+  //   // stop here if form is invalid
+  //   if (this.loginForm.invalid) {
+  //     return;
+  //   }
+
+  //   // this.loading = false;
+  //   this.loginSubs = this.authenticationService
+  //     .login(payload.email, payload.password)
+  //     .pipe(first())
+  //     .subscribe(
+  //       (data) => {
+  //         console.log("data", data);
+
+  //         this.router.navigate([this.returnUrl]);
+  //         console.log(this.returnUrl);
+  //       },
+  //       (err) => {
+  //         console.error("error caught in component");
+  //         console.log("====================================");
+  //         console.log("err", err);
+  //         console.log("====================================");
+  //       }
+  //     );
+  // }
   onSubmit() {
-    this.submitted = true;
     const values = this.loginForm.value;
-    console.log(this.authenticationService.currentUserValue);
     const payload = {
       email: values.email,
       password: values.password,
     };
-    console.log(payload);
-
     this.store.dispatch(new userActions.LogIn(payload));
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    this.loading = false;
-    this.loginSubs = this.authenticationService
-      .login(payload.email, payload.password)
-      .pipe(first())
-      .subscribe(
-        (data) => {
-          console.log("data", data);
-
-          this.router.navigate([this.returnUrl]);
-          console.log(this.returnUrl);
-        },
-        (error) => {
-          //this.error = error;
-          console.log("err: ", error);
-
-          // this.alertService.error(error);
-          // console.log(this.alertService.error(error));
-
-          // this.loading = false;
-        }
-      );
+    this.authenticationService.login(payload.email, payload.password).subscribe(
+      (data) => {
+        this.router.navigate([this.returnUrl]);
+      },
+      (err: HttpErrorResponse) => {
+        console.log("====================================");
+        console.log(err);
+        console.log("====================================");
+      }
+    );
   }
 }

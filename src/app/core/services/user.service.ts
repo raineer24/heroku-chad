@@ -1,9 +1,14 @@
 import { Posts } from "./../models/posts";
 import { Injectable } from "@angular/core";
-import { Subject, Observable, BehaviorSubject } from "rxjs";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { Subject, Observable, BehaviorSubject, throwError } from "rxjs";
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpErrorResponse,
+} from "@angular/common/http";
 import { environment } from "../../../environments/environment";
-import { map, tap } from "rxjs/operators";
+import { map, tap, catchError } from "rxjs/operators";
 import { LoginComponent } from "src/app/auth/pages";
 import { User } from "../models/user";
 
@@ -121,6 +126,11 @@ export class AuthService {
           }
 
           return user;
+        }),
+        catchError((err: HttpErrorResponse) => {
+          console.log("err", err);
+
+          return throwError(err);
         })
       );
   }

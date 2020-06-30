@@ -20,63 +20,72 @@ export class ErrorInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
-      catchError((err: HttpErrorResponse) => {
-        console.log(err);
-
-        if (err.error instanceof ErrorEvent) {
-          console.log("error occured", err.error.message);
-        } else {
-          console.error(
-            `Backend returned code ${err.status},` +
-              `body was: ${JSON.stringify(err.error)}`
-          );
-          console.log("errors: ", err.error);
-
-          const validationError = err.error.errors;
-
-          if (err.status === 422) {
-            console.log("validation", validationError);
-            if (Array.isArray(validationError)) {
-              console.log("array!");
-            }
-            validationError.forEach((element) => {
-              let x = element;
-              console.log("x", x);
-
-              return throwError(x);
-            });
+      catchError((err) => {
+        //console.log("err.status", err.status);
+        if (err instanceof HttpErrorResponse) {
+          let errMsg: any;
+          errMsg = `${err.status} ${err.statusText}`;
+          if (err.status === 409) {
+            console.log("====================================");
+            console.log(typeof err.status);
+            console.log("====================================");
+            const error = err.error.message || err.statusText;
+            errMsg = `${err.error.message}`;
           }
-
-          // const extractedErrors = [];
-          // errors.array().map((err) =>
-          //   extractedErrors.push({
-          //     [err.param]: err.msg,
-          //   })array
-          // );error = element;
-
-          // Object.keys(validationErrors).forEach(prop => {
-          //   const formControl = this.form.get(prop);
-          //   if (formControl) {
-          //     formControl.setErrors({
-          //       serverError: validationErrors[prop]
-          //     });
-          //   }
+          return throwError(errMsg);
         }
 
-        if (err.status === 401) {
-          // auto logout if 401 response returned from api
+        // if (err.error instanceof ErrorEvent) {
+        //   console.log("error occured", err.error.message);
+        // } else {
+        //   console.error(
+        //     `Backend returned code ${err.status},` +
+        //       `body was: ${JSON.stringify(err.error)}`
+        //   );
+        //   console.log("errors: ", err);
 
-          this.authenticationService.logout();
-          HttpErrorResponse;
-          location.reload(true);
-        }
+        // const validationError = err.error.errors;
 
-        const error = err.error.message || err.statusText;
-        if (err.status === 422) {
-          console.log("error: ", err.error.errors[0]);
-        }
+        // if (err.status === 422) {
+        //   console.log("validation", validationError);
 
-        return throwError(error);
+        //   // const fields = Object.keys(validationError || {});
+        //   //console.log("fields", fields);
+        //   if (Array.isArray(validationError)) {
+        //     console.log("array!");
+        //   }
+        //   validationError.forEach((element) => {
+        //     let x = element;
+        //     console.log("x", x);
+
+        //     return throwError(x);
+        //   });
+        // }
+
+        // const extractedErrors = [];
+        // errors.array().map((err) =>
+        //   extractedErrors.push({
+        //     [err.param]: err.msg,
+        //   })array
+        // );error = element;
+
+        // Object.keys(validationErrors).forEach(prop => {
+        //   const formControl = this.form.get(prop);
+        //   if (formControl) {
+        //     formControl.setErrors({
+        //       serverError: validationErrors[prop]
+        //     });
+        //   }
+
+        // if (err.status === 401) {
+        //   // auto logout if 401 response returned from api
+
+        //   this.authenticationService.logout();
+
+        //   location.reload(true);
+        // }
+
+        // const error = err.error.message || err.statusText;
       })
     );
   }

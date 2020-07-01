@@ -49,7 +49,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthService,
     private alertService: AlertService,
-    private store: Store<fromUser.State>
+    private store: Store<fromUser.State>,
+    public errorService: ErrorService
   ) {
     this.authenticationService.currentUser.subscribe(
       (x) => (this.currentUser = x)
@@ -110,5 +111,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  protected onSubmitError(error) {}
+  protected onSubmitError(error) {
+    this.errorService.renderServerErrors(this.loginForm, error);
+  }
 }

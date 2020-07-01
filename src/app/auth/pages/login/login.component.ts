@@ -15,6 +15,7 @@ import * as userActions from "../../state/user.action";
 import { HttpErrorResponse } from "@angular/common/http";
 import { map, tap, catchError } from "rxjs/operators";
 import * as fromUser from "../../state/user.reducer";
+import { ErrorService } from "../../../core/services/error.service";
 
 /* NgRx */
 import { Store, select } from "@ngrx/store";
@@ -80,22 +81,6 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  protected handleSubmitError(error: HttpErrorResponse) {
-    if (error.status === 422) {
-      const data = error.error;
-
-      const fields = Object.keys(data || {});
-
-      fields.forEach((element: any) => {
-        console.log(element);
-      });
-    }
-  }
-
-  inputChanged(e) {
-    console.log(e.target.getAttribute("email")); // item_name
-  }
-
   // a field is correct only if it is filled and have no errors
   hasCorrectValue(form: FormGroup, fieldName: string) {
     const control = this.findFieldControl(form, fieldName);
@@ -110,62 +95,6 @@ export class LoginComponent implements OnInit {
     return form.get(fieldName);
   }
 
-  // protected findFieldControl(field: string) {
-  //   let control: AbstractControl;
-  // }
-
-  // private fetchFieldErrors(data: any, field: string): any {
-  //   const errors = {};
-  //   data[field].forEach((e) => {
-  //     console.log(e);
-  //   });
-  // }
-  // private fetchFieldErrors(data: any, field: string): any {
-  //   const errors = {};
-  //   data[field].forEach((e) => {
-  //     let name: string = e.error;
-  //     delete e.error;
-  //     errors[name] = e;
-  //   });
-  //   return errors;
-  // }
-
-  // onSubmit() {
-  //   this.submitted = true;
-  //   const values = this.loginForm.value;
-  //   console.log(this.authenticationService.currentUserValue);
-  //   const payload = {
-  //     email: values.email,
-  //     password: values.password,
-  //   };
-  //   console.log(payload);
-
-  //   this.store.dispatch(new userActions.LogIn(payload));
-  //   // stop here if form is invalid
-  //   if (this.loginForm.invalid) {
-  //     return;
-  //   }
-
-  //   // this.loading = false;
-  //   this.loginSubs = this.authenticationService
-  //     .login(payload.email, payload.password)
-  //     .pipe(first())
-  //     .subscribe(
-  //       (data) => {
-  //         console.log("data", data);
-
-  //         this.router.navigate([this.returnUrl]);
-  //         console.log(this.returnUrl);
-  //       },
-  //       (err) => {
-  //         console.error("error caught in component");
-  //         console.log("====================================");
-  //         console.log("err", err);
-  //         console.log("====================================");
-  //       }
-  //     );
-  // }
-
   onSubmit() {
     const values = this.loginForm.value;
     const payload = {
@@ -177,7 +106,9 @@ export class LoginComponent implements OnInit {
       (data) => {
         this.router.navigate([this.returnUrl]);
       },
-      (error) => this.handleSubmitError(error)
+      (error) => this.onSubmitError(error)
     );
   }
+
+  protected onSubmitError(error) {}
 }

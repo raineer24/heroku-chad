@@ -24,4 +24,37 @@ export class ErrorService {
       // [{ email: "Email is required" }, { password: "Password is required" }]
     }
   }
+
+  getFieldError(form: FormGroup, fieldName: string): string {
+    return this.getFieldErrors(form, fieldName)[0];
+  }
+
+  getFieldErrors(form: FormGroup, fieldName: string): string[] {
+    const control = this.findFieldControl(form, fieldName);
+    if (control && control.touched && control.errors) {
+      return this.getErrors(control);
+    } else {
+      return [];
+    }
+  }
+
+  getErrors(control: AbstractControl): string[] {
+    return Object.keys(control.errors)
+      .filter((error: any) => control.errors[error])
+      .map((error: any) => {
+        const params = control.errors[error];
+        return error;
+      });
+  }
+
+  private setFieldError(form: FormGroup, fieldName: string, message: string) {
+    const control = this.findFieldControl(form, fieldName);
+  }
+
+  private findFieldControl(
+    form: FormGroup,
+    fieldName: string
+  ): AbstractControl {
+    return form.get(fieldName);
+  }
 }

@@ -1,6 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from "@angular/forms";
 import { AuthService } from "../../../core/services/user.service";
 import { first } from "rxjs/operators";
 import { Subscription, BehaviorSubject, Observable } from "rxjs";
@@ -13,6 +18,11 @@ import * as fromUser from "../../state/user.reducer";
 
 /* NgRx */
 import { Store, select } from "@ngrx/store";
+
+// export interface FormError {
+//   error: string;
+//   params: any;
+// }
 
 @Component({
   selector: "app-login",
@@ -71,8 +81,54 @@ export class LoginComponent implements OnInit {
   }
 
   protected handleSubmitError(error: HttpErrorResponse) {
-    console.log("error", error.status);
+    if (error.status === 422) {
+      const data = error.error;
+
+      const fields = Object.keys(data || {});
+
+      fields.forEach((element: any) => {
+        console.log(element);
+      });
+    }
   }
+
+  inputChanged(e) {
+    console.log(e.target.getAttribute("email")); // item_name
+  }
+
+  // a field is correct only if it is filled and have no errors
+  hasCorrectValue(form: FormGroup, fieldName: string) {
+    const control = this.findFieldControl(form, fieldName);
+    console.log("control", control);
+    console.log("clicked");
+  }
+
+  private findFieldControl(
+    form: FormGroup,
+    fieldName: string
+  ): AbstractControl {
+    return form.get(fieldName);
+  }
+
+  // protected findFieldControl(field: string) {
+  //   let control: AbstractControl;
+  // }
+
+  // private fetchFieldErrors(data: any, field: string): any {
+  //   const errors = {};
+  //   data[field].forEach((e) => {
+  //     console.log(e);
+  //   });
+  // }
+  // private fetchFieldErrors(data: any, field: string): any {
+  //   const errors = {};
+  //   data[field].forEach((e) => {
+  //     let name: string = e.error;
+  //     delete e.error;
+  //     errors[name] = e;
+  //   });
+  //   return errors;
+  // }
 
   // onSubmit() {
   //   this.submitted = true;
@@ -109,6 +165,7 @@ export class LoginComponent implements OnInit {
   //       }
   //     );
   // }
+
   onSubmit() {
     const values = this.loginForm.value;
     const payload = {
@@ -120,11 +177,7 @@ export class LoginComponent implements OnInit {
       (data) => {
         this.router.navigate([this.returnUrl]);
       },
-      (err: HttpErrorResponse) => {
-        console.log("====================================");
-        console.log(err);
-        console.log("====================================");
-      }
+      (error) => this.handleSubmitError(error)
     );
   }
 }

@@ -9,7 +9,7 @@
     <mat-form-field class="full-width">
       <mat-label>Email</mat-label>
       <input matInput placeholder="Email" name="email" formControlName="email" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        [ngClass]="{ 'is-invalid': submitted && f.email.errors }" (input)="inputChanged($event)" />
       <mat-error *ngIf="loginForm.get('email')?.invalid">Please enter email</mat-error>
       <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
         <div *ngIf="f.email.errors.required">Email is required</div>

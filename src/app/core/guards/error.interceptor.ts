@@ -29,16 +29,10 @@ export class ErrorInterceptor implements HttpInterceptor {
           let errMsg: any;
 
           if (err.status === 422) {
-            console.log("====================================");
-            console.log(typeof err.status);
-            console.log("====================================");
             //const error = err.error.message || err.statusText;
             errMsg = err;
           }
           if (err.status === 409) {
-            console.log("====================================");
-            console.log(typeof err.status);
-            console.log("====================================");
             const error = err.error.message || err.statusText;
             errMsg = `${err.error.message}`;
           }

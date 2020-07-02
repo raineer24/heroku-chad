@@ -128,8 +128,6 @@ export class AuthService {
           return user;
         }),
         catchError((err: HttpErrorResponse) => {
-          console.log("err", err);
-
           return throwError(err);
         })
       );

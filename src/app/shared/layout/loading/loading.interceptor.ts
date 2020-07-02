@@ -30,7 +30,7 @@ export class LoadingInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     this.requests.push(req);
-    console.log("No of requests--->" + this.requests.length);
+
     this.loadingService.isloading.next(true);
     return Observable.create((observer) => {
       const subscription = next.handle(req).subscribe(
@@ -41,8 +41,6 @@ export class LoadingInterceptor implements HttpInterceptor {
           }
         },
         (err) => {
-          console.log(err);
-
           this.removeRequest(req);
           observer.error(err);
         },

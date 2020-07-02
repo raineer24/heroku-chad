@@ -23,9 +23,6 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((err) => {
         //console.log("err.status", err.status);
         if (err instanceof HttpErrorResponse) {
-          console.log("====================================");
-          console.log(err);
-          console.log("====================================");
           let errMsg: any;
 
           if (err.status === 422) {

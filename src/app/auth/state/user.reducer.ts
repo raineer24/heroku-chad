@@ -46,9 +46,9 @@ export function reducer(state = initialState, action: UserActions): UserState {
       };
 
     case UserActionTypes.LoginFail:
-      console.log("state");
+      //  console.log("state");
       const id = uuidv4();
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         ...state,
         id,

@@ -18,7 +18,7 @@ export class ErrorService {
         console.log("elements.email", elements.msg);
         const message = elements.msg;
         const fieldName = elements.param;
-        //this.setFieldError(form, fieldName, message);
+        this.setFieldError(form, fieldName, message);
 
         // for (const key in elements) {
         //   console.log("key", key);
@@ -43,7 +43,9 @@ export class ErrorService {
   }
 
   hasWrongValue(form: FormGroup, fieldName: string) {
-    return this.getFieldErrors(form, fieldName).length > 0;
+    console.log("getfielderrors", this.getFieldErrors(form, fieldName));
+
+    //return this.getFieldErrors(form, fieldName).length > 0;
   }
 
   getFieldError(form: FormGroup, fieldName: string): string {
@@ -52,10 +54,11 @@ export class ErrorService {
 
   getFieldErrors(form: FormGroup, fieldName: string): string[] {
     const control = this.findFieldControl(form, fieldName);
+    console.log("control", fieldName);
 
     if (control && control.touched && control.errors) {
-      console.log("control", control);
-      return this.getErrors(control);
+      //  console.log("control", control);
+      //return this.getErrors(control);
     } else {
       return [];
     }
@@ -73,6 +76,8 @@ export class ErrorService {
 
   private setFieldError(form: FormGroup, fieldName: string, message: string) {
     const control = this.findFieldControl(form, fieldName);
+    console.log("setfielderror", control);
+
     const errors = { [message]: true };
     control.setErrors(errors);
   }

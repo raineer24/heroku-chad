@@ -12,7 +12,7 @@
         [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
       <div [hidden]="!errorService.hasWrongValue(loginForm,'email')">
 
-        <span>{{!errorService.getFieldError(loginForm, 'email')}}</span></div>
+        <span>{{errorService.getFieldError(loginForm, 'email')}}</span></div>
       <mat-error *ngIf="loginForm.get('email')?.invalid">Please enter email</mat-error>
       <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
         <div *ngIf="f.email.errors.required">Email is required</div>

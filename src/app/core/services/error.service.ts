@@ -19,33 +19,14 @@ export class ErrorService {
         const message = elements.msg;
         const fieldName = elements.param;
         this.setFieldError(form, fieldName, message);
-
-        // for (const key in elements) {
-        //   console.log("key", key);
-        //   console.log("email", key);
-
-        //   if (elements.hasOwnProperty(key)) {
-        //     const element = elements[key];
-        //     console.log("element", element);
-        //   }
-        // }
       });
-      // [{ x: 100 }, { x: 200 }, { x: 300 }];
-      // [{ email: "Email is required" }, { password: "Password is required" }]
-      //       [
-      //     {
-      //       "type": "field-validation-error",
-      //       "field": "password",
-      //       "message": "Incorrect password"
-      //     }
-      //   ]
     }
   }
 
   hasWrongValue(form: FormGroup, fieldName: string) {
-    console.log("getfielderrors", this.getFieldErrors(form, fieldName));
+    //console.log("getfielderrors", this.getFieldErrors(form, fieldName));
 
-    //return this.getFieldErrors(form, fieldName).length > 0;
+    return this.getFieldErrors(form, fieldName).length > 0;
   }
 
   getFieldError(form: FormGroup, fieldName: string): string {
@@ -54,11 +35,11 @@ export class ErrorService {
 
   getFieldErrors(form: FormGroup, fieldName: string): string[] {
     const control = this.findFieldControl(form, fieldName);
-    console.log("control", fieldName);
+    console.log("[getFieldErrors]control", control);
 
-    if (control && control.touched && control.errors) {
-      //  console.log("control", control);
-      //return this.getErrors(control);
+    if (control.errors) {
+      console.log("get errors, control", control);
+      return this.getErrors(control);
     } else {
       return [];
     }
@@ -66,9 +47,14 @@ export class ErrorService {
 
   getErrors(control: AbstractControl): string[] {
     console.log("get Errors click");
+    const data = Object.keys(control.errors);
+    console.log("data", data);
+
     return Object.keys(control.errors)
       .filter((error: any) => control.errors[error])
       .map((error: any) => {
+        console.log("filter error", error);
+
         const params = control.errors[error];
         return error;
       });

@@ -7,6 +7,14 @@
 .full-width {
   width: 100%;
 }
+
 .login {
   margin-right: 9px;
+}
+
+mat-form-field span {
+  width: 300px;
+  float: left;
+  bottom: 33px;
+  position: absolute;
 }

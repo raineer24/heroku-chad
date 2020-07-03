@@ -6,6 +6,8 @@ import { isArray } from "util";
 export class ErrorService {
   constructor() {}
 
+  submitted: boolean = false;
+
   renderServerErrors(form: FormGroup, response: any) {
     if (response.status === 422) {
       const data = response.error.errors.errors;
@@ -30,14 +32,16 @@ export class ErrorService {
   }
 
   getFieldError(form: FormGroup, fieldName: string): string {
+    console.log("fielderro[0]", this.getFieldErrors(form, fieldName)[0]);
+
     return this.getFieldErrors(form, fieldName)[0];
   }
 
   getFieldErrors(form: FormGroup, fieldName: string): string[] {
     const control = this.findFieldControl(form, fieldName);
     console.log("[getFieldErrors]control", control);
-
-    if (control.errors) {
+    let data = Object.keys(control.errors);
+    if (control && control.touched && control.errors) {
       console.log("get errors, control", control);
       return this.getErrors(control);
     } else {
@@ -47,17 +51,27 @@ export class ErrorService {
 
   getErrors(control: AbstractControl): string[] {
     console.log("get Errors click");
+    console.log("controlla", control);
     const data = Object.keys(control.errors);
     console.log("data", data);
 
     return Object.keys(control.errors)
       .filter((error: any) => control.errors[error])
       .map((error: any) => {
-        console.log("filter error", error);
+        console.log("filter error", typeof error);
 
         const params = control.errors[error];
+        console.log("params", params);
         return error;
       });
+    // return Object.keys(control.errors)
+    //   .filter((error: any) => control.errors[error])
+    //   .map((error: any) => {
+    //     console.log("filter error", error);
+
+    //     const params = control.errors[error];
+    //     return error;
+    //   });
   }
 
   private setFieldError(form: FormGroup, fieldName: string, message: string) {
@@ -65,6 +79,7 @@ export class ErrorService {
     console.log("setfielderror", control);
 
     const errors = { [message]: true };
+    console.log("msg.errors", errors);
     control.setErrors(errors);
   }
 

@@ -43,6 +43,7 @@ export function reducer(state = initialState, action: UserActions): UserState {
           token: action.payload.token,
           email: action.payload.email,
         },
+        errorMessage: null,
       };
 
     case UserActionTypes.LoginFail:

@@ -1,9 +1,6 @@
 <mat-toolbar>
   <span>Login</span>
 </mat-toolbar>
-<div *ngIf="errorMessage$ | async as errorMessage" class="alert alert-danger">
-  Error:: {{ errorMessage }}
-</div>
 <mat-card-content>
   <form class="my-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="full-width">
@@ -13,17 +10,16 @@
 
         <span>{{errorService.getFieldError(loginForm, 'email')}}</span></div>
       <mat-error *ngIf="loginForm.get('email')?.invalid">Please enter email</mat-error>
-      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-        <div *ngIf="f.email.errors.required">Email is required</div>
-      </div>
+
     </mat-form-field>
     <mat-form-field class="full-width">
       <mat-label>Password</mat-label>
       <input matInput placeholder="Password" name="password" formControlName="password"
         [ngClass]="{ 'is-invalid': submitted && f.password.errors }" type="password" />
-      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-        <div *ngIf="f.password.errors.required">Password is required</div>
-      </div>
+      <div [hidden]="!errorService.hasWrongValue(loginForm,'password')">
+
+        <span>{{errorService.getFieldError(loginForm, 'password')}}</span></div>
+      <mat-error *ngIf="loginForm.get('password')?.invalid">Please enter password</mat-error>
     </mat-form-field>
     <mat-card-content>
       <button class="login" mat-raised-button color="primary">Login</button>Don't have an account?<a

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-
+import { Router } from "@angular/router";
 import { Observable, of, merge } from "rxjs";
-import { mergeMap, switchMap, map, catchError } from "rxjs/operators";
+import { mergeMap, switchMap, map, catchError, tap } from "rxjs/operators";
 
 import { AuthService } from "../../core/services/user.service";
 
@@ -12,7 +12,11 @@ import * as userActions from "../state/user.action";
 
 @Injectable()
 export class UserEffects {
-  constructor(private authService: AuthService, private actions$: Actions) {}
+  constructor(
+    private authService: AuthService,
+    private actions$: Actions,
+    private router: Router
+  ) {}
 
   @Effect()
   LogIn: Observable<any> = this.actions$.pipe(
@@ -29,6 +33,15 @@ export class UserEffects {
         }),
         catchError((err) => of(new userActions.LoginFail(err)))
       );
+    })
+  );
+
+  @Effect({ dispatch: false })
+  LogInSuccess: Observable<any> = this.actions$.pipe(
+    ofType(userActions.UserActionTypes.LOGIN_SUCCESS),
+    tap((user) => {
+      localStorage.setItem("token", user.payload.token);
+      this.router.navigateByUrl("/");
     })
   );
 }

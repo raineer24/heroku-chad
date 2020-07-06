@@ -8,6 +8,7 @@ export enum UserActionTypes {
   LOGIN_SUCCESS = "[USER] Login Success",
   LoginFail = "[User] Login Fail",
   SIGNUP = "[Auth] Signup",
+  SIGNUP_SUCCESS = "[Auth] Signup Success",
 }
 
 export class LogIn implements Action {
@@ -32,4 +33,14 @@ export class SignUp implements Action {
   constructor(public payload: any) {}
 }
 
-export type UserActions = LogIn | LogInSuccess | LoginFail | SignUp;
+export class SignUpSuccess implements Action {
+  readonly type = UserActionTypes.SIGNUP_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export type UserActions =
+  | LogIn
+  | LogInSuccess
+  | LoginFail
+  | SignUp
+  | SignUpSuccess;

@@ -56,6 +56,18 @@ export function reducer(state = initialState, action: UserActions): UserState {
         errorMessage: action.payload,
       };
 
+    case UserActionTypes.SIGNUP_SUCCESS: {
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: {
+          token: action.payload.token,
+          email: action.payload.email,
+        },
+        errorMessage: null,
+      };
+    }
+
     default:
       return state;
   }

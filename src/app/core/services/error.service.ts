@@ -32,14 +32,12 @@ export class ErrorService {
   }
 
   getFieldError(form: FormGroup, fieldName: string): string {
-    console.log("fielderro[0]", this.getFieldErrors(form, fieldName)[0]);
-
     return this.getFieldErrors(form, fieldName)[0];
   }
 
   getFieldErrors(form: FormGroup, fieldName: string): string[] {
     const control = this.findFieldControl(form, fieldName);
-    console.log("[getFieldErrors]control", control);
+
     let data = Object.keys(control.errors);
     if (control && control.touched && control.errors) {
       console.log("get errors, control", control);

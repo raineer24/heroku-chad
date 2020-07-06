@@ -53,9 +53,18 @@ export class UserEffects {
       return this.authService.registerUsers(payload).pipe(
         map((user) => {
           console.log("user", user);
-          //return new userActions
+          return new userActions.SignUpSuccess({ user });
         })
       );
+    })
+  );
+
+  @Effect({ dispatch: false })
+  SignUpSuccess: Observable<any> = this.actions$.pipe(
+    ofType(userActions.UserActionTypes.SIGNUP_SUCCESS),
+    tap((user) => {
+      localStorage.setItem("token", user.payload.token);
+      this.router.navigateByUrl("/");
     })
   );
 }

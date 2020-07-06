@@ -7,6 +7,7 @@ export enum UserActionTypes {
   LOGIN = "[User] Login",
   LOGIN_SUCCESS = "[USER] Login Success",
   LoginFail = "[User] Login Fail",
+  SIGNUP = "[Auth] Signup",
 }
 
 export class LogIn implements Action {
@@ -26,4 +27,9 @@ export class LoginFail implements Action {
   constructor(public payload: any) {}
 }
 
-export type UserActions = LogIn | LogInSuccess | LoginFail;
+export class SignUp implements Action {
+  readonly type = UserActionTypes.SIGNUP;
+  constructor(public payload: any) {}
+}
+
+export type UserActions = LogIn | LogInSuccess | LoginFail | SignUp;

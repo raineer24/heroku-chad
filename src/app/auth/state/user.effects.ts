@@ -44,4 +44,18 @@ export class UserEffects {
       this.router.navigateByUrl("/");
     })
   );
+
+  @Effect()
+  SignUp: Observable<any> = this.actions$.pipe(
+    ofType(userActions.UserActionTypes.SIGNUP),
+    map((action: userActions.SignUp) => action.payload),
+    switchMap((payload) => {
+      return this.authService.registerUsers(payload).pipe(
+        map((user) => {
+          console.log("user", user);
+          //return new userActions
+        })
+      );
+    })
+  );
 }

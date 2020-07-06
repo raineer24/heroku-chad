@@ -53,6 +53,7 @@ export class RegisterComponent implements OnInit {
       username: ["", Validators.required],
       first_name: ["", Validators.required],
       image: [null, Validators.required],
+      password2: [null, Validators.required],
     });
   }
 
@@ -67,13 +68,16 @@ export class RegisterComponent implements OnInit {
     this.fd.append("password", this.signUpForm.value.password);
     this.fd.append("username", this.signUpForm.value.username);
     this.fd.append("first_name", this.signUpForm.value.first_name);
+    this.fd.append("password2", this.signUpForm.value.password2);
+
+    console.log("email", this.signUpForm.value.email);
 
     if (this.signUpForm.valid) {
       const data = {
         email: values.email,
         password: values.password,
       };
-      this.store.dispatch(new userActions.LogIn(this.fd));
+      this.store.dispatch(new userActions.SignUp(this.fd));
       this.registerSubs = this.authService.registerUsers(this.fd).subscribe(
         (data) => {
           this.fd = new FormData();

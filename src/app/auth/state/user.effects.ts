@@ -67,4 +67,17 @@ export class UserEffects {
       this.router.navigateByUrl("/");
     })
   );
+
+  @Effect({ dispatch: false })
+  SignUpFailure: Observable<any> = this.actions$.pipe(
+    ofType(userActions.UserActionTypes.SIGNUP_FAILURE)
+  );
+
+  @Effect({ dispatch: false })
+  public LogOut: Observable<any> = this.actions$.pipe(
+    ofType(userActions.UserActionTypes.LOGOUT),
+    tap((user) => {
+      localStorage.removeItem("token");
+    })
+  );
 }

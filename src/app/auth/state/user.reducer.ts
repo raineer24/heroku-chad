@@ -68,6 +68,13 @@ export function reducer(state = initialState, action: UserActions): UserState {
       };
     }
 
+    case UserActionTypes.SIGNUP_FAILURE: {
+      return {
+        ...state,
+        errorMessage: action.payload,
+      };
+    }
+
     default:
       return state;
   }

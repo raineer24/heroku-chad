@@ -48,7 +48,6 @@ export class SignUpFailure implements Action {
 
 export class LogOut implements Action {
   readonly type = UserActionTypes.LOGOUT;
-  constructor(public payload: any) {}
 }
 
 export type UserActions =

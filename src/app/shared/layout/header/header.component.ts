@@ -15,7 +15,8 @@ export class HeaderComponent implements OnInit {
   currentUser: User;
   constructor(
     private router: Router,
-    private authenticationService: AuthService
+    private authenticationService: AuthService,
+    private store: Store<fromUser.State>
   ) {
     this.authenticationService.currentUser.subscribe(
       (x) => (this.currentUser = x)
@@ -25,6 +26,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {}
 
   logout() {
+    this.store.dispatch(new userActions.LogOut());
     this.authenticationService.logout();
     this.router.navigate(["/auth/login"]);
   }

@@ -78,18 +78,18 @@ export class RegisterComponent implements OnInit {
         password: values.password,
       };
       this.store.dispatch(new userActions.SignUp(this.fd));
-      this.registerSubs = this.authService.registerUsers(this.fd).subscribe(
-        (data) => {
-          this.fd = new FormData();
-          console.log(this.fd);
-          this.alertService.success("Registration successful", true);
-          this.router.navigate(["/auth/login"]);
-        },
-        (error) => {
-          this.alertService.error(error);
-          // this.loading = false;
-        }
-      );
+      // this.registerSubs = this.authService.registerUsers(this.fd).subscribe(
+      //   (data) => {
+      //     this.fd = new FormData();
+      //     console.log(this.fd);
+      //     this.alertService.success("Registration successful", true);
+      //     this.router.navigate(["/auth/login"]);
+      //   },
+      //   (error) => {
+      //     this.alertService.error(error);
+      //     // this.loading = false;
+      //   }
+      // );
     }
   }
 }

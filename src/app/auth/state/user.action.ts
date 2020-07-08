@@ -2,6 +2,7 @@ import { User } from "../../core/models/user";
 
 /* NgRx */
 import { Action } from "@ngrx/store";
+import { UserEffects } from "./user.effects";
 
 export enum UserActionTypes {
   LOGIN = "[User] Login",

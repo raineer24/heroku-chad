@@ -4,6 +4,7 @@ import { Observable, of, merge } from "rxjs";
 import { mergeMap, switchMap, map, catchError, tap } from "rxjs/operators";
 
 import { AuthService } from "../../core/services/user.service";
+import { AlertService } from "../../core/services/alert.service";
 
 /* NgRx */
 import { Action } from "@ngrx/store";
@@ -15,7 +16,8 @@ export class UserEffects {
   constructor(
     private authService: AuthService,
     private actions$: Actions,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) {}
 
   @Effect()
@@ -53,8 +55,12 @@ export class UserEffects {
       return this.authService.registerUsers(payload).pipe(
         map((user) => {
           console.log("user", user);
+          this.router.navigate(["/auth/login"]);
           return new userActions.SignUpSuccess({ user });
-        })
+        }),
+        catchError((error) =>
+          of(new userActions.SignUpFailure({ error: error }))
+        )
       );
     })
   );

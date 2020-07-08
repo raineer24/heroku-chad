@@ -6,6 +6,8 @@ import { HashLocationStrategy, LocationStrategy } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToastrModule } from "ngx-toastr";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { environment } from "../environments/environment";
 import {
   MatCardModule,
   MatToolbarModule,
@@ -14,9 +16,12 @@ import {
   MatListModule,
   MatButtonModule,
   MatInputModule,
-  MatExpansionModule
+  MatExpansionModule,
 } from "@angular/material";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+
+/* NgRx */
+import { StoreModule } from "@ngrx/store";
 
 import { ErrorInterceptor } from "./core/guards/error.interceptor";
 import { JwtInterceptor } from "./core/guards/jwt.interceptor";
@@ -30,10 +35,13 @@ import { CoreModule } from "./core/core.module";
 import { AdminModule } from "./admin/admin.module";
 import { AlertComponent } from "./shared/layout/alert/alert.component";
 import { LoadingService } from "./shared/layout/loading/loading.service";
+import { EffectsModule } from "@ngrx/effects";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    EffectsModule.forRoot([]),
     AppRoutingModule,
     MatCardModule,
     MatToolbarModule,
@@ -49,18 +57,23 @@ import { LoadingService } from "./shared/layout/loading/loading.service";
     MatExpansionModule,
     MatInputModule,
     CoreModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
     AdminModule,
     ToastrModule.forRoot({
-      positionClass: "toast-top-center"
-    })
+      positionClass: "toast-top-center",
+    }),
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    LoadingService
+    LoadingService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

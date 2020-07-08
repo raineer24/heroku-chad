@@ -11,7 +11,7 @@ import {
   PostsListComponent,
   PostCreateComponent,
   PostsDetailComponent,
-  PostsEditComponent
+  PostsEditComponent,
 } from "./pages";
 import { SharedModule } from "../shared";
 import {
@@ -24,8 +24,12 @@ import {
   MatExpansionModule,
   MatFormFieldModule,
   MatInputModule,
-  MatMenuModule
+  MatMenuModule,
 } from "@angular/material";
+
+/* NgRx */
+import { StoreModule } from "@ngrx/store";
+import { reducer } from "./state/post.reducer";
 import { AuthService } from "../core/services/user.service";
 
 @NgModule({
@@ -36,10 +40,11 @@ import { AuthService } from "../core/services/user.service";
     PostsListComponent,
     PostCreateComponent,
     PostsDetailComponent,
-    PostsEditComponent
+    PostsEditComponent,
   ],
   imports: [
     AdminRoutingModule,
+    StoreModule.forFeature("post", reducer),
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
@@ -54,8 +59,8 @@ import { AuthService } from "../core/services/user.service";
     UsersModule,
     CommonModule,
     SharedModule,
-    MatMenuModule
+    MatMenuModule,
   ],
-  providers: [AuthGuardService]
+  providers: [AuthGuardService],
 })
 export class AdminModule {}

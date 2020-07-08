@@ -4,14 +4,13 @@ import { LoadingService } from "./loading.service";
 @Component({
   selector: "app-loading",
   templateUrl: "./loading.component.html",
-  styleUrls: ["./loading.component.scss"]
+  styleUrls: ["./loading.component.scss"],
 })
 export class LoadingComponent implements OnInit {
   loading: boolean;
 
   constructor(private loadingService: LoadingService) {
-    this.loadingService.isloading.subscribe(v => {
-      console.log(v);
+    this.loadingService.isloading.subscribe((v) => {
       this.loading = v;
     });
   }

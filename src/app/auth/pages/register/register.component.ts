@@ -4,10 +4,14 @@ import { AuthService } from "../../../core/services/user.service";
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import { AlertService } from "../../../core/services/alert.service";
+import * as userActions from "../../state/user.action";
+import { Store } from "@ngrx/store";
+import * as fromUser from "../../state/user.reducer";
+
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"]
+  styleUrls: ["./register.component.scss"],
 })
 export class RegisterComponent implements OnInit {
   signUpForm: FormGroup;
@@ -19,7 +23,8 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private store: Store<fromUser.State>
   ) {
     this.initForm();
   }
@@ -38,16 +43,17 @@ export class RegisterComponent implements OnInit {
         "",
         Validators.compose([
           Validators.required,
-          Validators.pattern(this.emailPattern)
-        ])
+          Validators.pattern(this.emailPattern),
+        ]),
       ],
       password: [
         "",
-        Validators.compose([Validators.required, Validators.minLength(6)])
+        Validators.compose([Validators.required, Validators.minLength(6)]),
       ],
       username: ["", Validators.required],
       first_name: ["", Validators.required],
-      image: [null, Validators.required]
+      image: [null, Validators.required],
+      password2: [null, Validators.required],
     });
   }
 
@@ -62,25 +68,28 @@ export class RegisterComponent implements OnInit {
     this.fd.append("password", this.signUpForm.value.password);
     this.fd.append("username", this.signUpForm.value.username);
     this.fd.append("first_name", this.signUpForm.value.first_name);
+    this.fd.append("password2", this.signUpForm.value.password2);
+
+    console.log("email", this.signUpForm.value.email);
 
     if (this.signUpForm.valid) {
       const data = {
         email: values.email,
-        password: values.password
+        password: values.password,
       };
-
-      this.registerSubs = this.authService.registerUsers(this.fd).subscribe(
-        data => {
-          this.fd = new FormData();
-          console.log(this.fd);
-          this.alertService.success("Registration successful", true);
-          this.router.navigate(["/auth/login"]);
-        },
-        error => {
-          this.alertService.error(error);
-          // this.loading = false;
-        }
-      );
+      this.store.dispatch(new userActions.SignUp(this.fd));
+      // this.registerSubs = this.authService.registerUsers(this.fd).subscribe(
+      //   (data) => {
+      //     this.fd = new FormData();
+      //     console.log(this.fd);
+      //     this.alertService.success("Registration successful", true);
+      //     this.router.navigate(["/auth/login"]);
+      //   },
+      //   (error) => {
+      //     this.alertService.error(error);
+      //     // this.loading = false;
+      //   }
+      // );
     }
   }
 }

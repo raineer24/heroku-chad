@@ -1,17 +1,37 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from "@angular/forms";
 import { AuthService } from "../../../core/services/user.service";
 import { first } from "rxjs/operators";
 import { Subscription, BehaviorSubject, Observable } from "rxjs";
 import { User } from "../../../core/models/user";
 import { AlertService } from "../../../core/services/alert.service";
+import * as userActions from "../../state/user.action";
+import { HttpErrorResponse } from "@angular/common/http";
+import { map, tap, catchError } from "rxjs/operators";
+import * as fromUser from "../../state/user.reducer";
+import { ErrorService } from "../../../core/services/error.service";
+
+/* NgRx */
+import { Store, select } from "@ngrx/store";
+
+// export interface FormError {
+//   error: string;
+//   params: any;
+// }
+
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"]
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
+  errorMessage$: Observable<string>;
   loginForm: FormGroup;
   returnUrl: string;
   submitted = false;
@@ -20,24 +40,30 @@ export class LoginComponent implements OnInit {
   loginSubs: Subscription;
   currentUser: User;
 
-  error = "";
+  user: User = new User();
+
+  error: any;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private store: Store<fromUser.State>,
+    public errorService: ErrorService
   ) {
     this.authenticationService.currentUser.subscribe(
-      x => (this.currentUser = x)
+      (x) => (this.currentUser = x)
     );
   }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ["", Validators.required],
-      password: ["", Validators.required]
+      email: ["", Validators.required, Validators.email],
+      password: ["", Validators.required],
     });
+    this.errorMessage$ = this.store.pipe(select(fromUser.getError));
+    console.log(this.errorMessage$);
     this.authenticationService.currentUserValue;
     this.authenticationService.logout();
 
@@ -56,33 +82,36 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  onSubmit() {
-    this.submitted = false;
-    const values = this.loginForm.value;
-    console.log(this.authenticationService.currentUserValue);
-    const data = {
-      email: values.email,
-      password: values.password
-    };
+  // a field is correct only if it is filled and have no errors
+  hasCorrectValue(form: FormGroup, fieldName: string) {
+    const control = this.findFieldControl(form, fieldName);
+    console.log("control", control);
+    console.log("clicked");
+  }
 
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      return;
-    }
-    this.loading = true;
-    this.loginSubs = this.authenticationService
-      .login(data)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate([this.returnUrl]);
-          console.log(this.returnUrl);
-        },
-        error => {
-          //this.error = error;
-          this.alertService.error(error);
-          this.loading = false;
-        }
-      );
+  private findFieldControl(
+    form: FormGroup,
+    fieldName: string
+  ): AbstractControl {
+    return form.get(fieldName);
+  }
+
+  onSubmit() {
+    const values = this.loginForm.value;
+    const payload = {
+      email: values.email,
+      password: values.password,
+    };
+    this.store.dispatch(new userActions.LogIn(payload));
+    this.authenticationService.login(payload.email, payload.password).subscribe(
+      (data) => {
+        this.router.navigate([this.returnUrl]);
+      },
+      (error) => this.onSubmitError(error)
+    );
+  }
+
+  protected onSubmitError(error) {
+    this.errorService.renderServerErrors(this.loginForm, error);
   }
 }

@@ -16,6 +16,8 @@ export interface UserState {
   // error message
   errorMessage: null;
   id: null;
+  selectedUser: User;
+  loading: boolean;
 }
 
 const initialState: UserState = {
@@ -23,6 +25,8 @@ const initialState: UserState = {
   user: null,
   errorMessage: null,
   id: null,
+  selectedUser: null,
+  loading: false,
 };
 
 // Selector functions
@@ -35,6 +39,21 @@ export const getError = createSelector(
 
 export function reducer(state = initialState, action: UserActions): UserState {
   switch (action.type) {
+    case UserActionTypes.LOAD_PROFILE_FAILURE: {
+      return {
+        ...state,
+        loading: false,
+        errorMessage: action.payload,
+      };
+    }
+
+    case UserActionTypes.LOAD_PROFILE_SUCCESS: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
     case UserActionTypes.LOGIN_SUCCESS:
       return {
         ...state,

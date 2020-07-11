@@ -12,6 +12,25 @@ export enum UserActionTypes {
   SIGNUP_SUCCESS = "[Auth] Signup Success",
   SIGNUP_FAILURE = "[Auth] Signup Failure",
   LOGOUT = "[Auth] Logout",
+  LOAD_PROFILE_BEGIN = "[User] Load Profile begin",
+  LOAD_PROFILE_SUCCESS = "[User] Load Profile Success",
+  LOAD_PROFILE_FAILURE = "[User] Load Profile failure",
+}
+
+export class LoadProfileFailure implements Action {
+  readonly type = UserActionTypes.LOAD_PROFILE_FAILURE;
+
+  constructor(public payload?: any) {}
+}
+
+export class LoadProfileBegin implements Action {
+  readonly type = UserActionTypes.LOAD_PROFILE_BEGIN;
+}
+
+export class LoadProfileSuccess implements Action {
+  readonly type = UserActionTypes.LOAD_PROFILE_SUCCESS;
+
+  constructor(public payload: { data: any }) {}
 }
 
 export class LogIn implements Action {
@@ -57,4 +76,7 @@ export type UserActions =
   | SignUp
   | SignUpSuccess
   | SignUpFailure
-  | LogOut;
+  | LogOut
+  | LoadProfileBegin
+  | LoadProfileSuccess
+  | LoadProfileFailure;

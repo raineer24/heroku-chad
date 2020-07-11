@@ -37,6 +37,11 @@ export const getError = createSelector(
   (state) => state.errorMessage
 );
 
+export const getUserProfile = createSelector(
+  getUserFeatureState,
+  (state) => state.user
+);
+
 export function reducer(state = initialState, action: UserActions): UserState {
   switch (action.type) {
     case UserActionTypes.LOAD_PROFILE_FAILURE: {

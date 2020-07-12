@@ -22,12 +22,17 @@ export class UserEffects {
   ) {}
 
   @Effect()
-  loadProfile: Observable<any> = this.actions$.pipe(
+  loadProfile$: Observable<any> = this.actions$.pipe(
     ofType(userActions.UserActionTypes.LOAD_PROFILE_BEGIN),
 
-    switchMap(() => {
+    switchMap((action) => {
       return this.authService.currentUser.pipe(
-        map((data) => new userActions.LoadProfileSuccess(data)),
+        map((data) => {
+          console.log("map effect");
+          console.log("data", data["user"]);
+
+          new userActions.LoadProfileSuccess(data);
+        }),
         catchError((error) => of(new userActions.LoadProfileFailure(error)))
       );
     })

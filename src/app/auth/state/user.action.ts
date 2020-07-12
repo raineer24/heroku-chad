@@ -20,7 +20,7 @@ export enum UserActionTypes {
 export class LoadProfileFailure implements Action {
   readonly type = UserActionTypes.LOAD_PROFILE_FAILURE;
 
-  constructor(public payload?: any) {}
+  constructor(public payload: any) {}
 }
 
 export class LoadProfileBegin implements Action {

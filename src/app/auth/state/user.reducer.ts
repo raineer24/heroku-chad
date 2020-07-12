@@ -37,6 +37,8 @@ export const getError = createSelector(
   (state) => state.errorMessage
 );
 
+export const getProfile = (state: UserState) => state.user;
+
 export const getUserProfile = createSelector(
   getUserFeatureState,
   (state) => state.user
@@ -44,6 +46,12 @@ export const getUserProfile = createSelector(
 
 export function reducer(state = initialState, action: UserActions): UserState {
   switch (action.type) {
+    case UserActionTypes.LOAD_PROFILE_BEGIN: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
     case UserActionTypes.LOAD_PROFILE_FAILURE: {
       return {
         ...state,
@@ -53,9 +61,12 @@ export function reducer(state = initialState, action: UserActions): UserState {
     }
 
     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
+      console.log(state);
+
       return {
         ...state,
         loading: true,
+        user: action.payload,
       };
     }
 

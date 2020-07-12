@@ -30,7 +30,7 @@ export class LoadProfileBegin implements Action {
 export class LoadProfileSuccess implements Action {
   readonly type = UserActionTypes.LOAD_PROFILE_SUCCESS;
 
-  constructor(public payload: { data: any }) {}
+  constructor(public payload: any) {}
 }
 
 export class LogIn implements Action {

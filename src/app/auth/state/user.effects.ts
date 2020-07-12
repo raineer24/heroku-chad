@@ -8,8 +8,9 @@ import { AlertService } from "../../core/services/alert.service";
 
 /* NgRx */
 import { Action } from "@ngrx/store";
-import { Actions, Effect, ofType } from "@ngrx/effects";
+import { Actions, Effect, ofType, act } from "@ngrx/effects";
 import * as userActions from "../state/user.action";
+import { User } from "src/app/core/models/user";
 
 @Injectable()
 export class UserEffects {
@@ -21,11 +22,12 @@ export class UserEffects {
   ) {}
 
   @Effect()
-  loadProfile = this.actions$.pipe(
+  loadProfile: Observable<any> = this.actions$.pipe(
     ofType(userActions.UserActionTypes.LOAD_PROFILE_BEGIN),
+
     switchMap(() => {
       return this.authService.currentUser.pipe(
-        map((data) => new userActions.LoadProfileSuccess({ data: data })),
+        map((data) => new userActions.LoadProfileSuccess(data)),
         catchError((error) => of(new userActions.LoadProfileFailure(error)))
       );
     })

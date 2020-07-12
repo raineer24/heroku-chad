@@ -32,17 +32,28 @@ const initialState: UserState = {
 // Selector functions
 const getUserFeatureState = createFeatureSelector<UserState>("users");
 
-export const getError = createSelector(
-  getUserFeatureState,
-  (state) => state.errorMessage
-);
+export const getError = createSelector(getUserFeatureState, (state) => {
+  console.log(state);
+
+  return state.errorMessage;
+});
 
 export const getProfile = (state: UserState) => state.user;
 
-export const getUserProfile = createSelector(
-  getUserFeatureState,
-  (state) => state.user
-);
+export const getUserProfile = createSelector(getUserFeatureState, (state) => {
+  console.log(state);
+  return state.user;
+});
+
+// export const routerState = createSelector(
+//   (state: State) => state.router,
+//   (value) => value
+// );
+
+// export const getUserProfile = createSelector(
+//   (state: State) => state.users,
+//   (user) => user
+// );
 
 export function reducer(state = initialState, action: UserActions): UserState {
   switch (action.type) {

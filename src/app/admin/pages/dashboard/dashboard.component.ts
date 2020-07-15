@@ -28,13 +28,14 @@ export class DashboardComponent implements OnInit {
     //     this.currentUser = data["user"];
     //   }
     // );
+    this.store.select(fromUser.getProfile).subscribe((data) => {
+      console.log("data", data);
+    });
     this.store.dispatch(new userActions.LoadProfileBegin());
   }
 
   ngOnInit() {
     //console.log("profile", this.store.select(fromUser.getUserProfile));
-    this.store.select(fromUser.getUserProfile).subscribe((data) => {
-      console.log("data", data);
-    });
+    //console.log("this.store", this.store);
   }
 }

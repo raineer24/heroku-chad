@@ -38,12 +38,29 @@ export const getError = createSelector(getUserFeatureState, (state) => {
   return state.errorMessage;
 });
 
-export const getProfile = (state: UserState) => state.user;
+export const getProfile = createSelector(getUserFeatureState, (state) => {
+  console.log(state);
 
-export const getUserProfile = createSelector(getUserFeatureState, (state) => {
-  console.log(state.user);
   return state.user;
 });
+
+//export const getProfile = (state: UserState) => state.user;
+
+// export const getUserProfile = createSelector(
+//   getUserFeatureState,
+//   (state: any) => {
+//     console.log(state.user);
+//     return state.user;
+//   }
+// );
+
+export const getUserProfile = createSelector(
+  getUserFeatureState,
+  (state: any) => {
+    console.log(state);
+    return state.user;
+  }
+);
 
 // export const routerState = createSelector(
 //   (state: State) => state.router,
@@ -74,12 +91,15 @@ export function reducer(state = initialState, action: UserActions): UserState {
     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
       console.log(state);
 
-      return {
-        ...state,
-        isAuthenticated: true,
-        loading: true,
-        user: action.payload,
-      };
+      // return {
+      //   ...state,
+      //   isAuthenticated: true,
+      //   loading: true,
+      //   user: action.payload,
+      // };
+      return Object.assign({}, state, {
+        users: action.payload,
+      });
     }
 
     case UserActionTypes.LOGIN_SUCCESS:

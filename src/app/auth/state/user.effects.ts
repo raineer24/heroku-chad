@@ -25,13 +25,15 @@ export class UserEffects {
   loadProfile$: Observable<any> = this.actions$.pipe(
     ofType(userActions.UserActionTypes.LOAD_PROFILE_BEGIN),
 
-    switchMap((action) => {
+    switchMap(() => {
+      console.log("effects");
+
       return this.authService.currentUser.pipe(
         map((data) => {
           console.log("map effect");
           console.log("data", data["user"]);
 
-          new userActions.LoadProfileSuccess(data);
+          new userActions.LoadProfileSuccess(data["user"]);
         }),
         catchError((error) => of(new userActions.LoadProfileFailure(error)))
       );

@@ -31,7 +31,7 @@ export class UserEffects {
           console.log("map effect");
           console.log("data", data["user"]);
 
-          new userActions.LoadProfileSuccess(data);
+          return new userActions.LoadProfileSuccess(data["user"]);
         }),
         catchError((error) => of(new userActions.LoadProfileFailure(error)))
       );

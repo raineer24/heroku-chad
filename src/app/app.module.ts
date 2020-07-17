@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToastrModule } from "ngx-toastr";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
+import { reducer } from "../app/auth/state/user.reducer";
+import { UserEffects } from "../app/auth/state/user.effects";
 import {
   MatCardModule,
   MatToolbarModule,
@@ -41,7 +43,7 @@ import { EffectsModule } from "@ngrx/effects";
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    EffectsModule.forRoot([]),
+    //EffectsModule.forRoot([]),
     AppRoutingModule,
     MatCardModule,
     MatToolbarModule,
@@ -57,7 +59,10 @@ import { EffectsModule } from "@ngrx/effects";
     MatExpansionModule,
     MatInputModule,
     CoreModule,
+    EffectsModule.forRoot([]),
     StoreModule.forRoot({}),
+    StoreModule.forFeature("users", reducer),
+    EffectsModule.forFeature([UserEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

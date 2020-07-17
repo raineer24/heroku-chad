@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit {
     //console.log("profile", this.store.select(fromUser.getUserProfile));
     this.store.select(fromUser.getUserProfile).subscribe((data) => {
       console.log("data", data);
+      this.currentUser = data;
     });
   }
 }

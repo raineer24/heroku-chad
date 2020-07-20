@@ -38,9 +38,9 @@ export class ErrorService {
   getFieldErrors(form: FormGroup, fieldName: string): string[] {
     const control = this.findFieldControl(form, fieldName);
 
-    let data = Object.keys(control.errors);
+    //let data = Object.keys(control.errors);
     if (control && control.touched && control.errors) {
-      console.log("get errors, control", control);
+      // console.log("get errors, control", control);
       return this.getErrors(control);
     } else {
       return [];
@@ -49,17 +49,17 @@ export class ErrorService {
 
   getErrors(control: AbstractControl): string[] {
     console.log("get Errors click");
-    console.log("controlla", control);
+    //console.log("controlla", control);
     const data = Object.keys(control.errors);
-    console.log("data", data);
+    // console.log("data", data);
 
     return Object.keys(control.errors)
       .filter((error: any) => control.errors[error])
       .map((error: any) => {
-        console.log("filter error", typeof error);
+        //console.log("filter error", typeof error);
 
         const params = control.errors[error];
-        console.log("params", params);
+        // console.log("params", params);
         return error;
       });
     // return Object.keys(control.errors)

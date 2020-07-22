@@ -48,7 +48,7 @@ export class ErrorService {
   }
 
   getErrors(control: AbstractControl): string[] {
-    console.log("get Errors click");
+    //console.log("get Errors click");
     //console.log("controlla", control);
     const data = Object.keys(control.errors);
     // console.log("data", data);

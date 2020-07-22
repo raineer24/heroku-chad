@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ["", Validators.required, Validators.email],
+      email: ["", [Validators.required, Validators.email]],
       password: ["", Validators.required],
     });
     this.errorMessage$ = this.store.pipe(select(fromUser.getError));

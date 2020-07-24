@@ -1,7 +1,16 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, of, merge } from "rxjs";
-import { mergeMap, switchMap, map, catchError, tap } from "rxjs/operators";
+import {
+  mergeMap,
+  switchMap,
+  map,
+  catchError,
+  tap,
+  concatMap,
+  flatMap,
+  take,
+} from "rxjs/operators";
 
 import { AuthService } from "../../core/services/user.service";
 import { AlertService } from "../../core/services/alert.service";
@@ -25,8 +34,9 @@ export class UserEffects {
   loadProfile$: Observable<any> = this.actions$.pipe(
     ofType(userActions.UserActionTypes.LOAD_PROFILE_BEGIN),
 
-    switchMap((action) => {
+    mergeMap(() => {
       return this.authService.currentUser.pipe(
+        take(1),
         map((data) => {
           console.log("map effect");
           console.log("data", data["user"]);

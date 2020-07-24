@@ -5,7 +5,7 @@ import { Store, select } from "@ngrx/store";
 import * as fromUser from "../../../auth/state/user.reducer";
 import * as userActions from "../../../auth/state/user.action";
 import { Subscription, Observable } from "rxjs";
-
+import { skipWhile, skip, take } from "rxjs/operators";
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -32,10 +32,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log("profile", this.store.select(fromUser.getUserProfile));
     this.store.select(fromUser.getUserProfile).subscribe((data) => {
       console.log("data", data);
       this.currentUser = data;
     });
+    //console.log("profile", this.store.select(fromUser.getUserProfile));
   }
 }

@@ -61,8 +61,8 @@ import { EffectsModule } from "@ngrx/effects";
     CoreModule,
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}),
-    StoreModule.forFeature("users", reducer),
-    EffectsModule.forFeature([UserEffects]),
+    //StoreModule.forFeature("users", reducer),
+    //EffectsModule.forFeature([UserEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

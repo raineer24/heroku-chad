@@ -41,7 +41,7 @@ export const getError = createSelector(getUserFeatureState, (state) => {
 export const getProfile = (state: UserState) => state.user;
 
 export const getUserProfile = createSelector(getUserFeatureState, (state) => {
-  console.log(state.user);
+  //  console.log(state.user);
   return state.user;
 });
 
@@ -72,11 +72,11 @@ export function reducer(state = initialState, action: UserActions): UserState {
     }
 
     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
-      console.log(state);
+      //console.log(state);
 
       return {
         ...state,
-        isAuthenticated: true,
+        //isAuthenticated: true,
         loading: true,
         user: action.payload,
       };

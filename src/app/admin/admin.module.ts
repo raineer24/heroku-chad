@@ -29,8 +29,11 @@ import {
 
 /* NgRx */
 import { StoreModule } from "@ngrx/store";
-import { reducer } from "./state/post.reducer";
+//import { reducer } from "./state/post.reducer";
+import { reducer } from "../auth/state/user.reducer";
 import { AuthService } from "../core/services/user.service";
+import { EffectsModule } from "@ngrx/effects";
+import { UserEffects } from "../auth/state/user.effects";
 
 @NgModule({
   declarations: [
@@ -44,7 +47,8 @@ import { AuthService } from "../core/services/user.service";
   ],
   imports: [
     AdminRoutingModule,
-    StoreModule.forFeature("post", reducer),
+    StoreModule.forFeature("users", reducer),
+    EffectsModule.forFeature([UserEffects]),
     MatCardModule,
     MatToolbarModule,
     MatIconModule,

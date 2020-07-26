@@ -32,6 +32,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    const user_id = JSON.parse(localStorage.getItem("currentUser")).user.id;
+    console.log("user_id", user_id);
+
     this.store.select(fromUser.getUserProfile).subscribe((data) => {
       console.log("data", data);
       this.currentUser = data;

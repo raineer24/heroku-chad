@@ -7,7 +7,6 @@
       <mat-label>Email</mat-label>
       <input matInput placeholder="Email" name="email" formControlName="email" />
       <div [hidden]="!errorService.hasWrongValue(loginForm,'email')">
-
         <span>{{errorService.getFieldError(loginForm, 'email')}}</span></div>
       <mat-error *ngIf="loginForm.get('email')?.invalid">Please enter email</mat-error>
     </mat-form-field>

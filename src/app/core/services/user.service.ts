@@ -67,18 +67,24 @@ export class AuthService {
    * @memberof UserService
    */
   getUserDetail(id): Observable<any> {
+    const token = JSON.parse(localStorage.getItem("currentUser")).token;
+    console.log("token", token);
+
     //const user_id = JSON.parse(localStorage.getItem("currentUser")).user.id;
     const url = `/api/v2/users/${id}`;
-    return this.http.get(url).pipe(
-      map((user) => {
-        console.log("user", user);
 
-        return user;
-      }),
-      catchError((err: HttpErrorResponse) => {
-        return throwError(err);
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
       })
-    );
+      .pipe(
+        map((user) => {
+          console.log("user", user);
+
+          return user;
+        }),
+        catchError(this.errorMgmt)
+      );
   }
 
   getPosts(): Observable<Posts[]> {
@@ -160,5 +166,21 @@ export class AuthService {
 
     localStorage.removeItem("currentUser");
     this.currentUserSubject.next(null);
+  }
+
+  // error handling
+  errorMgmt(error: HttpErrorResponse) {
+    let errorMessage = "";
+    console.log("error", error);
+
+    if (error.error instanceof ErrorEvent) {
+      // get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
   }
 }

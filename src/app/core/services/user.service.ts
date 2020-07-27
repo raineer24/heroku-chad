@@ -66,12 +66,12 @@ export class AuthService {
    *
    * @memberof UserService
    */
-  getUserDetail(id): Observable<any> {
+  getUserDetail(): Observable<any> {
     const token = JSON.parse(localStorage.getItem("currentUser")).token;
     console.log("token", token);
 
-    //const user_id = JSON.parse(localStorage.getItem("currentUser")).user.id;
-    const url = `/api/v2/users/${id}`;
+    const user_id = JSON.parse(localStorage.getItem("currentUser")).user.id;
+    const url = `/api/v2/users/${user_id}`;
 
     return this.http
       .get(url, {

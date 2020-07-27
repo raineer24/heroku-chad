@@ -59,6 +59,28 @@ export class AuthService {
   //   return this.http.get<Posts[]>(url);
   // }
 
+  /**
+   *
+   *
+   * @returns {Observable<Order[]>}
+   *
+   * @memberof UserService
+   */
+  getUserDetail(id): Observable<any> {
+    //const user_id = JSON.parse(localStorage.getItem("currentUser")).user.id;
+    const url = `/api/v2/users/${id}`;
+    return this.http.get(url).pipe(
+      map((user) => {
+        console.log("user", user);
+
+        return user;
+      }),
+      catchError((err: HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
+  }
+
   getPosts(): Observable<Posts[]> {
     // const url = `${this.baseUrl}/api/v2/blogs`;
     const url = `api/v2/blogs`;

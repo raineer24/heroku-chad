@@ -17,6 +17,15 @@ export class DashboardComponent implements OnInit {
   currentUserSubscription: Subscription;
   users: User[] = [];
   profile$: Observable<User>;
+  userData: {
+    id: string;
+    email: string;
+    lastName: string;
+    firstName: string;
+    gender: string;
+    mobileNumber: string;
+    birthdate: string;
+  };
 
   constructor(
     private authenticationService: AuthService,

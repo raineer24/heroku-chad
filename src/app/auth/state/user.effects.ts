@@ -47,14 +47,13 @@ export class UserEffects {
     //   );
     // })
 
-    mergeMap((payload) => {
+    mergeMap(() => {
       return this.authService.getUserDetail().pipe(
         take(1),
         map((data) => {
           console.log("map effect");
-          console.log("data", data["user"]);
-
-          return new userActions.LoadProfileSuccess(data["user"]);
+          return new userActions.LoadProfileSuccess(data);
+          //return new userActions.LoadProfileSuccess(data["user"]);
         }),
         catchError((error) => of(new userActions.LoadProfileFailure(error)))
       );

@@ -5,7 +5,7 @@ import { Store, select } from "@ngrx/store";
 import * as fromUser from "../../../auth/state/user.reducer";
 import * as userActions from "../../../auth/state/user.action";
 import { Subscription, Observable } from "rxjs";
-import { skipWhile, skip, take } from "rxjs/operators";
+import { skipWhile, skip, take, filter } from "rxjs/operators";
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -13,18 +13,12 @@ import { skipWhile, skip, take } from "rxjs/operators";
 })
 export class DashboardComponent implements OnInit {
   title = "";
-  currentUser: User;
+  currentUser: any;
   currentUserSubscription: Subscription;
   users: User[] = [];
   profile$: Observable<User>;
   userData: {
-    id: string;
-    email: string;
-    lastName: string;
-    firstName: string;
-    gender: string;
-    mobileNumber: string;
-    birthdate: string;
+    first_name: string;
   };
 
   constructor(
@@ -38,20 +32,20 @@ export class DashboardComponent implements OnInit {
     //   }
     // );
     this.store.dispatch(new userActions.LoadProfileBegin());
+    this.store
+      .pipe(
+        select(fromUser.getUserProfile),
+        filter((user) => !!user)
+      )
+      .subscribe((data) => {
+        console.log("data: ", data.user_profile[0]);
+        this.currentUser = data;
+
+        // console.log("data1", this.currentUser);
+      });
   }
 
   ngOnInit() {
-    const user_id = JSON.parse(localStorage.getItem("currentUser")).user.id;
-    console.log("user_id", user_id);
-
-    this.authenticationService.getUserDetail(user_id).subscribe((data) => {
-      console.log("data", data);
-    });
-
-    this.store.select(fromUser.getUserProfile).subscribe((data) => {
-      console.log("data", data);
-      this.currentUser = data;
-    });
     //console.log("profile", this.store.select(fromUser.getUserProfile));
   }
 }

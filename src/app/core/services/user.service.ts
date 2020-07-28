@@ -62,15 +62,15 @@ export class AuthService {
   /**
    *
    *
-   * @returns {Observable<Order[]>}
+   * @returns {Observable<User[]>}
    *
    * @memberof UserService
    */
   getUserDetail(): Observable<any> {
-    const token = JSON.parse(localStorage.getItem("currentUser")).token;
-    console.log("token", token);
+    //  console.log("token", token);
 
     const user_id = JSON.parse(localStorage.getItem("currentUser")).user.id;
+    const token = JSON.parse(localStorage.getItem("currentUser")).token;
     const url = `/api/v2/users/${user_id}`;
 
     return this.http
@@ -79,9 +79,9 @@ export class AuthService {
       })
       .pipe(
         map((user) => {
-          console.log("user", user);
+          console.log("user", user["user"]);
 
-          return user;
+          return user["user"];
         }),
         catchError(this.errorMgmt)
       );

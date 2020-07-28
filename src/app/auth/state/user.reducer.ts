@@ -72,11 +72,11 @@ export function reducer(state = initialState, action: UserActions): UserState {
     }
 
     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
-      //console.log(state);
+      console.log(state);
 
       return {
         ...state,
-        //isAuthenticated: true,
+        isAuthenticated: true,
         loading: true,
         user: action.payload,
       };

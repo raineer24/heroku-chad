@@ -31,7 +31,7 @@ import { StoreModule } from "@ngrx/store";
   declarations: [RegisterComponent, LoginComponent],
   imports: [
     CommonModule,
-    StoreModule.forFeature("users", reducer),
+    StoreModule.forFeature("auth", reducer),
     EffectsModule.forFeature([AuthEffects]),
     AuthRoutingModule,
     MatCardModule,

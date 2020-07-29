@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { User } from "../../../core/models/user";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select } from "@ngrx/store";
-import * as fromUser from "../../../auth/state/auth.reducer";
+import * as fromAuth from "../../../auth/state/auth.reducer";
 import * as userActions from "../../../auth/state/auth.action";
 import { Subscription, Observable } from "rxjs";
 import { skipWhile, skip, take, filter } from "rxjs/operators";
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthService,
-    private store: Store<fromUser.State>
+    private store: Store<fromAuth.State>
   ) {
     // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
     //   (user) => {
@@ -33,12 +33,10 @@ export class DashboardComponent implements OnInit {
     //     this.currentUser = data["user"];
     //   }
     // );
-    this.store.dispatch(new userActions.LoadProfileBegin());
+    //this.store.dispatch(new userActions.LoadProfileBegin());
     this.store
-      .pipe(
-        select(fromUser.getUserProfile),
-        filter((user) => !!user)
-      )
+      .select(fromAuth.getUserProfile)
+
       .subscribe((data) => {
         console.log("data: ", data);
         this.currentUser = data;

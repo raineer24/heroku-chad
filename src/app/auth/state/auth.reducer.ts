@@ -5,10 +5,10 @@ import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { v4 as uuidv4 } from "uuid";
 
 export interface State extends fromRoot.State {
-  users: UserState;
+  auth: AuthState;
 }
 
-export interface UserState {
+export interface AuthState {
   // is a user authenticated?
   isAuthenticated: boolean;
   // if authenticated, there should be a user object
@@ -21,7 +21,7 @@ export interface UserState {
   //userprofile: User | null;
 }
 
-const initialState: UserState = {
+const initialState: AuthState = {
   isAuthenticated: false,
   user: null,
   errorMessage: null,
@@ -32,17 +32,17 @@ const initialState: UserState = {
 };
 
 // Selector functions
-const getUserFeatureState = createFeatureSelector<UserState>("users");
+const getAuthFeatureState = createFeatureSelector<AuthState>("auth");
 
-export const getError = createSelector(getUserFeatureState, (state) => {
+export const getError = createSelector(getAuthFeatureState, (state) => {
   console.log(state);
 
   return state.errorMessage;
 });
 
-export const getProfile = (state: UserState) => state.user;
+export const getProfile = (state: AuthState) => state.user;
 
-export const getUserProfile = createSelector(getUserFeatureState, (state) => {
+export const getUserProfile = createSelector(getAuthFeatureState, (state) => {
   console.log("state", state.user);
   return state.user;
 });
@@ -57,7 +57,7 @@ export const getUserProfile = createSelector(getUserFeatureState, (state) => {
 //   (user) => user
 // );
 
-export function reducer(state = initialState, action: AuthActions): UserState {
+export function reducer(state = initialState, action: AuthActions): AuthState {
   switch (action.type) {
     case AuthActionTypes.LOAD_PROFILE_BEGIN: {
       return {

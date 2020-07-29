@@ -35,7 +35,7 @@ export class AuthEffects {
     ofType(AuthActions.AuthActionTypes.LOAD_PROFILE_BEGIN),
 
     switchMap(() => {
-      return this.authService.getUserDetail().pipe(
+      return this.authService.currentUser.pipe(
         take(1),
         map((data) => {
           console.log("map effect");

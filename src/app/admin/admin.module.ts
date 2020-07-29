@@ -30,10 +30,10 @@ import {
 /* NgRx */
 import { StoreModule } from "@ngrx/store";
 //import { reducer } from "./state/post.reducer";
-import { reducer } from "../auth/state/auth.reducer";
+import { reducer } from "../admin/state/user.reducer";
 import { AuthService } from "../core/services/user.service";
 import { EffectsModule } from "@ngrx/effects";
-import { UserEffects } from "../auth/state/auth.effects";
+import { UserEffects } from "../admin/state/user.effects";
 
 @NgModule({
   declarations: [

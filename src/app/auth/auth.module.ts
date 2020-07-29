@@ -23,7 +23,7 @@ import {
 import { RegisterComponent } from "./pages";
 import { LoginComponent } from "./pages";
 import { EffectsModule } from "@ngrx/effects";
-import { UserEffects } from "./state/auth.effects";
+import { AuthEffects } from "./state/auth.effects";
 
 /* NgRx */
 import { StoreModule } from "@ngrx/store";
@@ -32,7 +32,7 @@ import { StoreModule } from "@ngrx/store";
   imports: [
     CommonModule,
     StoreModule.forFeature("users", reducer),
-    EffectsModule.forFeature([UserEffects]),
+    EffectsModule.forFeature([AuthEffects]),
     AuthRoutingModule,
     MatCardModule,
     MatToolbarModule,

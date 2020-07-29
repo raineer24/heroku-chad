@@ -1,9 +1,9 @@
-import { Posts } from "../../core/models/posts";
+import { User } from "../../core/models/user";
 
 // State for this feature (User)
-export interface PostsState {
-  maskUserName: boolean;
-  currentUser: Posts;
+export interface UsersState {
+  // maskUserName: boolean;
+  // currentUser: User;
 }
 
 export function reducer(state, action) {

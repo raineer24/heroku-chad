@@ -2,9 +2,9 @@ import { User } from "../../core/models/user";
 
 /* NgRx */
 import { Action } from "@ngrx/store";
-import { UserEffects } from "./auth.effects";
+import { AuthEffects } from "./auth.effects";
 
-export enum UserActionTypes {
+export enum AuthActionTypes {
   LOGIN = "[User] Login",
   LOGIN_SUCCESS = "[USER] Login Success",
   LoginFail = "[User] Login Fail",
@@ -18,58 +18,58 @@ export enum UserActionTypes {
 }
 
 export class LoadProfileFailure implements Action {
-  readonly type = UserActionTypes.LOAD_PROFILE_FAILURE;
+  readonly type = AuthActionTypes.LOAD_PROFILE_FAILURE;
 
   constructor(public payload: any) {}
 }
 
 export class LoadProfileBegin implements Action {
-  readonly type = UserActionTypes.LOAD_PROFILE_BEGIN;
+  readonly type = AuthActionTypes.LOAD_PROFILE_BEGIN;
 }
 
 export class LoadProfileSuccess implements Action {
-  readonly type = UserActionTypes.LOAD_PROFILE_SUCCESS;
+  readonly type = AuthActionTypes.LOAD_PROFILE_SUCCESS;
 
   constructor(public payload: any) {}
 }
 
 export class LogIn implements Action {
-  readonly type = UserActionTypes.LOGIN;
+  readonly type = AuthActionTypes.LOGIN;
 
   constructor(public payload: any) {}
 }
 
 export class LogInSuccess implements Action {
-  readonly type = UserActionTypes.LOGIN_SUCCESS;
+  readonly type = AuthActionTypes.LOGIN_SUCCESS;
   constructor(public payload: any) {}
 }
 
 export class LoginFail implements Action {
-  readonly type = UserActionTypes.LoginFail;
+  readonly type = AuthActionTypes.LoginFail;
 
   constructor(public payload: any) {}
 }
 
 export class SignUp implements Action {
-  readonly type = UserActionTypes.SIGNUP;
+  readonly type = AuthActionTypes.SIGNUP;
   constructor(public payload: any) {}
 }
 
 export class SignUpSuccess implements Action {
-  readonly type = UserActionTypes.SIGNUP_SUCCESS;
+  readonly type = AuthActionTypes.SIGNUP_SUCCESS;
   constructor(public payload: any) {}
 }
 
 export class SignUpFailure implements Action {
-  readonly type = UserActionTypes.SIGNUP_FAILURE;
+  readonly type = AuthActionTypes.SIGNUP_FAILURE;
   constructor(public payload: any) {}
 }
 
 export class LogOut implements Action {
-  readonly type = UserActionTypes.LOGOUT;
+  readonly type = AuthActionTypes.LOGOUT;
 }
 
-export type UserActions =
+export type AuthActions =
   | LogIn
   | LogInSuccess
   | LoginFail

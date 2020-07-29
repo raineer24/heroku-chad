@@ -1,6 +1,6 @@
 import { User } from "../../core/models/user";
 import * as fromRoot from "../../state/app.state";
-import { UserActions, UserActionTypes } from "./auth.action";
+import { AuthActions, AuthActionTypes } from "./auth.action";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { v4 as uuidv4 } from "uuid";
 
@@ -57,15 +57,15 @@ export const getUserProfile = createSelector(getUserFeatureState, (state) => {
 //   (user) => user
 // );
 
-export function reducer(state = initialState, action: UserActions): UserState {
+export function reducer(state = initialState, action: AuthActions): UserState {
   switch (action.type) {
-    case UserActionTypes.LOAD_PROFILE_BEGIN: {
+    case AuthActionTypes.LOAD_PROFILE_BEGIN: {
       return {
         ...state,
         loading: true,
       };
     }
-    case UserActionTypes.LOAD_PROFILE_FAILURE: {
+    case AuthActionTypes.LOAD_PROFILE_FAILURE: {
       return {
         ...state,
         loading: false,
@@ -73,7 +73,7 @@ export function reducer(state = initialState, action: UserActions): UserState {
       };
     }
 
-    case UserActionTypes.LOAD_PROFILE_SUCCESS: {
+    case AuthActionTypes.LOAD_PROFILE_SUCCESS: {
       console.log(state);
 
       return {
@@ -84,7 +84,7 @@ export function reducer(state = initialState, action: UserActions): UserState {
       };
     }
 
-    case UserActionTypes.LOGIN_SUCCESS:
+    case AuthActionTypes.LOGIN_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
@@ -95,7 +95,7 @@ export function reducer(state = initialState, action: UserActions): UserState {
         errorMessage: null,
       };
 
-    case UserActionTypes.LoginFail:
+    case AuthActionTypes.LoginFail:
       //  console.log("state");
       const id = uuidv4();
       // console.log(action.payload);
@@ -105,7 +105,7 @@ export function reducer(state = initialState, action: UserActions): UserState {
         errorMessage: action.payload,
       };
 
-    case UserActionTypes.SIGNUP_SUCCESS: {
+    case AuthActionTypes.SIGNUP_SUCCESS: {
       return {
         ...state,
         isAuthenticated: true,
@@ -117,7 +117,7 @@ export function reducer(state = initialState, action: UserActions): UserState {
       };
     }
 
-    case UserActionTypes.SIGNUP_FAILURE: {
+    case AuthActionTypes.SIGNUP_FAILURE: {
       return {
         ...state,
         errorMessage: action.payload,

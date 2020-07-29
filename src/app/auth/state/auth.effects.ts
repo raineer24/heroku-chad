@@ -54,7 +54,7 @@ export class AuthEffects {
     switchMap((payload) => {
       return this.authService.login(payload.email, payload.password).pipe(
         map((user) => {
-          console.log("user", user.token);
+          // console.log("user", user.token);
           return new AuthActions.LogInSuccess({
             token: user.token,
             email: payload.email,

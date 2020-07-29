@@ -18,7 +18,7 @@ import { AlertService } from "../../core/services/alert.service";
 /* NgRx */
 import { Action } from "@ngrx/store";
 import { Actions, Effect, ofType, act } from "@ngrx/effects";
-import * as userActions from "../state/user.action";
+import * as userActions from "./auth.action";
 import { User } from "src/app/core/models/user";
 
 @Injectable()
@@ -34,20 +34,7 @@ export class UserEffects {
   loadProfile$: Observable<any> = this.actions$.pipe(
     ofType(userActions.UserActionTypes.LOAD_PROFILE_BEGIN),
 
-    // mergeMap(() => {
-    //   return this.authService.currentUser.pipe(
-    //     take(1),
-    //     map((data) => {
-    //       console.log("map effect");
-    //       console.log("data", data["user"]);
-
-    //       return new userActions.LoadProfileSuccess(data["user"]);
-    //     }),
-    //     catchError((error) => of(new userActions.LoadProfileFailure(error)))
-    //   );
-    // })
-
-    mergeMap(() => {
+    switchMap(() => {
       return this.authService.getUserDetail().pipe(
         take(1),
         map((data) => {

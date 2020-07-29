@@ -4,4 +4,5 @@ export class User {
   password?: string;
   token?: string;
   user_profile?: Array<any>;
+  bio?: string;
 }

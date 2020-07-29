@@ -8,8 +8,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToastrModule } from "ngx-toastr";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
-import { reducer } from "../app/auth/state/user.reducer";
-import { UserEffects } from "../app/auth/state/user.effects";
+import { reducer } from "./auth/state/auth.reducer";
+import { UserEffects } from "./auth/state/auth.effects";
 import {
   MatCardModule,
   MatToolbarModule,

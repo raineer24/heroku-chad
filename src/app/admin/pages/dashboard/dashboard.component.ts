@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { User } from "../../../core/models/user";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select } from "@ngrx/store";
-import * as fromUser from "../../../auth/state/user.reducer";
-import * as userActions from "../../../auth/state/user.action";
+import * as fromUser from "../../../auth/state/auth.reducer";
+import * as userActions from "../../../auth/state/auth.action";
 import { Subscription, Observable } from "rxjs";
 import { skipWhile, skip, take, filter } from "rxjs/operators";
 @Component({
@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit {
   userData: {
     first_name: string;
   };
+
+  statusArray: any;
 
   constructor(
     private authenticationService: AuthService,
@@ -38,10 +40,14 @@ export class DashboardComponent implements OnInit {
         filter((user) => !!user)
       )
       .subscribe((data) => {
-        console.log("data: ", data.user_profile[0]);
+        console.log("data: ", data);
         this.currentUser = data;
+        // console.log("currentuser", this.currentUser);
 
-        // console.log("data1", this.currentUser);
+        // this.statusArray = data.user_profile[0];
+        // console.log("statusarray", this.statusArray.length);
+
+        // console.log("data1", this.statusArray.bio);
       });
   }
 

@@ -8,7 +8,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AuthService } from "../core/services/user.service";
 import { AuthGuardService } from "../core/guards/auth-guard.service";
-import { reducer } from "./state/user.reducer";
+import { reducer } from "./state/auth.reducer";
 
 import {
   MatCardModule,
@@ -23,7 +23,7 @@ import {
 import { RegisterComponent } from "./pages";
 import { LoginComponent } from "./pages";
 import { EffectsModule } from "@ngrx/effects";
-import { UserEffects } from "../auth/state/user.effects";
+import { UserEffects } from "./state/auth.effects";
 
 /* NgRx */
 import { StoreModule } from "@ngrx/store";

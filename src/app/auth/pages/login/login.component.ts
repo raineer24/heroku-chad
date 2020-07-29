@@ -11,10 +11,10 @@ import { first } from "rxjs/operators";
 import { Subscription, BehaviorSubject, Observable } from "rxjs";
 import { User } from "../../../core/models/user";
 import { AlertService } from "../../../core/services/alert.service";
-import * as userActions from "../../state/user.action";
+import * as userActions from "../../state/auth.action";
 import { HttpErrorResponse } from "@angular/common/http";
 import { map, tap, catchError } from "rxjs/operators";
-import * as fromUser from "../../state/user.reducer";
+import * as fromUser from "../../state/auth.reducer";
 import { ErrorService } from "../../../core/services/error.service";
 
 /* NgRx */

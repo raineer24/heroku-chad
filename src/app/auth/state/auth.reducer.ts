@@ -1,6 +1,6 @@
 import { User } from "../../core/models/user";
-import * as fromRoot from "../../../app/state/app.state";
-import { UserActions, UserActionTypes } from "../state/user.action";
+import * as fromRoot from "../../state/app.state";
+import { UserActions, UserActionTypes } from "./auth.action";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { v4 as uuidv4 } from "uuid";
 
@@ -18,6 +18,7 @@ export interface UserState {
   id: null;
   selectedUser: User;
   loading: boolean;
+  //userprofile: User | null;
 }
 
 const initialState: UserState = {
@@ -27,6 +28,7 @@ const initialState: UserState = {
   id: null,
   selectedUser: null,
   loading: false,
+  //userprofile: null,
 };
 
 // Selector functions
@@ -41,7 +43,7 @@ export const getError = createSelector(getUserFeatureState, (state) => {
 export const getProfile = (state: UserState) => state.user;
 
 export const getUserProfile = createSelector(getUserFeatureState, (state) => {
-  //  console.log(state.user);
+  console.log("state", state.user);
   return state.user;
 });
 

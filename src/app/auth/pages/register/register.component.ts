@@ -4,9 +4,9 @@ import { AuthService } from "../../../core/services/user.service";
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import { AlertService } from "../../../core/services/alert.service";
-import * as userActions from "../../state/user.action";
+import * as userActions from "../../state/auth.action";
 import { Store } from "@ngrx/store";
-import * as fromUser from "../../state/user.reducer";
+import * as fromUser from "../../state/auth.reducer";
 
 @Component({
   selector: "app-register",

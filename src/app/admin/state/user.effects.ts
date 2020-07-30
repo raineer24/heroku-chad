@@ -14,6 +14,7 @@ import {
 
 import { AuthService } from "../../core/services/user.service";
 import { AlertService } from "../../core/services/alert.service";
+import * as UserActions from "./user.actions";
 
 /* NgRx */
 import { Action } from "@ngrx/store";
@@ -29,4 +30,21 @@ export class UserEffects {
     private router: Router,
     private alertService: AlertService
   ) {}
+
+  @Effect()
+  loadProfile$: Observable<any> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.LOAD_PROFILE_BEGIN),
+
+    switchMap(() => {
+      return this.authService.getUserDetail().pipe(
+        take(1),
+        map((data) => {
+          console.log("map effect");
+          return new UserActions.LoadProfileSuccess(data);
+          //return new userActions.LoadProfileSuccess(data["user"]);
+        }),
+        catchError((error) => of(new UserActions.LoadProfileFailure(error)))
+      );
+    })
+  );
 }

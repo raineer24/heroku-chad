@@ -3,7 +3,7 @@ import { User } from "../../../core/models/user";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select } from "@ngrx/store";
 import * as fromAuth from "../../../auth/state/auth.reducer";
-import * as userActions from "../../../auth/state/auth.action";
+import * as userActions from "../../state/user.actions";
 import { Subscription, Observable } from "rxjs";
 import { skipWhile, skip, take, filter } from "rxjs/operators";
 @Component({
@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
     //     this.currentUser = data["user"];
     //   }
     // );
-    //this.store.dispatch(new userActions.LoadProfileBegin());
+    this.store.dispatch(new userActions.LoadProfileBegin());
     // this.store
     //   .pipe(
     //     select(fromAuth.getUserProfile),

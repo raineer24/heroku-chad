@@ -7,6 +7,7 @@
 <h3>Hi {{ currentUser?.first_name }}</h3>
 <!-- <h3>{{ currentUser?.user_profile[0].bio }}</h3> -->
 
-<!-- <div class="col-sm-12" *ngIf="(currentUser?.user_profile[0] | keyvalue)?.length">
+<div class="col-sm-12" *ngIf="!currentUser?.length > 0">
   <h3>{{ currentUser?.user_profile[0].bio }}</h3>
-</div> -->
+  <h4>test</h4>
+</div>

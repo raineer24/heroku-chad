@@ -3,6 +3,10 @@ import * as fromRoot from "../../state/app.state";
 import { UserActions, UserActionTypes } from "../state/user.actions";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
+export interface State extends fromRoot.State {
+  user: UsersState;
+}
+
 // State for this feature (User)
 export interface UsersState {
   // maskUserName: boolean;

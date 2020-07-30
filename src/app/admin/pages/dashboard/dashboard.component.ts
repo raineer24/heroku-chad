@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { User } from "../../../core/models/user";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select } from "@ngrx/store";
-import * as fromAuth from "../../../auth/state/auth.reducer";
+import * as fromUser from "../../state/user.reducer";
 import * as userActions from "../../state/user.actions";
 import { Subscription, Observable } from "rxjs";
 import { skipWhile, skip, take, filter } from "rxjs/operators";
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthService,
-    private store: Store<fromAuth.State>
+    private store: Store<fromUser.State>
   ) {
     // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
     //   (user) => {
@@ -34,19 +34,19 @@ export class DashboardComponent implements OnInit {
     //   }
     // );
     this.store.dispatch(new userActions.LoadProfileBegin());
-    // this.store
-    //   .pipe(
-    //     select(fromAuth.getUserProfile),
-    //     filter((user) => !!user)
-    //   )
-    //   .subscribe((data) => {
-    //     console.log("data: ", data);
-    //     this.currentUser = data;
-    //     // console.log("currentuser", this.currentUser);
-    //     // this.statusArray = data.user_profile[0];
-    //     // console.log("statusarray", this.statusArray.length);
-    //     // console.log("data1", this.statusArray.bio);
-    //   });
+    this.store
+      .pipe(
+        select(fromUser.getUserProfile),
+        filter((user) => !!user)
+      )
+      .subscribe((data) => {
+        console.log("data: ", data);
+        this.currentUser = data;
+        // console.log("currentuser", this.currentUser);
+        // this.statusArray = data.user_profile[0];
+        // console.log("statusarray", this.statusArray.length);
+        // console.log("data1", this.statusArray.bio);
+      });
   }
 
   ngOnInit() {

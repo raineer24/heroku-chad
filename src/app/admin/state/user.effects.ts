@@ -39,6 +39,8 @@ export class UserEffects {
       return this.authService.getUserDetail().pipe(
         take(1),
         map((data) => {
+          console.log("data", data);
+
           console.log("map effect");
           return new UserActions.LoadProfileSuccess(data);
           //return new userActions.LoadProfileSuccess(data["user"]);

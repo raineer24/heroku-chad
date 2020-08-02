@@ -74,7 +74,7 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
     }
 
     case AuthActionTypes.LOAD_PROFILE_SUCCESS: {
-      console.log(state);
+      //console.log(state);
 
       return {
         ...state,

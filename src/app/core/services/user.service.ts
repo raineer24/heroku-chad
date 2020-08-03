@@ -27,7 +27,7 @@ export class AuthService {
       JSON.parse(localStorage.getItem("currentUser"))
     );
     this.currentUser = this.currentUserSubject.asObservable();
-    console.log("currentuservalue", this.currentUserSubject.value);
+    // console.log("currentuservalue", this.currentUserSubject.value);
   }
 
   public get currentUserValue(): User {
@@ -58,6 +58,34 @@ export class AuthService {
   //   console.log(url);
   //   return this.http.get<Posts[]>(url);
   // }
+
+  /**
+   *
+   *
+   * @returns {Observable<User[]>}
+   *
+   * @memberof UserService
+   */
+  getUserDetail(): Observable<any> {
+    //  console.log("token", token);
+
+    const user_id = JSON.parse(localStorage.getItem("currentUser")).user.id;
+    const token = JSON.parse(localStorage.getItem("currentUser")).token;
+    const url = `/api/v2/users/${user_id}`;
+
+    return this.http
+      .get(url, {
+        headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
+      })
+      .pipe(
+        map((user) => {
+          console.log("user", user["user"]);
+
+          return user["user"];
+        }),
+        catchError(this.errorMgmt)
+      );
+  }
 
   getPosts(): Observable<Posts[]> {
     // const url = `${this.baseUrl}/api/v2/blogs`;
@@ -110,17 +138,17 @@ export class AuthService {
       .post<User>(url, json, { headers: this.headers })
       .pipe(
         map((user) => {
-          console.log(user);
+          //   console.log(user);
 
           if (user && user.token) {
-            console.log("user", user);
+            //  console.log("user", user);
 
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem("currentUser", JSON.stringify(user));
-            console.log(
-              "currentuser: ",
-              JSON.parse(localStorage.getItem("currentUser"))
-            );
+            // console.log(
+            //   "currentuser: ",
+            //   JSON.parse(localStorage.getItem("currentUser"))
+            // );
 
             this.currentUserSubject.next(user);
           }
@@ -138,5 +166,21 @@ export class AuthService {
 
     localStorage.removeItem("currentUser");
     this.currentUserSubject.next(null);
+  }
+
+  // error handling
+  errorMgmt(error: HttpErrorResponse) {
+    let errorMessage = "";
+    console.log("error", error);
+
+    if (error.error instanceof ErrorEvent) {
+      // get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
   }
 }

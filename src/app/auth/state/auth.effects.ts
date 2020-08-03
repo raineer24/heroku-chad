@@ -1,18 +1,28 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, of, merge } from "rxjs";
-import { mergeMap, switchMap, map, catchError, tap } from "rxjs/operators";
+import {
+  mergeMap,
+  switchMap,
+  map,
+  catchError,
+  tap,
+  concatMap,
+  flatMap,
+  take,
+} from "rxjs/operators";
 
 import { AuthService } from "../../core/services/user.service";
 import { AlertService } from "../../core/services/alert.service";
 
 /* NgRx */
 import { Action } from "@ngrx/store";
-import { Actions, Effect, ofType } from "@ngrx/effects";
-import * as userActions from "../state/user.action";
+import { Actions, Effect, ofType, act } from "@ngrx/effects";
+import * as AuthActions from "./auth.action";
+import { User } from "src/app/core/models/user";
 
 @Injectable()
-export class UserEffects {
+export class AuthEffects {
   constructor(
     private authService: AuthService,
     private actions$: Actions,
@@ -21,26 +31,43 @@ export class UserEffects {
   ) {}
 
   @Effect()
+  loadProfile$: Observable<any> = this.actions$.pipe(
+    ofType(AuthActions.AuthActionTypes.LOAD_PROFILE_BEGIN),
+
+    switchMap(() => {
+      return this.authService.currentUser.pipe(
+        take(1),
+        map((data) => {
+          console.log("map effect");
+          return new AuthActions.LoadProfileSuccess(data);
+          //return new userActions.LoadProfileSuccess(data["user"]);
+        }),
+        catchError((error) => of(new AuthActions.LoadProfileFailure(error)))
+      );
+    })
+  );
+
+  @Effect()
   LogIn: Observable<any> = this.actions$.pipe(
-    ofType(userActions.UserActionTypes.LOGIN),
-    map((action: userActions.LogIn) => action.payload),
+    ofType(AuthActions.AuthActionTypes.LOGIN),
+    map((action: AuthActions.LogIn) => action.payload),
     switchMap((payload) => {
       return this.authService.login(payload.email, payload.password).pipe(
         map((user) => {
-          console.log("user", user.token);
-          return new userActions.LogInSuccess({
+          // console.log("user", user.token);
+          return new AuthActions.LogInSuccess({
             token: user.token,
             email: payload.email,
           });
         }),
-        catchError((err) => of(new userActions.LoginFail(err)))
+        catchError((err) => of(new AuthActions.LoginFail(err)))
       );
     })
   );
 
   @Effect({ dispatch: false })
   LogInSuccess: Observable<any> = this.actions$.pipe(
-    ofType(userActions.UserActionTypes.LOGIN_SUCCESS),
+    ofType(AuthActions.AuthActionTypes.LOGIN_SUCCESS),
     tap((user) => {
       localStorage.setItem("token", user.payload.token);
       this.router.navigateByUrl("/");
@@ -49,17 +76,17 @@ export class UserEffects {
 
   @Effect()
   SignUp: Observable<any> = this.actions$.pipe(
-    ofType(userActions.UserActionTypes.SIGNUP),
-    map((action: userActions.SignUp) => action.payload),
+    ofType(AuthActions.AuthActionTypes.SIGNUP),
+    map((action: AuthActions.SignUp) => action.payload),
     switchMap((payload) => {
       return this.authService.registerUsers(payload).pipe(
         map((user) => {
           console.log("user", user);
           this.router.navigate(["/auth/login"]);
-          return new userActions.SignUpSuccess({ user });
+          return new AuthActions.SignUpSuccess({ user });
         }),
         catchError((error) =>
-          of(new userActions.SignUpFailure({ error: error }))
+          of(new AuthActions.SignUpFailure({ error: error }))
         )
       );
     })
@@ -67,7 +94,7 @@ export class UserEffects {
 
   @Effect({ dispatch: false })
   SignUpSuccess: Observable<any> = this.actions$.pipe(
-    ofType(userActions.UserActionTypes.SIGNUP_SUCCESS),
+    ofType(AuthActions.AuthActionTypes.SIGNUP_SUCCESS),
     tap((user) => {
       localStorage.setItem("token", user.payload.token);
       this.router.navigateByUrl("/");
@@ -76,12 +103,12 @@ export class UserEffects {
 
   @Effect({ dispatch: false })
   SignUpFailure: Observable<any> = this.actions$.pipe(
-    ofType(userActions.UserActionTypes.SIGNUP_FAILURE)
+    ofType(AuthActions.AuthActionTypes.SIGNUP_FAILURE)
   );
 
   @Effect({ dispatch: false })
   public LogOut: Observable<any> = this.actions$.pipe(
-    ofType(userActions.UserActionTypes.LOGOUT),
+    ofType(AuthActions.AuthActionTypes.LOGOUT),
     tap((user) => {
       localStorage.removeItem("token");
     })

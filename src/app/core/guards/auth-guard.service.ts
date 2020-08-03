@@ -5,11 +5,11 @@ import {
   Router,
   CanActivate,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot
+  RouterStateSnapshot,
 } from "@angular/router";
 import { AuthService } from "../services/user.service";
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class AuthGuardService implements CanActivate {
   constructor(
@@ -19,10 +19,10 @@ export class AuthGuardService implements CanActivate {
 
   canLoad(route: Route): boolean {
     let url: string = route.path;
-    console.log("Url:" + url);
+    // console.log("Url:" + url);
     const currentUser = this.authenticationService.currentUserValue;
     if (currentUser) {
-      console.log("logged in12");
+      // console.log("logged in12");
 
       //logged in so return true
       return true;
@@ -40,18 +40,18 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authenticationService.currentUserValue;
-    console.log("auth.guard service: currentUSer2", currentUser);
+    //   console.log("auth.guard service: currentUSer2", currentUser);
 
     if (currentUser) {
       //logged in so return true
-      console.log("logged in");
+      // console.log("logged in");
 
       return true;
     }
 
     //not logged in so redirect to login page with the return url
     this.router.navigate(["/auth/login"], {
-      queryParams: { returnUrl: state.url }
+      queryParams: { returnUrl: state.url },
     });
     return false;
   }

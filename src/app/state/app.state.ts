@@ -1,5 +1,5 @@
-import { PostsState } from "../../app/admin/state/post.reducer";
+import { UsersState } from "../admin/state/user.reducer";
 
 export interface State {
-  posts: PostsState;
+  users: UsersState;
 }

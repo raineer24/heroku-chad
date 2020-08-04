@@ -5,3 +5,4 @@ export * from "./users/users.component";
 export * from "./posts/post-create/post-create.component";
 export * from "./posts/post-detail/posts-detail.component";
 export * from "./posts/post-edit/posts-edit.component";
+export * from "./create-profile/create-profile.component";

@@ -9,7 +9,8 @@ import {
   PostsComponent,
   PostsListComponent,
   PostsDetailComponent,
-  PostsEditComponent
+  PostsEditComponent,
+  CreateProfileComponent,
 } from "./pages";
 
 const routes: Routes = [
@@ -22,31 +23,32 @@ const routes: Routes = [
   {
     path: "dashboard",
     component: DashboardComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
   },
   { path: "users", component: UsersComponent },
+  { path: "create-profile", component: CreateProfileComponent },
   { path: "posts", component: PostsComponent, canActivate: [AuthGuardService] },
   {
     path: "posts-list",
-    component: PostsListComponent
+    component: PostsListComponent,
   },
   {
     path: "posts-edit",
-    component: PostsEditComponent
+    component: PostsEditComponent,
   },
   {
     path: "posts-detail/:id",
-    component: PostsDetailComponent
+    component: PostsDetailComponent,
   },
   {
     path: "",
     redirectTo: "dashboard",
-    pathMatch: "full"
-  }
+    pathMatch: "full",
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AdminRoutingModule {}

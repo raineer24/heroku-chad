@@ -6,50 +6,64 @@ import * as fromUser from "../../state/user.reducer";
 import * as userActions from "../../state/user.actions";
 import { Subscription, Observable } from "rxjs";
 import { skipWhile, skip, take, filter } from "rxjs/operators";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  FormControl,
+} from "@angular/forms";
+
+export interface Animal {
+  name: string;
+  sound: string;
+}
 @Component({
   selector: "app-createprofile",
   templateUrl: "./create-profile.component.html",
   styleUrls: ["./create-profile.component.scss"],
 })
 export class CreateProfileComponent implements OnInit {
-  title = "";
-  currentUser: any;
-  currentUserSubscription: Subscription;
-  users: User[] = [];
-  profile$: Observable<User>;
-  userData: {
-    first_name: string;
-  };
+  profForm: FormGroup;
 
-  statusArray: any;
+  datasources = [
+    {
+      title: "Production",
+      description: "descr",
+      menuPath: "menu-2-4",
+      //units: [Unit.KM, Unit.M, Unit.CM, Unit.MM]
+    },
+    {
+      title: "Consumption",
+      description: "descr",
+      menuPath: "menu-2-3",
+      //units: [Unit.KG, Unit.G, Unit.MG]
+    },
+    {
+      title: "Usage",
+      description: "descr",
+      menuPath: "menu-2-5",
+      //units: [Unit.KM2, Unit.M2, Unit.CM2, Unit.MM2]
+    },
+  ];
+
+  animals: Animal[] = [
+    { name: "Dog", sound: "Woof!" },
+    { name: "Cat", sound: "Meow!" },
+    { name: "Cow", sound: "Moo!" },
+    { name: "Fox", sound: "Wa-pa-pa-pa-pa-pa-pow!" },
+  ];
 
   constructor(
     private authenticationService: AuthService,
-    private store: Store<fromUser.State>
-  ) {
-    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
-    //   (user) => {
-    //     const data = user;
-    //     this.currentUser = data["user"];
-    //   }
-    // );
-    this.store.dispatch(new userActions.LoadProfileBegin());
-    this.store
-      .pipe(
-        select(fromUser.getUserProfile),
-        filter((user) => !!user)
-      )
-      .subscribe((data) => {
-        console.log("data: ", data);
-        this.currentUser = data;
-        // console.log("currentuser", this.currentUser);
-        // this.statusArray = data.user_profile[0];
-        // console.log("statusarray", this.statusArray.length);
-        // console.log("data1", this.statusArray.bio);
-      });
-  }
+    private store: Store<fromUser.State>,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit() {
-    //console.log("profile", this.store.select(fromUser.getUserProfile));
+    this.profForm = this.formBuilder.group({
+      animalControl: ["", Validators.required],
+      password: ["", Validators.required],
+    });
   }
 }

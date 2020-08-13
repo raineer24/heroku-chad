@@ -5,6 +5,17 @@
       <p class="lead text-center">Fill in some information</p>
       <small className="d-block pb-3">* = required fields</small>
     </div>
+    <form [formGroup]="profForm">
+      <mat-form-field>
+        <mat-label>* Select Professional Status</mat-label>
+        <mat-select formControlName="animalControl" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let animal of animals" [value]="animal">
+            {{animal.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
 
 
   </div>

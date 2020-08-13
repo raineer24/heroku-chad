@@ -26,6 +26,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatMenuModule,
+  MatSelectModule,
 } from "@angular/material";
 
 /* NgRx */
@@ -65,6 +66,7 @@ import { UserEffects } from "../admin/state/user.effects";
     UsersModule,
     CommonModule,
     SharedModule,
+    MatSelectModule,
     MatMenuModule,
   ],
   providers: [AuthGuardService],

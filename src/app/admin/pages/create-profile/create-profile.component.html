@@ -14,6 +14,7 @@
             {{animal.name}}
           </mat-option>
         </mat-select>
+        <mat-hint>Give us an idea of where you are at in your career</mat-hint>
       </mat-form-field>
       <mat-form-field class="form-element">
         <mat-label>Company</mat-label>
@@ -28,18 +29,35 @@
       <mat-form-field class="form-element">
         <mat-label>Location</mat-label>
         <input matInput placeholder="Location" name="location" required>
-        <mat-hint>Could be your own company or one you work for</mat-hint>
+        <mat-hint>City or city & state suggested (eg. Cebu, Manila)</mat-hint>
       </mat-form-field>
       <mat-form-field class="form-element">
         <mat-label>Skills</mat-label>
         <input matInput placeholder="Skills" name="skills" required>
-        <mat-hint>Could be your own company or one you work for</mat-hint>
+        <mat-hint>Please use comma separated values (eg. HTML,CSS,JavaScript,PHP</mat-hint>
       </mat-form-field>
       <mat-form-field class="form-element">
         <mat-label>Github Username</mat-label>
         <input matInput placeholder="Github Username" name="githubusername" required>
-        <mat-hint>Could be your own company or one you work for</mat-hint>
+        <mat-hint>If you want your latest repos and a Github link, include your username</mat-hint>
       </mat-form-field>
+      <mat-form-field class="form-element">
+        <mat-label>Short Bio</mat-label>
+        <textarea matInput placeholder="Github Username" name="githubusername" required></textarea>
+        <mat-hint>Tell us a little about yourself</mat-hint>
+      </mat-form-field>
+      <div class="mb-3">
+        <button>Add Social Network Links</button>text
+        <span>Optional</span>
+      </div>
+      <div>
+        <div>
+          <input type="text" placeholder="Twitter Profile Url">
+        </div>
+      </div>
+      <div>
+
+      </div>
     </form>
 
 

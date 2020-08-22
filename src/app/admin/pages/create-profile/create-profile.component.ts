@@ -6,6 +6,9 @@ import * as fromUser from "../../state/user.reducer";
 import * as userActions from "../../state/user.actions";
 import { Subscription, Observable } from "rxjs";
 import { skipWhile, skip, take, filter } from "rxjs/operators";
+import { DomSanitizer } from "@angular/platform-browser";
+import { MatIconRegistry } from "@angular/material";
+
 import {
   FormBuilder,
   FormGroup,
@@ -57,8 +60,17 @@ export class CreateProfileComponent implements OnInit {
   constructor(
     private authenticationService: AuthService,
     private store: Store<fromUser.State>,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer
+  ) {
+    iconRegistry.addSvgIcon(
+      "thumbs-up",
+      sanitizer.bypassSecurityTrustResourceUrl(
+        "assets/img/twitter-black-shape.svg"
+      )
+    );
+  }
 
   ngOnInit() {
     this.profForm = this.formBuilder.group({

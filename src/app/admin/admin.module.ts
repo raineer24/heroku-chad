@@ -68,6 +68,7 @@ import { UserEffects } from "../admin/state/user.effects";
     SharedModule,
     MatSelectModule,
     MatMenuModule,
+    MatIconModule,
   ],
   providers: [AuthGuardService],
 })

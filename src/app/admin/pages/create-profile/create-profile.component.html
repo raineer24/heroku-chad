@@ -11,7 +11,7 @@
         <mat-select formControlName="animalControl" required>
           <mat-option>--</mat-option>
           <mat-option *ngFor="let animal of animals" [value]="animal">
-            {{animal.name}}
+            {{animal.label}}
           </mat-option>
         </mat-select>
         <mat-hint>Give us an idea of where you are at in your career</mat-hint>
@@ -47,10 +47,10 @@
         <mat-hint>Tell us a little about yourself</mat-hint>
       </mat-form-field>
       <div class="mb-3">
-        <button>Add Social Network Links</button>
+        <button (click)="show=!show">Add Social Network Links</button>
         <span>Optional</span>
       </div>
-      <div>
+      <div *ngIf="show">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span>
@@ -62,7 +62,7 @@
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span>
-              <mat-icon svgIcon="thumbs-up"></mat-icon>
+              <mat-icon svgIcon="fb"></mat-icon>
             </span>
           </div>
           <input type="text" placeholder="Facebook Page Url">
@@ -78,7 +78,7 @@
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span>
-              <mat-icon svgIcon="fb"></mat-icon>
+              <mat-icon svgIcon="inst"></mat-icon>
             </span>
           </div>
           <input type="text" placeholder="Instagram page Url">

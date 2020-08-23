@@ -17,9 +17,9 @@ import {
   FormControl,
 } from "@angular/forms";
 
-export interface Animal {
-  name: string;
-  sound: string;
+export interface Position {
+  label: string;
+  value: string;
 }
 @Component({
   selector: "app-createprofile",
@@ -29,32 +29,13 @@ export interface Animal {
 export class CreateProfileComponent implements OnInit {
   profForm: FormGroup;
 
-  datasources = [
-    {
-      title: "Production",
-      description: "descr",
-      menuPath: "menu-2-4",
-      //units: [Unit.KM, Unit.M, Unit.CM, Unit.MM]
-    },
-    {
-      title: "Consumption",
-      description: "descr",
-      menuPath: "menu-2-3",
-      //units: [Unit.KG, Unit.G, Unit.MG]
-    },
-    {
-      title: "Usage",
-      description: "descr",
-      menuPath: "menu-2-5",
-      //units: [Unit.KM2, Unit.M2, Unit.CM2, Unit.MM2]
-    },
-  ];
+  show = false;
 
-  animals: Animal[] = [
-    { name: "Dog", sound: "Woof!" },
-    { name: "Cat", sound: "Meow!" },
-    { name: "Cow", sound: "Moo!" },
-    { name: "Fox", sound: "Wa-pa-pa-pa-pa-pa-pow!" },
+  animals: Position[] = [
+    { label: "Developer", value: "Developer" },
+    { label: "Developer", value: "Developer" },
+    { label: "Developer", value: "Developer" },
+    { label: "Developer", value: "Developer" },
   ];
 
   constructor(

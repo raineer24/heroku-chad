@@ -70,6 +70,18 @@ export class CreateProfileComponent implements OnInit {
         "assets/img/twitter-black-shape.svg"
       )
     );
+    iconRegistry.addSvgIcon(
+      "inst",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/img/instagram.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "utube",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/img/youtube.svg")
+    );
+    iconRegistry.addSvgIcon(
+      "fb",
+      sanitizer.bypassSecurityTrustResourceUrl("assets/img/facebook.svg")
+    );
   }
 
   ngOnInit() {

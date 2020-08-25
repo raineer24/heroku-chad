@@ -11,6 +11,7 @@ import { environment } from "../../../environments/environment";
 import { map, tap, catchError } from "rxjs/operators";
 import { LoginComponent } from "src/app/auth/pages";
 import { User } from "../models/user";
+import { Status } from "../models/positions";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -21,6 +22,17 @@ export class AuthService {
   private loginUrl: string = "/auth/login";
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
+
+  professional: Status[] = [
+    { label: "Developer", value: "Developer" },
+    { label: "Junior Developer", value: "Junior Developer" },
+    { label: "Senior Developer", value: "Senior Developer" },
+    { label: "Manager", value: "Manager" },
+    { label: "Instructor or Teacher", value: "Instructor or Teacher" },
+    { label: "Intern", value: "Intern" },
+    { label: "Student or Learning", value: "Student or Learning" },
+    { label: "Other", value: "Other" },
+  ];
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(

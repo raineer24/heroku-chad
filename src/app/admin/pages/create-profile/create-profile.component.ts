@@ -31,7 +31,7 @@ export class CreateProfileComponent implements OnInit {
 
   show = false;
 
-  animals: Position[] = [
+  professional: Position[] = [
     { label: "Developer", value: "Developer" },
     { label: "Junior Developer", value: "Junior Developer" },
     { label: "Senior Developer", value: "Senior Developer" },

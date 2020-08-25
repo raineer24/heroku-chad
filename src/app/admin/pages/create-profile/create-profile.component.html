@@ -8,9 +8,9 @@
     <form [formGroup]="profForm" class="form">
       <mat-form-field class="form-element">
         <mat-label>* Select Professional Status</mat-label>
-        <mat-select formControlName="animalControl" required>
+        <mat-select formControlName="statusPosition" (selectionChange)="onStatusChange($event)" required>
           <mat-option>--</mat-option>
-          <mat-option *ngFor="let status of professional" [value]="status">
+          <mat-option *ngFor="let status of filteredStatus" [value]="status">
             {{status.label}}
           </mat-option>
         </mat-select>

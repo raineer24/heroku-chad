@@ -8,6 +8,7 @@ import { Subscription, Observable } from "rxjs";
 import { skipWhile, skip, take, filter } from "rxjs/operators";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MatIconRegistry } from "@angular/material";
+import { Status } from "../../../core/models/positions";
 
 import {
   FormBuilder,
@@ -28,6 +29,7 @@ export interface Position {
 })
 export class CreateProfileComponent implements OnInit {
   profForm: FormGroup;
+  filteredStatus: Status[];
 
   show = false;
 
@@ -71,8 +73,14 @@ export class CreateProfileComponent implements OnInit {
 
   ngOnInit() {
     this.profForm = this.formBuilder.group({
-      animalControl: ["", Validators.required],
+      statusPosition: ["", Validators.required],
       password: ["", Validators.required],
     });
+  }
+
+  onStatusChange(ob) {
+    console.log("Status changed...");
+    let selectedStatus = ob.value;
+    console.log(selectedStatus);
   }
 }

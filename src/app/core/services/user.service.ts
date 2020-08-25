@@ -99,6 +99,10 @@ export class AuthService {
       );
   }
 
+  saveBook(position) {
+    console.log(JSON.stringify(position));
+  }
+
   getPosts(): Observable<Posts[]> {
     // const url = `${this.baseUrl}/api/v2/blogs`;
     const url = `api/v2/blogs`;

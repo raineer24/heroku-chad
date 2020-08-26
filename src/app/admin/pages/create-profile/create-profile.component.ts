@@ -28,8 +28,9 @@ export interface Position {
   styleUrls: ["./create-profile.component.scss"],
 })
 export class CreateProfileComponent implements OnInit {
-  profForm: FormGroup;
+  //profForm: FormGroup;
   filteredStatus: Status[];
+  allStatus: Status[];
 
   show = false;
 
@@ -72,15 +73,20 @@ export class CreateProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.profForm = this.formBuilder.group({
-      statusPosition: ["", Validators.required],
-      password: ["", Validators.required],
-    });
+    this.allStatus = this.authenticationService.getAllStatus();
+    console.log(this.allStatus);
+  }
+  profForm = this.formBuilder.group({
+    statusPosition: ["", Validators.required],
+    status: ["", Validators.required],
+  });
+
+  get status() {
+    return this.profForm.get("status");
   }
 
-  onStatusChange(ob) {
+  onStatusChange() {
     console.log("Status changed...");
-    let selectedStatus = ob.value;
-    console.log(selectedStatus);
+    console.log("status.value", this.status.value);
   }
 }

@@ -42,6 +42,10 @@ export class AuthService {
     // console.log("currentuservalue", this.currentUserSubject.value);
   }
 
+  getAllStatus() {
+    return this.professional;
+  }
+
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }

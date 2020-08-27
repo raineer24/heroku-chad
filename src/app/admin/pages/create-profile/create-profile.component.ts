@@ -85,6 +85,12 @@ export class CreateProfileComponent implements OnInit {
     return this.profForm.get("status");
   }
 
+  onFormSubmit() {
+    // this.bookService.saveBook(this.bookForm.value);
+    // this.resetForm();
+    console.log("clicked");
+  }
+
   onStatusChange() {
     console.log("Status changed...");
     console.log("status.value", this.status.value);

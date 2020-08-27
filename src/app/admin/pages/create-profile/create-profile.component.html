@@ -5,7 +5,7 @@
       <p class="lead text-center">Fill in some information</p>
       <small className="d-block pb-3">* = required fields</small>
     </div>
-    <form [formGroup]="profForm" class="form">
+    <form [formGroup]="profForm" class="form" (ngSubmit)="onFormSubmit()">
       <mat-form-field class="form-element">
         <mat-label>* Select Professional Status</mat-label>
         <mat-select formControlName="status" (selectionChange)="onStatusChange()" required>
@@ -85,7 +85,7 @@
         </div>
 
       </div>
-      <input type="button" value="Submit">
+      <button mat-raised-button>Submit</button>
       <p>You selected: {{animalControl}}</p>
       <div>
 

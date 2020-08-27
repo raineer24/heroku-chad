@@ -103,7 +103,7 @@ export class AuthService {
       );
   }
 
-  saveBook(position) {
+  saveStatus(position) {
     console.log(JSON.stringify(position));
   }
 

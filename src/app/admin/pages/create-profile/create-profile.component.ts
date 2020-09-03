@@ -31,6 +31,7 @@ export class CreateProfileComponent implements OnInit {
   //profForm: FormGroup;
   filteredStatus: Status[];
   allStatus: Status[];
+  selectedStatus: String = "";
 
   show = false;
 
@@ -78,7 +79,7 @@ export class CreateProfileComponent implements OnInit {
   }
   profForm = this.formBuilder.group({
     statusPosition: ["", Validators.required],
-    status: ["", Validators.required],
+    status: [null, Validators.required],
   });
 
   get status() {
@@ -86,12 +87,15 @@ export class CreateProfileComponent implements OnInit {
   }
 
   onFormSubmit() {
-    // this.bookService.saveBook(this.bookForm.value);
+    this.authenticationService.saveStatus(this.profForm.value);
     // this.resetForm();
     console.log("clicked");
   }
 
-  onStatusChange() {
+  onStatusChange(value) {
+    this.selectedStatus = value;
+    console.log(this.selectedStatus);
+
     console.log("Status changed...");
     console.log("status.value", this.status.value);
   }

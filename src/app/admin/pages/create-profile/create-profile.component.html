@@ -8,7 +8,7 @@
     <form [formGroup]="profForm" class="form" (ngSubmit)="onFormSubmit()">
       <mat-form-field class="form-element">
         <mat-label>* Select Professional Status</mat-label>
-        <mat-select #t formControlName="status" (selectionChange)="onStatusChange(t.value)" required>
+        <mat-select [(value)]="selected" formControlName="status" (selectionChange)="onStatusChange()" required>
           <mat-option>--</mat-option>
           <mat-option *ngFor="let status of allStatus" [value]="status">
             {{status.label}}
@@ -21,8 +21,8 @@
         <input matInput placeholder="Company" name="company" required>
         <mat-hint>Could be your own company or one you work for</mat-hint>
       </mat-form-field>
-      <div *ngIf="t.value == 'Other'">
-        <mat-form-field class="form-element">
+      <div *ngIf='selected'>
+        <mat-form-field class="form-element" *ngIf="selected.value === 'Other'">
           <mat-label>Custom value</mat-label>
           <input matInput placeholder="Enter custom value" name="company" required>
           <mat-hint>Could be your own company or one you work for</mat-hint>

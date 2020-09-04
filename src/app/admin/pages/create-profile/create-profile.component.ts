@@ -32,6 +32,7 @@ export class CreateProfileComponent implements OnInit {
   filteredStatus: Status[];
   allStatus: Status[];
   selectedStatus: String = "";
+  selected: any;
 
   show = false;
 

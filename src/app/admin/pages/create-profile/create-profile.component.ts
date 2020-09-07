@@ -33,7 +33,7 @@ export class CreateProfileComponent implements OnInit {
   allStatus: Status[];
   selectedStatus: String = "";
   selected: any;
-
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$";
   show = false;
 
   // professional: Position[] = [
@@ -81,6 +81,12 @@ export class CreateProfileComponent implements OnInit {
   profForm = this.formBuilder.group({
     statusPosition: ["", Validators.required],
     status: [null, Validators.required],
+    website: ["", Validators.required],
+    bio: ["", Validators.required],
+    githubusername: ["", Validators.required],
+    location: ["", Validators.required],
+    company: ["", Validators.required],
+    other: ["", Validators.required],
   });
 
   get status() {

@@ -18,25 +18,25 @@
       </mat-form-field>
       <mat-form-field class="form-element">
         <mat-label>Company</mat-label>
-        <input matInput placeholder="Company" name="company" required>
+        <input matInput placeholder="Company" name="company" required formControlName="company">
         <mat-hint>Could be your own company or one you work for</mat-hint>
       </mat-form-field>
       <div *ngIf='selected'>
         <mat-form-field class="form-element" *ngIf="selected.value === 'Other'">
           <mat-label>Custom value</mat-label>
-          <input matInput placeholder="Enter custom value" name="company" required>
+          <input matInput placeholder="Enter custom value" name="other" formControlName="other" required>
           <mat-hint>Could be your own company or one you work for</mat-hint>
         </mat-form-field>
       </div>
 
       <mat-form-field class="form-element">
         <mat-label>Website</mat-label>
-        <input matInput placeholder="Website" name="website" required>
+        <input matInput placeholder="Website" name="website" formControlName="website" required>
         <mat-hint>Could be your own or a company website</mat-hint>
       </mat-form-field>
       <mat-form-field class="form-element">
         <mat-label>Location</mat-label>
-        <input matInput placeholder="Location" name="location" required>
+        <input matInput placeholder="Location" name="location" formControlName="location" required>
         <mat-hint>City or city & state suggested (eg. Cebu, Manila)</mat-hint>
       </mat-form-field>
       <mat-form-field class="form-element">
@@ -46,12 +46,12 @@
       </mat-form-field>
       <mat-form-field class="form-element">
         <mat-label>Github Username</mat-label>
-        <input matInput placeholder="Github Username" name="githubusername" required>
+        <input matInput placeholder="Github Username" name="githubusername" formControlName="githubusername" required>
         <mat-hint>If you want your latest repos and a Github link, include your username</mat-hint>
       </mat-form-field>
       <mat-form-field class="form-element">
         <mat-label>Short Bio</mat-label>
-        <textarea matInput placeholder="Github Username" name="githubusername" required></textarea>
+        <textarea matInput placeholder="Github Username" name="bio" formControlName="bio" required></textarea>
         <mat-hint>Tell us a little about yourself</mat-hint>
       </mat-form-field>
       <div class="mb-3">
@@ -65,7 +65,7 @@
               <mat-icon svgIcon="thumbs-up"></mat-icon>
             </span>
           </div>
-          <input type="text" placeholder="Twitter Profile Url">
+          <input type="text" placeholder="Twitter Profile Url" formControlName="twitter">
         </div>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
@@ -73,7 +73,7 @@
               <mat-icon svgIcon="fb"></mat-icon>
             </span>
           </div>
-          <input type="text" placeholder="Facebook Page Url">
+          <input type="text" placeholder="Facebook Page Url" formControlName="fb">
         </div>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
@@ -81,7 +81,7 @@
               <mat-icon svgIcon="utube"></mat-icon>
             </span>
           </div>
-          <input type="text" placeholder="Youtube Channel Url">
+          <input type="text" placeholder="Youtube Channel Url" formControlName="utube">
         </div>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
@@ -89,12 +89,12 @@
               <mat-icon svgIcon="inst"></mat-icon>
             </span>
           </div>
-          <input type="text" placeholder="Instagram page Url">
+          <input type="text" placeholder="Instagram page Url" formControlName="inst">
         </div>
 
       </div>
       <button mat-raised-button>Submit</button>
-      <p>You selected: {{status.label}}</p>
+
       <div>
 
       </div>

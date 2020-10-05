@@ -16,6 +16,7 @@ import {
   Validators,
   AbstractControl,
   FormControl,
+  FormArray,
 } from "@angular/forms";
 
 export interface Position {
@@ -35,17 +36,7 @@ export class CreateProfileComponent implements OnInit {
   selected: any;
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$";
   show = false;
-
-  // professional: Position[] = [
-  //   { label: "Developer", value: "Developer" },
-  //   { label: "Junior Developer", value: "Junior Developer" },
-  //   { label: "Senior Developer", value: "Senior Developer" },
-  //   { label: "Manager", value: "Manager" },
-  //   { label: "Instructor or Teacher", value: "Instructor or Teacher" },
-  //   { label: "Intern", value: "Intern" },
-  //   { label: "Student or Learning", value: "Student or Learning" },
-  //   { label: "Other", value: "Other" },
-  // ];
+  persons: FormArray;
 
   constructor(
     private authenticationService: AuthService,
@@ -75,7 +66,7 @@ export class CreateProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allStatus = this.authenticationService.getAllStatus();
+    this.allStatus = this.authenticationService.getAllPositions();
     console.log(this.allStatus);
   }
   profForm = this.formBuilder.group({
@@ -86,7 +77,7 @@ export class CreateProfileComponent implements OnInit {
     githubusername: ["", Validators.required],
     location: ["", Validators.required],
     company: ["", Validators.required],
-    other: ["", Validators.required],
+    remark: ["", Validators.required],
   });
 
   get status() {
@@ -97,6 +88,12 @@ export class CreateProfileComponent implements OnInit {
     this.authenticationService.saveStatus(this.profForm.value);
     // this.resetForm();
     console.log("clicked");
+  }
+
+  getFormGroupByN(n: number) {
+    let result = [];
+
+    result;
   }
 
   onStatusChange(value) {

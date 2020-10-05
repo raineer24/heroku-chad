@@ -34,6 +34,14 @@ export class AuthService {
     { label: "Other", value: "Other" },
   ];
 
+  positions: any[] = [
+    "Programmer",
+    "Businness Analyst",
+    "Designer",
+    "DBA",
+    "Other",
+  ];
+
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem("currentUser"))
@@ -44,6 +52,10 @@ export class AuthService {
 
   getAllStatus() {
     return this.professional;
+  }
+
+  getAllPositions() {
+    return this.positions;
   }
 
   public get currentUserValue(): User {

@@ -11,7 +11,7 @@
         <mat-select [(value)]="selected" formControlName="status" (selectionChange)="onStatusChange()" required>
           <mat-option>--</mat-option>
           <mat-option *ngFor="let status of allStatus" [value]="status">
-            {{status.label}}
+            {{status}}
           </mat-option>
         </mat-select>
         <mat-hint>Give us an idea of where you are at in your career</mat-hint>
@@ -22,9 +22,9 @@
         <mat-hint>Could be your own company or one you work for</mat-hint>
       </mat-form-field>
       <div *ngIf='selected'>
-        <mat-form-field class="form-element" *ngIf="selected.value === 'Other'">
+        <mat-form-field class="form-element" *ngIf="selected == 'Other'">
           <mat-label>Custom value</mat-label>
-          <input matInput placeholder="Enter custom value" name="other" formControlName="other" required>
+          <input matInput placeholder="Enter custom value" name="status" formControlName="status" required>
           <mat-hint>Could be your own company or one you work for</mat-hint>
         </mat-form-field>
       </div>

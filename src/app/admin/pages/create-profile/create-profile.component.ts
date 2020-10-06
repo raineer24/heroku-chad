@@ -89,10 +89,17 @@ export class CreateProfileComponent implements OnInit {
     return this.profForm.get("status");
   }
 
-  onFormSubmit() {
+  onFormSubmit(buttonType) {
     this.authenticationService.saveStatus(this.profForm.value);
     // this.resetForm();
     console.log("clicked");
+
+    if (buttonType === "Next") {
+      console.log(buttonType);
+    }
+    if (buttonType === "Previous") {
+      console.log(buttonType);
+    }
   }
 
   getFormGroupByN(n: number) {

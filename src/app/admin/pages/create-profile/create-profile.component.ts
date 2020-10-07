@@ -70,36 +70,39 @@ export class CreateProfileComponent implements OnInit {
     console.log(this.allStatus);
   }
   profForm = this.formBuilder.group({
-    statusPosition: ["", Validators.required],
     status: [null, Validators.required],
     website: ["", Validators.required],
     bio: ["", Validators.required],
     githubusername: ["", Validators.required],
     location: ["", Validators.required],
     company: ["", Validators.required],
-    remark: ["", Validators.required],
     skills: ["", Validators.required],
-    inst: ["", Validators.required],
-    fb: ["", Validators.required],
-    utube: ["", Validators.required],
-    twitter: ["", Validators.required],
+    // inst: ["", Validators.required],
+    // fb: ["", Validators.required],
+    // utube: ["", Validators.required],
+    // twitter: ["", Validators.required],
   });
 
   get status() {
     return this.profForm.get("status");
   }
 
-  onFormSubmit(buttonType) {
+  onFormSubmit() {
     this.authenticationService.saveStatus(this.profForm.value);
     // this.resetForm();
     console.log("clicked");
 
-    if (buttonType === "Next") {
-      console.log(buttonType);
-    }
-    if (buttonType === "Previous") {
-      console.log(buttonType);
-    }
+    // if (buttonType === "Next") {
+    //   console.log(buttonType);
+    // }
+    // if (buttonType === "Previous") {
+    //   console.log(buttonType);
+    // }
+  }
+
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.profForm.controls;
   }
 
   getFormGroupByN(n: number) {

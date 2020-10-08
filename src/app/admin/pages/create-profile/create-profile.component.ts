@@ -77,10 +77,10 @@ export class CreateProfileComponent implements OnInit {
     location: ["", Validators.required],
     company: ["", Validators.required],
     skills: ["", Validators.required],
-    // inst: ["", Validators.required],
-    // fb: ["", Validators.required],
-    // utube: ["", Validators.required],
-    // twitter: ["", Validators.required],
+    inst: [""],
+    fb: [""],
+    utube: [""],
+    twitter: [""],
   });
 
   get status() {

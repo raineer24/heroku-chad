@@ -37,6 +37,7 @@ export class CreateProfileComponent implements OnInit {
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$";
   show = false;
   persons: FormArray;
+  createSubs: Subscription;
 
   constructor(
     private authenticationService: AuthService,
@@ -88,9 +89,18 @@ export class CreateProfileComponent implements OnInit {
   }
 
   onFormSubmit() {
+    const values = this.profForm.value;
     this.authenticationService.saveStatus(this.profForm.value);
     // this.resetForm();
     console.log("clicked");
+
+    if (this.profForm.valid) {
+      this.createSubs = this.authenticationService
+        .createProfile(values)
+        .subscribe((data) => {
+          console.log("data", data);
+        });
+    }
 
     // if (buttonType === "Next") {
     //   console.log(buttonType);

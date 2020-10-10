@@ -138,6 +138,45 @@ export class AuthService {
     );
   }
 
+  public createProfile(data): Observable<any> {
+    const url = `/api/v2/users/profile`;
+    const token = JSON.parse(localStorage.getItem("currentUser")).token;
+    return this.http
+      .post(url, data, {
+        headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
+      })
+      .pipe(
+        tap((data) => {
+          console.log(data);
+          console.log("clicked");
+        })
+      );
+
+    //  const user_id = JSON.parse(localStorage.getItem("currentUser")).user.id;
+    //  const token = JSON.parse(localStorage.getItem("currentUser")).token;
+    //  const url = `/api/v2/users/${user_id}`;
+
+    //  return this.http
+    //    .get(url, {
+    //      headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
+    //    })
+    //    .pipe(
+    //      map((user) => {
+    //        console.log("user", user["user"]);
+
+    //        return user["user"];
+    //      }),
+    //      catchError(this.errorMgmt)
+    //    );
+
+    // if (this.myform.valid) {
+    // let url = "https://reqres.in/api/users";
+    //     const headers = new HttpHeaders()
+    //       .set('Authorization', 'my-auth-token')
+    //       .set('Content-Type', 'application/json');
+    //   this.http.post(url, user).subscribe(res => console.log("Data Post Done"));
+  }
+
   // return this.http
   //   .post(`api/v2/users/verify/${params.token}`, {
   //     headers: new HttpHeaders({

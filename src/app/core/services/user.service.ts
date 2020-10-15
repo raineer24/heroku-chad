@@ -12,6 +12,12 @@ import { map, tap, catchError } from "rxjs/operators";
 import { LoginComponent } from "src/app/auth/pages";
 import { User } from "../models/user";
 import { Status } from "../models/positions";
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from "@angular/router";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -42,7 +48,7 @@ export class AuthService {
     "Other",
   ];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem("currentUser"))
     );
@@ -149,6 +155,7 @@ export class AuthService {
         tap((data) => {
           console.log(data);
           console.log("clicked");
+          this.router.navigate(["/auth/login"]);
         })
       );
 
@@ -237,6 +244,7 @@ export class AuthService {
 
     localStorage.removeItem("currentUser");
     this.currentUserSubject.next(null);
+    console.log("logout");
   }
 
   // error handling

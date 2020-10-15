@@ -26,7 +26,11 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
   },
   { path: "users", component: UsersComponent },
-  { path: "create-profile", component: CreateProfileComponent },
+  {
+    path: "create-profile",
+    component: CreateProfileComponent,
+    canActivate: [AuthGuardService],
+  },
   { path: "posts", component: PostsComponent, canActivate: [AuthGuardService] },
   {
     path: "posts-list",

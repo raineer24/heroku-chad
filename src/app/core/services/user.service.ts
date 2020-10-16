@@ -155,7 +155,7 @@ export class AuthService {
         tap((data) => {
           console.log(data);
           console.log("clicked");
-          this.router.navigate(["/auth/login"]);
+          this.router.navigate(["/admin/dashboard"]);
         })
       );
 

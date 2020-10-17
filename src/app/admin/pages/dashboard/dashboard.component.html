@@ -16,5 +16,13 @@
   <h3 *ngIf="currentUser?.user_profile[0]?.bio !== undefined">userprofile[0] exist</h3>
 </div> -->
 <div *ngFor=" let user of (currentUser)?.user_profile">
-  <h3>{{user.bio}}</h3>
+  <mat-toolbar fxLayout="row" fxLayoutAlign="start">
+
+
+    <a mat-button>Edit Profile</a>
+    <a mat-button>Add Experience</a>
+    <a mat-button>Add Education</a>
+
+
+  </mat-toolbar>
 </div>

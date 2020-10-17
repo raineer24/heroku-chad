@@ -156,6 +156,9 @@ export class AuthService {
           console.log(data);
           console.log("clicked");
           this.router.navigate(["/admin/dashboard"]);
+        }),
+        catchError((err: HttpErrorResponse) => {
+          return throwError(err);
         })
       );
 

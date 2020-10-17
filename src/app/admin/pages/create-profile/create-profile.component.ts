@@ -9,6 +9,7 @@ import { skipWhile, skip, take, filter } from "rxjs/operators";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MatIconRegistry } from "@angular/material";
 import { Status } from "../../../core/models/positions";
+import { AlertService } from "../../../core/services/alert.service";
 
 import {
   FormBuilder,
@@ -41,6 +42,7 @@ export class CreateProfileComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthService,
+    private alertService: AlertService,
     private store: Store<fromUser.State>,
     private formBuilder: FormBuilder,
     iconRegistry: MatIconRegistry,
@@ -97,10 +99,29 @@ export class CreateProfileComponent implements OnInit {
     if (this.profForm.valid) {
       this.createSubs = this.authenticationService
         .createProfile(values)
-        .subscribe((data) => {
-          console.log("data", data);
-        });
+        .subscribe(
+          (data) => {
+            this.alertService.success("Profile Created", true);
+            console.log("data", data);
+          },
+          (error) => {
+            this.alertService.error("error: ", error);
+          }
+        );
     }
+
+    // this.registerSubs = this.authService.registerUsers(this.fd).subscribe(
+    //   (data) => {
+    //     this.fd = new FormData();
+    //     console.log(this.fd);
+    //     this.alertService.success("Registration successful", true);
+    //     this.router.navigate(["/auth/login"]);
+    //   },
+    //   (error) => {
+    //     this.alertService.error(error);
+    //     // this.loading = false;
+    //   }
+    // );
 
     // if (buttonType === "Next") {
     //   console.log(buttonType);

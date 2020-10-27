@@ -12,6 +12,7 @@ import { map, tap, catchError } from "rxjs/operators";
 import { LoginComponent } from "src/app/auth/pages";
 import { User } from "../models/user";
 import { Status } from "../models/positions";
+import { UserFetch } from "../models/userfetch";
 import {
   Router,
   CanActivate,
@@ -240,6 +241,12 @@ export class AuthService {
           return throwError(err);
         })
       );
+  }
+
+  getUser(id: number): Observable<UserFetch> {
+    //const url = `${this.apiurl}/${id}`;
+    const url = `/api/v2/users/profile`;
+    return this.http.get<UserFetch>(url).pipe(catchError(this.errorMgmt));
   }
 
   logout() {

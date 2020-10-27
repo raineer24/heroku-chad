@@ -10,6 +10,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { MatIconRegistry } from "@angular/material";
 import { Status } from "../../../core/models/positions";
 import { AlertService } from "../../../core/services/alert.service";
+import { Router, ActivatedRoute } from "@angular/router";
 
 import {
   FormBuilder,
@@ -39,10 +40,12 @@ export class CreateProfileComponent implements OnInit {
   show = false;
   persons: FormArray;
   createSubs: Subscription;
+  id: string;
 
   constructor(
     private authenticationService: AuthService,
     private alertService: AlertService,
+    private route: ActivatedRoute,
     private store: Store<fromUser.State>,
     private formBuilder: FormBuilder,
     iconRegistry: MatIconRegistry,
@@ -71,6 +74,8 @@ export class CreateProfileComponent implements OnInit {
   ngOnInit() {
     this.allStatus = this.authenticationService.getAllPositions();
     console.log(this.allStatus);
+    this.id = this.route.snapshot.params["id"];
+    console.log("id", this.id);
   }
   profForm = this.formBuilder.group({
     status: [null, Validators.required],

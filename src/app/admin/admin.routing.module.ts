@@ -13,50 +13,30 @@ import {
   CreateProfileComponent,
 } from "./pages";
 
-// const routes: Routes = [
-//   // path: "admin",
-//   // component: DashboardComponent,
-//   // children: [
-//   //   { path: "users", component: UsersComponent },
-//   //   { path: "posts", component: PostsComponent }
-//   // ]
-// ];
-
 const routes: Routes = [
   {
-    path: "dashboard",
-    component: DashboardComponent,
-    canActivate: [AuthGuardService],
-  },
-  { path: "users", component: UsersComponent },
-  {
-    path: "create-profile",
-    component: CreateProfileComponent,
-    canActivate: [AuthGuardService],
-  },
-  {
-    path: "edit/:id",
-    component: CreateProfileComponent,
-  },
-  { path: "posts", component: PostsComponent, canActivate: [AuthGuardService] },
-  {
-    path: "posts-list",
-    component: PostsListComponent,
-  },
-  {
-    path: "posts-edit",
-    component: PostsEditComponent,
-  },
-  {
-    path: "posts-detail/:id",
-    component: PostsDetailComponent,
-  },
-  {
     path: "",
-    redirectTo: "dashboard",
-    pathMatch: "full",
+    component: DashboardComponent,
+    children: [
+      { path: "add", component: CreateProfileComponent },
+      { path: "edit/:id", component: CreateProfileComponent },
+    ],
   },
+  // {
+  //   path: "",
+  //   redirectTo: "dashboard",
+  //   pathMatch: "full",
+  // },
 ];
+
+//  RouterModule.forRoot([
+//       { path: 'Employees', component: EmployeesComponent, pathMatch: 'full' },
+//       { path: 'Add', component: EmployeeAddComponent, pathMatch: 'full' },
+//       **{ path: 'Edit/:id', component: EmployeeEditComponent },
+//       { path: 'Edit', component: EmployeeEditComponent },**
+//       { path: '', redirectTo: 'Employees', pathMatch: 'full' }
+//     ]),
+//   ],
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

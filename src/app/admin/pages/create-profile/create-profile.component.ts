@@ -74,8 +74,8 @@ export class CreateProfileComponent implements OnInit {
   ngOnInit() {
     this.allStatus = this.authenticationService.getAllPositions();
     console.log(this.allStatus);
-    this.id = this.route.snapshot.params["id"];
-    console.log("id", this.id);
+    // this.id = this.route.snapshot.params["id"];
+    // console.log("id", this.id);
   }
   profForm = this.formBuilder.group({
     status: [null, Validators.required],

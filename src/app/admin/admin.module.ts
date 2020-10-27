@@ -13,6 +13,7 @@ import {
   PostsDetailComponent,
   PostsEditComponent,
   CreateProfileComponent,
+  LayoutComponent,
 } from "./pages";
 import { SharedModule } from "../shared";
 import {
@@ -47,6 +48,7 @@ import { UserEffects } from "../admin/state/user.effects";
     PostsDetailComponent,
     PostsEditComponent,
     CreateProfileComponent,
+    LayoutComponent,
   ],
   imports: [
     AdminRoutingModule,

@@ -11,13 +11,15 @@ import {
   PostsDetailComponent,
   PostsEditComponent,
   CreateProfileComponent,
+  LayoutComponent,
 } from "./pages";
 
 const routes: Routes = [
   {
     path: "",
-    component: DashboardComponent,
+    component: LayoutComponent,
     children: [
+      { path: "", component: DashboardComponent },
       { path: "add", component: CreateProfileComponent },
       { path: "edit/:id", component: CreateProfileComponent },
     ],

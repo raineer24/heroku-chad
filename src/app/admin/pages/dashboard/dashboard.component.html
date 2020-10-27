@@ -5,7 +5,6 @@
 <!-- <router-outlet></router-outlet> -->
 <h1>Dashboard</h1>
 <h3>Hi {{ currentUser?.first_name }}</h3>
-<a mat-button routerLink="edit/{{currentUser?.id}}">Edit Profile</a>
 <!-- <h3>{{ currentUser?.user_profile[0].bio }}</h3> -->
 
 <div class="col-sm-12" *ngIf="currentUser?.user_profile == 0">
@@ -19,10 +18,6 @@
 <div *ngFor=" let user of (currentUser)?.user_profile">
   <mat-toolbar class="nav" fxLayout="row" fxLayoutAlign="start">
 
-    <h3>{{user.id}}</h3>
-
-
-
     <a mat-button routerLink="edit/{{user.id}}">Edit Profile</a>
     <a mat-button>Add Experience</a>
     <a mat-button>Add Education</a>
@@ -31,4 +26,3 @@
   </mat-toolbar>
 
 </div>
-<router-outlet></router-outlet>

@@ -23,12 +23,6 @@ import {
 // ];
 
 const routes: Routes = [
-  // path: "admin",
-  // component: DashboardComponent,
-  // children: [
-  //   { path: "users", component: UsersComponent },
-  //   { path: "posts", component: PostsComponent }
-  // ]
   {
     path: "dashboard",
     component: DashboardComponent,

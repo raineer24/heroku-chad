@@ -13,6 +13,15 @@ import {
   CreateProfileComponent,
 } from "./pages";
 
+// const routes: Routes = [
+//   // path: "admin",
+//   // component: DashboardComponent,
+//   // children: [
+//   //   { path: "users", component: UsersComponent },
+//   //   { path: "posts", component: PostsComponent }
+//   // ]
+// ];
+
 const routes: Routes = [
   // path: "admin",
   // component: DashboardComponent,

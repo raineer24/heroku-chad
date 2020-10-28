@@ -5,7 +5,7 @@ import { Store, select } from "@ngrx/store";
 import * as fromUser from "../../state/user.reducer";
 import * as userActions from "../../state/user.actions";
 import { Subscription, Observable } from "rxjs";
-import { skipWhile, skip, take, filter } from "rxjs/operators";
+import { skipWhile, skip, take, filter, first } from "rxjs/operators";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MatIconRegistry } from "@angular/material";
 import { Status } from "../../../core/models/positions";
@@ -79,6 +79,17 @@ export class CreateProfileComponent implements OnInit {
     console.log(this.allStatus);
     this.id = this.route.snapshot.params["id"];
     console.log("id", this.id);
+    this.isAddMode = !this.id;
+
+    if (!this.isAddMode) {
+      this.authenticationService
+        .getUser(this.id)
+        .pipe(first())
+        .subscribe((x) => {
+          console.log("x", x);
+        });
+      console.log("test");
+    }
   }
   profForm = this.formBuilder.group({
     status: [null, Validators.required],

@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   userData: {
     first_name: string;
   };
+  isAddMode: boolean;
 
   statusArray: any;
 
@@ -51,5 +52,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     //console.log("profile", this.store.select(fromUser.getUserProfile));
+
+    if (!this.isAddMode) {
+      console.log("test");
+    }
   }
 }

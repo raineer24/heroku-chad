@@ -8,7 +8,7 @@ import {
   HttpErrorResponse,
 } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
-import { map, tap, catchError } from "rxjs/operators";
+import { map, tap, catchError, first } from "rxjs/operators";
 import { LoginComponent } from "src/app/auth/pages";
 import { User } from "../models/user";
 import { Status } from "../models/positions";
@@ -243,10 +243,16 @@ export class AuthService {
       );
   }
 
-  getUser(id: number): Observable<UserFetch> {
+  getUser(id: string): Observable<UserFetch> {
     //const url = `${this.apiurl}/${id}`;
-    const url = `/api/v2/users/profile`;
+    // return this.http.get<User>(`${baseUrl}/${id}`);
+    const url = `${this.baseUrl}/api/v2/users/profile/${id}`;
     return this.http.get<UserFetch>(url).pipe(catchError(this.errorMgmt));
+  }
+
+  update(id: string, params) {
+    const url = `/api/v2/users/profile`;
+    return this.http.put(`${url}/${id}`, params);
   }
 
   logout() {

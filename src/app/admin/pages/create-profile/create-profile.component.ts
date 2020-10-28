@@ -41,6 +41,9 @@ export class CreateProfileComponent implements OnInit {
   persons: FormArray;
   createSubs: Subscription;
   id: string;
+  isAddMode: boolean;
+  loading = false;
+  submitted = false;
 
   constructor(
     private authenticationService: AuthService,
@@ -74,8 +77,8 @@ export class CreateProfileComponent implements OnInit {
   ngOnInit() {
     this.allStatus = this.authenticationService.getAllPositions();
     console.log(this.allStatus);
-    // this.id = this.route.snapshot.params["id"];
-    // console.log("id", this.id);
+    this.id = this.route.snapshot.params["id"];
+    console.log("id", this.id);
   }
   profForm = this.formBuilder.group({
     status: [null, Validators.required],
@@ -96,45 +99,39 @@ export class CreateProfileComponent implements OnInit {
   }
 
   onFormSubmit() {
-    const values = this.profForm.value;
+    this.submitted = true;
+
     this.authenticationService.saveStatus(this.profForm.value);
     // this.resetForm();
     console.log("clicked");
 
-    if (this.profForm.valid) {
-      this.createSubs = this.authenticationService
-        .createProfile(values)
-        .subscribe(
-          (data) => {
-            this.alertService.success("Profile Created", true);
-            console.log("data", data);
-          },
-          (error) => {
-            this.alertService.error("error: ", error);
-          }
-        );
+    // stop here if form is invalid
+    if (this.profForm.invalid) {
+      return;
     }
+    this.loading = true;
 
-    // this.registerSubs = this.authService.registerUsers(this.fd).subscribe(
-    //   (data) => {
-    //     this.fd = new FormData();
-    //     console.log(this.fd);
-    //     this.alertService.success("Registration successful", true);
-    //     this.router.navigate(["/auth/login"]);
-    //   },
-    //   (error) => {
-    //     this.alertService.error(error);
-    //     // this.loading = false;
-    //   }
-    // );
-
-    // if (buttonType === "Next") {
-    //   console.log(buttonType);
-    // }
-    // if (buttonType === "Previous") {
-    //   console.log(buttonType);
-    // }
+    if (this.isAddMode) {
+      this.createUser();
+    }
   }
+
+  private createUser() {
+    const values = this.profForm.value;
+    this.createSubs = this.authenticationService
+      .createProfile(values)
+      .subscribe(
+        (data) => {
+          this.alertService.success("Profile Created", true);
+          console.log("data", data);
+        },
+        (error) => {
+          this.alertService.error("error: ", error);
+        }
+      );
+  }
+
+  private updateUser() {}
 
   // convenience getter for easy access to form fields
   get f() {

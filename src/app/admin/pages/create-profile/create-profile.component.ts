@@ -31,7 +31,7 @@ export interface Position {
   styleUrls: ["./create-profile.component.scss"],
 })
 export class CreateProfileComponent implements OnInit {
-  //profForm: FormGroup;
+  profForm: FormGroup;
   filteredStatus: Status[];
   allStatus: Status[];
   selectedStatus: String = "";
@@ -81,27 +81,31 @@ export class CreateProfileComponent implements OnInit {
     console.log("id", this.id);
     this.isAddMode = !this.id;
 
+    this.profForm = this.formBuilder.group({
+      status: [null, Validators.required],
+      website: ["", Validators.required],
+      bio: ["", Validators.required],
+      githubusername: ["", Validators.required],
+      location: ["", Validators.required],
+      company: ["", Validators.required],
+      areas_of_expertise: ["", Validators.required],
+      inst: [""],
+      fb: [""],
+      utube: [""],
+      twitter: [""],
+    });
+
     if (!this.isAddMode) {
       this.authenticationService
         .getUser(this.id)
         .pipe(first())
-        .subscribe((x) => this.profForm.patchValue(x));
+        .subscribe((x) => {
+          console.log("x", x);
+
+          this.profForm.patchValue(x);
+        });
     }
   }
-
-  profForm = this.formBuilder.group({
-    status: [null, Validators.required],
-    website: ["", Validators.required],
-    bio: ["", Validators.required],
-    githubusername: ["", Validators.required],
-    location: ["", Validators.required],
-    company: ["", Validators.required],
-    areas_of_expertise: ["", Validators.required],
-    inst: [""],
-    fb: [""],
-    utube: [""],
-    twitter: [""],
-  });
 
   get status() {
     return this.profForm.get("status");

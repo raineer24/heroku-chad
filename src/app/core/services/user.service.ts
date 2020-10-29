@@ -103,6 +103,10 @@ export class AuthService {
    */
   getUserDetail(): Observable<any> {
     //  console.log("token", token);
+    console.log(
+      "currentUser: ",
+      JSON.parse(localStorage.getItem("currentUser"))
+    );
 
     const user_id = JSON.parse(localStorage.getItem("currentUser")).user.id;
     const token = JSON.parse(localStorage.getItem("currentUser")).token;

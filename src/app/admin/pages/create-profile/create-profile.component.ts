@@ -148,7 +148,22 @@ export class CreateProfileComponent implements OnInit {
   }
 
   private updateUser() {
-    console.log("clicked");
+    this.authenticationService
+      .update(this.id, this.profForm.value)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          // this.alertService.success("User updated", {
+          //   keepAfterRouteChange: true,
+          // });
+          this.alertService.success("Profile Created", true);
+          //this.router.navigate(["../../"], { relativeTo: this.route });
+        },
+        error: (error) => {
+          this.alertService.error(error);
+          this.loading = false;
+        },
+      });
   }
 
   // convenience getter for easy access to form fields

@@ -258,8 +258,8 @@ export class AuthService {
   }
 
   update(id: string, params) {
-    const url = `/api/v2/users/profile`;
-    return this.http.put(`${url}/${id}`, params);
+    const url = `${this.baseUrl}/api/v2/users/profile/${id}`;
+    return this.http.put(`${url}`, params);
   }
 
   logout() {

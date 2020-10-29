@@ -86,13 +86,13 @@ export class CreateProfileComponent implements OnInit {
       website: ["", Validators.required],
       bio: ["", Validators.required],
       githubusername: ["", Validators.required],
-      location: ["", Validators.required],
-      company: ["", Validators.required],
+      job_location: ["", Validators.required],
+      company_name: ["", Validators.required],
       areas_of_expertise: ["", Validators.required],
-      inst: [""],
+      instagram_handle: [""],
       fb: [""],
-      utube: [""],
-      twitter: [""],
+      youtube_handle: [""],
+      twitter_handle: [""],
     });
 
     if (!this.isAddMode) {
@@ -105,6 +105,7 @@ export class CreateProfileComponent implements OnInit {
           this.profForm.patchValue(x);
         });
     }
+    console.log("edit");
   }
 
   get status() {

@@ -247,7 +247,14 @@ export class AuthService {
     //const url = `${this.apiurl}/${id}`;
     // return this.http.get<User>(`${baseUrl}/${id}`);
     const url = `${this.baseUrl}/api/v2/users/profile/${id}`;
-    return this.http.get<UserFetch>(url).pipe(catchError(this.errorMgmt));
+    return this.http.get<UserFetch>(url).pipe(
+      map((user) => {
+        console.log("user", user["user"]);
+
+        return user["user"];
+      }),
+      catchError(this.errorMgmt)
+    );
   }
 
   update(id: string, params) {

@@ -20,9 +20,9 @@
       </mat-form-field>
       <mat-form-field class="form-element">
         <mat-label>Company</mat-label>
-        <input matInput placeholder="Company" name="company" required formControlName="company">
+        <input matInput placeholder="Company" name="company_name" required formControlName="company_name">
         <mat-hint>Could be your own company or one you work for</mat-hint>
-        <mat-error *ngIf="profForm.get('company').hasError('required')">
+        <mat-error *ngIf="profForm.get('company_name').hasError('required')">
           Company is Required!
         </mat-error>
       </mat-form-field>
@@ -41,7 +41,7 @@
       </mat-form-field>
       <mat-form-field class="form-element">
         <mat-label>Location</mat-label>
-        <input matInput placeholder="Location" name="location" formControlName="location" required>
+        <input matInput placeholder="Location" name="job_location" formControlName="job_location" required>
         <mat-hint>City or city & state suggested (eg. Cebu, Manila)</mat-hint>
       </mat-form-field>
       <mat-form-field class="form-element">
@@ -70,7 +70,7 @@
               <mat-icon svgIcon="thumbs-up"></mat-icon>
             </span>
           </div>
-          <input type="text" placeholder="Twitter Profile Url" formControlName="twitter">
+          <input type="text" placeholder="Twitter Profile Url" formControlName="twitter_handle">
         </div>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
@@ -86,7 +86,7 @@
               <mat-icon svgIcon="utube"></mat-icon>
             </span>
           </div>
-          <input type="text" placeholder="Youtube Channel Url" formControlName="utube">
+          <input type="text" placeholder="Youtube Channel Url" formControlName="youtube_handle">
         </div>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
@@ -94,7 +94,7 @@
               <mat-icon svgIcon="inst"></mat-icon>
             </span>
           </div>
-          <input type="text" placeholder="Instagram page Url" formControlName="inst">
+          <input type="text" placeholder="Instagram page Url" formControlName="instagram_handle">
         </div>
 
       </div>

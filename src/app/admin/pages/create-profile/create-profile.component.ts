@@ -85,12 +85,10 @@ export class CreateProfileComponent implements OnInit {
       this.authenticationService
         .getUser(this.id)
         .pipe(first())
-        .subscribe((x) => {
-          console.log("x", x);
-        });
-      console.log("test");
+        .subscribe((x) => this.profForm.patchValue(x));
     }
   }
+
   profForm = this.formBuilder.group({
     status: [null, Validators.required],
     website: ["", Validators.required],
@@ -124,6 +122,8 @@ export class CreateProfileComponent implements OnInit {
 
     if (this.isAddMode) {
       this.createUser();
+    } else {
+      this.updateUser();
     }
   }
 
@@ -142,7 +142,9 @@ export class CreateProfileComponent implements OnInit {
       );
   }
 
-  private updateUser() {}
+  private updateUser() {
+    console.log("clicked");
+  }
 
   // convenience getter for easy access to form fields
   get f() {

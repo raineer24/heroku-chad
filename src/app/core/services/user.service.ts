@@ -251,11 +251,23 @@ export class AuthService {
     //const url = `${this.apiurl}/${id}`;
     // return this.http.get<User>(`${baseUrl}/${id}`);
     const url = `${this.baseUrl}/api/v2/users/profile/${id}`;
-    return this.http.get<UserFetch>(url).pipe(
+    return this.http.get<any>(url).pipe(
       map((user) => {
-        console.log("user", user["user"]);
+        console.log("user", user["user"].user_skill_set[0]);
 
-        return user["user"];
+        let areas_of_expertise = user["user"].user_skill_set[0].skills[0];
+        // user.forEach((eachData) => {
+        //   // console.log('Employee Name ---> ',eachData.addEmployee.firstName);
+        //   // eachData.attendances.forEach(atten => {
+        //   //   console.log('attendance Object -->',atten);
+
+        //   //  return Object.assign({}, json, { skills });
+        //   console.log("foreach", eachData);
+        // });
+        console.log(Object.assign({}, user["user"], { areas_of_expertise }));
+        return Object.assign({}, user["user"], { areas_of_expertise });
+
+        //return user["user"];
       }),
       catchError(this.errorMgmt)
     );

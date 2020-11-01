@@ -20,6 +20,7 @@ import {
   FormControl,
   FormArray,
 } from "@angular/forms";
+import { forEach } from "@angular/router/src/utils/collection";
 
 export interface Position {
   label: string;
@@ -100,7 +101,7 @@ export class CreateProfileComponent implements OnInit {
         .getUser(this.id)
         .pipe(first())
         .subscribe((x) => {
-          console.log("x", x);
+          console.log("x", x.bio);
 
           this.profForm.patchValue(x);
         });

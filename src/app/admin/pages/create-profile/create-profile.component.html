@@ -1,6 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 m-auto">
+      <a routerLink="/">Go To Home</a>
+
       <h1 *ngIf="!isAddMode">Edit User</h1>
       <h1 *ngIf="isAddMode">Add User</h1>
       <h1 class="display-4 text-center">Create Profile</h1>
@@ -49,11 +51,11 @@
         <input matInput placeholder="Skills" name="skills" formControlName="areas_of_expertise" required>
         <mat-hint>Please use comma separated values (eg. HTML,CSS,JavaScript,PHP</mat-hint>
       </mat-form-field>
-      <mat-form-field class="form-element">
+      <!-- <mat-form-field class="form-element">
         <mat-label>Github Username</mat-label>
         <input matInput placeholder="Github Username" name="githubusername" formControlName="githubusername" required>
         <mat-hint>If you want your latest repos and a Github link, include your username</mat-hint>
-      </mat-form-field>
+      </mat-form-field> -->
       <mat-form-field class="form-element">
         <mat-label>Short Bio</mat-label>
         <textarea matInput placeholder="Github Username" name="bio" formControlName="bio" required></textarea>

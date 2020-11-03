@@ -12,14 +12,7 @@ import { skipWhile, skip, take, filter } from "rxjs/operators";
   styleUrls: ["./add-exp.component.scss"],
 })
 export class AddExperienceComponent implements OnInit {
- 
+  constructor() {}
 
-  constructor(
-  
-  ) {
-   
-  }
-
-  ngOnInit() {
-   
+  ngOnInit() {}
 }

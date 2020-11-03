@@ -41,4 +41,6 @@ export class UpdateSuccessAction implements Action {
 export type UserActions =
   | LoadProfileBegin
   | LoadProfileSuccess
-  | LoadProfileFailure;
+  | LoadProfileFailure
+  | UpdateInfoAction
+  | UpdateSuccessAction;

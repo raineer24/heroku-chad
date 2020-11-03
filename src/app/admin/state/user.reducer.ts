@@ -58,6 +58,21 @@ export function reducer(state = initialState, action: UserActions): UsersState {
       };
     }
 
+    case UserActionTypes.UPDATE_INFO: {
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    } //This action will update the loading status. Dont need to allocate its selector as it is already done in app component.
+    case UserActionTypes.UPDATE_SUCCESS: {
+      return addressBookAdapter.setOne(action.payload.item, {
+        ...state,
+        loading: false,
+        error: null,
+      });
+    }
+
     default:
       return state;
   }

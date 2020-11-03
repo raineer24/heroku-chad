@@ -165,6 +165,13 @@ export class CreateProfileComponent implements OnInit {
           this.loading = false;
         },
       });
+
+    // this.store$.dispatch(new AuthActions.userUpdate({ uid: this.uid, token: this.token, id: this.keyID }));
+    // this.store$.dispatch(
+    //   new AddressBookStoreActions.UpdateInfoAction({
+    //     addressInfo: this.registrationFormData,
+    //   })
+    // );
   }
 
   // convenience getter for easy access to form fields

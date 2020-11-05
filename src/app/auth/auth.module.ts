@@ -31,13 +31,8 @@ import { StoreModule } from "@ngrx/store";
   declarations: [RegisterComponent, LoginComponent],
   imports: [
     CommonModule,
-<<<<<<< Updated upstream
     StoreModule.forFeature("auth", reducer),
     EffectsModule.forFeature([AuthEffects]),
-=======
-    // StoreModule.forFeature("users", reducer),
-    // EffectsModule.forFeature([UserEffects]),
->>>>>>> Stashed changes
     AuthRoutingModule,
     MatCardModule,
     MatToolbarModule,

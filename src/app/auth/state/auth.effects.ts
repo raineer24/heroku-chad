@@ -32,27 +32,15 @@ export class AuthEffects {
 
   @Effect({ dispatch: false })
   loadProfile$: Observable<any> = this.actions$.pipe(
-<<<<<<< Updated upstream:src/app/auth/state/auth.effects.ts
     ofType(AuthActions.AuthActionTypes.LOAD_PROFILE_BEGIN),
 
     switchMap(() => {
-=======
-    ofType(userActions.UserActionTypes.LOAD_PROFILE_BEGIN),
-    map((action: userActions.LoadProfileBegin) => action),
-    switchMap((action) => {
->>>>>>> Stashed changes:src/app/auth/state/user.effects.ts
       return this.authService.currentUser.pipe(
         take(1),
         map((data) => {
           console.log("map effect");
-<<<<<<< Updated upstream:src/app/auth/state/auth.effects.ts
           return new AuthActions.LoadProfileSuccess(data);
           //return new userActions.LoadProfileSuccess(data["user"]);
-=======
-          console.log("data", data["user"]);
-
-          new userActions.LoadProfileSuccess(data["user"]);
->>>>>>> Stashed changes:src/app/auth/state/user.effects.ts
         }),
         catchError((error) => of(new AuthActions.LoadProfileFailure(error)))
       );

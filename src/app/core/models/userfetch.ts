@@ -1,4 +1,5 @@
 export class UserFetch {
+  id?: number;
   company_name: string;
   website: string;
   job_location: string;

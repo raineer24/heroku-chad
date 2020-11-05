@@ -42,10 +42,20 @@ export const getError = createSelector(getAuthFeatureState, (state) => {
 
 export const getProfile = (state: AuthState) => state.user;
 
+<<<<<<< Updated upstream:src/app/auth/state/auth.reducer.ts
 export const getUserProfile = createSelector(getAuthFeatureState, (state) => {
   console.log("state", state.user);
   return state.user;
 });
+=======
+export const getUserProfile = createSelector(
+  getUserFeatureState,
+  (state: UserState) => {
+    console.log("getUserProfile", state.user.email);
+    return state.user;
+  }
+);
+>>>>>>> Stashed changes:src/app/auth/state/user.reducer.ts
 
 // export const routerState = createSelector(
 //   (state: State) => state.router,
@@ -59,12 +69,19 @@ export const getUserProfile = createSelector(getAuthFeatureState, (state) => {
 
 export function reducer(state = initialState, action: AuthActions): AuthState {
   switch (action.type) {
+<<<<<<< Updated upstream:src/app/auth/state/auth.reducer.ts
     case AuthActionTypes.LOAD_PROFILE_BEGIN: {
+=======
+    case UserActionTypes.LOAD_PROFILE_BEGIN: {
+      console.log("state: ", state);
+>>>>>>> Stashed changes:src/app/auth/state/user.reducer.ts
       return {
         ...state,
+        isAuthenticated: true,
         loading: true,
       };
     }
+<<<<<<< Updated upstream:src/app/auth/state/auth.reducer.ts
     case AuthActionTypes.LOAD_PROFILE_FAILURE: {
       return {
         ...state,
@@ -75,6 +92,10 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
 
     case AuthActionTypes.LOAD_PROFILE_SUCCESS: {
       //console.log(state);
+=======
+    case UserActionTypes.LOAD_PROFILE_SUCCESS: {
+      console.log("state: ", state);
+>>>>>>> Stashed changes:src/app/auth/state/user.reducer.ts
 
       return {
         ...state,
@@ -84,7 +105,21 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
       };
     }
 
+<<<<<<< Updated upstream:src/app/auth/state/auth.reducer.ts
     case AuthActionTypes.LOGIN_SUCCESS:
+=======
+    case UserActionTypes.LOAD_PROFILE_FAILURE: {
+      return {
+        ...state,
+        loading: false,
+        errorMessage: action.payload,
+      };
+    }
+
+    case UserActionTypes.LOGIN_SUCCESS:
+      console.log(state.user);
+
+>>>>>>> Stashed changes:src/app/auth/state/user.reducer.ts
       return {
         ...state,
         isAuthenticated: true,

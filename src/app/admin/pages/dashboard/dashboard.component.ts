@@ -34,7 +34,9 @@ export class DashboardComponent implements OnInit {
     //     this.currentUser = data["user"];
     //   }
     // );
+
     this.store.dispatch(new userActions.LoadProfileBegin());
+<<<<<<< Updated upstream
     this.store
       .pipe(
         select(fromUser.getUserProfile),
@@ -47,14 +49,25 @@ export class DashboardComponent implements OnInit {
         // this.statusArray = data.user_profile[0];
         // console.log("statusarray", this.statusArray.length);
         // console.log("data1", this.statusArray.bio);
+=======
+    this.currentUserSubscription = this.store
+      .select(fromUser.getUserProfile)
+      .subscribe((data) => {
+        console.log("data", data);
+        //this.currentUser = data;
+        //  console.log("this.currentuser", this.currentUser);
+>>>>>>> Stashed changes
       });
   }
 
   ngOnInit() {
     //console.log("profile", this.store.select(fromUser.getUserProfile));
+<<<<<<< Updated upstream
 
     if (!this.isAddMode) {
       console.log("test");
     }
+=======
+>>>>>>> Stashed changes
   }
 }

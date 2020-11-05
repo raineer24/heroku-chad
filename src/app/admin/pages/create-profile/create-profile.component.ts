@@ -86,7 +86,7 @@ export class CreateProfileComponent implements OnInit {
       status: [null, Validators.required],
       website: ["", Validators.required],
       bio: ["", Validators.required],
-      githubusername: ["", Validators.required],
+      //githubusername: ["", Validators.required],
       job_location: ["", Validators.required],
       company_name: ["", Validators.required],
       areas_of_expertise: ["", Validators.required],

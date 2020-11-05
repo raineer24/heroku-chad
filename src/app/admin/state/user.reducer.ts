@@ -3,28 +3,56 @@ import * as fromRoot from "../../state/app.state";
 import { UserActions, UserActionTypes } from "../state/user.actions";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
+import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
+
 // export interface State extends fromRoot.State {
 //   user: UsersState;
 // }
+
+import { UserFetch } from "../../core/models/userfetch";
+
+export interface UsersState extends EntityState<UserFetch> {
+  selectedUserProfileId: number | null;
+  loading: boolean;
+  loaded: boolean;
+  error: string;
+}
 
 export interface AppState extends fromRoot.AppState {
   user: UsersState;
 }
 
-// State for this feature (User)
-export interface UsersState {
-  // maskUserName: boolean;
-  // currentUser: User;
-  user: User | null;
-  loading: boolean;
-  errorMessage: any;
-}
+export const userProfileAdapter: EntityAdapter<UserFetch> = createEntityAdapter<
+  UserFetch
+>();
 
-const initialState: UsersState = {
-  user: null,
+// // State for this feature (User)
+// export interface UsersState {
+//   // maskUserName: boolean;
+//   // currentUser: User;
+//   user: User | null;
+//   loading: boolean;
+//   errorMessage: any;
+// }
+
+// const initialState: UsersState = {
+//   user: null,
+//   loading: false,
+//   errorMessage: null,
+// };
+
+export const defaultUserProfile: UsersState = {
+  ids: [],
+  entities: {},
+  selectedUserProfileId: null,
   loading: false,
-  errorMessage: null,
+  loaded: false,
+  error: "",
 };
+
+export const initialState = userProfileAdapter.getInitialState(
+  defaultUserProfile
+);
 
 // Selector functions
 const getUserFeatureState = createFeatureSelector<UsersState>("users");

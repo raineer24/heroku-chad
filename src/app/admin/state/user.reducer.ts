@@ -3,7 +3,11 @@ import * as fromRoot from "../../state/app.state";
 import { UserActions, UserActionTypes } from "../state/user.actions";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
-export interface State extends fromRoot.State {
+// export interface State extends fromRoot.State {
+//   user: UsersState;
+// }
+
+export interface AppState extends fromRoot.AppState {
   user: UsersState;
 }
 

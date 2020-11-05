@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthService,
-    private store: Store<fromUser.State>
+    private store: Store<fromUser.AppState>
   ) {
     // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
     //   (user) => {

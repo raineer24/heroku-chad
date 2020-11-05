@@ -50,7 +50,7 @@ export class CreateProfileComponent implements OnInit {
     private authenticationService: AuthService,
     private alertService: AlertService,
     private route: ActivatedRoute,
-    private store: Store<fromUser.State>,
+    private store: Store<fromUser.AppState>,
     private formBuilder: FormBuilder,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer

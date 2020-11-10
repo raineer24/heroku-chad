@@ -31,7 +31,7 @@ export const userProfileAdapter: EntityAdapter<UserFetch> = createEntityAdapter<
 //   // maskUserName: boolean;
 //   // currentUser: User;
 //   user: User | null;
-//   loading: boolean;
+//   loading: boolean;pinay
 //   errorMessage: any;
 // }
 
@@ -57,14 +57,10 @@ export const initialState = userProfileAdapter.getInitialState(
 // Selector functions
 const getUserFeatureState = createFeatureSelector<UsersState>("users");
 
-export const getProfile = (state: UsersState) => state.user;
-
-export const getUserProfile = createSelector(getUserFeatureState, (state) => {
-  console.log("state", state.user);
-  return state.user;
-});
-
-export function reducer(state = initialState, action: UserActions): UsersState {
+export function userReducer(
+  state = initialState,
+  action: UserActions
+): UsersState {
   switch (action.type) {
     case UserActionTypes.LOAD_PROFILE_BEGIN: {
       return {
@@ -72,25 +68,55 @@ export function reducer(state = initialState, action: UserActions): UsersState {
         loading: true,
       };
     }
-    case UserActionTypes.LOAD_PROFILE_FAILURE: {
-      return {
-        ...state,
-        loading: false,
-        errorMessage: action.payload,
-      };
-    }
 
     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
-      console.log(state);
-
-      return {
+      return userProfileAdapter.addOne(action.payload, {
         ...state,
-        loading: true,
-        user: action.payload,
-      };
+        selectedEmployeeId: action.payload.id,
+      });
     }
-
-    default:
-      return state;
   }
 }
+
+// export const getProfile = (state: UsersState) => state.user;
+
+// export const getEmployees = createSelector(
+//   getEmployeeFeatureState,
+//   employeeAdapter.getSelectors().selectAll
+// );
+
+// export const getUserProfile = createSelector(getUserFeatureState, (state) => {
+//   console.log("state", state.user);
+//   return state.user;
+// });
+
+// export function reducer(state = initialState, action: UserActions): UsersState {
+//   switch (action.type) {
+//     case UserActionTypes.LOAD_PROFILE_BEGIN: {
+//       return {
+//         ...state,
+//         loading: true,
+//       };
+//     }
+//     case UserActionTypes.LOAD_PROFILE_FAILURE: {
+//       return {
+//         ...state,
+//         loading: false,
+//         errorMessage: action.payload,
+//       };
+//     }
+
+//     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
+//       console.log(state);
+
+//       return {
+//         ...state,
+//         loading: true,
+//         user: action.payload,
+//       };
+//     }
+
+//     default:
+//       return state;
+//   }
+// }

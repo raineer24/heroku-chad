@@ -28,12 +28,13 @@ import {
   MatInputModule,
   MatMenuModule,
   MatSelectModule,
+  MatTableModule,
 } from "@angular/material";
 
 /* NgRx */
 import { StoreModule } from "@ngrx/store";
 //import { reducer } from "./state/post.reducer";
-import { reducer } from "../admin/state/user.reducer";
+import { userReducer } from "../admin/state/user.reducer";
 import { AuthService } from "../core/services/user.service";
 import { EffectsModule } from "@ngrx/effects";
 import { UserEffects } from "../admin/state/user.effects";
@@ -52,7 +53,7 @@ import { UserEffects } from "../admin/state/user.effects";
   ],
   imports: [
     AdminRoutingModule,
-    StoreModule.forFeature("users", reducer),
+    StoreModule.forFeature("users", userReducer),
     EffectsModule.forFeature([UserEffects]),
     MatCardModule,
     MatToolbarModule,
@@ -70,6 +71,7 @@ import { UserEffects } from "../admin/state/user.effects";
     SharedModule,
     MatSelectModule,
     MatMenuModule,
+    MatTableModule,
     MatIconModule,
   ],
   providers: [AuthGuardService],

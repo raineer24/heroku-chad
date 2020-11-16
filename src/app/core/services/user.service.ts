@@ -216,6 +216,19 @@ export class AuthService {
     return localStorage.getItem("token");
   }
 
+  /**
+   *
+   *
+   * @private
+   * @param {any} user_data
+   *
+   * @memberof AuthService
+   */
+  private setTokenInLocalStorage(user_data): void {
+    const jsonData = JSON.stringify(user_data);
+    localStorage.setItem("user", jsonData);
+  }
+
   login(email: string, password: string): Observable<any> {
     const json = JSON.stringify({ email: email, password: password });
     const url = `${this.baseUrl}/api/v2/users/login`;

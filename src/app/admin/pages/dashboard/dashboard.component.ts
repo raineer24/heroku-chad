@@ -52,6 +52,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     //console.log("profile", this.store.select(fromUser.getUserProfile));
+    // this.store.dispatch(
+    //   new employeeActions.LoadEmployeeAction(employee.id)
+    // );
 
     if (!this.isAddMode) {
       console.log("test");

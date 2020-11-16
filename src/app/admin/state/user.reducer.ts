@@ -70,6 +70,8 @@ export function userReducer(
     }
 
     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
+      console.log("action.payload.id", action.payload);
+
       return userProfileAdapter.addOne(action.payload, {
         ...state,
         selectedEmployeeId: action.payload.id,
@@ -77,6 +79,92 @@ export function userReducer(
     }
   }
 }
+
+// export function employeeReducer(
+//   state = initialState,
+//   action: employeeActions.Action
+// ): EmployeeState {
+//   switch (action.type) {
+//     case employeeActions.EmployeeActionTypes.LOAD_EMPLOYEES_SUCCESS: {
+//       return employeeAdapter.addAll(action.payload, {
+//         ...state,
+//         loading: false,
+//         loaded: true,
+//       });
+//     }
+
+//     case employeeActions.EmployeeActionTypes.LOAD_EMPLOYEES_FAILURE: {
+//       return {
+//         ...state,
+//         entities: {},
+//         loading: false,
+//         loaded: false,
+//         error: action.payload,
+//       };
+//     }
+
+//     case employeeActions.EmployeeActionTypes.LOAD_EMPLOYEE_SUCCESS: {
+//       return employeeAdapter.addOne(action.payload, {
+//         ...state,
+//         selectedEmployeeId: action.payload.id,
+//       });
+//     }
+
+//     case employeeActions.EmployeeActionTypes.LOAD_EMPLOYEE_FAILURE: {
+//       return {
+//         ...state,
+//         error: action.payload,
+//       };
+//     }
+
+//     case employeeActions.EmployeeActionTypes.CREATE_EMPLOYEE_SUCCESS: {
+//       return employeeAdapter.addOne(action.payload, state);
+//     }
+
+//     case employeeActions.EmployeeActionTypes.CREATE_EMPLOYEE_FAILURE: {
+//       return {
+//         ...state,
+//         error: action.payload,
+//       };
+//     }
+
+//     case employeeActions.EmployeeActionTypes.UPDATE_EMPLOYEE_SUCCESS: {
+//       return employeeAdapter.updateOne(action.payload, state);
+//     }
+
+//     case employeeActions.EmployeeActionTypes.UPDATE_EMPLOYEE_FAILURE: {
+//       return {
+//         ...state,
+//         error: action.payload,
+//       };
+//     }
+
+//     case employeeActions.EmployeeActionTypes.DELETE_EMPLOYEE_SUCCESS: {
+//       return employeeAdapter.removeOne(action.payload, state);
+//     }
+
+//     case employeeActions.EmployeeActionTypes.DELETE_EMPLOYEE_FAILURE: {
+//       return {
+//         ...state,
+//         error: action.payload,
+//       };
+//     }
+
+//     default: {
+//       return state;
+//     }
+//   }
+// }
+
+// export const getCurrentElemployeeId = createSelector(
+//   getEmployeeFeatureState,
+//   (state: EmployeeState) => state.selectedEmployeeId
+// );
+
+export const getCurrentUserId = createSelector(
+  getUserFeatureState,
+  (state: UsersState) => state.selectedUserProfileId
+);
 
 // export const getProfile = (state: UsersState) => state.user;
 

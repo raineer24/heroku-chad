@@ -1,4 +1,4 @@
-import { UserFetch } from "../../core/models/userfetch";
+import { UserFetch, User } from "../../core/models";
 
 /* NgRx */
 import { Action } from "@ngrx/store";
@@ -6,6 +6,7 @@ import { UserEffects } from "../state/user.effects";
 
 export enum UserActionTypes {
   LOAD_PROFILE_BEGIN = "[User] Load Profile begin",
+  LOAD_PROFILE = "[User] Load Profile",
   LOAD_PROFILE_SUCCESS = "[User] Load Profile Success",
   LOAD_PROFILE_FAILURE = "[User] Load Profile failure",
   UPDATE_INFO = "[User] Update Info",
@@ -27,10 +28,21 @@ export class LoadProfileBegin implements Action {
 //   constructor(public payload: number) {}
 // }
 
+export class LoadUserAction implements Action {
+  readonly type = UserActionTypes.LOAD_PROFILE;
+  constructor(public payload: number) {}
+}
+
+// export class LoadProfileSuccess implements Action {
+//   readonly type = UserActionTypes.LOAD_PROFILE_SUCCESS;
+
+//   constructor(public payload: any) {}
+// }
+
 export class LoadProfileSuccess implements Action {
   readonly type = UserActionTypes.LOAD_PROFILE_SUCCESS;
 
-  constructor(public payload: any) {}
+  constructor(public payload: User[]) {}
 }
 
 export class UpdateInfoAction implements Action {
@@ -48,4 +60,5 @@ export type UserActions =
   | LoadProfileSuccess
   | LoadProfileFailure
   | UpdateInfoAction
-  | UpdateSuccessAction;
+  | UpdateSuccessAction
+  | LoadUserAction;

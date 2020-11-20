@@ -22,6 +22,11 @@ export class LoadProfileBegin implements Action {
   readonly type = UserActionTypes.LOAD_PROFILE_BEGIN;
 }
 
+// export class LoadEmployeeAction implements Action {
+//   readonly type = EmployeeActionTypes.LOAD_EMPLOYEE;
+//   constructor(public payload: number) {}
+// }
+
 export class LoadProfileSuccess implements Action {
   readonly type = UserActionTypes.LOAD_PROFILE_SUCCESS;
 

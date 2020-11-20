@@ -35,14 +35,18 @@ export class DashboardComponent implements OnInit {
     //   }
     // );
     this.store.dispatch(new userActions.LoadProfileBegin());
-    this.store
-      .pipe(
-        select(fromUser.getCurrentUserId),
-        filter((user) => !!user)
-      )
+
+    this.currentUserSubscription = this.store
+      .select(fromUser.getCurrentUser)
+
+      // this.store
+      //   .pipe(
+      //     select(fromUser.getCurrentUserId),
+      //     filter((user) => !!user)
+      //   )
       .subscribe((data) => {
-        console.log("data: ", data);
-        this.currentUser = data;
+        console.log("data: => ", data);
+        //this.currentUser = data;
         // console.log("currentuser", this.currentUser);
         // this.statusArray = data.user_profile[0];
         // console.log("statusarray", this.statusArray.length);
@@ -55,6 +59,8 @@ export class DashboardComponent implements OnInit {
     // this.store.dispatch(
     //   new employeeActions.LoadEmployeeAction(employee.id)
     // );
+
+    //this.counter = this.store.pipe(select(fromRoot.selectFeatureCount));
 
     if (!this.isAddMode) {
       console.log("test");

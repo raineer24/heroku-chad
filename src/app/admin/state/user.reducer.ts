@@ -166,6 +166,18 @@ export const getCurrentUserId = createSelector(
   (state: UsersState) => state.selectedUserProfileId
 );
 
+export const getCurrentUser = createSelector(
+  getUserFeatureState,
+  getCurrentUserId,
+  (state) => state.entities[state.selectedUserProfileId]
+);
+
+// export const getCurrentElemployee = createSelector(
+//   getEmployeeFeatureState,
+//   getCurrentElemployeeId,
+//   (state) => state.entities[state.selectedEmployeeId]
+// );
+
 // export const getProfile = (state: UsersState) => state.user;
 
 // export const getEmployees = createSelector(

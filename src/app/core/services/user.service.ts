@@ -216,19 +216,6 @@ export class AuthService {
     return localStorage.getItem("token");
   }
 
-  /**
-   *
-   *
-   * @private
-   * @param {any} user_data
-   *
-   * @memberof AuthService
-   */
-  private setTokenInLocalStorage(user_data): void {
-    const jsonData = JSON.stringify(user_data);
-    localStorage.setItem("user", jsonData);
-  }
-
   login(email: string, password: string): Observable<any> {
     const json = JSON.stringify({ email: email, password: password });
     const url = `${this.baseUrl}/api/v2/users/login`;
@@ -281,6 +268,32 @@ export class AuthService {
         return Object.assign({}, user["user"], { areas_of_expertise });
 
         //return user["user"];
+      }),
+      catchError(this.errorMgmt)
+    );
+  }
+
+  getUserById(payload: number): Observable<User> {
+    //const url = `${this.apiurl}/${id}`;
+    // return this.http.get<User>(`${baseUrl}/${id}`);
+    const url = `${this.baseUrl}/api/v2/users/profile/${payload}`;
+    return this.http.get<User>(url).pipe(
+      map((user) => {
+        //  console.log("user", user["user"].user_skill_set[0]);
+
+        // let areas_of_expertise = user["user"].user_skill_set[0].skills[0];
+        // user.forEach((eachData) => {
+        //   // console.log('Employee Name ---> ',eachData.addEmployee.firstName);
+        //   // eachData.attendances.forEach(atten => {
+        //   //   console.log('attendance Object -->',atten);
+
+        //   //  return Object.assign({}, json, { skills });
+        //   console.log("foreach", eachData);
+        // });
+        // console.log(Object.assign({}, user["user"], { areas_of_expertise }));
+        // return Object.assign({}, user["user"], { areas_of_expertise });
+
+        return user["user"];
       }),
       catchError(this.errorMgmt)
     );

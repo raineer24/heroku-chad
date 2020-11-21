@@ -42,17 +42,17 @@ export class LoadUserAction implements Action {
 export class LoadProfileSuccess implements Action {
   readonly type = UserActionTypes.LOAD_PROFILE_SUCCESS;
 
-  constructor(public payload: User[]) {}
+  constructor(public payload: User) {}
 }
 
 export class UpdateInfoAction implements Action {
   readonly type = UserActionTypes.UPDATE_INFO;
-  constructor(public payload: { user: UserFetch }) {}
+  constructor(public payload: { user: User }) {}
 }
 
 export class UpdateSuccessAction implements Action {
   readonly type = UserActionTypes.UPDATE_SUCCESS;
-  constructor(public payload: { item: UserFetch }) {}
+  constructor(public payload: { item: User }) {}
 }
 
 export type UserActions =

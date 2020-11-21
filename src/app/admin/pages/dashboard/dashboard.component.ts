@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
   isAddMode: boolean;
 
   statusArray: any;
+  user: User;
 
   constructor(
     private authenticationService: AuthService,
@@ -34,7 +35,8 @@ export class DashboardComponent implements OnInit {
     //     this.currentUser = data["user"];
     //   }
     // );
-    this.store.dispatch(new userActions.LoadProfileBegin());
+    //this.store.dispatch(new userActions.LoadProfileBegin());
+    // this.store.dispatch(new userActions.LoadUserAction());
 
     this.currentUserSubscription = this.store
       .select(fromUser.getCurrentUser)

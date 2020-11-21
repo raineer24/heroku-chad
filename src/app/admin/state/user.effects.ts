@@ -31,22 +31,50 @@ export class UserEffects {
     private alertService: AlertService
   ) {}
 
+  // @Effect()
+  // loadProfile$: Observable<any> = this.actions$.pipe(
+  //   ofType(UserActions.UserActionTypes.LOAD_PROFILE_BEGIN),
+
+  //   flatMap(() => {
+  //     return this.authService.getUserDetail().pipe(
+  //       take(1),
+  //       map((data) => {
+  //         console.log("data", data);
+
+  //         console.log("map effect");
+  //         return new UserActions.LoadProfileSuccess(data);
+  //         //return new userActions.LoadProfileSuccess(data["user"]);
+  //       }),
+  //       catchError((error) => of(new UserActions.LoadProfileFailure(error)))
+  //     );
+  //   })
+  // );
+
   @Effect()
-  loadProfile$: Observable<any> = this.actions$.pipe(
-    ofType(UserActions.UserActionTypes.LOAD_PROFILE_BEGIN),
+  loadUser$: Observable<Action> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.LOAD_PROFILE),
 
-    flatMap(() => {
-      return this.authService.getUserDetail().pipe(
+    mergeMap((action: UserActions.LoadUserAction) =>
+      this.authService.getUserById(action.payload).pipe(
         take(1),
-        map((data) => {
-          console.log("data", data);
+        map((user: User) => new UserActions.LoadProfileSuccess(user)),
+        catchError((err) => of(new UserActions.LoadProfileFailure(err)))
+      )
+    )
+    // flatMap((action: employeeActions.LoadEmployeeAction) => {
+    //    this.employeeService.getUserById(action.payload).pipe(
+    //     take(1),
+    //     map((user) => {
+    //       console.log("data", user);
 
-          console.log("map effect");
-          return new UserActions.LoadProfileSuccess(data);
-          //return new userActions.LoadProfileSuccess(data["user"]);
-        }),
-        catchError((error) => of(new UserActions.LoadProfileFailure(error)))
-      );
-    })
+    //       console.log("map effect");
+    //       new employeeActions.LoadEmployeeSuccessAction(user);
+    //       //return new userActions.LoadProfileSuccess(data["user"]);
+    //     }),
+    //     catchError((err) =>
+    //       of(new employeeActions.LoadEmployeeFailureAction(err))
+    //     )
+    //   );
+    // })
   );
 }

@@ -11,7 +11,7 @@ import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
 import { UserFetch } from "../../core/models/userfetch";
 
-export interface UsersState extends EntityState<UserFetch> {
+export interface UsersState extends EntityState<User> {
   selectedUserProfileId: number | null;
   loading: boolean;
   loaded: boolean;
@@ -22,8 +22,8 @@ export interface AppState extends fromRoot.AppState {
   user: UsersState;
 }
 
-export const userProfileAdapter: EntityAdapter<UserFetch> = createEntityAdapter<
-  UserFetch
+export const userProfileAdapter: EntityAdapter<User> = createEntityAdapter<
+  User
 >();
 
 // // State for this feature (User)

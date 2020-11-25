@@ -62,3 +62,9 @@ export function reducer(state = initialState, action: UserActions): UsersState {
       return state;
   }
 }
+
+// export const getCurrentElemployee = createSelector(
+//   getEmployeeFeatureState,
+//   getCurrentElemployeeId,
+//   (state) => state.entities[state.selectedEmployeeId]
+// );

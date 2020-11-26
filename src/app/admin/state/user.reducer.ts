@@ -3,6 +3,8 @@ import * as fromRoot from "../../state/app.state";
 import { UserActions, UserActionTypes } from "../state/user.actions";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
+import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
+
 export interface State extends fromRoot.AppState {
   user: UsersState;
 }
@@ -15,6 +17,15 @@ export interface UsersState {
   loading: boolean;
   errorMessage: any;
 }
+
+// export const defaultEmployee: EmployeeState = {
+//   ids: [],
+//   entities: {},
+//   selectedEmployeeId: null,
+//   loading: false,
+//   loaded: false,
+//   error: "",
+// };
 
 const initialState: UsersState = {
   user: null,

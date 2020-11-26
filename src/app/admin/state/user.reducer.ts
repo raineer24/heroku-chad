@@ -5,6 +5,13 @@ import { createFeatureSelector, createSelector } from "@ngrx/store";
 
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
+// export interface EmployeeState extends EntityState<User> {
+//   selectedEmployeeId: number | null;
+//   loading: boolean;
+//   loaded: boolean;
+//   error: string;
+// }
+
 export interface State extends fromRoot.AppState {
   user: UsersState;
 }
@@ -27,11 +34,11 @@ export interface UsersState {
 //   error: "",
 // };
 
-const initialState: UsersState = {
-  user: null,
-  loading: false,
-  errorMessage: null,
-};
+// const initialState: UsersState = {
+//   user: null,
+//   loading: false,
+//   errorMessage: null,
+// };
 
 // Selector functions
 const getUserFeatureState = createFeatureSelector<UsersState>("users");

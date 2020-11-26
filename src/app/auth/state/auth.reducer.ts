@@ -4,7 +4,7 @@ import { AuthActions, AuthActionTypes } from "./auth.action";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { v4 as uuidv4 } from "uuid";
 
-export interface State extends fromRoot.State {
+export interface State extends fromRoot.AppState {
   auth: AuthState;
 }
 

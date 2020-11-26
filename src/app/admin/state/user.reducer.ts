@@ -3,7 +3,7 @@ import * as fromRoot from "../../state/app.state";
 import { UserActions, UserActionTypes } from "../state/user.actions";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
-export interface State extends fromRoot.State {
+export interface State extends fromRoot.AppState {
   user: UsersState;
 }
 
@@ -62,6 +62,8 @@ export function reducer(state = initialState, action: UserActions): UsersState {
       return state;
   }
 }
+
+//export const getCurrentElemployee = createSelector(getUserFeatureState);
 
 // export const getCurrentElemployee = createSelector(
 //   getEmployeeFeatureState,

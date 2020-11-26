@@ -65,6 +65,10 @@ export function reducer(state = initialState, action: UserActions): UsersState {
 
 //export const getCurrentElemployee = createSelector(getUserFeatureState);
 
+// export const getCurrentUserId = createSelector(
+//   getUserFeatureState,
+// )
+
 // export const getCurrentElemployeeId = createSelector(
 //   getEmployeeFeatureState,
 //   (state: EmployeeState) => state.selectedEmployeeId

@@ -5,25 +5,20 @@ import { createFeatureSelector, createSelector } from "@ngrx/store";
 
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
-// export interface EmployeeState extends EntityState<User> {
-//   selectedEmployeeId: number | null;
-//   loading: boolean;
-//   loaded: boolean;
-//   error: string;
-// }
+export interface UsersState extends EntityState<User> {
+  selectedUserId: number | null;
+  loading: boolean;
+  loaded: boolean;
+  error: string;
+}
 
 export interface State extends fromRoot.AppState {
   user: UsersState;
 }
 
-// State for this feature (User)
-export interface UsersState {
-  // maskUserName: boolean;
-  // currentUser: User;
-  user: User | null;
-  loading: boolean;
-  errorMessage: any;
-}
+//export const employeeAdapter: EntityAdapter<User> = createEntityAdapter<User>();
+
+export const userAdapter: EntityAdapter<User> = createEntityAdapter<User>();
 
 // export const defaultEmployee: EmployeeState = {
 //   ids: [],
@@ -34,6 +29,28 @@ export interface UsersState {
 //   error: "",
 // };
 
+export const defaultEmployee: UsersState = {
+  ids: [],
+  entities: {},
+  selectedUserId: null,
+  loading: false,
+  loaded: false,
+  error: "",
+};
+
+// State for this feature (User)
+// export interface UsersState {
+//   // maskUserName: boolean;
+//   // currentUser: User;
+//   user: User | null;
+//   loading: boolean;
+//   errorMessage: any;
+// }
+
+//export const initialState = employeeAdapter.getInitialState(defaultEmployee);
+
+export const initialState = userAdapter.getInitialState();
+
 // const initialState: UsersState = {
 //   user: null,
 //   loading: false,
@@ -43,43 +60,58 @@ export interface UsersState {
 // Selector functions
 const getUserFeatureState = createFeatureSelector<UsersState>("users");
 
-export const getProfile = (state: UsersState) => state.user;
+//export const getProfile = (state: UsersState) => state.user;
 
-export const getUserProfile = createSelector(getUserFeatureState, (state) => {
-  console.log("state", state.user);
-  return state.user;
-});
+// export const getUserProfile = createSelector(getUserFeatureState, (state) => {
+//   console.log("state", state.user);
+//   return state.user;
+// });
 
-export function reducer(state = initialState, action: UserActions): UsersState {
+export function userReducer(
+  state = initialState,
+  action: UserActions
+): UsersState {
   switch (action.type) {
-    case UserActionTypes.LOAD_PROFILE_BEGIN: {
-      return {
-        ...state,
-        loading: true,
-      };
-    }
-    case UserActionTypes.LOAD_PROFILE_FAILURE: {
-      return {
+    case UserActionTypes.LOAD_PROFILE_SUCCESS: {
+      return userAdapter.addAll(action.payload, {
         ...state,
         loading: false,
-        errorMessage: action.payload,
-      };
+        loaded: true,
+      });
     }
-
-    case UserActionTypes.LOAD_PROFILE_SUCCESS: {
-      console.log(state);
-
-      return {
-        ...state,
-        loading: true,
-        user: action.payload,
-      };
-    }
-
-    default:
-      return state;
   }
 }
+
+// export function reducer(state = initialState, action: UserActions): UsersState {
+//   switch (action.type) {
+//     case UserActionTypes.LOAD_PROFILE_BEGIN: {
+//       return {
+//         ...state,
+//         loading: true,
+//       };
+//     }
+//     case UserActionTypes.LOAD_PROFILE_FAILURE: {
+//       return {
+//         ...state,
+//         loading: false,
+//         errorMessage: action.payload,
+//       };
+//     }
+
+//     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
+//       console.log(state);
+
+//       return {
+//         ...state,
+//         loading: true,
+//         user: action.payload,
+//       };
+//     }
+
+//     default:
+//       return state;
+//   }
+// }
 
 //export const getCurrentElemployee = createSelector(getUserFeatureState);
 

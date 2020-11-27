@@ -38,19 +38,19 @@ export class DashboardComponent implements OnInit {
     // );
 
     this.store.dispatch(new userActions.LoadProfileBegin());
-    this.store
-      .pipe(
-        select(fromUser.getUserProfile),
-        filter((user) => !!user)
-      )
-      .subscribe((data) => {
-        console.log("data: ", data);
-        this.currentUser = data;
-        // console.log("currentuser", this.currentUser);
-        // this.statusArray = data.user_profile[0];
-        // console.log("statusarray", this.statusArray.length);
-        // console.log("data1", this.statusArray.bio);
-      });
+    // this.store
+    //   .pipe(
+    //     select(fromUser.getUserProfile),
+    //     filter((user) => !!user)
+    //   )
+    //   .subscribe((data) => {
+    //     console.log("data: ", data);
+    //     this.currentUser = data;
+    //     // console.log("currentuser", this.currentUser);
+    //     // this.statusArray = data.user_profile[0];
+    //     // console.log("statusarray", this.statusArray.length);
+    //     // console.log("data1", this.statusArray.bio);
+    //   });
   }
 
   ngOnInit() {

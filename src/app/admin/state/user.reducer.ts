@@ -29,7 +29,7 @@ export const userAdapter: EntityAdapter<User> = createEntityAdapter<User>();
 //   error: "",
 // };
 
-export const defaultEmployee: UsersState = {
+export const defaultUser: UsersState = {
   ids: [],
   entities: {},
   selectedUserId: null,
@@ -49,7 +49,7 @@ export const defaultEmployee: UsersState = {
 
 //export const initialState = employeeAdapter.getInitialState(defaultEmployee);
 
-export const initialState = userAdapter.getInitialState();
+export const initialState = userAdapter.getInitialState(defaultUser);
 
 // const initialState: UsersState = {
 //   user: null,

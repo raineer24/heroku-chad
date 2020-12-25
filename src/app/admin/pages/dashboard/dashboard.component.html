@@ -3,6 +3,10 @@
   >Designs</a
 > -->
 <!-- <router-outlet></router-outlet> -->
+
+<div *ngIf="profile$ | async as user">
+  <h1>Welcome {{ user.username}}!</h1>
+</div>
 <h1>Dashboard</h1>
 <h3>Hi {{ currentUser?.first_name }}</h3>
 <!-- <h3>{{ currentUser?.user_profile[0].bio }}</h3> -->

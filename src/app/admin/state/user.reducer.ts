@@ -1,11 +1,11 @@
-import { User } from "../../core/models/user";
+import { User, UserFetch } from "../../core/models";
 import * as fromRoot from "../../state/app.state";
 import { UserActions, UserActionTypes } from "../state/user.actions";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
-export interface UsersState extends EntityState<User> {
+export interface UsersState extends EntityState<UserFetch> {
   selectedUserId: number | null;
   loading: boolean;
   loaded: boolean;
@@ -18,7 +18,7 @@ export interface State extends fromRoot.AppState {
 
 //export const employeeAdapter: EntityAdapter<User> = createEntityAdapter<User>();
 
-export const userAdapter: EntityAdapter<User> = createEntityAdapter<User>();
+export const userAdapter: EntityAdapter<UserFetch> = createEntityAdapter<UserFetch>();
 
 // export const defaultEmployee: EmployeeState = {
 //   ids: [],
@@ -73,12 +73,18 @@ export function userReducer(
 ): UsersState {
   switch (action.type) {
     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
+      console.log("action.payload", action.payload);
+
       return userAdapter.addAll(action.payload, {
         ...state,
         loading: false,
         loaded: true,
+        selectedUserId: action.payload.id,
       });
     }
+
+    default:
+      return state;
   }
 }
 
@@ -119,10 +125,21 @@ export function userReducer(
 //   getUserFeatureState,
 // )
 
+export const getCurrentUserId = createSelector(
+  getUserFeatureState,
+  (state: UsersState) => state.selectedUserId
+);
+
 // export const getCurrentElemployeeId = createSelector(
 //   getEmployeeFeatureState,
 //   (state: EmployeeState) => state.selectedEmployeeId
 // );
+
+export const getCurrentUser = createSelector(
+  getUserFeatureState,
+  getCurrentUserId,
+  (state) => state.entities[state.selectedUserId]
+);
 
 // export const getCurrentElemployee = createSelector(
 //   getEmployeeFeatureState,

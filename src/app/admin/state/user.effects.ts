@@ -35,7 +35,7 @@ export class UserEffects {
   loadProfile$: Observable<any> = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.LOAD_PROFILE_BEGIN),
 
-    flatMap(() => {
+    mergeMap(() => {
       return this.authService.getUserDetail().pipe(
         take(1),
         map((data) => {

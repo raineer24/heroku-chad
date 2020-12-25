@@ -94,13 +94,6 @@ export class AuthService {
   //   return this.http.get<Posts[]>(url);
   // }
 
-  /**
-   *
-   *
-   * @returns {Observable<User[]>}
-   *
-   * @memberof UserService
-   */
   getUserDetail(): Observable<any> {
     //  console.log("token", token);
     console.log(

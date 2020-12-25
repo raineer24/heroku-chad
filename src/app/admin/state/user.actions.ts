@@ -3,6 +3,7 @@ import { UserFetch } from "../../core/models/userfetch";
 /* NgRx */
 import { Action } from "@ngrx/store";
 import { UserEffects } from "../state/user.effects";
+import { AnyFn } from "@ngrx/store/src/selector";
 
 export enum UserActionTypes {
   LOAD_PROFILE_BEGIN = "[User] Load Profile begin",
@@ -23,7 +24,7 @@ export class LoadProfileBegin implements Action {
 }
 
 export class LoadProfileSuccess implements Action {
-  readonly type = UserActionTypes.LOAD_PROFILE_SUCCESS;
+  public readonly type = UserActionTypes.LOAD_PROFILE_SUCCESS;
 
   constructor(public payload: any) {}
 }

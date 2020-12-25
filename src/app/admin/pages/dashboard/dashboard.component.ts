@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { User } from "../../../core/models/user";
+import { UserFetch } from "../../../core/models/";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select } from "@ngrx/store";
 import * as fromUser from "../../state/user.reducer";
@@ -16,8 +16,8 @@ export class DashboardComponent implements OnInit {
   title = "";
   currentUser: any;
   currentUserSubscription: Subscription;
-  users: User[] = [];
-  profile$: Observable<User>;
+  //users: User[] = [];
+  profile$: Observable<UserFetch>;
   userData: {
     first_name: string;
   };
@@ -36,6 +36,11 @@ export class DashboardComponent implements OnInit {
     //     this.currentUser = data["user"];
     //   }
     // );
+
+    //this.currentUser$ = this.store.pipe(select(getUserData));
+
+    this.profile$ = this.store.pipe(select(fromUser.getCurrentUser));
+    console.log("profile", this.profile$);
 
     this.store.dispatch(new userActions.LoadProfileBegin());
     // this.store

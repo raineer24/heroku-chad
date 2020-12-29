@@ -73,9 +73,10 @@ export function userReducer(
 ): UsersState {
   switch (action.type) {
     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
-      console.log("action.payload", action.payload);
+      let actions = action.payload;
+      console.log("action.payload", actions);
 
-      return userAdapter.addAll(action.payload, {
+      return userAdapter.addOne(action.payload, {
         ...state,
         loading: false,
         loaded: true,

@@ -7,3 +7,5 @@ export * from "./posts/post-detail/posts-detail.component";
 export * from "./posts/post-edit/posts-edit.component";
 export * from "./create-profile/create-profile.component";
 export * from "./layout.component";
+
+export * from "./create-profile/app-dropdown/app-dropdown.component";

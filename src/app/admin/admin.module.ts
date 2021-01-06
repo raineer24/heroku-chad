@@ -14,6 +14,7 @@ import {
   PostsEditComponent,
   CreateProfileComponent,
   LayoutComponent,
+  AppDropdownComponent,
 } from "./pages";
 import { SharedModule } from "../shared";
 import {
@@ -49,6 +50,7 @@ import { UserEffects } from "../admin/state/user.effects";
     PostsEditComponent,
     CreateProfileComponent,
     LayoutComponent,
+    AppDropdownComponent,
   ],
   imports: [
     AdminRoutingModule,
@@ -72,6 +74,7 @@ import { UserEffects } from "../admin/state/user.effects";
     MatMenuModule,
     MatIconModule,
   ],
+  exports: [AppDropdownComponent],
   providers: [AuthGuardService],
 })
 export class AdminModule {}

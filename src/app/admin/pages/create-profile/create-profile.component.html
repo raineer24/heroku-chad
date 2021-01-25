@@ -10,7 +10,7 @@
       <small className="d-block pb-3">* = required fields</small>
     </div>
     <form [formGroup]="profForm" class="form" (ngSubmit)="onFormSubmit()">
-      <mat-form-field class="form-element">
+      <!-- <mat-form-field class="form-element">
         <mat-label>* Select Professional Status</mat-label>
         <mat-select [(value)]="selected" formControlName="status" (selectionChange)="onStatusChange()" required>
           <mat-option>--</mat-option>
@@ -19,10 +19,12 @@
           </mat-option>
         </mat-select>
         <mat-hint>Give us an idea of where you are at in your career</mat-hint>
-      </mat-form-field>
-      <mat-form-field class="form-element">
-        <app-dropdown></app-dropdown>
-      </mat-form-field>
+      </mat-form-field> -->
+
+      <app-dropdown [status]="selectedStatus" (jobSelected)="setJob($event)" [selected]="dropdownSelected"
+        [isDisabled]="disableForm">
+      </app-dropdown>
+
       <mat-form-field class="form-element">
         <mat-label>Company</mat-label>
         <input matInput placeholder="Company" name="company_name" required formControlName="company_name">

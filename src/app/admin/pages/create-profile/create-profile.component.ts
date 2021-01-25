@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { User } from "../../../core/models/user";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select } from "@ngrx/store";
@@ -32,11 +32,12 @@ export interface Position {
   styleUrls: ["./create-profile.component.scss"],
 })
 export class CreateProfileComponent implements OnInit {
+  @Input() disableForm: boolean;
   profForm: FormGroup;
   filteredStatus: Status[];
   allStatus: Status[];
   selectedStatus: String = "";
-  selected: any;
+  //selected: any;
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$";
   show = false;
   persons: FormArray;
@@ -45,6 +46,7 @@ export class CreateProfileComponent implements OnInit {
   isAddMode: boolean;
   loading = false;
   submitted = false;
+  dropdownSelected: string;
 
   constructor(
     private authenticationService: AuthService,
@@ -111,6 +113,13 @@ export class CreateProfileComponent implements OnInit {
 
   get status() {
     return this.profForm.get("status");
+  }
+
+  setJob(value) {
+    this.selectedStatus = value;
+    let val = this.profForm.get("status").setValue(value);
+    console.log("positions.value", this.status.value);
+    console.log("val", val);
   }
 
   onFormSubmit() {
@@ -185,11 +194,11 @@ export class CreateProfileComponent implements OnInit {
     result;
   }
 
-  onStatusChange(value) {
-    this.selectedStatus = value;
-    console.log(this.selectedStatus);
+  // onStatusChange(value) {
+  //   this.selectedStatus = value;
+  //   console.log("selectedStatus", this.selectedStatus);
 
-    console.log("Status changed...");
-    console.log("status.value", this.status.value);
-  }
+  //   console.log("Status changed...");
+  //   console.log("status.value", this.status.value);
+  // }
 }

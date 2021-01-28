@@ -21,8 +21,8 @@
         <mat-hint>Give us an idea of where you are at in your career</mat-hint>
       </mat-form-field> -->
 
-      <app-dropdown [status]="selectedStatus" (jobSelected)="setJob($event)" [selected]="dropdownSelected"
-        [isDisabled]="disableForm">
+      <app-dropdown [basicForm]="profForm" [status]="selectedStatus" (jobSelected)="setJob($event)"
+        [selected]="dropdownSelected" [isDisabled]="disableForm">
       </app-dropdown>
 
       <mat-form-field class="form-element">

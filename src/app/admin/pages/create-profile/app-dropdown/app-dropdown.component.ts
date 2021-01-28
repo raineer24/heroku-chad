@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Status } from "../../../../../app/core/models/positions";
 import { AuthService } from "../../../../core/services/user.service";
+import { FormBuilder, FormGroup } from "@angular/forms";
 export interface Positions {
   value: string;
   viewValue: string;
@@ -16,8 +17,12 @@ export class AppDropdownComponent implements OnInit {
   @Input() selected: string;
   jobTitle: Positions[];
   @Input() isDisabled: any;
-  constructor(private authenticationService: AuthService) {}
+  constructor(
+    private authenticationService: AuthService,
+    private fb: FormBuilder
+  ) {}
   allStatus: Status[];
+  @Input() basicForm: FormGroup;
 
   @Input() set status(positions: string) {
     this.jobTitle = this.getPositions();

@@ -120,6 +120,10 @@ export class CreateProfileComponent implements OnInit {
     let val = this.profForm.get("status").setValue(value);
     console.log("positions.value", this.status.value);
     console.log("val", val);
+
+    if (value === "Other") {
+      this.profForm.get("status").reset();
+    }
   }
 
   onFormSubmit() {

@@ -84,6 +84,15 @@ export function userReducer(
       });
     }
 
+    // case customerActions.CustomerActionTypes.UPDATE_CUSTOMER_SUCCESS:
+    //   return customerAdapter.updateOne(action.payload, state);
+
+    // case customerActions.CustomerActionTypes.UPDATE_CUSTOMER_FAIL:
+    //   return {
+    //     ...state,
+    //     error: action.payload,
+    //   };
+
     default:
       return state;
   }

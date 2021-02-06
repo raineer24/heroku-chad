@@ -271,6 +271,13 @@ export class AuthService {
     return this.http.put(`${url}`, params);
   }
 
+  // updateCustomer(customer: Customer): Observable<Customer> {
+  //   return this.http.patch<Customer>(
+  //     `${this.customersUrl}/${customer.id}`,
+  //     customer
+  //   );
+  // }
+
   logout() {
     // remove user from local storage to log user out
 

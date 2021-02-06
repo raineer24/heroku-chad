@@ -185,6 +185,16 @@ export class CreateProfileComponent implements OnInit {
     //     addressInfo: this.registrationFormData,
     //   })
     // );
+
+    // const updatedCustomer: Customer = {
+    //   name: this.customerForm.get("name").value,
+    //   phone: this.customerForm.get("phone").value,
+    //   address: this.customerForm.get("address").value,
+    //   membership: this.customerForm.get("membership").value,
+    //   id: this.customerForm.get("id").value,
+    // };
+
+    this.store.dispatch(new userActions.UpdateProfile(updateProfile));
   }
 
   // convenience getter for easy access to form fields

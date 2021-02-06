@@ -49,4 +49,24 @@ export class UserEffects {
       );
     })
   );
+
+  // @Effect()
+  // UpdateCustomer$: Observable<Action> = this.actions$.pipe(
+  //   ofType<CustomerAction.UpdateCustomer>(
+  //     CustomerAction.CustomerActionTypes.UPDATE_CUSTOMER
+  //   ),
+  //   map((action: CustomerAction.UpdateCustomer) => action.payload),
+  //   mergeMap((customer: Customer) =>
+  //     this.customerService.updateCustomer(customer).pipe(
+  //       map(
+  //         (updateCustomer: Customer) =>
+  //           new CustomerAction.UpdateCustomerSuccess({
+  //             id: updateCustomer.id,
+  //             changes: updateCustomer,
+  //           })
+  //       ),
+  //       catchError((err) => of(new CustomerAction.UpdateCustomerFail(err)))
+  //     )
+  //   )
+  // );
 }

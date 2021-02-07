@@ -266,9 +266,16 @@ export class AuthService {
     );
   }
 
-  update(id: string, params) {
-    const url = `${this.baseUrl}/api/v2/users/profile/${id}`;
-    return this.http.put(`${url}`, params);
+  // update(id: string, params) {
+  //   const url = `${this.baseUrl}/api/v2/users/profile/${id}`;
+  //   return this.http.put(`${url}`, params);
+  // }
+
+  updateProfile(profile: UserFetch): Observable<UserFetch> {
+    return this.http.patch<UserFetch>(
+      `${this.baseUrl}/api/v2/users/profile/${profile.id}`,
+      profile
+    );
   }
 
   // updateCustomer(customer: Customer): Observable<Customer> {

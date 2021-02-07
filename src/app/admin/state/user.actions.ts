@@ -11,6 +11,7 @@ export enum UserActionTypes {
   LOAD_PROFILE_FAILURE = "[User] Load Profile failure",
   UPDATE_PROFILE = "[User] Update Profile",
   UPDATE_PROFILE_SUCCESS = "[User] Update Success",
+  UPDATE_PROFILE_FAIL = "[Profile] Update Profile Fail",
 }
 
 export class LoadProfileFailure implements Action {
@@ -34,9 +35,15 @@ export class UpdateProfile implements Action {
   constructor(public payload: { user: UserFetch }) {}
 }
 
-export class UpdateSuccessAction implements Action {
+export class UpdateProfileSucess implements Action {
   readonly type = UserActionTypes.UPDATE_PROFILE_SUCCESS;
   constructor(public payload: { item: UserFetch }) {}
+}
+
+export class UpdateProfileFail implements Action {
+  readonly type = UserActionTypes.UPDATE_PROFILE_FAIL;
+
+  constructor(public payload: string) {}
 }
 
 export type UserActions =
@@ -44,4 +51,4 @@ export type UserActions =
   | LoadProfileSuccess
   | LoadProfileFailure
   | UpdateProfile
-  | UpdateSuccessAction;
+  | UpdateProfileSucess;

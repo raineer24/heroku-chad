@@ -1,4 +1,5 @@
 import { UserFetch } from "../../core/models/userfetch";
+import { Update } from "@ngrx/entity";
 
 /* NgRx */
 import { Action } from "@ngrx/store";
@@ -32,12 +33,12 @@ export class LoadProfileSuccess implements Action {
 
 export class UpdateProfile implements Action {
   readonly type = UserActionTypes.UPDATE_PROFILE;
-  constructor(public payload: { user: UserFetch }) {}
+  constructor(public payload: UserFetch) {}
 }
 
 export class UpdateProfileSucess implements Action {
   readonly type = UserActionTypes.UPDATE_PROFILE_SUCCESS;
-  constructor(public payload: { item: UserFetch }) {}
+  constructor(public payload: Update<UserFetch>) {}
 }
 
 export class UpdateProfileFail implements Action {

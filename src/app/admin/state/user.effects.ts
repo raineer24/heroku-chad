@@ -11,6 +11,7 @@ import {
   flatMap,
   take,
 } from "rxjs/operators";
+import { UserFetch } from "../../core/models";
 
 import { AuthService } from "../../core/services/user.service";
 import { AlertService } from "../../core/services/alert.service";
@@ -69,4 +70,22 @@ export class UserEffects {
   //     )
   //   )
   // );
+
+  @Effect()
+  UpdateProfile$: Observable<any> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.UPDATE_PROFILE),
+    map((action: UserActions.UpdateProfile) => action.payload),
+    mergeMap((user: UserFetch) =>
+      this.authService.updateProfile(user).pipe(
+        map(
+          (updateProfile: UserFetch) =>
+            new UserActions.UpdateProfileSucess({
+              id: updateProfile.id,
+              changes: updateProfile,
+            })
+        ),
+        catchError((err) => of(new UserActions.UpdateProfileFail(err)))
+      )
+    )
+  );
 }

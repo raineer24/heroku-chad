@@ -167,11 +167,7 @@ export class CreateProfileComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          // this.alertService.success("User updated", {
-          //   keepAfterRouteChange: true,
-          // });
           this.alertService.success("Profile Updated", true);
-          //this.router.navigate(["../../"], { relativeTo: this.route });
         },
         error: (error) => {
           this.alertService.error(error);

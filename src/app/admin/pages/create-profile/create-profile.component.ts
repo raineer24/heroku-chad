@@ -21,6 +21,7 @@ import {
   FormArray,
 } from "@angular/forms";
 import { forEach } from "@angular/router/src/utils/collection";
+import { UserFetch } from "src/app/core/models";
 
 export interface Position {
   label: string;
@@ -109,6 +110,26 @@ export class CreateProfileComponent implements OnInit {
         });
     }
     console.log("edit");
+
+    //  const customer$: Observable<Customer> = this.store.select(
+    //    fromCustomer.getCurrentCustomer
+    //  );
+
+    const profile$: Observable<UserFetch> = this.store.select(
+      fromUser.getCurrentUser
+    );
+
+    //  customer$.subscribe((currentCustomer) => {
+    //    if (currentCustomer) {
+    //      this.customerForm.patchValue({
+    //        name: currentCustomer.name,
+    //        phone: currentCustomer.phone,
+    //        address: currentCustomer.address,
+    //        membership: currentCustomer.membership,
+    //        id: currentCustomer.id,
+    //      });
+    //    }
+    //  });
   }
 
   get status() {
@@ -174,13 +195,6 @@ export class CreateProfileComponent implements OnInit {
           this.loading = false;
         },
       });
-
-    // this.store$.dispatch(new AuthActions.userUpdate({ uid: this.uid, token: this.token, id: this.keyID }));
-    // this.store$.dispatch(
-    //   new AddressBookStoreActions.UpdateInfoAction({
-    //     addressInfo: this.registrationFormData,
-    //   })
-    // );
 
     // const updatedCustomer: Customer = {
     //   name: this.customerForm.get("name").value,

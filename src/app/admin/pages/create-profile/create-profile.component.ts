@@ -79,7 +79,7 @@ export class CreateProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allStatus = this.authenticationService.getAllPositions();
+    //this.userData = JSON.parse(localStorage.getItem("currentUser"));
     console.log(this.allStatus);
     this.id = this.route.snapshot.params["id"];
     console.log("id", this.id);
@@ -94,9 +94,10 @@ export class CreateProfileComponent implements OnInit {
       company_name: ["", Validators.required],
       areas_of_expertise: ["", Validators.required],
       instagram_handle: [""],
-      fb: [""],
+      facebook_handle: [""],
       youtube_handle: [""],
       twitter_handle: [""],
+      id: (this.id = this.route.snapshot.params["id"]),
     });
 
     if (!this.isAddMode) {
@@ -119,17 +120,23 @@ export class CreateProfileComponent implements OnInit {
       fromUser.getCurrentUser
     );
 
-    //  customer$.subscribe((currentCustomer) => {
-    //    if (currentCustomer) {
-    //      this.customerForm.patchValue({
-    //        name: currentCustomer.name,
-    //        phone: currentCustomer.phone,
-    //        address: currentCustomer.address,
-    //        membership: currentCustomer.membership,
-    //        id: currentCustomer.id,
-    //      });
-    //    }
-    //  });
+    profile$.subscribe((currentProfile) => {
+      if (currentProfile) {
+        this.profForm.patchValue({
+          company_name: currentProfile.company_name,
+          website: currentProfile.website,
+          job_location: currentProfile.job_location,
+          status: currentProfile.status,
+          bio: currentProfile.bio,
+          areas_of_expertise: currentProfile.areas_of_expertise,
+          youtube_handle: currentProfile.youtube_handle,
+          twitter_handle: currentProfile.twitter_handle,
+          instagram_handle: currentProfile.instagram_handle,
+          facebook_handle: currentProfile.facebook_handle,
+          id: currentProfile.id,
+        });
+      }
+    });
   }
 
   get status() {
@@ -183,18 +190,18 @@ export class CreateProfileComponent implements OnInit {
   }
 
   private updateUser() {
-    this.authenticationService
-      .update(this.id, this.profForm.value)
-      .pipe(first())
-      .subscribe({
-        next: () => {
-          this.alertService.success("Profile Updated", true);
-        },
-        error: (error) => {
-          this.alertService.error(error);
-          this.loading = false;
-        },
-      });
+    // this.authenticationService
+    //   .update(this.id, this.profForm.value)
+    //   .pipe(first())
+    //   .subscribe({
+    //     next: () => {
+    //       this.alertService.success("Profile Updated", true);
+    //     },
+    //     error: (error) => {
+    //       this.alertService.error(error);
+    //       this.loading = false;
+    //     },
+    //   });
 
     // const updatedCustomer: Customer = {
     //   name: this.customerForm.get("name").value,
@@ -204,7 +211,21 @@ export class CreateProfileComponent implements OnInit {
     //   id: this.customerForm.get("id").value,
     // };
 
-    this.store.dispatch(new userActions.UpdateProfile(updateProfile));
+    const updatedProfile: UserFetch = {
+      company_name: this.profForm.get("company_name").value,
+      website: this.profForm.get("website").value,
+      job_location: this.profForm.get("job_location").value,
+      status: this.profForm.get("status").value,
+      bio: this.profForm.get("bio").value,
+      areas_of_expertise: this.profForm.get("areas_of_expertise").value,
+      id: this.profForm.get("id").value,
+      youtube_handle: this.profForm.get("youtube_handle").value,
+      instagram_handle: this.profForm.get("instagram_handle").value,
+      facebook_handle: this.profForm.get("facebook_handle").value,
+      twitter_handle: this.profForm.get("twitter_handle").value,
+    };
+
+    this.store.dispatch(new userActions.UpdateProfile(updatedProfile));
   }
 
   // convenience getter for easy access to form fields

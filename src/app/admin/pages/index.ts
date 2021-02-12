@@ -9,3 +9,5 @@ export * from "./create-profile/create-profile.component";
 export * from "./layout.component";
 
 export * from "./create-profile/app-dropdown/app-dropdown.component";
+export * from "./add-exp/add-exp.component";
+export * from "./add-edu/add-edu.component";

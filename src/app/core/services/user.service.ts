@@ -153,7 +153,7 @@ export class AuthService {
         tap((data) => {
           console.log(data);
           console.log("clicked");
-          this.router.navigate(["/admin/dashboard"]);
+          this.router.navigate(["/admin"]);
         }),
         catchError((err: HttpErrorResponse) => {
           return throwError(err);
@@ -274,10 +274,18 @@ export class AuthService {
   updateProfile(profile: UserFetch): Observable<UserFetch> {
     console.log("update click");
 
-    return this.http.patch<UserFetch>(
-      `${this.baseUrl}/api/v2/users/profile/${profile.id}`,
-      profile
-    );
+    return this.http
+      .patch<UserFetch>(
+        `${this.baseUrl}/api/v2/users/profile/${profile.id}`,
+        profile
+      )
+      .pipe(
+        tap((data) => {
+          console.log(data);
+          console.log("clicked");
+          this.router.navigate(["/admin"]);
+        })
+      );
   }
 
   // updateCustomer(customer: Customer): Observable<Customer> {

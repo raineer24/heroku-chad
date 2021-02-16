@@ -196,6 +196,22 @@ export class CreateProfileComponent implements OnInit {
       // this.profForm.reset();
     }
 
+    if (this.ig.value === null) {
+      // control.setValue(null);
+      console.log("empty");
+
+      this.profForm.controls["instagram_handle"].setValue("not set");
+      // this.profForm.reset();
+    }
+
+    if (this.fb.value === null) {
+      // control.setValue(null);
+      console.log("empty");
+
+      this.profForm.controls["facebook_handle"].setValue("not set");
+      // this.profForm.reset();
+    }
+
     // stop here if form is invalid
     if (this.profForm.invalid) {
       return;
@@ -255,11 +271,13 @@ export class CreateProfileComponent implements OnInit {
       areas_of_expertise: this.profForm.get("areas_of_expertise").value,
       id: this.profForm.get("id").value,
       // youtube_handle: this.profForm.get("youtube_handle").value,
-      instagram_handle: this.profForm.get("instagram_handle").value,
-      facebook_handle: this.profForm.get("facebook_handle").value,
+      //instagram_handle: this.profForm.get("instagram_handle").value,
+      // facebook_handle: this.profForm.get("facebook_handle").value,
       //twitter_handle: this.profForm.get("twitter_handle").value,
       twitter_handle: this.twitter.value,
       youtube_handle: this.yt.value,
+      instagram_handle: this.ig.value,
+      facebook_handle: this.fb.value,
     };
 
     this.store.dispatch(new userActions.UpdateProfile(updatedProfile));

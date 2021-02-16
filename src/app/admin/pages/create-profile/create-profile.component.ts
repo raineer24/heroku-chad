@@ -143,6 +143,22 @@ export class CreateProfileComponent implements OnInit {
     return this.profForm.get("status");
   }
 
+  get twitter() {
+    return this.profForm.get("twitter_handle");
+  }
+
+  get yt() {
+    return this.profForm.get("youtube_handle");
+  }
+
+  get ig() {
+    return this.profForm.get("instagram_handle");
+  }
+
+  get fb() {
+    return this.profForm.get("facebook_handle");
+  }
+
   setJob(value) {
     this.selectedStatus = value;
     let val = this.profForm.get("status").setValue(value);
@@ -160,6 +176,25 @@ export class CreateProfileComponent implements OnInit {
     this.authenticationService.saveStatus(this.profForm.value);
     // this.resetForm();
     console.log("clicked");
+
+    // this.twitter = this.profForm.get("twitter_handle");
+    //console.log("control", control.value);
+
+    if (this.twitter.value === null) {
+      // control.setValue(null);
+      console.log("empty");
+
+      this.profForm.controls["twitter_handle"].setValue("not set");
+      // this.profForm.reset();
+    }
+
+    if (this.yt.value === null) {
+      // control.setValue(null);
+      console.log("empty");
+
+      this.profForm.controls["youtube_handle"].setValue("not set");
+      // this.profForm.reset();
+    }
 
     // stop here if form is invalid
     if (this.profForm.invalid) {
@@ -219,10 +254,12 @@ export class CreateProfileComponent implements OnInit {
       bio: this.profForm.get("bio").value,
       areas_of_expertise: this.profForm.get("areas_of_expertise").value,
       id: this.profForm.get("id").value,
-      youtube_handle: this.profForm.get("youtube_handle").value,
+      // youtube_handle: this.profForm.get("youtube_handle").value,
       instagram_handle: this.profForm.get("instagram_handle").value,
       facebook_handle: this.profForm.get("facebook_handle").value,
-      twitter_handle: this.profForm.get("twitter_handle").value,
+      //twitter_handle: this.profForm.get("twitter_handle").value,
+      twitter_handle: this.twitter.value,
+      youtube_handle: this.yt.value,
     };
 
     this.store.dispatch(new userActions.UpdateProfile(updatedProfile));

@@ -29,7 +29,7 @@ export class AuthService {
   private loginUrl: string = "/auth/login";
 
   private userData = new BehaviorSubject<any>([]);
-  data = this.userData.asObservable();
+  data$ = this.userData.asObservable();
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
 
@@ -125,7 +125,7 @@ export class AuthService {
   getUserDetail(): Observable<any> {
     //  console.log("token", token);
     console.log(
-      "currentUser: ",
+      " getUserDetail currentUser: ",
       JSON.parse(localStorage.getItem("currentUser"))
     );
 
@@ -142,12 +142,20 @@ export class AuthService {
           console.log("user", user["user"]);
 
           this.userData.next(user["user"]);
-          return this.data;
+          return this.data$;
 
           //return user["user"];
         }),
         catchError(this.errorMgmt)
       );
+  }
+
+  private fetchUserInfo(data) {
+    const user_id = JSON.parse(localStorage.getItem("currentUser")).user.id;
+    const url = `/api/v2/users/${user_id}`;
+    this.http.get(url).subscribe((data) => {
+      this.userData.next(data);
+    });
   }
 
   saveStatus(position) {
@@ -182,6 +190,7 @@ export class AuthService {
       })
       .pipe(
         tap((data) => {
+          this.fetchUserInfo(data);
           console.log(data);
           console.log("clicked");
           this.router.navigate(["/admin"]);

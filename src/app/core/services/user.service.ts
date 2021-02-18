@@ -8,7 +8,7 @@ import {
   HttpErrorResponse,
 } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
-import { map, tap, catchError, first } from "rxjs/operators";
+import { map, tap, catchError, first, switchMap } from "rxjs/operators";
 import { LoginComponent } from "src/app/auth/pages";
 import { User } from "../models/user";
 import { Status } from "../models/positions";
@@ -27,6 +27,9 @@ export class AuthService {
   public currentUser: Observable<User>;
   private redirectUrl: string = "/";
   private loginUrl: string = "/auth/login";
+
+  private userData = new BehaviorSubject<any>([]);
+  data = this.userData.asObservable();
 
   headers = new HttpHeaders().set("Content-Type", "application/json");
 
@@ -94,6 +97,31 @@ export class AuthService {
   //   return this.http.get<Posts[]>(url);
   // }
 
+  // getUserDetail(): Observable<any> {
+  //   //  console.log("token", token);
+  //   console.log(
+  //     "currentUser: ",
+  //     JSON.parse(localStorage.getItem("currentUser"))
+  //   );
+
+  //   const user_id = JSON.parse(localStorage.getItem("currentUser")).user.id;
+  //   const token = JSON.parse(localStorage.getItem("currentUser")).token;
+  //   const url = `/api/v2/users/${user_id}`;
+
+  //   return this.http
+  //     .get(url, {
+  //       headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
+  //     })
+  //     .pipe(
+  //       map((user) => {
+  //         console.log("user", user["user"]);
+
+  //         return user["user"];
+  //       }),
+  //       catchError(this.errorMgmt)
+  //     );
+  // }
+
   getUserDetail(): Observable<any> {
     //  console.log("token", token);
     console.log(
@@ -110,10 +138,13 @@ export class AuthService {
         headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
       })
       .pipe(
-        map((user) => {
+        switchMap((user) => {
           console.log("user", user["user"]);
 
-          return user["user"];
+          this.userData.next(user["user"]);
+          return this.data;
+
+          //return user["user"];
         }),
         catchError(this.errorMgmt)
       );

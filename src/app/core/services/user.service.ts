@@ -10,9 +10,9 @@ import {
 import { environment } from "../../../environments/environment";
 import { map, tap, catchError, first, switchMap } from "rxjs/operators";
 import { LoginComponent } from "src/app/auth/pages";
-import { User } from "../models/user";
+import { User, UserFetch } from "../models";
 import { Status } from "../models/positions";
-import { UserFetch } from "../models/userfetch";
+//import { UserFetch } from "../models/userfetch";
 import {
   Router,
   CanActivate,
@@ -130,8 +130,9 @@ export class AuthService {
     );
 
     const user_id = JSON.parse(localStorage.getItem("currentUser")).user.id;
+    console.log("user.id", user_id);
     const token = JSON.parse(localStorage.getItem("currentUser")).token;
-    const url = `/api/v2/users/${user_id}`;
+    const url = `${this.baseUrl}/api/v2/users/${user_id}`;
 
     return this.http
       .get(url, {
@@ -182,8 +183,9 @@ export class AuthService {
   }
 
   public createProfile(data): Observable<any> {
-    const url = `/api/v2/users/profile`;
+    const url = `${this.baseUrl}/api/v2/users/profile`;
     const token = JSON.parse(localStorage.getItem("currentUser")).token;
+    console.log("token: ", token);
     return this.http
       .post(url, data, {
         headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),

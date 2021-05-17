@@ -62,6 +62,21 @@ export class UserEffects {
     })
   );
 
+  @Effect({ dispatch: false })
+  getProfileSuccess: Observable<any> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.CREATE_PROFILE_SUCCESS),
+    tap((user) => {
+      console.log("effects get profile success!");
+      // localStorage.setItem("token", user.payload.token);
+      localStorage.setItem("currentUser", JSON.stringify(user));
+      // this.currentUserSubject.next(user);
+      this.router.navigateByUrl("/");
+      console.log("get profile success: ", user);
+      this.alertService.success("Profile Created", true);
+      console.log("data", user);
+    })
+  );
+
   @Effect()
   loadProfile$: Observable<any> = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.LOAD_PROFILE_BEGIN),

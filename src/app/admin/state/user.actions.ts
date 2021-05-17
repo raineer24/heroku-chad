@@ -13,6 +13,17 @@ export enum UserActionTypes {
   UPDATE_PROFILE = "[User] Update Profile",
   UPDATE_PROFILE_SUCCESS = "[User] Update Success",
   UPDATE_PROFILE_FAIL = "[Profile] Update Profile Fail",
+  CREATE_PROFILE = "[User] Create Profile ",
+  CREATE_PROFILE_SUCCESS = "[User] Create Profile Success",
+}
+export class createProfile implements Action {
+  readonly type = UserActionTypes.CREATE_PROFILE;
+  constructor(public payload: any) {}
+}
+
+export class createProfileSuccess implements Action {
+  readonly type = UserActionTypes.CREATE_PROFILE_SUCCESS;
+  constructor(public payload: any) {}
 }
 
 export class LoadProfileFailure implements Action {
@@ -52,4 +63,6 @@ export type UserActions =
   | LoadProfileSuccess
   | LoadProfileFailure
   | UpdateProfile
-  | UpdateProfileSucess;
+  | UpdateProfileSucess
+  | createProfile
+  | createProfileSuccess;

@@ -33,6 +33,36 @@ export class UserEffects {
   ) {}
 
   @Effect()
+  getProfile: Observable<any> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.CREATE_PROFILE),
+    map((action: UserActions.createProfile) => action.payload),
+    switchMap((payload) => {
+      return this.authService.createProfile(payload).pipe(
+        take(1),
+        map((user) => {
+          console.log("get profile effect");
+          if (user) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+
+            console.log("get profile Effect", user.body);
+
+            // let user_profile = user.body
+            // this.currentUserSubject.next(user);
+            // return new AuthActions.LogInSuccess({
+            //   token: user.token,
+            //   username: payload.username,
+            //    firstName: user.firstName
+            // });
+            //return new AuthActions.LogInSuccess(user);
+            return new UserActions.createProfileSuccess(user.body);
+          }
+        }),
+        catchError((err) => of(new UserActions.UpdateProfileFail(err)))
+      );
+    })
+  );
+
+  @Effect()
   loadProfile$: Observable<any> = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.LOAD_PROFILE_BEGIN),
 

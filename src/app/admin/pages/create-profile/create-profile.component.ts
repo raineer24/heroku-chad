@@ -238,6 +238,8 @@ export class CreateProfileComponent implements OnInit {
           this.alertService.error("error: ", error);
         }
       );
+
+    //this.store.dispatch(new userActions.createProfile(this.profForm.value));
   }
 
   private updateUser() {

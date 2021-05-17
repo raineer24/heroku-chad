@@ -10,6 +10,7 @@ export interface UsersState extends EntityState<UserFetch> {
   loading: boolean;
   loaded: boolean;
   error: string;
+  profile: any;
 }
 
 export interface State extends fromRoot.AppState {
@@ -18,7 +19,8 @@ export interface State extends fromRoot.AppState {
 
 //export const employeeAdapter: EntityAdapter<User> = createEntityAdapter<User>();
 
-export const userAdapter: EntityAdapter<UserFetch> = createEntityAdapter<UserFetch>();
+export const userAdapter: EntityAdapter<UserFetch> =
+  createEntityAdapter<UserFetch>();
 
 // export const defaultEmployee: EmployeeState = {
 //   ids: [],
@@ -36,6 +38,7 @@ export const defaultUser: UsersState = {
   loading: false,
   loaded: false,
   error: "",
+  profile: null,
 };
 
 // State for this feature (User)
@@ -72,8 +75,29 @@ export function userReducer(
   action: UserActions
 ): UsersState {
   switch (action.type) {
+    case UserActionTypes.CREATE_PROFILE: {
+      //return Object.assign({}, state, { loading: true });
+      //  console.log('state create profile: ', state.entities[state.selectedUserId]);
+      console.log("state create", state);
+      console.log("state.profile", action.payload);
+
+      // return {
+      //   ...state,
+      //  profile: action.payload
+
+      // }
+
+      return userAdapter.addOne(action.payload, {
+        ...state,
+
+        // profile: action.payload,
+        profile: action.payload,
+      });
+    }
+
     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
       let actions = action.payload;
+      console.log("action.payload", actions);
       console.log("action.payload", actions);
 
       return userAdapter.addOne(action.payload, {
@@ -86,8 +110,6 @@ export function userReducer(
 
     // case customerActions.CustomerActionTypes.UPDATE_CUSTOMER_SUCCESS:
     //   return customerAdapter.updateOne(action.payload, state);
-
-    
 
     // case customerActions.CustomerActionTypes.UPDATE_CUSTOMER_FAIL:
     //   return {

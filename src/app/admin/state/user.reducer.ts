@@ -95,10 +95,31 @@ export function userReducer(
       });
     }
 
+    case UserActionTypes.CREATE_PROFILE_SUCCESS: {
+      //const index = state.entities.findIndex(entity => entity.id !== action.payload); //finding index of the item
+
+      let actions = action.payload;
+      console.log(
+        "STATE PROFILE Success",
+        state.entities[state.selectedUserId].user_profile
+      );
+      let entity = state.entities[state.selectedUserId].user_profile;
+      entity.push(actions);
+      // entity = actions;
+      console.log("entity", entity);
+      //const findIndex = entity.ind
+      // console.log("action.payload create profile success reducer: ", actions);
+
+      return userAdapter.addOne(action.payload, {
+        ...state,
+        // entity: actions
+      });
+    }
+
     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
       let actions = action.payload;
-      console.log("action.payload", actions);
-      console.log("action.payload", actions);
+      // console.log("action.payload", actions);
+      // console.log("action.payload", actions);
 
       return userAdapter.addOne(action.payload, {
         ...state,

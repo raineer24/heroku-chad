@@ -226,20 +226,21 @@ export class CreateProfileComponent implements OnInit {
   }
 
   private createUser() {
-    const values = this.profForm.value;
-    this.createSubs = this.authenticationService
-      .createProfile(values)
-      .subscribe(
-        (data) => {
-          this.alertService.success("Profile Created", true);
-          console.log("data", data);
-        },
-        (error) => {
-          this.alertService.error("error: ", error);
-        }
-      );
+    //const values = this.profForm.value;
+    console.log("values form", this.profForm.value);
+    // this.createSubs = this.authenticationService
+    //   .createProfile(values)
+    //   .subscribe(
+    //     (data) => {
+    //       this.alertService.success("Profile Created", true);
+    //       console.log("data", data);
+    //     },
+    //     (error) => {
+    //       this.alertService.error("error: ", error);
+    //     }
+    //   );
 
-    //this.store.dispatch(new userActions.createProfile(this.profForm.value));
+    this.store.dispatch(new userActions.createProfile(this.profForm.value));
   }
 
   private updateUser() {

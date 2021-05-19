@@ -186,21 +186,20 @@ export class AuthService {
     const url = `${this.baseUrl}/api/v2/users/profile`;
     const token = JSON.parse(localStorage.getItem("currentUser")).token;
     console.log("token: ", token);
-    return this.http
-      .post(url, data, {
-        headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
-      })
-      .pipe(
-        tap((data) => {
-          this.fetchUserInfo(data);
-          console.log(data);
-          console.log("clicked");
-          this.router.navigate(["/admin"]);
-        }),
-        catchError((err: HttpErrorResponse) => {
-          return throwError(err);
-        })
-      );
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
+    });
+    // .pipe(
+    //   tap((data) => {
+    //     this.fetchUserInfo(data);
+    //     console.log(data);
+    //     console.log("clicked");
+    //     this.router.navigate(["/admin"]);
+    //   }),
+    //   catchError((err: HttpErrorResponse) => {
+    //     return throwError(err);
+    //   })
+    // );
 
     //  const user_id = JSON.parse(localStorage.getItem("currentUser")).user.id;
     //  const token = JSON.parse(localStorage.getItem("currentUser")).token;
@@ -255,31 +254,29 @@ export class AuthService {
     const json = JSON.stringify({ email: email, password: password });
     const url = `${this.baseUrl}/api/v2/users/login`;
     //const url = `api/v2/users/login`;
-    return this.http
-      .post<User>(url, json, { headers: this.headers })
-      .pipe(
-        map((user) => {
-          //   console.log(user);
+    return this.http.post<User>(url, json, { headers: this.headers }).pipe(
+      map((user) => {
+        //   console.log(user);
 
-          if (user && user.token) {
-            //  console.log("user", user);
+        if (user && user.token) {
+          //  console.log("user", user);
 
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem("currentUser", JSON.stringify(user));
-            // console.log(
-            //   "currentuser: ",
-            //   JSON.parse(localStorage.getItem("currentUser"))
-            // );
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem("currentUser", JSON.stringify(user));
+          // console.log(
+          //   "currentuser: ",
+          //   JSON.parse(localStorage.getItem("currentUser"))
+          // );
 
-            this.currentUserSubject.next(user);
-          }
+          this.currentUserSubject.next(user);
+        }
 
-          return user;
-        }),
-        catchError((err: HttpErrorResponse) => {
-          return throwError(err);
-        })
-      );
+        return user;
+      }),
+      catchError((err: HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
 
   getUser(id: string): Observable<UserFetch> {

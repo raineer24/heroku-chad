@@ -40,22 +40,21 @@ export class UserEffects {
       return this.authService.createProfile(payload).pipe(
         take(1),
         map((user) => {
-          console.log("get profile effect");
-          if (user) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
+          console.log("get profile effect", user.profileCreate);
 
-            console.log("get profile Effect", user.body);
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
 
-            // let user_profile = user.body
-            // this.currentUserSubject.next(user);
-            // return new AuthActions.LogInSuccess({
-            //   token: user.token,
-            //   username: payload.username,
-            //    firstName: user.firstName
-            // });
-            //return new AuthActions.LogInSuccess(user);
-            return new UserActions.createProfileSuccess(user.body);
-          }
+          console.log("get profile Effect", user.body);
+
+          // let user_profile = user.body
+          // this.currentUserSubject.next(user);
+          // return new AuthActions.LogInSuccess({
+          //   token: user.token,
+          //   username: payload.username,
+          //    firstName: user.firstName
+          // });
+          //return new AuthActions.LogInSuccess(user);
+          return new UserActions.createProfileSuccess(user.profileCreate);
         }),
         catchError((err) => of(new UserActions.UpdateProfileFail(err)))
       );
@@ -85,9 +84,9 @@ export class UserEffects {
       return this.authService.getUserDetail().pipe(
         take(1),
         map((data) => {
-          console.log("data effects", data);
+          //console.log("data effects", data);
 
-          console.log("map effect");
+          //    console.log("map effect");
           return new UserActions.LoadProfileSuccess(data);
           //return new userActions.LoadProfileSuccess(data["user"]);
         }),

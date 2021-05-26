@@ -121,6 +121,7 @@ export class CreateProfileComponent implements OnInit {
     );
 
     profile$.subscribe((currentProfile) => {
+      console.log("currentuserprofile", currentProfile);
       if (currentProfile) {
         this.profForm.patchValue({
           company_name: currentProfile.company_name,

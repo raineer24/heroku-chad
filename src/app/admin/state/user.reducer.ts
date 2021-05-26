@@ -75,6 +75,33 @@ export function userReducer(
   action: UserActions
 ): UsersState {
   switch (action.type) {
+    case UserActionTypes.UPDATE_PROFILE_SUCCESS: {
+      const index = state.entities[state.selectedUserId].user_profile.findIndex(
+        (entity) => entity.id !== action.payload
+      );
+
+      console.log("INDEX: ", index);
+
+      //   console.log("action payload update profile success", action.payload);
+      let actions = action.payload;
+      console.log("actions payload", actions);
+      console.log("update profile SUCCESS", actions.changes["updated_user"][0]);
+      //let entity = actions.changes["updated_user"][0];
+      const entity = state.entities[state.selectedUserId].user_profile;
+
+      entity[index] = actions.changes["updated_user"][0];
+
+      // entity.push(actions);
+      console.log("STATE: ", state);
+      console.log("state update profile", state.entities[state.selectedUserId]);
+
+      //return userAdapter.updateOne(action.payload, state);
+
+      return {
+        ...state, //copying the orignal state
+      };
+    }
+
     case UserActionTypes.CREATE_PROFILE: {
       //return Object.assign({}, state, { loading: true });
       //  console.log('state create profile: ', state.entities[state.selectedUserId]);
@@ -99,6 +126,7 @@ export function userReducer(
       //const index = state.entities.findIndex(entity => entity.id !== action.payload); //finding index of the item
 
       let actions = action.payload;
+
       console.log(
         "STATE PROFILE Success",
         state.entities[state.selectedUserId].user_profile

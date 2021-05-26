@@ -285,6 +285,7 @@ export class AuthService {
     const url = `${this.baseUrl}/api/v2/users/profile/${id}`;
     return this.http.get<any>(url).pipe(
       map((user) => {
+        console.log("USER SKILL SEST: ", user);
         console.log("user", user["user"].user_skill_set[0]);
 
         let areas_of_expertise = user["user"].user_skill_set[0].skills[0];
@@ -320,7 +321,7 @@ export class AuthService {
       )
       .pipe(
         tap((data) => {
-          console.log(data);
+          console.log("UPDATE PROFILE DATA :", data);
           console.log("clicked");
           this.router.navigate(["/admin"]);
         })

@@ -48,6 +48,7 @@ export class CreateProfileComponent implements OnInit {
   loading = false;
   submitted = false;
   dropdownSelected: string;
+  profile$: Observable<UserFetch>;
 
   constructor(
     private authenticationService: AuthService,
@@ -101,16 +102,19 @@ export class CreateProfileComponent implements OnInit {
     });
 
     if (!this.isAddMode) {
-      this.authenticationService
-        .getUser(this.id)
-        .pipe(first())
-        .subscribe((x) => {
-          console.log("x", x.bio);
+      // this.authenticationService
+      //   .getUser(this.id)
+      //   .pipe(first())
+      //   .subscribe((x) => {
+      //     console.log("get user id ", x);
+      //     console.log("x", x.bio);
+      //     this.profForm.patchValue(x);
+      //   });
 
-          this.profForm.patchValue(x);
-        });
+      this.profile$ = this.store.pipe(select(fromUser.getCurrentUser));
+      console.log("profile", this.profile$);
     }
-    console.log("edit");
+    //console.log("edit");
 
     //  const customer$: Observable<Customer> = this.store.select(
     //    fromCustomer.getCurrentCustomer

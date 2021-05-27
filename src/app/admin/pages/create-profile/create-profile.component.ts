@@ -111,37 +111,45 @@ export class CreateProfileComponent implements OnInit {
       //     this.profForm.patchValue(x);
       //   });
 
-      this.profile$ = this.store.pipe(select(fromUser.getCurrentUser));
-      console.log("profile", this.profile$);
+      const profile$: Observable<UserFetch> = this.store.select(
+        fromUser.getCurrentUser
+      );
+
+      profile$.subscribe((currentProfile) => {
+        console.log("currentuserprofile", currentProfile);
+
+        console.log("currentuserprofile", currentProfile["user_profile"][0]);
+        let userProfile = currentProfile["user_profile"][0];
+        console.log(
+          "user skill set array :",
+          currentProfile["user_skill"][0].skills[0]
+        );
+        // let skills = currentProfile["user_profile"][0];
+        let skills = currentProfile["user_skill"][0].skills[0];
+        if (currentProfile) {
+          this.profForm.patchValue({
+            company_name: userProfile.company_name,
+            website: userProfile.website,
+            job_location: userProfile.job_location,
+            status: userProfile.status,
+            bio: userProfile.bio,
+            areas_of_expertise: skills,
+            youtube_handle: userProfile.youtube_handle,
+            twitter_handle: userProfile.twitter_handle,
+            instagram_handle: userProfile.instagram_handle,
+            facebook_handle: userProfile.facebook_handle,
+            id: currentProfile.id,
+          });
+
+          this.profForm.patchValue(currentProfile);
+        }
+      });
     }
     //console.log("edit");
 
     //  const customer$: Observable<Customer> = this.store.select(
     //    fromCustomer.getCurrentCustomer
     //  );
-
-    const profile$: Observable<UserFetch> = this.store.select(
-      fromUser.getCurrentUser
-    );
-
-    profile$.subscribe((currentProfile) => {
-      console.log("currentuserprofile", currentProfile);
-      if (currentProfile) {
-        this.profForm.patchValue({
-          company_name: currentProfile.company_name,
-          website: currentProfile.website,
-          job_location: currentProfile.job_location,
-          status: currentProfile.status,
-          bio: currentProfile.bio,
-          areas_of_expertise: currentProfile.areas_of_expertise,
-          youtube_handle: currentProfile.youtube_handle,
-          twitter_handle: currentProfile.twitter_handle,
-          instagram_handle: currentProfile.instagram_handle,
-          facebook_handle: currentProfile.facebook_handle,
-          id: currentProfile.id,
-        });
-      }
-    });
   }
 
   get status() {

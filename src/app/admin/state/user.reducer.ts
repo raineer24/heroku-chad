@@ -85,11 +85,11 @@ export function userReducer(
       //   console.log("action payload update profile success", action.payload);
       let actions = action.payload;
       console.log("actions payload", actions);
-      console.log("update profile SUCCESS", actions.changes["updated_user"][0]);
+      console.log("update profile SUCCESS", actions.changes["userp"]);
       //let entity = actions.changes["updated_user"][0];
       const entity = state.entities[state.selectedUserId].user_profile;
 
-      entity[index] = actions.changes["updated_user"][0];
+      entity[index] = actions.changes["userp"];
 
       // entity.push(actions);
       console.log("STATE: ", state);

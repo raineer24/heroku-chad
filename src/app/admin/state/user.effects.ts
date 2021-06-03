@@ -32,6 +32,21 @@ export class UserEffects {
     private alertService: AlertService
   ) {}
 
+  @Effect({ dispatch: false })
+  updateProfileSuccess: Observable<any> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.UPDATE_PROFILE_SUCCESS),
+    tap((user) => {
+      console.log("effects UPDATE profile success!");
+      // localStorage.setItem("token", user.payload.token);
+      // localStorage.setItem("currentUser", JSON.stringify(user));
+      // this.currentUserSubject.next(user);
+      this.router.navigateByUrl("/");
+      // console.log("get profile success: ", user);
+      this.alertService.success("Updated Profile Success", true);
+      console.log("data update profile success: ", user);
+    })
+  );
+
   @Effect()
   getProfile: Observable<any> = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.CREATE_PROFILE),

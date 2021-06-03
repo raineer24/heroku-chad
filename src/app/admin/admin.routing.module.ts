@@ -12,6 +12,7 @@ import {
   PostsEditComponent,
   CreateProfileComponent,
   LayoutComponent,
+  AddExperienceComponent,
 } from "./pages";
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
     children: [
       { path: "", component: DashboardComponent },
       { path: "add", component: CreateProfileComponent },
+      { path: "add-exp", component: AddExperienceComponent },
       { path: "edit/:id", component: CreateProfileComponent },
     ],
   },

@@ -31,6 +31,7 @@ import {
   MatInputModule,
   MatMenuModule,
   MatSelectModule,
+  MatDatepickerModule,
 } from "@angular/material";
 
 /* NgRx */
@@ -77,6 +78,7 @@ import { UserEffects } from "../admin/state/user.effects";
     MatSelectModule,
     MatMenuModule,
     MatIconModule,
+    MatDatepickerModule,
   ],
   exports: [AppDropdownComponent],
   providers: [AuthGuardService],

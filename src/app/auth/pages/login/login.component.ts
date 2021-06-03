@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
   loginSubs: Subscription;
   currentUser: User;
 
-  user: User = new User();
+  //user: User = new User();
 
   error: any;
   constructor(

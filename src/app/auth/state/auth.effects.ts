@@ -30,7 +30,7 @@ export class AuthEffects {
     private alertService: AlertService
   ) {}
 
-  @Effect()
+  @Effect({ dispatch: false })
   loadProfile$: Observable<any> = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.LOAD_PROFILE_BEGIN),
 

@@ -12,6 +12,11 @@ import {
   PostCreateComponent,
   PostsDetailComponent,
   PostsEditComponent,
+  CreateProfileComponent,
+  LayoutComponent,
+  AppDropdownComponent,
+  AddExperienceComponent,
+  AddEducationComponent,
 } from "./pages";
 import { SharedModule } from "../shared";
 import {
@@ -25,12 +30,13 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatMenuModule,
+  MatSelectModule,
 } from "@angular/material";
 
 /* NgRx */
 import { StoreModule } from "@ngrx/store";
 //import { reducer } from "./state/post.reducer";
-import { reducer } from "../admin/state/user.reducer";
+import { userReducer } from "../admin/state/user.reducer";
 import { AuthService } from "../core/services/user.service";
 import { EffectsModule } from "@ngrx/effects";
 import { UserEffects } from "../admin/state/user.effects";
@@ -44,10 +50,15 @@ import { UserEffects } from "../admin/state/user.effects";
     PostCreateComponent,
     PostsDetailComponent,
     PostsEditComponent,
+    CreateProfileComponent,
+    LayoutComponent,
+    AppDropdownComponent,
+    AddExperienceComponent,
+    AddEducationComponent,
   ],
   imports: [
     AdminRoutingModule,
-    StoreModule.forFeature("users", reducer),
+    StoreModule.forFeature("users", userReducer),
     EffectsModule.forFeature([UserEffects]),
     MatCardModule,
     MatToolbarModule,
@@ -63,8 +74,11 @@ import { UserEffects } from "../admin/state/user.effects";
     UsersModule,
     CommonModule,
     SharedModule,
+    MatSelectModule,
     MatMenuModule,
+    MatIconModule,
   ],
+  exports: [AppDropdownComponent],
   providers: [AuthGuardService],
 })
 export class AdminModule {}

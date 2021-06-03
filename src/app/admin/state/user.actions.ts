@@ -1,13 +1,29 @@
-import { User } from "../../core/models/user";
+import { UserFetch } from "../../core/models/userfetch";
+import { Update } from "@ngrx/entity";
 
 /* NgRx */
 import { Action } from "@ngrx/store";
 import { UserEffects } from "../state/user.effects";
+import { AnyFn } from "@ngrx/store/src/selector";
 
 export enum UserActionTypes {
   LOAD_PROFILE_BEGIN = "[User] Load Profile begin",
   LOAD_PROFILE_SUCCESS = "[User] Load Profile Success",
   LOAD_PROFILE_FAILURE = "[User] Load Profile failure",
+  UPDATE_PROFILE = "[User] Update Profile",
+  UPDATE_PROFILE_SUCCESS = "[User] Update Success",
+  UPDATE_PROFILE_FAIL = "[Profile] Update Profile Fail",
+  CREATE_PROFILE = "[User] Create Profile ",
+  CREATE_PROFILE_SUCCESS = "[User] Create Profile Success",
+}
+export class createProfile implements Action {
+  readonly type = UserActionTypes.CREATE_PROFILE;
+  constructor(public payload: any) {}
+}
+
+export class createProfileSuccess implements Action {
+  readonly type = UserActionTypes.CREATE_PROFILE_SUCCESS;
+  constructor(public payload: any) {}
 }
 
 export class LoadProfileFailure implements Action {
@@ -21,12 +37,32 @@ export class LoadProfileBegin implements Action {
 }
 
 export class LoadProfileSuccess implements Action {
-  readonly type = UserActionTypes.LOAD_PROFILE_SUCCESS;
+  public readonly type = UserActionTypes.LOAD_PROFILE_SUCCESS;
 
   constructor(public payload: any) {}
+}
+
+export class UpdateProfile implements Action {
+  readonly type = UserActionTypes.UPDATE_PROFILE;
+  constructor(public payload: UserFetch) {}
+}
+
+export class UpdateProfileSucess implements Action {
+  readonly type = UserActionTypes.UPDATE_PROFILE_SUCCESS;
+  constructor(public payload: Update<UserFetch>) {}
+}
+
+export class UpdateProfileFail implements Action {
+  readonly type = UserActionTypes.UPDATE_PROFILE_FAIL;
+
+  constructor(public payload: string) {}
 }
 
 export type UserActions =
   | LoadProfileBegin
   | LoadProfileSuccess
-  | LoadProfileFailure;
+  | LoadProfileFailure
+  | UpdateProfile
+  | UpdateProfileSucess
+  | createProfile
+  | createProfileSuccess;

@@ -3,17 +3,32 @@
   >Designs</a
 > -->
 <!-- <router-outlet></router-outlet> -->
-<h1>Dashboard</h1>
-<h3>Hi {{ currentUser?.first_name }}</h3>
-<!-- <h3>{{ currentUser?.user_profile[0].bio }}</h3> -->
+<h4>test</h4>
+<div *ngIf="profile$ | async as user">
+  <h1>Welcome {{ user.username}}!</h1>
 
-<div class="col-sm-12" *ngIf="currentUser?.user_profile == 0">
-  <h4>You have not yet setup a profile, please add some info</h4>
-</div>
-<!-- <div class="col-sm-12">
+  <div class="col-sm-12" *ngIf="user?.user_profile == 0">
+    <h4>You have not yet setup a profile, please add some info</h4>
+    <button [routerLink]="['/add']">CREATE PROFILE</button>
+  </div>
+  <!-- <div class="col-sm-12"><router-outlet></router-outlet>
   <h4>test</h4>
   <h3 *ngIf="currentUser?.user_profile[0]?.bio !== undefined">userprofile[0] exist</h3>
 </div> -->
-<div *ngFor=" let user of (currentUser)?.user_profile">
-  <h3>{{user.bio}}</h3>
+  <div *ngFor=" let profile of (user)?.user_profile">
+    <mat-toolbar class="nav" fxLayout="row" fxLayoutAlign="start">
+
+      <a mat-button routerLink="edit/{{profile.id}}">Edit Profile</a>
+      <a mat-button>Add Experience</a>
+      <a mat-button>Add Education</a>
+
+
+    </mat-toolbar>
+
+  </div>
+  <app-add-exp></app-add-exp>
+  <app-add-edu></app-add-edu>
 </div>
+<!-- <h1>Dashboard</h1>
+<h3>Hi {{ currentUser?.first_name }}</h3> -->
+<!-- <h3>{{ currentUser?.user_profile[0].bio }}</h3> -->

@@ -12,8 +12,8 @@ import { AuthService } from "../core/services/user.service";
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    //AuthGuardService,
-    // AuthService
-  ]
+    AuthGuardService,
+    AuthService,
+  ],
 })
 export class CoreModule {}

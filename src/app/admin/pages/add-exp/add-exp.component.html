@@ -16,6 +16,30 @@
       <input matInput placeholder="Location" formControlName="location">
 
     </mat-form-field>
+    <mat-form-field class="form-element">
+      <input matInput [matDatepicker]="dp" placeholder="From Date" formControlName="date">
+      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp></mat-datepicker>
+    </mat-form-field>
+    <div class="form-element">
+      <mat-checkbox>Current Job</mat-checkbox>
+    </div>
+    <mat-form-field class="form-element">
+      <input matInput [matDatepicker]="dp1" placeholder="To Date" formControlName="date1">
+      <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+      <mat-datepicker #dp1></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="form-element">
+      <mat-label>Job Description</mat-label>
+      <textarea matInput></textarea>
+
+    </mat-form-field>
+    <div class="form-element">
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Submit
+        Form</button>
+      <button mat-raised-button color="primary" class="button" [routerLink]="['/']">Go back</button>
+    </div>
+    <pre>{{ formGroup.value | json }}</pre>
 
 
 

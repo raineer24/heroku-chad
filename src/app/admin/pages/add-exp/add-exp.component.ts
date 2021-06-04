@@ -26,7 +26,7 @@ import {
 import * as _moment from "moment";
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment } from "moment";
-
+import { DatePipe } from "@angular/common";
 const moment = _rollupMoment || _moment;
 
 @Component({
@@ -34,6 +34,7 @@ const moment = _rollupMoment || _moment;
   templateUrl: "./add-exp.component.html",
   styleUrls: ["./add-exp.component.scss"],
   providers: [
+    DatePipe,
     // `MomentDateAdapter` and `MAT_MOMENT_DATE_FORMATS` can be automatically provided by importing
     // `MatMomentDateModule` in your applications root module. We provide it at the component level
     // here, due to limitations of our example generation script.
@@ -48,7 +49,7 @@ const moment = _rollupMoment || _moment;
 export class AddExperienceComponent implements OnInit {
   formGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe) {}
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
@@ -58,5 +59,14 @@ export class AddExperienceComponent implements OnInit {
       date: [null, Validators.required],
       date1: [null, Validators.required],
     });
+
+    console.log("date: ", this.date.value);
+  }
+
+  get date() {
+    return this.formGroup.get("date");
+  }
+  dateValue() {
+    console.log(this.datePipe.transform(this.date.value, "dd-MM-yyyy"));
   }
 }

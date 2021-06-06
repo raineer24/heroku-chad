@@ -91,6 +91,8 @@ export class AuthService {
     return this.http.post(url, obj).pipe(map((data) => data));
   }
 
+  public createExp(data): Observable<any> {}
+
   // getPosts(): Observable<Posts[]> {
   //   const url = `${this.baseUrl}/api/v2/blogs`;
   //   console.log(url);

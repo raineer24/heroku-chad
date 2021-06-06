@@ -103,12 +103,12 @@ export class LoginComponent implements OnInit {
       password: values.password,
     };
     this.store.dispatch(new userActions.LogIn(payload));
-    this.authenticationService.login(payload.email, payload.password).subscribe(
-      (data) => {
-        this.router.navigate([this.returnUrl]);
-      },
-      (error) => this.onSubmitError(error)
-    );
+    // this.authenticationService.login(payload.email, payload.password).subscribe(
+    //   (data) => {
+    //     this.router.navigate([this.returnUrl]);
+    //   },
+    //   (error) => this.onSubmitError(error)
+    // );
   }
 
   protected onSubmitError(error) {

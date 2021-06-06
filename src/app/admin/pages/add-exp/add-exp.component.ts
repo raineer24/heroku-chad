@@ -69,4 +69,6 @@ export class AddExperienceComponent implements OnInit {
   dateValue() {
     console.log(this.datePipe.transform(this.date.value, "dd-MM-yyyy"));
   }
+
+  onSubmit() {}
 }

@@ -25,6 +25,7 @@ import {
 } from "@angular/material/core";
 import * as _moment from "moment";
 // tslint:disable-next-line:no-duplicate-imports
+import { Router, ActivatedRoute } from "@angular/router";
 import { default as _rollupMoment } from "moment";
 import { DatePipe } from "@angular/common";
 const moment = _rollupMoment || _moment;
@@ -49,18 +50,23 @@ const moment = _rollupMoment || _moment;
 export class AddExperienceComponent implements OnInit {
   formGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private datePipe: DatePipe,
+    private authenticationService: AuthService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
-      jobtitle: [null, Validators.required],
-      company: [null, Validators.required],
-      location: [null, Validators.required],
-      date: [null, Validators.required],
-      date1: [null, Validators.required],
+      job_title: [null, Validators.required],
+      company_name: [null, Validators.required],
+      job_location: [null, Validators.required],
+      start_date: [null, Validators.required],
+      end_date: [null, Validators.required],
     });
 
-    console.log("date: ", this.date.value);
+    // console.log("date: ", this.date.value);
   }
 
   get date() {
@@ -70,5 +76,15 @@ export class AddExperienceComponent implements OnInit {
     console.log(this.datePipe.transform(this.date.value, "dd-MM-yyyy"));
   }
 
-  onSubmit() {}
+  onSubmit() {
+    const data = this.formGroup.value;
+    this.authenticationService.createExp(data).subscribe(
+      (data) => {
+        console.log("data subscribe", data);
+        // this.router.navigate([this.returnUrl]);
+      }
+      //(error) => this.onSubmitError(error)
+    );
+    console.log("clicked");
+  }
 }

@@ -91,7 +91,24 @@ export class AuthService {
     return this.http.post(url, obj).pipe(map((data) => data));
   }
 
-  public createExp(data): Observable<any> {}
+  public createExp(data): Observable<any> {
+    // localhost:3000/api/v2/users/profile/experience
+    const url = `${this.baseUrl}/api/v2/users/profile/experience`;
+    let userdata = JSON.parse(localStorage.getItem("currentUser"));
+    console.log("user token", userdata.token);
+    let token = userdata.token;
+    return this.http
+      .post(url, data, {
+        headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
+      })
+      .pipe(
+        tap((data) => {
+          console.log("create exprience :", data);
+          console.log("clicked");
+          //   this.router.navigate(["/admin"]);
+        })
+      );
+  }
 
   // getPosts(): Observable<Posts[]> {
   //   const url = `${this.baseUrl}/api/v2/blogs`;
@@ -265,10 +282,6 @@ export class AuthService {
 
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem("currentUser", JSON.stringify(user));
-          // console.log(
-          //   "currentuser: ",
-          //   JSON.parse(localStorage.getItem("currentUser"))
-          // );
 
           this.currentUserSubject.next(user);
         }

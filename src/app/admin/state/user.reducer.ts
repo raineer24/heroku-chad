@@ -75,6 +75,26 @@ export function userReducer(
   action: UserActions
 ): UsersState {
   switch (action.type) {
+    case UserActionTypes.CREATE_EXP_PROFILE: {
+      //return Object.assign({}, state, { loading: true });
+      //  console.log('state create profile: ', state.entities[state.selectedUserId]);
+      console.log("state create", state);
+      console.log("state.profile", action.payload);
+
+      // return {
+      //   ...state,
+      //  profile: action.payload
+
+      // }
+
+      return userAdapter.addOne(action.payload, {
+        ...state,
+
+        // profile: action.payload,
+        // profile: action.payload,
+      });
+    }
+
     case UserActionTypes.UPDATE_PROFILE_SUCCESS: {
       const index = state.entities[state.selectedUserId].user_profile.findIndex(
         (entity) => entity.id !== action.payload

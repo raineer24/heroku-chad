@@ -28,6 +28,7 @@ import * as _moment from "moment";
 import { Router, ActivatedRoute } from "@angular/router";
 import { default as _rollupMoment } from "moment";
 import { DatePipe } from "@angular/common";
+
 const moment = _rollupMoment || _moment;
 
 @Component({
@@ -54,7 +55,8 @@ export class AddExperienceComponent implements OnInit {
     private formBuilder: FormBuilder,
     private datePipe: DatePipe,
     private authenticationService: AuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store<fromUser.State>
   ) {}
 
   ngOnInit() {
@@ -64,6 +66,7 @@ export class AddExperienceComponent implements OnInit {
       job_location: [null, Validators.required],
       start_date: [null, Validators.required],
       end_date: [null, Validators.required],
+      description: [null, Validators.required],
     });
 
     // console.log("date: ", this.date.value);
@@ -78,13 +81,15 @@ export class AddExperienceComponent implements OnInit {
 
   onSubmit() {
     const data = this.formGroup.value;
-    this.authenticationService.createExp(data).subscribe(
-      (data) => {
-        console.log("data subscribe", data);
-        // this.router.navigate([this.returnUrl]);
-      }
-      //(error) => this.onSubmitError(error)
-    );
+    // this.authenticationService.createExp(data).subscribe(
+    //   (data) => {
+    //     console.log("data subscribe", data);
+    //     // this.router.navigate([this.returnUrl]);
+    //   }
+    //   //(error) => this.onSubmitError(error)
+    // );
+
+    this.store.dispatch(new userActions.createExpProfile(data));
     console.log("clicked");
   }
 }

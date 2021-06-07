@@ -75,6 +75,45 @@ export function userReducer(
   action: UserActions
 ): UsersState {
   switch (action.type) {
+    case UserActionTypes.CREATE_EDU_PROFILE_SUCCESS: {
+      //   console.log("action payload update profile success", action.payload);
+      let actions = action.payload;
+      console.log("actions payload exp", actions);
+      //console.log("update profile SUCCESS", actions.changes["userp"]);
+      //let entity = actions.changes["updated_user"][0];
+      // const entity = state.entities[state.selectedUserId].user_experience;
+
+      // entity[index] = actions.changes["userp"];
+
+      // entity.push(actions);
+      console.log("STATE: ", state);
+      console.log("state EXP profile", state.entities[state.selectedUserId]);
+
+      //return userAdapter.updateOne(action.payload, state);
+
+      return {
+        ...state, //copying the orignal state
+      };
+    }
+    case UserActionTypes.CREATE_EDU_PROFILE: {
+      //return Object.assign({}, state, { loading: true });
+      //  console.log('state create profile: ', state.entities[state.selectedUserId]);
+      console.log("state create EDUCATION", state);
+      console.log("state.Education", action.payload);
+
+      // return {
+      //   ...state,
+      //  profile: action.payload
+
+      // }
+
+      return userAdapter.addOne(action.payload, {
+        ...state,
+
+        // profile: action.payload,
+        // profile: action.payload,
+      });
+    }
     case UserActionTypes.CREATE_EXP_PROFILE_SUCCESS: {
       //   console.log("action payload update profile success", action.payload);
       let actions = action.payload;

@@ -32,6 +32,45 @@ export class UserEffects {
     private alertService: AlertService
   ) {}
 
+  @Effect()
+  createExperience: Observable<any> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.CREATE_EXP_PROFILE),
+    map((action: UserActions.createExpProfile) => action.payload),
+    switchMap((payload) => {
+      console.log("payload create EXPERIENCE: ", payload);
+      return this.authService.createExp(payload).pipe(
+        take(1),
+        map((user) => {
+          console.log("create experience EFFECT: ", user.profileExpCreate);
+
+          let data = user.profileExpCreate;
+
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+
+          // console.log("get profile Effect", user.body);
+
+          return new UserActions.createExpProfileeSuccess(data);
+        }),
+        catchError((err) => of(new UserActions.createExpProfileFail(err)))
+      );
+    })
+  );
+
+  @Effect({ dispatch: false })
+  createExpProfileSuccess: Observable<any> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.CREATE_EXP_PROFILE_SUCCESS),
+    tap((user) => {
+      console.log("effects experience profile success!");
+      // localStorage.setItem("token", user.payload.token);
+      // localStorage.setItem("currentUser", JSON.stringify(user));
+      // this.currentUserSubject.next(user);
+      this.router.navigateByUrl("/");
+      // console.log("get profile success: ", user);
+      this.alertService.success("create Experience Profile Success", true);
+      console.log("data experience profile success: ", user);
+    })
+  );
+
   @Effect({ dispatch: false })
   updateProfileSuccess: Observable<any> = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.UPDATE_PROFILE_SUCCESS),

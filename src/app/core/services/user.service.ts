@@ -97,17 +97,19 @@ export class AuthService {
     let userdata = JSON.parse(localStorage.getItem("currentUser"));
     console.log("user token", userdata.token);
     let token = userdata.token;
-    return this.http
-      .post(url, data, {
-        headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
-      })
-      .pipe(
-        tap((data) => {
-          console.log("create exprience :", data);
-          console.log("clicked");
-          //   this.router.navigate(["/admin"]);
-        })
-      );
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
+    });
+  }
+
+  public createEdu(data) {
+    // localhost:3000/api/v2/users/profile/education
+    const url = `${this.baseUrl}/api/v2/users/profile/education`;
+    let userdata = JSON.parse(localStorage.getItem("currentUser"));
+    let token = userdata.token;
+    return this.http.post(url, data, {
+      headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
+    });
   }
 
   // getPosts(): Observable<Posts[]> {

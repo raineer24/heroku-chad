@@ -68,6 +68,20 @@ export class AddEducationComponent implements OnInit {
     });
   }
 
+  onSubmit() {
+    const data = this.formGroup.value;
+    this.authenticationService.createEdu(data).subscribe(
+      (data) => {
+        console.log("data subscribe", data);
+        // this.router.navigate([this.returnUrl]);
+      }
+      //(error) => this.onSubmitError(error)
+    );
+
+    //this.store.dispatch(new userActions.createExpProfile(data));
+    console.log("clicked");
+  }
+
   toggleCtrState() {
     const ctrl = this.formGroup.get("end_date");
     if (ctrl.disabled) {

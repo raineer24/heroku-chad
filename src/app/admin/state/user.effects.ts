@@ -51,7 +51,7 @@ export class UserEffects {
 
           //return new UserActions.createExpProfileeSuccess(data);
         }),
-        catchError((err) => of(new UserActions.createExpProfileFail(err)))
+        catchError((err) => of(new UserActions.createEduFail(err)))
       );
     })
   );

@@ -70,15 +70,15 @@ export class AddEducationComponent implements OnInit {
 
   onSubmit() {
     const data = this.formGroup.value;
-    this.authenticationService.createEdu(data).subscribe(
-      (data) => {
-        console.log("data subscribe", data);
-        // this.router.navigate([this.returnUrl]);
-      }
-      //(error) => this.onSubmitError(error)
-    );
+    // this.authenticationService.createEdu(data).subscribe(
+    //   (data) => {
+    //     console.log("data subscribe", data);
+    //     // this.router.navigate([this.returnUrl]);
+    //   }
+    //   //(error) => this.onSubmitError(error)
+    // );
 
-    //this.store.dispatch(new userActions.createExpProfile(data));
+    this.store.dispatch(new userActions.createEduProfile(data));
     console.log("clicked");
   }
 

@@ -67,6 +67,7 @@ export class AddExperienceComponent implements OnInit {
       start_date: [null, Validators.required],
       end_date: [null, Validators.required],
       description: [null, Validators.required],
+      current: [false, []],
     });
 
     // console.log("date: ", this.date.value);
@@ -77,6 +78,15 @@ export class AddExperienceComponent implements OnInit {
   }
   dateValue() {
     console.log(this.datePipe.transform(this.date.value, "dd-MM-yyyy"));
+  }
+
+  toggleCtrState() {
+    const ctrl = this.formGroup.get("end_date");
+    if (ctrl.disabled) {
+      ctrl.enable();
+    } else {
+      ctrl.disable();
+    }
   }
 
   onSubmit() {

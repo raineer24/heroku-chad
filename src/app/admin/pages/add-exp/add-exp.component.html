@@ -22,7 +22,7 @@
       <mat-datepicker #dp></mat-datepicker>
     </mat-form-field>
     <div class="form-element">
-      <mat-checkbox>Current Job</mat-checkbox>
+      <mat-checkbox (click)="toggleCtrState()" formControlName="current">Current Job</mat-checkbox>
     </div>
     <mat-form-field class="form-element">
       <input matInput [matDatepicker]="dp1" placeholder="To Date" formControlName="end_date">

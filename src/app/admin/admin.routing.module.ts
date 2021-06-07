@@ -13,6 +13,7 @@ import {
   CreateProfileComponent,
   LayoutComponent,
   AddExperienceComponent,
+  AddEducationComponent,
 } from "./pages";
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: "", component: DashboardComponent },
       { path: "add", component: CreateProfileComponent },
       { path: "add-exp", component: AddExperienceComponent },
+      { path: "add-edu", component: AddEducationComponent },
       { path: "edit/:id", component: CreateProfileComponent },
     ],
   },

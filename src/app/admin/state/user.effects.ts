@@ -35,7 +35,7 @@ export class UserEffects {
   @Effect()
   createEducation: Observable<any> = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.CREATE_EDU_PROFILE),
-    map((action: UserActions.createExpProfile) => action.payload),
+    map((action: UserActions.createEduProfile) => action.payload),
     switchMap((payload) => {
       console.log("payload create EXPERIENCE: ", payload);
       return this.authService.createEdu(payload).pipe(
@@ -43,13 +43,13 @@ export class UserEffects {
         map((user) => {
           console.log("create EDUCATION EFFECT: ", user);
 
-          // let data = user.profileExpCreate;
+          let data = user.profileEduCreate;
 
           // store user details and jwt token in local storage to keep user logged in between page refreshes
 
           // console.log("get profile Effect", user.body);
 
-          //return new UserActions.createExpProfileeSuccess(data);
+          return new UserActions.createEduProfileSuccess(data);
         }),
         catchError((err) => of(new UserActions.createEduFail(err)))
       );

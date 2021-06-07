@@ -102,7 +102,7 @@ export class AuthService {
     });
   }
 
-  public createEdu(data) {
+  public createEdu(data): Observable<any> {
     // localhost:3000/api/v2/users/profile/education
     const url = `${this.baseUrl}/api/v2/users/profile/education`;
     let userdata = JSON.parse(localStorage.getItem("currentUser"));

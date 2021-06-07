@@ -81,11 +81,11 @@ export function userReducer(
       console.log("actions payload exp", actions);
       //console.log("update profile SUCCESS", actions.changes["userp"]);
       //let entity = actions.changes["updated_user"][0];
-      // const entity = state.entities[state.selectedUserId].user_experience;
+      const entity = state.entities[state.selectedUserId].user_education;
 
       // entity[index] = actions.changes["userp"];
 
-      // entity.push(actions);
+      entity.push(actions);
       console.log("STATE: ", state);
       console.log("state EXP profile", state.entities[state.selectedUserId]);
 

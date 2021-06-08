@@ -304,6 +304,11 @@ export const getCurrentUser = createSelector(
   (state) => state.entities[state.selectedUserId]
 );
 
+export const getAllUsers = createSelector(
+  getUserFeatureState,
+  userAdapter.getSelectors().selectAll
+);
+
 // export const getCurrentElemployee = createSelector(
 //   getEmployeeFeatureState,
 //   getCurrentElemployeeId,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UserFetch } from "../../../core/models/";
+import { UserFetch, Experience } from "../../../core/models/";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select } from "@ngrx/store";
 import * as fromUser from "../../state/user.reducer";
@@ -7,6 +7,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import * as userActions from "../../state/user.actions";
 import { Subscription, Observable } from "rxjs";
 import { skipWhile, skip, take, filter } from "rxjs/operators";
+import { MatTableDataSource } from "@angular/material/table";
+
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -22,6 +24,9 @@ export class DashboardComponent implements OnInit {
     first_name: string;
   };
   isAddMode: boolean;
+  public dataSource: MatTableDataSource<any>;
+  displayedColumns: string[] = ["company", "job_title", "years"];
+  public noData: any;
 
   statusArray: any;
 
@@ -58,7 +63,14 @@ export class DashboardComponent implements OnInit {
     //   });
   }
 
+  private initializeData(users: UserFetch): void {
+    this.dataSource = new MatTableDataSource(users ? users : this.noData);
+  }
+
   ngOnInit() {
+    this.store
+      .pipe(select(fromUser.getCurrentUser))
+      .subscribe((users) => this.initializeData(users));
     //this.isNew = this.router.url === "/newuser";
     console.log("router", this.router.url);
 

@@ -81,7 +81,7 @@ export class AddExperienceComponent implements OnInit {
   }
 
   toggleCtrState() {
-    const ctrl = this.formGroup.get("start_date");
+    const ctrl = this.formGroup.get("end_date");
     if (ctrl.disabled) {
       ctrl.enable();
     } else {

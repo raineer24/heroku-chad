@@ -33,6 +33,7 @@ import {
   MatSelectModule,
   MatDatepickerModule,
   MatCheckboxModule,
+  MatTableModule,
 } from "@angular/material";
 
 /* NgRx */
@@ -81,6 +82,7 @@ import { UserEffects } from "../admin/state/user.effects";
     MatIconModule,
     MatDatepickerModule,
     MatCheckboxModule,
+    MatTableModule,
   ],
   exports: [AppDropdownComponent],
   providers: [AuthGuardService],

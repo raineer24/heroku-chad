@@ -26,7 +26,31 @@
     </mat-toolbar>
 
   </div>
+  <h2 class='my-2'>Experience Credentials</h2>
+  <article>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="company">
+        <th mat-header-cell *matHeaderCellDef> company </th>
+        <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+      </ng-container>
+      t
+      <ng-container matColumnDef="job_title">t
+        <th mat-header-cell *matHeaderCellDef> title </th>
+        <td mat-cell *matCellDef="let element"> {{element.job_title}} </td>
+      </ng-container>
 
+      <ng-container matColumnDef="years">
+        <th mat-header-cell *matHeaderCellDef> Years </th>
+        <td mat-cell *matCellDef="let element"> {{element.start_date}} </td>
+      </ng-container>
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </article>
+  <h2>Education Credentials</h2>
 </div>
 <!-- <h1>Dashboard</h1>
 <h3>Hi {{ currentUser?.first_name }}</h3> -->

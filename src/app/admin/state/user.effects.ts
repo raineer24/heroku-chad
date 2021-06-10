@@ -37,7 +37,7 @@ export class UserEffects {
     ofType(UserActions.UserActionTypes.CREATE_EDU_PROFILE),
     map((action: UserActions.createEduProfile) => action.payload),
     switchMap((payload) => {
-      console.log("payload create EXPERIENCE: ", payload);
+      //  console.log("payload create EXPERIENCE: ", payload);
       return this.authService.createEdu(payload).pipe(
         take(1),
         map((user) => {

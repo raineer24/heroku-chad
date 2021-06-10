@@ -85,7 +85,7 @@ export class AddExperienceComponent implements OnInit {
     if (ctrl.disabled) {
       ctrl.enable();
     } else {
-      ctrl.disable;
+      ctrl.disable();
     }
   }
 

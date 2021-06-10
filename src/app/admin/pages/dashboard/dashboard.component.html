@@ -29,9 +29,9 @@
   <h2 class='my-2'>Experience Credentials</h2>
   <article>
     <table mat-table [dataSource]="dataSource">
-      <ng-container matColumnDef="company">
+      <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef> company </th>
-        <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
       </ng-container>
       t
       <ng-container matColumnDef="job_title">t
@@ -52,6 +52,7 @@
   </article>
   <h2>Education Credentials</h2>
 </div>
+
 <!-- <h1>Dashboard</h1>
 <h3>Hi {{ currentUser?.first_name }}</h3> -->
 <!-- <h3>{{ currentUser?.user_profile[0].bio }}</h3> -->

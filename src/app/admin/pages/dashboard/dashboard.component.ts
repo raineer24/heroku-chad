@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { UserFetch, Experience } from "../../../core/models/";
 import { AuthService } from "../../../core/services/user.service";
-import { Store, select } from "@ngrx/store";
+import { Store, select, ActionsSubject } from "@ngrx/store";
+import { ofType } from "@ngrx/effects";
 import * as fromUser from "../../state/user.reducer";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as userActions from "../../state/user.actions";

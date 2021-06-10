@@ -68,15 +68,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.store.dispatch(new userActions.LoadProfileBegin());
-    // this.profile$.subscribe((data) => {
-    //   console.log("data", data);
-    //   this.noData = data;
-    //   console.log("no data", this.noData.email);
-    //   this.dataSource = new MatTableDataSource(this.noData);
-    //   console.log("thisdatasource", this.dataSource);
-    //   this.initializeData(this.noData);
-    // });
     this.store.pipe(select(getCurrentUser)).subscribe((users) => {
       console.log("USERS:", users);
       this.noData = users;
@@ -84,20 +75,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       // let data = users[0];
       this.initializeData(this.noData);
     });
-    // this.store.pipe(select(fromUser.getCurrentUser)).subscribe((users) => {
-    //   console.log("users:", users);
-    //   // console.log("users:", users.user_experience);
-    //   // let data = users.user_experience;
-    //   this.initializeData(users);
-    // });
-    //this.isNew = this.router.url === "/newuser";
-    console.log("router", this.router.url);
-
-    //console.log("profile", this.store.select(fromUser.getUserProfile));
-
-    if (!this.isAddMode) {
-      console.log("test");
-    }
   }
 
   ngOnDestroy() {

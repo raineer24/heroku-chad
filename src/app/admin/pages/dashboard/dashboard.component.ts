@@ -6,7 +6,7 @@ import { ofType } from "@ngrx/effects";
 import * as fromUser from "../../state/user.reducer";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as userActions from "../../state/user.actions";
-import { Subscription, Observable } from "rxjs";
+import { Subscription, Observable, of, Subject } from "rxjs";
 import { skipWhile, skip, take, filter } from "rxjs/operators";
 import { MatTableDataSource } from "@angular/material/table";
 import { getCurrentUser, getAllUsers } from "../../state/user.reducer";
@@ -16,6 +16,7 @@ import { getCurrentUser, getAllUsers } from "../../state/user.reducer";
   styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
+  destroyed$ = new Subject<boolean>();
   title = "";
   currentUser: any;
   currentUserSubscription: Subscription;
@@ -31,11 +32,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public noData: any;
 
   statusArray: any;
-
+  destroy$ = new Subject<boolean>();
   constructor(
     private authenticationService: AuthService,
     private store: Store<fromUser.State>,
-    private router: Router
+    private router: Router,
+    private actionsSubj: ActionsSubject
   ) {
     // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
     //   (user) => {
@@ -99,9 +101,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log("Page B ngOnDestroy");
+    this.destroy$.next();
+    this.destroy$.complete();
   }
-
   private initializeData(users: any): void {
     console.log("this initial", this.noData);
     //  let x = Object.entries(this.noData);

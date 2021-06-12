@@ -7,7 +7,7 @@ import * as fromUser from "../../state/user.reducer";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as userActions from "../../state/user.actions";
 import { Subscription, Observable, of, Subject } from "rxjs";
-import { skipWhile, skip, take, filter } from "rxjs/operators";
+import { skipWhile, skip, take, filter, takeUntil } from "rxjs/operators";
 import { MatTableDataSource } from "@angular/material/table";
 import { getCurrentUser, getAllUsers } from "../../state/user.reducer";
 @Component({
@@ -21,12 +21,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentUser: any;
   currentUserSubscription: Subscription;
   //users: User[] = [];
+  // profile$: Observable<UserFetch>;
   profile$: Observable<UserFetch>;
   userData: {
     first_name: string;
   };
   isAddMode: boolean;
-  public dataSource: MatTableDataSource<UserFetch>;
+  public dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ["email", "job_title", "years"];
   //public noData: Observable<UserFetch>;
   public noData: any;
@@ -48,8 +49,27 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     //this.currentUser$ = this.store.pipe(select(getUserData));
 
+    actionsSubj
+      .pipe(
+        ofType(userActions.UserActionTypes.LOAD_PROFILE_SUCCESS),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe((data: UserFetch) => {
+        /* hooray, success, show notification alert etc.. */
+        console.log("DATA", data["payload"]);
+        this.noData = data["payload"];
+        console.log("thisnodata", this.noData.email);
+        // this.initializeData(data["payload"]);
+        this.dataSource = new MatTableDataSource(this.noData);
+        console.log("this.datasource", this.dataSource);
+      });
+
     this.profile$ = this.store.pipe(select(fromUser.getCurrentUser));
     console.log("profile", this.profile$);
+
+    this.profile$.subscribe((data) => {
+      console.log("data", data);
+    });
 
     this.store.dispatch(new userActions.LoadProfileBegin());
     // this.store
@@ -68,19 +88,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.store.pipe(select(getCurrentUser)).subscribe((users) => {
-      console.log("USERS:", users);
-      this.noData = users;
-      console.log("this no data", this.noData);
-      // let data = users[0];
-      this.initializeData(this.noData);
-    });
+    // this.store.pipe(select(getCurrentUser)).subscribe((users) => {
+    //   console.log("USERS:", users);
+    //   this.noData = users;
+    //   console.log("this no data", this.noData.id);
+    //   // let data = users[0];
+    //   //  this.initializeData(this.noData);
+    // });
   }
 
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+  // ngOnDestroy() {
+  //   this.destroy$.next();
+  //   this.destroy$.complete();
+  // }
   private initializeData(users: any): void {
     console.log("this initial", this.noData);
     //  let x = Object.entries(this.noData);
@@ -89,3 +109,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     console.log("this data source", this.dataSource.data);
   }
 }
+// private initializeData(users: any): void {
+//   console.log("this initial", this.noData);
+//   //  let x = Object.entries(this.noData);
+//   //  console.log("x", x);
+//   this.dataSource = new MatTableDataSource(this.noData);
+//   console.log("this data source", this.dataSource.data);
+// }

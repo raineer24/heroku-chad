@@ -155,21 +155,9 @@ export class AuthService {
     const token = JSON.parse(localStorage.getItem("currentUser")).token;
     const url = `${this.baseUrl}/api/v2/users/${user_id}`;
 
-    return this.http
-      .get(url, {
-        headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
-      })
-      .pipe(
-        switchMap((user) => {
-          console.log("user", user["user"]);
-
-          this.userData.next(user["user"]);
-          return this.data$;
-
-          //return user["user"];
-        }),
-        catchError(this.errorMgmt)
-      );
+    return this.http.get(url, {
+      headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
+    });
   }
 
   private fetchUserInfo(data) {

@@ -178,10 +178,10 @@ export class UserEffects {
       return this.authService.getUserDetail().pipe(
         take(1),
         map((data) => {
-          //console.log("data effects", data);
+          console.log("data effects", data);
 
           //    console.log("map effect");
-          return new UserActions.LoadProfileSuccess(data);
+          return new UserActions.LoadProfileSuccess(data.user);
           //return new userActions.LoadProfileSuccess(data["user"]);
         }),
         catchError((error) => of(new UserActions.LoadProfileFailure(error)))

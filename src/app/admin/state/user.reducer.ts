@@ -75,6 +75,12 @@ export function userReducer(
   action: UserActions
 ): UsersState {
   switch (action.type) {
+    case UserActionTypes.LOAD_PROFILE_BEGIN: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
     case UserActionTypes.CREATE_EDU_PROFILE_SUCCESS: {
       //   console.log("action payload update profile success", action.payload);
       let actions = action.payload;
@@ -226,8 +232,9 @@ export function userReducer(
 
     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
       let actions = action.payload;
+      console.log("action.payload load profile success", actions);
       // console.log("action.payload", actions);
-      // console.log("action.payload", actions);
+      console.log("state load profile success", state);
 
       return userAdapter.addOne(action.payload, {
         ...state,

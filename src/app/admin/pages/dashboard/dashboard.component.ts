@@ -27,10 +27,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     first_name: string;
   };
   isAddMode: boolean;
-  public dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ["email", "job_title", "years"];
+  public dataSource: MatTableDataSource<UserFetch>;
+  displayedColumns = ["email", "username"];
   //public noData: Observable<UserFetch>;
-  public noData: any;
+  //public noData: UserFetch;
+  public noData: UserFetch[] = [<UserFetch>{}];
 
   statusArray: any;
   destroy$ = new Subject<boolean>();
@@ -48,21 +49,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     // );
 
     //this.currentUser$ = this.store.pipe(select(getUserData));
-
-    actionsSubj
-      .pipe(
-        ofType(userActions.UserActionTypes.LOAD_PROFILE_SUCCESS),
-        takeUntil(this.destroyed$)
-      )
-      .subscribe((data: UserFetch) => {
-        /* hooray, success, show notification alert etc.. */
-        console.log("DATA", data["payload"]);
-        this.noData = data["payload"];
-        console.log("thisnodata", this.noData.email);
-        // this.initializeData(data["payload"]);
-        this.dataSource = new MatTableDataSource(this.noData);
-        console.log("this.datasource", this.dataSource);
-      });
 
     this.profile$ = this.store.pipe(select(fromUser.getCurrentUser));
     console.log("profile", this.profile$);
@@ -95,12 +81,27 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //   // let data = users[0];
     //   //  this.initializeData(this.noData);
     // });
+    this.actionsSubj
+      .pipe(
+        ofType(userActions.UserActionTypes.LOAD_PROFILE_SUCCESS),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe((data: UserFetch) => {
+        /* hooray, success, show notification alert etc.. */
+        console.log("DATA", data["payload"]);
+        this.noData = data["payload"];
+
+        console.log("thisnodata", this.noData);
+        // this.initializeData(data["payload"]);
+        this.dataSource = new MatTableDataSource(this.noData);
+        console.log("this.datasource", this.dataSource);
+      });
   }
 
-  // ngOnDestroy() {
-  //   this.destroy$.next();
-  //   this.destroy$.complete();
-  // }
+  ngOnDestroy() {
+    // this.destroy$.next();
+    // this.destroy$.complete();
+  }
   private initializeData(users: any): void {
     console.log("this initial", this.noData);
     //  let x = Object.entries(this.noData);

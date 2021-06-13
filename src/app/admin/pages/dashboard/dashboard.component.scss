@@ -21,3 +21,33 @@
 table {
   width: 100%;
 }
+.container {
+  display: grid;
+  grid-template-columns: repeat(8, auto[col-start]);
+  grid-template-rows:  [header-start] 25% [header-end row1-end ] 100px repeat(3, 20px [row-start]) auto;
+/*    grid-template-areas: 
+    "header header header header header"
+    "main main . . sidebar"
+    "footer footer footer footer footer"; */
+    grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  justify-items: start;
+  align-items: center;
+  justify-content: stretch;	
+}
+.column-1-header {
+/*   grid-area: header; */
+  grid-column-start: 1;
+/*   grid-column-end: 2; */
+/*   grid-column-start: 2;
+  grid-column-end: five;
+  grid-row-start: row1-start;
+  grid-row-end: 3; */
+}
+
+.column-2-header {
+  grid-column-start: 2;
+}
+.column-3-header {
+  grid-column-start: 3;
+}

@@ -27,25 +27,22 @@
 
   </div>
   <h2 class='my-2'>Experience Credentials</h2>
-  <span class='container'>
-    <span class="column-1-header"> Company </span>
-    <span class="column-2-header"> Title</span>
-    <span class="column-3-header">Years</span>
+  <div class="table">
+    <div class="table-row">
+      <div class="table-head">Company</div>
+      <div class="table-head">Title</div>
+      <div class="table-head">Years</div>
+      <div class="table-head"></div>
+    </div>
+    <div *ngFor="let data of (noData)?.user_experience; let i = index" class="table-row">
+      <div class="table-cell">{{data.company_name}}</div>
+      <div class="table-cell">{{data.job_title }}</div>
+      <div class="table-cell">{{ data.start_date | date: 'M/d/yyyy' }}</div>
+      <button (click)="deleteRow(i)"><i class="fa fa-trash"></i></button>
 
-    <h3>{{data.company_name}}</h3>
+    </div>
+  </div>
 
-    <span *ngFor="let data of (noData)?.user_experience; let i = index">
-      {{data.company_name}}
-      {{data.job_title}}
-      {{data.start_date}}
-
-    </span>
-
-  </span>
   <h2>Education Credentials</h2>
 
 </div>
-
-<!-- <h1>Dashboard</h1>
-<h3>Hi {{ currentUser?.first_name }}</h3> -->
-<!-- <h3>{{ currentUser?.user_profile[0].bio }}</h3> -->

@@ -98,6 +98,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
   }
 
+  deleteRow(x) {
+    var delBtn = confirm(" Do you want to delete ?");
+    if (delBtn == true) {
+      // this.row.splice(x, 1);
+    }
+  }
+
   ngOnDestroy() {
     // this.destroy$.next();
     // this.destroy$.complete();

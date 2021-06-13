@@ -21,20 +21,6 @@
 table {
   width: 100%;
 }
-.container {
-  display: grid;
-  grid-template-columns: repeat(8, auto[col-start]);
-  grid-template-rows:  [header-start] 25% [header-end row1-end ] 100px repeat(3, 20px [row-start]) auto;
-/*    grid-template-areas: 
-    "header header header header header"
-    "main main . . sidebar"
-    "footer footer footer footer footer"; */
-    grid-column-gap: 10px;
-  grid-row-gap: 10px;
-  justify-items: start;
-  align-items: center;
-  justify-content: stretch;	
-}
 .column-1-header {
 /*   grid-area: header; */
   grid-column-start: 1;
@@ -51,3 +37,59 @@ table {
 .column-3-header {
   grid-column-start: 3;
 }
+.column-4-header {
+  grid-column-start: 4;
+}
+.column-5-header {
+  grid-column-start: 5;
+}
+.column-6-header {
+  grid-column-start: 6;
+}
+.column-7-header {
+  grid-column-start: 7;
+}
+.column-8-header {
+  grid-column-start: 8;
+}
+
+  
+.item-b {
+  grid-area: main;
+}
+.item-c {
+  grid-area: sidebar;
+}
+.item-d {
+  grid-area: footer;
+}
+
+.container {
+  display: grid;
+
+/*    grid-template-areas: 
+    "header header header header header"
+    "main main . . sidebar"
+    "footer footer footer footer footer"; */
+    grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  justify-items: start;
+  align-items: center;
+  justify-content: stretch;	
+}
+.table{
+  display: table;
+  width:100%;
+  border-collapse:collapse;
+}
+  .table-row{
+    display: table-row;
+  }
+    .table-cell, .table-head{
+      display: table-cell;
+      padding:1em;
+      border:#f0f0f0 1px solid;
+    }
+    .table-head{
+        font-weight:bold;
+    }

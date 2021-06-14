@@ -16,11 +16,13 @@ export enum UserActionTypes {
   UPDATE_PROFILE_SUCCESS = "[User] Update Success",
   UPDATE_PROFILE_FAIL = "[Profile] Update Profile Fail",
   CREATE_PROFILE = "[User] Create Profile ",
+  DELETE_EXP_PROFILE = "[User] Delete Experience Profile ",
   CREATE_EXP_PROFILE = "[User] Create Experience Profile ",
   CREATE_EDU_PROFILE = "[User] Create Education Profile ",
   CREATE_PROFILE_SUCCESS = "[User] Create Profile Success",
   CREATE_EDU_PROFILE_SUCCESS = "[User] Create Education Profile Success",
   CREATE_EXP_PROFILE_SUCCESS = "[User] Create Experience Profile Success ",
+  DELETE_EXP_PROFILE_SUCCESS = "[User] DELETE Experience Profile Success ",
 }
 
 export class createEduProfile implements Action {
@@ -41,6 +43,14 @@ export class createExpProfileeSuccess implements Action {
 }
 export class createProfile implements Action {
   readonly type = UserActionTypes.CREATE_PROFILE;
+  constructor(public payload: any) {}
+}
+export class deleteExpProfile implements Action {
+  readonly type = UserActionTypes.DELETE_EXP_PROFILE;
+  constructor(public payload: any) {}
+}
+export class deleteExpProfileSuccess implements Action {
+  readonly type = UserActionTypes.DELETE_EXP_PROFILE_SUCCESS;
   constructor(public payload: any) {}
 }
 
@@ -105,4 +115,6 @@ export type UserActions =
   | createExpProfileFail
   | createEduProfile
   | createEduProfileSuccess
-  | createEduFail;
+  | createEduFail
+  | deleteExpProfile
+  | deleteExpProfileSuccess;

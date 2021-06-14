@@ -106,9 +106,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
   deleteUser(id: number) {
     //alert("In Delete");
-    this.authenticationService.deleteExp(id).subscribe((data) => {
-      console.log("delete data", data);
-    });
+    // this.authenticationService.deleteExp(id).subscribe((data) => {
+    //   console.log("delete data", data);
+    // });
+
+    this.store.dispatch(new userActions.deleteExpProfile(id));
   }
 
   ngOnDestroy() {

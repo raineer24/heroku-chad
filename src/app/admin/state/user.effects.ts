@@ -12,25 +12,59 @@ import {
   take,
 } from "rxjs/operators";
 import { UserFetch } from "../../core/models";
-
+import * as fromUser from "../../admin/state../../state/user.reducer";
 import { AuthService } from "../../core/services/user.service";
 import { AlertService } from "../../core/services/alert.service";
 import * as UserActions from "./user.actions";
-
+import { Store, select, ActionsSubject } from "@ngrx/store";
 /* NgRx */
 import { Action } from "@ngrx/store";
 import { Actions, Effect, ofType, act } from "@ngrx/effects";
 //import * as AuthActions from "./auth.action";
 import { User } from "src/app/core/models/user";
+import * as userActions from "../state/user.actions";
 
 @Injectable()
 export class UserEffects {
   constructor(
     private authService: AuthService,
+    private store: Store<fromUser.State>,
     private actions$: Actions,
     private router: Router,
     private alertService: AlertService
   ) {}
+
+  @Effect({ dispatch: false })
+  deleteExpProfileSuccess: Observable<any> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.DELETE_EXP_PROFILE_SUCCESS),
+    tap((user) => {
+      this.store.dispatch(new userActions.LoadProfileBegin());
+    })
+  );
+
+  @Effect()
+  deleteExpProfile: Observable<any> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.DELETE_EXP_PROFILE),
+    map((action: UserActions.deleteExpProfile) => action.payload),
+    switchMap((payload) => {
+      //  console.log("payload create EXPERIENCE: ", payload);
+      return this.authService.deleteExp(payload).pipe(
+        take(1),
+        map((user) => {
+          console.log("delete EXPERIENCCE EFFECT: ", user);
+
+          // let data = user.profileEduCreate;
+
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+
+          // console.log("get profile Effect", user.body);
+
+          return new UserActions.deleteExpProfileSuccess(user);
+        }),
+        catchError((err) => of(new UserActions.createEduFail(err)))
+      );
+    })
+  );
 
   @Effect()
   createEducation: Observable<any> = this.actions$.pipe(

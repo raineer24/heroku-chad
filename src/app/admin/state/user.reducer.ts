@@ -81,6 +81,20 @@ export function userReducer(
         loading: true,
       };
     }
+    case UserActionTypes.DELETE_EXP_PROFILE_SUCCESS: {
+      //return Object.assign({}, state, { loading: true });
+      //  console.log('state create profile: ', state.entities[state.selectedUserId]);
+      console.log("state delete exp profile", state);
+      console.log("state.delete exp", action.payload);
+
+      // return {
+      //   ...state,
+      //  profile: action.payload
+
+      // }
+
+      return userAdapter.removeOne(action.payload, state);
+    }
     case UserActionTypes.CREATE_EDU_PROFILE_SUCCESS: {
       //   console.log("action payload update profile success", action.payload);
       let actions = action.payload;

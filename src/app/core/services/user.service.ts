@@ -97,7 +97,7 @@ export class AuthService {
     const url = `${this.baseUrl}/api/v2/users/profile/experience/${id}`;
     let userdata = JSON.parse(localStorage.getItem("currentUser"));
     let token = userdata.token;
-    return this.http.post(url, id, {
+    return this.http.delete(url, {
       headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
     });
   }

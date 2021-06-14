@@ -38,7 +38,8 @@
       <div class="table-cell">{{data.company_name}}</div>
       <div class="table-cell">{{data.job_title }}</div>
       <div class="table-cell">{{ data.start_date | date: 'M/d/yyyy' }}</div>
-      <button (click)="deleteUser(data.users_id)"><i class="fa fa-trash"></i></button>
+      <div class="table-cell"> <button (click)="deleteUser(data.user_experience_detail_id)"><i
+            class="fa fa-trash"></i></button></div>
 
     </div>
   </div>

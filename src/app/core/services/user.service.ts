@@ -94,7 +94,7 @@ export class AuthService {
   public deleteExp(id: number): Observable<any> {
     //DELETE /api/v2/users/profile/experience/:exp_id
     // localhost:3000/api/v2/users/profile/education
-    const url = `${this.baseUrl}/api/v2/users/profile/experience/:exp_id`;
+    const url = `${this.baseUrl}/api/v2/users/profile/experience/${id}`;
     let userdata = JSON.parse(localStorage.getItem("currentUser"));
     let token = userdata.token;
     return this.http.post(url, id, {

@@ -91,6 +91,17 @@ export class AuthService {
     return this.http.post(url, obj).pipe(map((data) => data));
   }
 
+  public deleteExp(id: number): Observable<any> {
+    //DELETE /api/v2/users/profile/experience/:exp_id
+    // localhost:3000/api/v2/users/profile/education
+    const url = `${this.baseUrl}/api/v2/users/profile/experience/:exp_id`;
+    let userdata = JSON.parse(localStorage.getItem("currentUser"));
+    let token = userdata.token;
+    return this.http.post(url, id, {
+      headers: new HttpHeaders().set("Authorization", `Bearer ${token}`),
+    });
+  }
+
   public createExp(data): Observable<any> {
     // localhost:3000/api/v2/users/profile/experience
     const url = `${this.baseUrl}/api/v2/users/profile/experience`;

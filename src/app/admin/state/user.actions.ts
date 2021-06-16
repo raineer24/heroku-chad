@@ -16,6 +16,9 @@ export enum UserActionTypes {
   UPDATE_PROFILE_SUCCESS = "[User] Update Success",
   UPDATE_PROFILE_FAIL = "[Profile] Update Profile Fail",
   CREATE_PROFILE = "[User] Create Profile ",
+  DELETE_EDU_PROFILE = "[User] Delete Education Profile ",
+  DELETE_EDU_PROFILE_SUCCESS = "[User] Delete Education Profile Success ",
+  DELETE_EDU_PROFILE_FAIL = "[User] Delete Education Profile Fail ",
   DELETE_EXP_PROFILE = "[User] Delete Experience Profile ",
   CREATE_EXP_PROFILE = "[User] Create Experience Profile ",
   CREATE_EDU_PROFILE = "[User] Create Education Profile ",
@@ -23,8 +26,22 @@ export enum UserActionTypes {
   CREATE_EDU_PROFILE_SUCCESS = "[User] Create Education Profile Success",
   CREATE_EXP_PROFILE_SUCCESS = "[User] Create Experience Profile Success ",
   DELETE_EXP_PROFILE_SUCCESS = "[User] DELETE Experience Profile Success ",
+  DELETE_EXP_PROFILE_FAIL = "[User] DELETE Experience Profile Fail ",
 }
 
+export class deleteEduProfile implements Action {
+  readonly type = UserActionTypes.DELETE_EDU_PROFILE;
+  constructor(public payload: any) {}
+}
+export class deleteEduProfileSuccess implements Action {
+  REATE_EXP_PROFILE_FAILURE;
+  readonly type = UserActionTypes.DELETE_EDU_PROFILE_SUCCESS;
+  constructor(public payload: any) {}
+}
+export class deleteEduProfileFail implements Action {
+  readonly type = UserActionTypes.DELETE_EDU_PROFILE_FAIL;
+  constructor(public payload: any) {}
+}
 export class createEduProfile implements Action {
   readonly type = UserActionTypes.CREATE_EDU_PROFILE;
   constructor(public payload: any) {}
@@ -47,6 +64,10 @@ export class createProfile implements Action {
 }
 export class deleteExpProfile implements Action {
   readonly type = UserActionTypes.DELETE_EXP_PROFILE;
+  constructor(public payload: any) {}
+}
+export class deleteExpProfileFail implements Action {
+  readonly type = UserActionTypes.DELETE_EXP_PROFILE_FAIL;
   constructor(public payload: any) {}
 }
 export class deleteExpProfileSuccess implements Action {
@@ -117,4 +138,8 @@ export type UserActions =
   | createEduProfileSuccess
   | createEduFail
   | deleteExpProfile
-  | deleteExpProfileSuccess;
+  | deleteExpProfileSuccess
+  | deleteExpProfile
+  | deleteEduProfile
+  | deleteEduProfileSuccess
+  | deleteEduProfileFail;

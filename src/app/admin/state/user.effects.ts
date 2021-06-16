@@ -34,6 +34,38 @@ export class UserEffects {
     private alertService: AlertService
   ) {}
 
+  @Effect()
+  deleteEduProfile: Observable<any> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.DELETE_EDU_PROFILE),
+    map((action: UserActions.deleteExpProfile) => action.payload),
+    switchMap((payload) => {
+      //  console.log("payload create EXPERIENCE: ", payload);
+      return this.authService.deleteEdu(payload).pipe(
+        take(1),
+        map((user) => {
+          console.log("delete Education EFFECT: ", user);
+
+          // let data = user.profileEduCreate;
+
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+
+          // console.log("get profile Effect", user.body);
+
+          return new UserActions.deleteEduProfileSuccess(user);
+        }),
+        catchError((err) => of(new UserActions.deleteEduProfileFail(err)))
+      );
+    })
+  );
+
+  @Effect({ dispatch: false })
+  deleteEduProfileSuccess: Observable<any> = this.actions$.pipe(
+    ofType(UserActions.UserActionTypes.DELETE_EDU_PROFILE),
+    tap((user) => {
+      this.store.dispatch(new userActions.LoadProfileBegin());
+    })
+  );
+
   @Effect({ dispatch: false })
   deleteExpProfileSuccess: Observable<any> = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.DELETE_EXP_PROFILE_SUCCESS),
@@ -61,7 +93,7 @@ export class UserEffects {
 
           return new UserActions.deleteExpProfileSuccess(user);
         }),
-        catchError((err) => of(new UserActions.createEduFail(err)))
+        catchError((err) => of(new UserActions.deleteEduProfileFail(err)))
       );
     })
   );

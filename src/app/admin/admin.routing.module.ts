@@ -26,6 +26,7 @@ const routes: Routes = [
       { path: "add-exp", component: AddExperienceComponent },
       { path: "add-edu", component: AddEducationComponent },
       { path: "edit/:id", component: CreateProfileComponent },
+      { path: "posts", component: PostsComponent },
     ],
   },
   // {

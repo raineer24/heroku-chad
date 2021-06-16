@@ -60,7 +60,7 @@ export class UserEffects {
 
   @Effect({ dispatch: false })
   deleteEduProfileSuccess: Observable<any> = this.actions$.pipe(
-    ofType(UserActions.UserActionTypes.DELETE_EDU_PROFILE),
+    ofType(UserActions.UserActionTypes.DELETE_EDU_PROFILE_SUCCESS),
     tap((user) => {
       this.store.dispatch(new userActions.LoadProfileBegin());
     })

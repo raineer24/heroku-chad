@@ -7,7 +7,7 @@ import { ToastrService } from "ngx-toastr";
 @Component({
   selector: "app-post-create",
   templateUrl: "./post-create.component.html",
-  styleUrls: ["./post-create.component.scss"]
+  styleUrls: ["./post-create.component.scss"],
 })
 export class PostCreateComponent implements OnInit {
   enteredTitle = "";
@@ -37,20 +37,17 @@ export class PostCreateComponent implements OnInit {
   initForm() {
     return (this.postForm = this.fb.group({
       title: ["", Validators.compose([Validators.required])],
-      content: [
+      body: [
         "",
-        Validators.compose([Validators.required, Validators.minLength(6)])
+        Validators.compose([Validators.required, Validators.minLength(6)]),
       ],
-      image: [null, Validators.required]
+      image: [null, Validators.required],
     }));
 
     //this.postsService.getPosts();
   }
 
-
   onSubmit(e) {
- 
-
     if (e.target !== undefined) {
       this.fd.append("image", e.target.files[0]);
       return (this.postForm.value.image = this.fd);
@@ -58,7 +55,7 @@ export class PostCreateComponent implements OnInit {
     this.fd.append("title", this.postForm.value.title);
     this.fd.append("content", this.postForm.value.content);
 
-    return this.postsService.upload(this.fd).subscribe(data => {
+    return this.postsService.upload(this.fd).subscribe((data) => {
       this.fd = new FormData();
       console.log(`SAVED SUCCESSFULLY. ${JSON.stringify(data)}`);
       this.postForm.reset();

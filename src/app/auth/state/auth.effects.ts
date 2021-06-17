@@ -110,7 +110,8 @@ export class AuthEffects {
   public LogOut: Observable<any> = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.LOGOUT),
     tap((user) => {
-      localStorage.removeItem("token");
+      localStorage.removeItem("currentUser");
+      this.router.navigate(["/auth/login"]);
     })
   );
 }

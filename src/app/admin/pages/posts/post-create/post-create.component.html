@@ -1,40 +1,19 @@
 <mat-card>
   <form [formGroup]="postForm" #f="ngForm" (ngSubmit)="onSubmit(f)">
     <mat-form-field>
-      <input
-        matInput
-        placeholder="Input title here"
-        type="text"
-        name="title"
-        formControlName="title"
-        required
-        minlength="3"
-        class="form-control"
-      />
+      <input matInput placeholder="Input title here" type="text" name="title" formControlName="title" required
+        minlength="3" class="form-control" />
       <!-- <mat-error *ngIf="title.invalid">Please enter a post title.</mat-error> -->
     </mat-form-field>
     <mat-form-field>
-      <textarea
-        placeholder="Input your content"
-        matInput
-        rows="4"
-        name="content"
-        formControlName="content"
-        required
-        class="form-control"
-      ></textarea>
+      <textarea placeholder="Input your content" matInput rows="4" name="body" formControlName="body" required
+        class="form-control"></textarea>
       <!-- <mat-error *ngIf="content.invalid"
         >Please enter a post content.</mat-error
       > -->
     </mat-form-field>
 
-    <input
-      class="input-file"
-      type="file"
-      (change)="onSubmit($event)"
-      formControlName="image"
-      class="form-control"
-    />
+    <input class="input-file" type="file" (change)="onSubmit($event)" formControlName="image" class="form-control" />
 
     <button mat-raised-button color="accent">Save post</button>
   </form>

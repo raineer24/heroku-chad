@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToastrModule } from "ngx-toastr";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
-import { reducer } from "./auth/state/auth.reducer";
+import { reducers } from "./store/reducers";
 import { AuthEffects } from "./auth/state/auth.effects";
 import {
   MatCardModule,
@@ -60,7 +60,7 @@ import { EffectsModule } from "@ngrx/effects";
     MatInputModule,
     CoreModule,
     EffectsModule.forRoot([]),
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(reducers, {}),
     //StoreModule.forFeature("users", reducer),
     //EffectsModule.forFeature([UserEffects]),
     StoreDevtoolsModule.instrument({

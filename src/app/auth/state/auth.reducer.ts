@@ -47,16 +47,6 @@ export const getUserProfile = createSelector(getAuthFeatureState, (state) => {
   return state.user;
 });
 
-// export const routerState = createSelector(
-//   (state: State) => state.router,
-//   (value) => value
-// );
-
-// export const getUserProfile = createSelector(
-//   (state: State) => state.users,
-//   (user) => user
-// );
-
 export function reducer(state = initialState, action: AuthActions): AuthState {
   switch (action.type) {
     case AuthActionTypes.LOAD_PROFILE_BEGIN: {

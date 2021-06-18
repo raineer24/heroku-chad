@@ -29,5 +29,8 @@
     </div>
 
   </div>
+  <div *ngIf="developers$ | async as dev">
+    <h3>tae{{dev.email}}</h3>
 
+  </div>
 </div>

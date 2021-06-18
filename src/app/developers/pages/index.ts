@@ -1,1 +1,1 @@
-export * from "./developers/developers.component";
+export * from "./developers/developers-list.component";

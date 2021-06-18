@@ -85,6 +85,18 @@ export class AuthService {
     return this.loginUrl;
   }
 
+  /**
+   * Get customers list
+   */
+  getDevelopers(): Observable<any> {
+    return this.http.get<User[]>(`${this.baseUrl}/api/v2/users`).pipe(
+      tap((developers) => {
+        return developers;
+      }),
+      catchError(this.errorMgmt)
+    );
+  }
+
   public registerUsers(obj) {
     const url = `${this.baseUrl}/api/v2/users/register`;
     //const url = `api/v2/users/register`;

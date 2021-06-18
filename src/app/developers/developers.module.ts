@@ -1,11 +1,15 @@
 import { NgModule } from "@angular/core";
 import { DevelopersRoutingModule } from "./developers.routing.module";
 
-import { DevelopersComponent } from "./pages";
+import { DevelopersListComponent } from "./pages";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { SharedModule } from "../shared";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { EffectsModule } from "@ngrx/effects";
+import { DevEffects } from "./state/dev.effects";
+import { reducer } from "./state/dev.reducer";
+import { StoreModule } from "@ngrx/store";
 import {
   MatCardModule,
   MatToolbarModule,
@@ -20,6 +24,8 @@ import {
 } from "@angular/material";
 @NgModule({
   imports: [
+    StoreModule.forFeature("dev", reducer),
+    EffectsModule.forFeature([DevEffects]),
     DevelopersRoutingModule,
     SharedModule,
     CommonModule,
@@ -38,6 +44,6 @@ import {
     MatInputModule,
   ],
   providers: [],
-  declarations: [DevelopersComponent],
+  declarations: [DevelopersListComponent],
 })
 export class DevelopersModule {}

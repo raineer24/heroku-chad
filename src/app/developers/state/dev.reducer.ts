@@ -4,33 +4,42 @@ import { DevActions, DevActionTypes } from "./dev.action";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { v4 as uuidv4 } from "uuid";
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
-export interface DevState extends EntityState<User> {
-  selectedDevId: number | null;
-  loading: boolean;
-  loaded: boolean;
-  error: string;
-  // profile: any;
-  developer: User | null;
+// export interface State extends EntityState<User> {
+//   selectedDevId: number | null;
+//   loading: boolean;
+//   loaded: boolean;
+//   error: string;
+//   // profile: any;
+//   developer: User | null;
+// }
+
+export interface State {
+  developers: User[];
+  developer: User;
 }
 
-export interface State extends fromRoot.AppState {
-  dev: DevState;
-}
-
-export const devAdapter: EntityAdapter<User> = createEntityAdapter<User>();
-
-export const defaultDev: DevState = {
-  ids: [],
-  entities: {},
-  selectedDevId: null,
-  loading: false,
-  loaded: false,
-  error: "",
+export const initialState: State = {
+  developers: null,
   developer: null,
-  //user: null,
 };
+// export interface State extends fromRoot.AppState {
+//   dev: DevState;
+// }
 
-export const initialState = devAdapter.getInitialState(defaultDev);
+//export const devAdapter: EntityAdapter<User> = createEntityAdapter<User>();
+
+// export const defaultDev: State = {
+//   ids: [],
+//   entities: {},
+//   selectedDevId: null,
+//   loading: false,
+//   loaded: false,
+//   error: "",
+//   developer: null,
+//   //user: null,
+// };
+
+//export const initialState = devAdapter.getInitialState(defaultDev);
 
 // export interface DevState {
 //   selectedUser: User;
@@ -59,7 +68,7 @@ export const initialState = devAdapter.getInitialState(defaultDev);
 // };
 
 // Selector functions
-const getDevFeatureState = createFeatureSelector<DevState>("dev");
+const getDevFeatureState = createFeatureSelector<State>("dev");
 
 // export const getError = createSelector(getDevFeatureState, (state) => {
 //   console.log(state);
@@ -67,7 +76,7 @@ const getDevFeatureState = createFeatureSelector<DevState>("dev");
 //   return state.errorMessage;
 // });
 
-export const getProfile = (state: DevState) => state.developer;
+export const getProfile = (state: State) => state.developer;
 
 export const getUserProfile = createSelector(getDevFeatureState, (state) => {
   console.log("state", state.developer);
@@ -84,7 +93,7 @@ export const getUserProfile = createSelector(getDevFeatureState, (state) => {
 //   (user) => user
 // );
 
-export function reducer(state = initialState, action: DevActions): DevState {
+export function reducer(state = initialState, action: DevActions): State {
   switch (action.type) {
     case DevActionTypes.LOAD_DEVELOPERS_SUCCESS: {
       console.log("state");
@@ -95,7 +104,3 @@ export function reducer(state = initialState, action: DevActions): DevState {
       return state;
   }
 }
-export const getAllDevelopers = createSelector(
-  getDevFeatureState,
-  devAdapter.getSelectors().selectAll
-);

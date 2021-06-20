@@ -30,20 +30,29 @@ export class DevEffects {
     private alertService: AlertService
   ) {}
 
-  @Effect({ dispatch: false })
+  @Effect()
   loadDevelopers$: Observable<any> = this.actions$.pipe(
     ofType(DevActions.DevActionTypes.LOAD_DEVELOPERS),
 
-    mergeMap(() => {
+    switchMap(() => {
       return this.authService.getDevelopers().pipe(
         map((data) => {
           console.log("developer data:", data["user"]);
           let devs = data["user"];
-          return new DevActions.loadDevelopersSuccessAction(data);
+          return new DevActions.loadDevelopersSuccessAction(data["user"]);
           //return new userActions.LoadProfileSuccess(data["user"]);
         }),
         catchError((error) => of(new DevActions.loadDevelopersFail(error)))
       );
+    })
+  );
+
+  @Effect({ dispatch: false })
+  loadDevelopersSuccess$: Observable<any> = this.actions$.pipe(
+    ofType(DevActions.DevActionTypes.LOAD_DEVELOPERS_SUCCESS),
+    tap((user) => {
+      // this.store.dispatch(new userActions.LoadProfileBegin());
+      console.log("user load developer SUCCESS", user);
     })
   );
 }

@@ -6,11 +6,12 @@ import { v4 as uuidv4 } from "uuid";
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
 export interface State {
+  users: User[];
   user: User | null;
 }
 
 export const initialState: State = {
-  //  users: null,
+  users: null,
   user: null,
 };
 
@@ -71,15 +72,15 @@ const getDevFeatureState = createFeatureSelector<State>("dev");
 export function reducer(state = initialState, action: DevActions): State {
   switch (action.type) {
     case DevActionTypes.LOAD_DEVELOPERS: {
-      console.log("state");
+      console.log("state", state);
       //console.log("actions", action.payload);
       return { ...state };
     }
-    // case DevActionTypes.LOAD_DEVELOPERS_SUCCESS: {
-    //   console.log("state");
-    //   console.log("actions", action.payload);
-    //   return { ...state, developers: action.payload };
-    // }
+    case DevActionTypes.LOAD_DEVELOPERS_SUCCESS: {
+      console.log("state");
+      console.log("actions", action.payload);
+      return { ...state, users: action.payload };
+    }
     default:
       return state;
   }

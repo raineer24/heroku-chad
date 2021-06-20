@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select, ActionsSubject } from "@ngrx/store";
 import { ofType } from "@ngrx/effects";
-import * as fromDev from "../../state/dev.reducer";
+import * as fromRoot from "../../../store/reducers";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as DevActions from "../../state/dev.action";
 import { Subscription, Observable, of, Subject } from "rxjs";
@@ -17,10 +17,10 @@ export class DevelopersListComponent implements OnInit {
   destroyed$ = new Subject<boolean>();
 
   developers$: Observable<User[]>;
-  developers: User[];
+  developers: any;
   constructor(
     private authenticationService: AuthService,
-    private store: Store<fromDev.State>,
+    private store: Store<fromRoot.State>,
     private router: Router,
     private actionsSubj: ActionsSubject
   ) {
@@ -43,12 +43,12 @@ export class DevelopersListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new DevActions.loadDevelopersAction());
-    //   this.developers$ = this.store.pipe(select(fromDev.getAllDevelopers));
-    // console.log("dev", this.developers$);
-    // this.developers$.subscribe((data) => {
-    //   console.log("data", data);
-    //   this.developers = data;
-    //   console.log("devs", this.developers);
-    // });
+    this.developers = this.store.pipe(select(fromRoot.selectUserListState$));
+    //console.log("dev", this.developers);
+    this.developers.subscribe((data) => {
+      console.log("data dev", data);
+      this.developers$ = data["users"];
+      console.log("devs", this.developers$);
+    });
   }
 }

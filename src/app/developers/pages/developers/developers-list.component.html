@@ -3,16 +3,17 @@
     <div class="col-md-12">
       <h1 class='large text-primary'>Developers Component</h1>
       <p class='lead'><i class="fab fa-connectdevelop">Browse and connect with developers</i></p>
-      <div class="profiles">
-        <div class="profile card card-body bg-light mb-3">
+      <div class="profiles" *ngFor=" let user of developers$">
+        <div *ngIf='user.user_profile.length > 0' class="profile card card-body bg-light mb-3">
           <div class="row">
             <div class="col-2">
-              <img src="https://i.imgur.com/lCuYCZx.jpeg" width="200" height="200" alt="" class='rounded-circle'>
+              <img src="{{user.image_url}}" width="200" height="200" alt="" class='rounded-circle'>
             </div>
-            <div class="col-lg-6 col-md-4 col-8">
-              <h3>Shaine Dawson</h3>
-              <p>Chief Technology Officer at <span>Singapore Tech LLC</span></p>
-              <p>10 Dover Dr, <span>Singapore 138683</span></p>
+            <div *ngFor=" let profile of (user)?.user_profile" class="col-lg-6 col-md-4 col-8">
+              <h3> {{user.username}}</h3>
+              <p> {{profile.status}} at <span>{{profile.company_name}}</span>
+              </p>
+              <p><span>{{profile.job_location}}</span></p>
               <a class='btn btn-info'>View Profile</a>
             </div>
             <div class="col-md-4 d-none d-md-block">
@@ -29,12 +30,6 @@
     </div>
 
   </div>
-  <div *ngIf="developers$ | async as dev">
-    <h3>tae{{dev.email}}</h3>
 
-  </div>
 
-  <div *ngFor=" let user of developers$">
-    {{user.username}}
-  </div>
 </div>

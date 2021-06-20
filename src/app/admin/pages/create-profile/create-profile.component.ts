@@ -92,7 +92,7 @@ export class CreateProfileComponent implements OnInit {
       bio: ["", Validators.required],
       //githubusername: ["", Validators.required],
       job_location: ["", Validators.required],
-      company_name: ["", Validators.required],
+      company_name: [""],
       areas_of_expertise: ["", Validators.required],
       instagram_handle: [""],
       facebook_handle: [""],

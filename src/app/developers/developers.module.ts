@@ -8,7 +8,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { EffectsModule } from "@ngrx/effects";
 import { DevEffects } from "./state/dev.effects";
-import { reducer } from "./state/dev.reducer";
+import { reducer } from "../auth/state/auth.reducer";
 import { StoreModule } from "@ngrx/store";
 import {
   MatCardModule,

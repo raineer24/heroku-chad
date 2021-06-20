@@ -43,12 +43,12 @@ export class DevelopersListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new DevActions.loadDevelopersAction());
-    this.developers$ = this.store.pipe(select(fromDev.getAllDevelopers));
-    console.log("dev", this.developers$);
-    this.developers$.subscribe((data) => {
-      console.log("data", data);
-      this.developers = data;
-      console.log("devs", this.developers);
-    });
+    //   this.developers$ = this.store.pipe(select(fromDev.getAllDevelopers));
+    // console.log("dev", this.developers$);
+    // this.developers$.subscribe((data) => {
+    //   console.log("data", data);
+    //   this.developers = data;
+    //   console.log("devs", this.developers);
+    // });
   }
 }

@@ -4,40 +4,15 @@ import { DevActions, DevActionTypes } from "./dev.action";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { v4 as uuidv4 } from "uuid";
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
-// export interface State extends EntityState<User> {
-//   selectedDevId: number | null;
-//   loading: boolean;
-//   loaded: boolean;
-//   error: string;
-//   // profile: any;
-//   developer: User | null;
-// }
 
 export interface State {
-  developers: User[];
-  developer: User;
+  user: User | null;
 }
 
 export const initialState: State = {
-  developers: null,
-  developer: null,
+  //  users: null,
+  user: null,
 };
-// export interface State extends fromRoot.AppState {
-//   dev: DevState;
-// }
-
-//export const devAdapter: EntityAdapter<User> = createEntityAdapter<User>();
-
-// export const defaultDev: State = {
-//   ids: [],
-//   entities: {},
-//   selectedDevId: null,
-//   loading: false,
-//   loaded: false,
-//   error: "",
-//   developer: null,
-//   //user: null,
-// };
 
 //export const initialState = devAdapter.getInitialState(defaultDev);
 
@@ -76,12 +51,12 @@ const getDevFeatureState = createFeatureSelector<State>("dev");
 //   return state.errorMessage;
 // });
 
-export const getProfile = (state: State) => state.developer;
+// export const getProfile = (state: State) => state.developer;
 
-export const getUserProfile = createSelector(getDevFeatureState, (state) => {
-  console.log("state", state.developer);
-  return state.developer;
-});
+// export const getUserProfile = createSelector(getDevFeatureState, (state) => {
+//   console.log("state", state.developer);
+//   return state.developer;
+// });
 
 // export const routerState = createSelector(
 //   (state: State) => state.router,
@@ -95,11 +70,16 @@ export const getUserProfile = createSelector(getDevFeatureState, (state) => {
 
 export function reducer(state = initialState, action: DevActions): State {
   switch (action.type) {
-    case DevActionTypes.LOAD_DEVELOPERS_SUCCESS: {
+    case DevActionTypes.LOAD_DEVELOPERS: {
       console.log("state");
-      console.log("actions", action.payload);
-      return { ...state, developer: action.payload };
+      //console.log("actions", action.payload);
+      return { ...state };
     }
+    // case DevActionTypes.LOAD_DEVELOPERS_SUCCESS: {
+    //   console.log("state");
+    //   console.log("actions", action.payload);
+    //   return { ...state, developers: action.payload };
+    // }
     default:
       return state;
   }

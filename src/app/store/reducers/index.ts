@@ -12,11 +12,11 @@ import * as fromDev from "../../developers/state/dev.reducer";
 export interface State {
   auth: fromAuth.State;
   user: fromUser.State;
-  //dev: fromUser.State;
+  dev: fromDev.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
+  dev: fromDev.reducer,
   auth: fromAuth.reducer,
   user: fromUser.reducer,
-  //dev: fromDev.reducer,
 };

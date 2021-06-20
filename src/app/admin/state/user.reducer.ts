@@ -10,7 +10,7 @@ export interface State extends EntityState<UserFetch> {
   loading: boolean;
   loaded: boolean;
   error: string;
-  profile: any;
+  user: any;
 }
 
 // export interface State extends fromRoot.AppState {
@@ -38,7 +38,7 @@ export const defaultUser: State = {
   loading: false,
   loaded: false,
   error: "",
-  profile: null,
+  user: null,
 };
 
 // State for this feature (User)

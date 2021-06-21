@@ -1,329 +1,87 @@
-import { User, UserFetch } from "../../core/models";
+import { User } from "../../core/models/user";
 import * as fromRoot from "../../state/app.state";
-import { UserActions, UserActionTypes } from "../state/user.actions";
+import { DevActions, DevActionTypes } from "./dev.action";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-
+import { v4 as uuidv4 } from "uuid";
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
-export interface State extends EntityState<UserFetch> {
-  selectedUserId: number | null;
-  loading: boolean;
-  loaded: boolean;
-  error: string;
-  user: any;
+export interface State {
+  users: User[];
+  user: User | null;
 }
 
-// export interface State extends fromRoot.AppState {
-//   user: UsersState;
-// }
-
-//export const employeeAdapter: EntityAdapter<User> = createEntityAdapter<User>();
-
-export const userAdapter: EntityAdapter<UserFetch> =
-  createEntityAdapter<UserFetch>();
-
-// export const defaultEmployee: EmployeeState = {
-//   ids: [],
-//   entities: {},
-//   selectedEmployeeId: null,
-//   loading: false,
-//   loaded: false,
-//   error: "",
-// };
-
-export const defaultUser: State = {
-  ids: [],
-  entities: {},
-  selectedUserId: null,
-  loading: false,
-  loaded: false,
-  error: "",
+export const initialState: State = {
+  users: null,
   user: null,
 };
 
-// State for this feature (User)
-// export interface UsersState {
-//   // maskUserName: boolean;
-//   // currentUser: User;
-//   user: User | null;
+//export const initialState = devAdapter.getInitialState(defaultDev);
+
+// export interface DevState {
+//   selectedUser: User;
 //   loading: boolean;
-//   errorMessage: any;
+//   //userprofile: User | null;
+//   user: null;
+//   // is a user authenticated?
+//   isAuthenticated: boolean;
+//   // if authenticated, there should be a user object
+//   developer: User | null;
+//   // error message
+//   errorMessage: null;
+//   id: null;
+
+//   //userprofile: User | null;
 // }
 
-//export const initialState = employeeAdapter.getInitialState(defaultEmployee);
-
-export const initialState = userAdapter.getInitialState(defaultUser);
-
-// const initialState: UsersState = {
-//   user: null,
-//   loading: false,
+// const initialState: DevState = {
+//   isAuthenticated: false,
+//   developer: null,
 //   errorMessage: null,
+//   id: null,
+//   selectedUser: null,
+//   loading: false,
+//   //userprofile: null,
 // };
 
 // Selector functions
-const getUserFeatureState = createFeatureSelector<State>("users");
+const getDevFeatureState = createFeatureSelector<State>("dev");
 
-//export const getProfile = (state: UsersState) => state.user;
+// export const getError = createSelector(getDevFeatureState, (state) => {
+//   console.log(state);
 
-// export const getUserProfile = createSelector(getUserFeatureState, (state) => {
-//   console.log("state", state.user);
-//   return state.user;
+//   return state.errorMessage;
 // });
 
-export function reducer(state = initialState, action: UserActions): State {
+// export const getProfile = (state: State) => state.developer;
+
+// export const getUserProfile = createSelector(getDevFeatureState, (state) => {
+//   console.log("state", state.developer);
+//   return state.developer;
+// });
+
+// export const routerState = createSelector(
+//   (state: State) => state.router,
+//   (value) => valueevelopers/developers-list.component
+// );
+
+// export const getUserProfile = createSelector(
+//   (state: State) => state.users,
+//   (user) => user
+// );
+
+export function reducer(state = initialState, action: DevActions): State {
   switch (action.type) {
-    case UserActionTypes.LOAD_PROFILE_BEGIN: {
-      return {
-        ...state,
-        loading: true,
-      };
+    case DevActionTypes.LOAD_DEVELOPERS: {
+      console.log("state", state);
+      //console.log("actions", action.payload);
+      return { ...state };
     }
-    case UserActionTypes.DELETE_EXP_PROFILE_SUCCESS: {
-      //return Object.assign({}, state, { loading: true });
-      //  console.log('state create profile: ', state.entities[state.selectedUserId]);
-      console.log("state delete exp profile", state);
-      console.log("state.delete exp", action.payload);
-
-      // return {
-      //   ...state,
-      //  profile: action.payload
-
-      // }
-
-      return userAdapter.removeOne(action.payload, state);
+    case DevActionTypes.LOAD_DEVELOPERS_SUCCESS: {
+      console.log("state");
+      console.log("actions", action.payload);
+      return { ...state, users: action.payload };
     }
-    case UserActionTypes.CREATE_EDU_PROFILE_SUCCESS: {
-      //   console.log("action payload update profile success", action.payload);
-      let actions = action.payload;
-      console.log("actions payload exp", actions);
-      //console.log("update profile SUCCESS", actions.changes["userp"]);
-      //let entity = actions.changes["updated_user"][0];
-      const entity = state.entities[state.selectedUserId].user_education;
-
-      // entity[index] = actions.changes["userp"];
-
-      entity.push(actions);
-      console.log("STATE: ", state);
-      console.log("state EXP profile", state.entities[state.selectedUserId]);
-
-      //return userAdapter.updateOne(action.payload, state);
-
-      return {
-        ...state, //copying the orignal state
-      };
-    }
-    case UserActionTypes.CREATE_EDU_PROFILE: {
-      //return Object.assign({}, state, { loading: true });
-      //  console.log('state create profile: ', state.entities[state.selectedUserId]);
-      console.log("state create EDUCATION", state);
-      console.log("state.Education", action.payload);
-
-      // return {
-      //   ...state,
-      //  profile: action.payload
-
-      // }
-
-      return userAdapter.addOne(action.payload, {
-        ...state,
-
-        // profile: action.payload,
-        // profile: action.payload,
-      });
-    }
-    case UserActionTypes.CREATE_EXP_PROFILE_SUCCESS: {
-      //   console.log("action payload update profile success", action.payload);
-      let actions = action.payload;
-      console.log("actions payload exp", actions);
-      //console.log("update profile SUCCESS", actions.changes["userp"]);
-      //let entity = actions.changes["updated_user"][0];
-      const entity = state.entities[state.selectedUserId].user_experience;
-
-      // entity[index] = actions.changes["userp"];
-
-      entity.push(actions);
-      console.log("STATE: ", state);
-      console.log("state EXP profile", state.entities[state.selectedUserId]);
-
-      //return userAdapter.updateOne(action.payload, state);
-
-      return {
-        ...state, //copying the orignal state
-      };
-    }
-
-    case UserActionTypes.CREATE_EXP_PROFILE: {
-      //return Object.assign({}, state, { loading: true });
-      //  console.log('state create profile: ', state.entities[state.selectedUserId]);
-      console.log("state create experience", state);
-      console.log("state.experience", action.payload);
-
-      // return {
-      //   ...state,
-      //  profile: action.payload
-
-      // }
-
-      return userAdapter.addOne(action.payload, {
-        ...state,
-
-        // profile: action.payload,
-        // profile: action.payload,
-      });
-    }
-
-    case UserActionTypes.UPDATE_PROFILE_SUCCESS: {
-      const index = state.entities[state.selectedUserId].user_profile.findIndex(
-        (entity) => entity.id !== action.payload
-      );
-
-      console.log("INDEX: ", index);
-
-      //   console.log("action payload update profile success", action.payload);
-      let actions = action.payload;
-      console.log("actions payload", actions);
-      console.log("update profile SUCCESS", actions.changes["userp"]);
-      //let entity = actions.changes["updated_user"][0];
-      const entity = state.entities[state.selectedUserId].user_profile;
-
-      entity[index] = actions.changes["userp"];
-
-      // entity.push(actions);
-      console.log("STATE: ", state);
-      console.log("state update profile", state.entities[state.selectedUserId]);
-
-      //return userAdapter.updateOne(action.payload, state);
-
-      return {
-        ...state, //copying the orignal state
-      };
-    }
-
-    case UserActionTypes.CREATE_PROFILE: {
-      //return Object.assign({}, state, { loading: true });
-      //  console.log('state create profile: ', state.entities[state.selectedUserId]);
-      console.log("state create CREATEPROFILE", state);
-      console.log("state.CREATEprofile", action.payload);
-      // return {
-      //   ...state,
-      //  profile: action.payload
-      // }
-      // return userAdapter.addOne(action.payload, {
-      //   ...state,
-      //   // profile: action.payload,
-      //   profile: action.payload,
-      // });
-    }
-
-    case UserActionTypes.CREATE_PROFILE_SUCCESS: {
-      //const index = state.entities.findIndex(entity => entity.id !== action.payload); //finding index of the item
-
-      let actions = action.payload;
-      console.log("actions success profile", actions);
-      console.log(
-        "STATE PROFILE Success",
-        state.entities[state.selectedUserId].user_profile
-      );
-      //  let entity = state.entities[state.selectedUserId].user_profile;
-      //  entity.push(actions);
-      // entity = actions;
-      //  console.log("entity", entity);
-      //const findIndex = entity.ind
-      console.log("action.payload create profile success reducer: ", actions);
-
-      return userAdapter.addOne(action.payload, {
-        ...state,
-        // entity: actions
-      });
-    }
-
-    case UserActionTypes.LOAD_PROFILE_SUCCESS: {
-      let actions = action.payload;
-      console.log("action.payload loadprofilesuccess", actions);
-      console.log("state loadprofilesuccess", state);
-
-      return userAdapter.addOne(action.payload, {
-        ...state,
-        loading: false,
-        loaded: true,
-        selectedUserId: action.payload.id,
-      });
-    }
-
-    // case customerActions.CustomerActionTypes.UPDATE_CUSTOMER_SUCCESS:
-    //   return customerAdapter.updateOne(action.payload, state);
-
-    // case customerActions.CustomerActionTypes.UPDATE_CUSTOMER_FAIL:
-    //   return {
-    //     ...state,
-    //     error: action.payload,
-    //   };
-
     default:
       return state;
   }
 }
-
-// export function reducer(state = initialState, action: UserActions): UsersState {
-//   switch (action.type) {
-//     case UserActionTypes.LOAD_PROFILE_BEGIN: {
-//       return {
-//         ...state,
-//         loading: true,
-//       };
-//     }
-//     case UserActionTypes.LOAD_PROFILE_FAILURE: {
-//       return {
-//         ...state,
-//         loading: false,
-//         errorMessage: action.payload,
-//       };
-//     }
-
-//     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
-//       console.log(state);
-
-//       return {
-//         ...state,
-//         loading: true,
-//         user: action.payload,
-//       };
-//     }
-
-//     default:
-//       return state;
-//   }
-// }
-
-//export const getCurrentElemployee = createSelector(getUserFeatureState);
-
-// export const getCurrentUserId = createSelector(
-//   getUserFeatureState,
-// )
-
-export const getCurrentUserId = createSelector(
-  getUserFeatureState,
-  (state: State) => state.selectedUserId
-);
-
-// export const getCurrentElemployeeId = createSelector(
-//   getEmployeeFeatureState,
-//   (state: EmployeeState) => state.selectedEmployeeId
-// );
-
-export const getCurrentUser = createSelector(
-  getUserFeatureState,
-  getCurrentUserId,
-  (state) => state.entities[state.selectedUserId]
-);
-
-export const getAllUsers = createSelector(
-  getUserFeatureState,
-  userAdapter.getSelectors().selectAll
-);
-
-// export const getCurrentElemployee = createSelector(
-//   getEmployeeFeatureState,
-//   getCurrentElemployeeId,
-//   (state) => state.entities[state.selectedEmployeeId]
-// );

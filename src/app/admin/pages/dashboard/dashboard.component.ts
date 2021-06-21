@@ -9,7 +9,7 @@ import * as userActions from "../../state/user.actions";
 import { Subscription, Observable, of, Subject } from "rxjs";
 import { skipWhile, skip, take, filter, takeUntil } from "rxjs/operators";
 import { MatTableDataSource } from "@angular/material/table";
-import { getCurrentUser, getAllUsers } from "../../state/user.reducer";
+//import { getCurrentUser, getAllUsers } from "../../state/user.reducer";
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -50,12 +50,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     //this.currentUser$ = this.store.pipe(select(getUserData));
 
-    this.profile$ = this.store.pipe(select(fromUser.getCurrentUser));
-    console.log("profile", this.profile$);
+    // this.profile$ = this.store.pipe(select(fromUser.getCurrentUser));
+    // console.log("profile", this.profile$);
 
-    this.profile$.subscribe((data) => {
-      console.log("data", data);
-    });
+    // this.profile$.subscribe((data) => {
+    //   console.log("data", data);
+    // });
 
     this.store.dispatch(new userActions.LoadProfileBegin());
     // this.store

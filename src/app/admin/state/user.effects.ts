@@ -195,7 +195,7 @@ export class UserEffects {
   getProfile: Observable<any> = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.CREATE_PROFILE),
     map((action: UserActions.createProfile) => action.payload),
-    switchMap((payload) => {
+    concatMap((payload) => {
       console.log("payload create profile: ", payload);
       return this.authService.createProfile(payload).pipe(
         take(1),
@@ -204,7 +204,7 @@ export class UserEffects {
 
           // store user details and jwt token in local storage to keep user logged in between page refreshes
 
-          console.log("get profile Effect", user.body);
+          //  console.log("get profile Effect", user.body);
 
           // let user_profile = user.body
           // this.currentUserSubject.next(user);
@@ -228,6 +228,7 @@ export class UserEffects {
       console.log("effects get profile success!");
       // localStorage.setItem("token", user.payload.token);
       localStorage.setItem("currentUser", JSON.stringify(user));
+      //this.store.dispatch(new userActions.LoadProfileBegin());
       // this.currentUserSubject.next(user);
       this.router.navigateByUrl("/");
       console.log("get profile success: ", user);
@@ -240,7 +241,7 @@ export class UserEffects {
   loadProfile$: Observable<any> = this.actions$.pipe(
     ofType(UserActions.UserActionTypes.LOAD_PROFILE_BEGIN),
 
-    mergeMap(() => {
+    concatMap(() => {
       return this.authService.getUserDetail().pipe(
         take(1),
         map((data) => {

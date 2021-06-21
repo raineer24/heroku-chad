@@ -123,8 +123,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.destroy$.next();
-    // this.destroy$.complete();
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
   private initializeData(users: any): void {
     console.log("this initial", this.noData);

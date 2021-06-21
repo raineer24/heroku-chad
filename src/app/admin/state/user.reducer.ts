@@ -202,8 +202,8 @@ export function reducer(state = initialState, action: UserActions): State {
     case UserActionTypes.CREATE_PROFILE: {
       //return Object.assign({}, state, { loading: true });
       //  console.log('state create profile: ', state.entities[state.selectedUserId]);
-      // console.log("state create", state);
-      // console.log("state.profile", action.payload);
+      console.log("state create CREATEPROFILE", state);
+      console.log("state.CREATEprofile", action.payload);
       // return {
       //   ...state,
       //  profile: action.payload
@@ -219,15 +219,15 @@ export function reducer(state = initialState, action: UserActions): State {
       //const index = state.entities.findIndex(entity => entity.id !== action.payload); //finding index of the item
 
       let actions = action.payload;
-
+      console.log("actions success profile", actions);
       console.log(
         "STATE PROFILE Success",
         state.entities[state.selectedUserId].user_profile
       );
-      // let entity = state.entities[state.selectedUserId].user_profile;
-      // entity.push(actions);
+      //  let entity = state.entities[state.selectedUserId].user_profile;
+      //  entity.push(actions);
       // entity = actions;
-      // console.log("entity", entity);
+      //  console.log("entity", entity);
       //const findIndex = entity.ind
       console.log("action.payload create profile success reducer: ", actions);
 
@@ -239,9 +239,8 @@ export function reducer(state = initialState, action: UserActions): State {
 
     case UserActionTypes.LOAD_PROFILE_SUCCESS: {
       let actions = action.payload;
-      console.log("action.payload load profile success", actions);
-      // console.log("action.payload", actions);
-      console.log("state load profile success", state);
+      console.log("action.payload loadprofilesuccess", actions);
+      console.log("state loadprofilesuccess", state);
 
       return userAdapter.addOne(action.payload, {
         ...state,

@@ -99,7 +99,7 @@ export class AddExperienceComponent implements OnInit {
     //   //(error) => this.onSubmitError(error)
     // );
 
-    this.store.dispatch(new userActions.createExpProfile(data));
+    // this.store.dispatch(new userActions.createExpProfile(data));
     console.log("clicked");
   }
 }

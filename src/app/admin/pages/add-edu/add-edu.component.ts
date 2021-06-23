@@ -78,7 +78,7 @@ export class AddEducationComponent implements OnInit {
     //   //(error) => this.onSubmitError(error)
     // );
 
-    this.store.dispatch(new userActions.createEduProfile(data));
+    //this.store.dispatch(new userActions.createEduProfile(data));
     console.log("clicked");
   }
 

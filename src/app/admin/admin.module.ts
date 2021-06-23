@@ -42,7 +42,7 @@ import { StoreModule } from "@ngrx/store";
 import { reducer } from "../admin/state/user.reducer";
 import { AuthService } from "../core/services/user.service";
 import { EffectsModule } from "@ngrx/effects";
-import { UserEffects } from "../admin/state/user.effects";
+import { DevEffects } from "../admin/state/user.effects";
 
 @NgModule({
   declarations: [
@@ -62,7 +62,7 @@ import { UserEffects } from "../admin/state/user.effects";
   imports: [
     AdminRoutingModule,
     StoreModule.forFeature("users", reducer),
-    EffectsModule.forFeature([UserEffects]),
+    EffectsModule.forFeature([DevEffects]),
     MatCardModule,
     MatToolbarModule,
     MatIconModule,

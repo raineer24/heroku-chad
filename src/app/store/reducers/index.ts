@@ -12,17 +12,17 @@ import * as fromDev from "../../developers/state/dev.reducer";
 export interface State {
   auth: fromAuth.State;
   user: fromUser.State;
-  dev: fromDev.State;
+  // dev: fromDev.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
-  dev: fromDev.reducer,
+  //dev: fromDev.reducer,
   auth: fromAuth.reducer,
   user: fromUser.reducer,
 };
 
 // La première fonction amène vers le state matieres
-export const selectUserListState$ = (state: State) => state.dev;
+export const selectUserListState$ = (state: State) => state.user;
 export const selectAuthListState$ = (state: State) => state.auth;
 export const selectUsersLoaded$ = createSelector(
   selectUserListState$,

@@ -249,7 +249,7 @@ export class CreateProfileComponent implements OnInit {
     //     }
     //   );
 
-    this.store.dispatch(new userActions.createProfile(this.profForm.value));
+    //this.store.dispatch(new userActions.createProfile(this.profForm.value));
   }
 
   private updateUser() {
@@ -292,7 +292,7 @@ export class CreateProfileComponent implements OnInit {
       facebook_handle: this.fb.value,
     };
 
-    this.store.dispatch(new userActions.UpdateProfile(updatedProfile));
+    //  this.store.dispatch(new userActions.UpdateProfile(updatedProfile));
   }
 
   // convenience getter for easy access to form fields

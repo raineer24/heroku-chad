@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //   console.log("data", data);
     // });
 
-    this.store.dispatch(new userActions.LoadProfileBegin());
+    this.store.dispatch(new userActions.loadDevelopersAction());
     // this.store
     //   .pipe(
     //     select(fromUser.getUserProfile),
@@ -81,21 +81,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //   // let data = users[0];
     //   //  this.initializeData(this.noData);
     // });
-    this.actionsSubj
-      .pipe(
-        ofType(userActions.UserActionTypes.LOAD_PROFILE_SUCCESS),
-        takeUntil(this.destroyed$)
-      )
-      .subscribe((data: UserFetch) => {
-        /* hooray, success, show notification alert etc.. */
-        console.log("DATA", data["payload"]);
-        this.noData = data["payload"];
-
-        console.log("thisnodata", this.noData);
-        // this.initializeData(data["payload"]);
-        this.dataSource = new MatTableDataSource(this.noData);
-        console.log("this.datasource", this.dataSource);
-      });
+    // this.actionsSubj
+    //   .pipe(
+    //     ofType(userActions.UserActionTypes.LOAD_PROFILE_SUCCESS),
+    //     takeUntil(this.destroyed$)
+    //   )
+    //   .subscribe((data: UserFetch) => {
+    //     /* hooray, success, show notification alert etc.. */
+    //     console.log("DATA", data["payload"]);
+    //     this.noData = data["payload"];
+    //     console.log("thisnodata", this.noData);
+    //     // this.initializeData(data["payload"]);
+    //     this.dataSource = new MatTableDataSource(this.noData);
+    //     console.log("this.datasource", this.dataSource);
+    //   });
   }
 
   deleteRow(x) {
@@ -109,8 +108,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     // this.authenticationService.deleteExp(id).subscribe((data) => {
     //   console.log("delete data", data);
     // });
-
-    this.store.dispatch(new userActions.deleteExpProfile(id));
+    // this.store.dispatch(new userActions.deleteExpProfile(id));
   }
 
   deleteEdu(id: number) {
@@ -118,8 +116,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     // this.authenticationService.deleteExp(id).subscribe((data) => {
     //   console.log("delete data", data);
     // });
-
-    this.store.dispatch(new userActions.deleteEduProfile(id));
+    // this.store.dispatch(new userActions.deleteEduProfile(id));
   }
 
   ngOnDestroy() {

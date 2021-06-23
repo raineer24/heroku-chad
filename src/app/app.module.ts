@@ -60,7 +60,7 @@ import { EffectsModule } from "@ngrx/effects";
     MatInputModule,
     CoreModule,
     EffectsModule.forRoot([]),
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(reducers, {}),
     //StoreModule.forFeature("users", reducer),
     //EffectsModule.forFeature([UserEffects]),
     StoreDevtoolsModule.instrument({

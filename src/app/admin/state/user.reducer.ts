@@ -1,18 +1,18 @@
 import { User } from "../../core/models/user";
-import * as fromRoot from "../../state/app.state";
-import { DevActions, DevActionTypes } from "./dev.action";
+//import * as fromRoot from "../../state/app.state";
+import { DevActions, DevActionTypes } from "./user.actions";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { v4 as uuidv4 } from "uuid";
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
 export interface State {
   users: User[];
-  user: User | null;
+  selectedUser: User | null;
 }
 
 export const initialState: State = {
   users: null,
-  user: null,
+  selectedUser: null,
 };
 
 //export const initialState = devAdapter.getInitialState(defaultDev);

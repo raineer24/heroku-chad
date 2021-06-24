@@ -56,7 +56,7 @@ export class AddExperienceComponent implements OnInit {
     private datePipe: DatePipe,
     private authenticationService: AuthService,
     private route: ActivatedRoute,
-    private store: Store<fromUser.State>
+    private store: Store<fromUser.UserState>
   ) {}
 
   ngOnInit() {

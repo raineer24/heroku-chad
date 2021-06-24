@@ -30,29 +30,29 @@ export class DevEffects {
     private alertService: AlertService
   ) {}
 
-  @Effect()
-  loadDevelopers$: Observable<any> = this.actions$.pipe(
-    ofType(DevActions.DevActionTypes.LOAD_DEVELOPERS),
+  // @Effect()
+  // loadDevelopers$: Observable<any> = this.actions$.pipe(
+  //   ofType(DevActions.DevActionTypes.LOAD_DEVELOPERS),
 
-    switchMap(() => {
-      return this.authService.getDevelopers().pipe(
-        map((data) => {
-          console.log("developer data:", data["user"]);
-          let devs = data["user"];
-          return new DevActions.loadDevelopersSuccessAction(data["user"]);
-          //return new userActions.LoadProfileSuccess(data["user"]);
-        }),
-        catchError((error) => of(new DevActions.loadDevelopersFail(error)))
-      );
-    })
-  );
+  //   switchMap(() => {
+  //     return this.authService.getDevelopers().pipe(
+  //       map((data) => {
+  //         console.log("developer data:", data["user"]);
+  //         let devs = data["user"];
+  //         return new DevActions.loadDevelopersSuccessAction(data["user"]);
+  //         //return new userActions.LoadProfileSuccess(data["user"]);
+  //       }),
+  //       catchError((error) => of(new DevActions.loadDevelopersFail(error)))
+  //     );
+  //   })
+  // );
 
-  @Effect({ dispatch: false })
-  loadDevelopersSuccess$: Observable<any> = this.actions$.pipe(
-    ofType(DevActions.DevActionTypes.LOAD_DEVELOPERS_SUCCESS),
-    tap((user) => {
-      // this.store.dispatch(new userActions.LoadProfileBegin());
-      console.log("user load developer SUCCESS", user);
-    })
-  );
+  // @Effect({ dispatch: false })
+  // loadDevelopersSuccess$: Observable<any> = this.actions$.pipe(
+  //   ofType(DevActions.DevActionTypes.LOAD_DEVELOPERS_SUCCESS),
+  //   tap((user) => {
+  //     // this.store.dispatch(new userActions.LoadProfileBegin());
+  //     console.log("user load developer SUCCESS", user);
+  //   })
+  // );
 }

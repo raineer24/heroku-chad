@@ -53,7 +53,7 @@ export class AddEducationComponent implements OnInit {
     private datePipe: DatePipe,
     private authenticationService: AuthService,
     private route: ActivatedRoute,
-    private store: Store<fromUser.State>
+    private store: Store<fromUser.UserState>
   ) {}
 
   ngOnInit() {
@@ -87,6 +87,20 @@ export class AddEducationComponent implements OnInit {
     if (ctrl.disabled) {
       ctrl.enable();
     } else {
+      // this.actionsSubj
+      //   .pipe(
+      //     ofType(userActions.UserActionTypes.LOAD_PROFILE_SUCCESS),
+      //     takeUntil(this.destroyed$)
+      //   )
+      //   .subscribe((data: UserFetch) => {
+      //     /* hooray, success, show notification alert etc.. */
+      //     console.log("DATA", data["payload"]);
+      //     this.noData = data["payload"];
+      //     console.log("thisnodata", this.noData);
+      //     // this.initializeData(data["payload"]);
+      //     this.dataSource = new MatTableDataSource(this.noData);
+      //     console.log("this.datasource", this.dataSource);
+      //   });
       ctrl.disable();
     }
   }

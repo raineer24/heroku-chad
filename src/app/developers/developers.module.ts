@@ -8,7 +8,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { EffectsModule } from "@ngrx/effects";
 import { DevEffects } from "./state/dev.effects";
-import { reducer } from "../developers/state/dev.reducer";
+//import { reducer } from "../developers/state/dev.reducer";
 import { StoreModule } from "@ngrx/store";
 import {
   MatCardModule,
@@ -24,7 +24,7 @@ import {
 } from "@angular/material";
 @NgModule({
   imports: [
-    StoreModule.forFeature("dev", reducer),
+    // StoreModule.forFeature("dev", reducer),
     EffectsModule.forFeature([DevEffects]),
     DevelopersRoutingModule,
     SharedModule,

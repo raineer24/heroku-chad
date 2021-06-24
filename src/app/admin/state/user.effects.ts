@@ -34,7 +34,7 @@ export class DevEffects {
   loadDevelopers$: Observable<any> = this.actions$.pipe(
     ofType(DevActions.DevActionTypes.LOAD_DEVELOPERS),
 
-    switchMap(() => {
+    concatMap(() => {
       return this.authService.getDevelopers().pipe(
         map((data) => {
           console.log("developer data:", data["user"]);
@@ -47,12 +47,12 @@ export class DevEffects {
     })
   );
 
-  @Effect({ dispatch: false })
-  loadDevelopersSuccess$: Observable<any> = this.actions$.pipe(
-    ofType(DevActions.DevActionTypes.LOAD_DEVELOPERS_SUCCESS),
-    tap((user) => {
-      // this.store.dispatch(new userActions.LoadProfileBegin());
-      console.log("user load developer SUCCESS", user);
-    })
-  );
+  // @Effect({ dispatch: false })
+  // loadDevelopersSuccess$: Observable<any> = this.actions$.pipe(
+  //   ofType(DevActions.DevActionTypes.LOAD_DEVELOPERS_SUCCESS),
+  //   tap((user) => {
+  //     // this.store.dispatch(new userActions.LoadProfileBegin());
+  //     console.log("user load developer SUCCESS", user);
+  //   })
+  // );
 }

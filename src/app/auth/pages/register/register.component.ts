@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private alertService: AlertService,
-    private store: Store<fromUser.State>
+    private store: Store<fromUser.AuthState>
   ) {
     this.initForm();
   }

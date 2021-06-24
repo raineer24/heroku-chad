@@ -8,6 +8,12 @@ export enum DevActionTypes {
   LOAD_DEVELOPERS = "[User] Load Developers Begin",
   LOAD_DEVELOPERS_SUCCESS = "[DEVELOPERS] Load Developers Success",
   LOAD_DEVELOPERS_FAIL = "[DEVELOPERS] Load Developers Success",
+  SELECT_USER = "[User] Select",
+}
+
+export class SelectUserAction implements Action {
+  readonly type = DevActionTypes.SELECT_USER;
+  constructor(public payload: User) {}
 }
 
 export class loadDevelopersAction implements Action {
@@ -17,11 +23,10 @@ export class loadDevelopersAction implements Action {
 export class loadDevelopersSuccessAction implements Action {
   readonly type = DevActionTypes.LOAD_DEVELOPERS_SUCCESS;
 
-  constructor(public payload: any) {}
+  constructor(public payload: User[]) {}
 }
 
 export class loadDevelopersFail implements Action {
-  A;
   readonly type = DevActionTypes.LOAD_DEVELOPERS_FAIL;
 
   constructor(public payload: any) {}
@@ -29,4 +34,5 @@ export class loadDevelopersFail implements Action {
 export type DevActions =
   | loadDevelopersAction
   | loadDevelopersSuccessAction
-  | loadDevelopersFail;
+  | loadDevelopersFail
+  | SelectUserAction;

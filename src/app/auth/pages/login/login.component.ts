@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthService,
     private alertService: AlertService,
-    private store: Store<fromUser.State>,
+    private store: Store<fromUser.AuthState>,
     public errorService: ErrorService
   ) {
     this.authenticationService.currentUser.subscribe(

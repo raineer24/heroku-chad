@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 //   auth: AuthState;
 // }
 
-export interface State {
+export interface AuthState {
   // is a user authenticated?
   isAuthenticated: boolean;
   // if authenticated, there should be a user object
@@ -21,7 +21,7 @@ export interface State {
   //userprofile: User | null;
 }
 
-export const initialState: State = {
+export const initialState: AuthState = {
   isAuthenticated: false,
   user: null,
   errorMessage: null,
@@ -32,7 +32,7 @@ export const initialState: State = {
 };
 
 // Selector functions
-const getAuthFeatureState = createFeatureSelector<State>("auth");
+const getAuthFeatureState = createFeatureSelector<AuthState>("auth");
 
 export const getError = createSelector(getAuthFeatureState, (state) => {
   console.log(state);
@@ -40,14 +40,17 @@ export const getError = createSelector(getAuthFeatureState, (state) => {
   return state.errorMessage;
 });
 
-export const getProfile = (state: State) => state.user;
+export const getProfile = (state: AuthState) => state.user;
 
 export const getUserProfile = createSelector(getAuthFeatureState, (state) => {
   console.log("state", state.user);
   return state.user;
 });
 
-export function reducer(state = initialState, action: AuthActions): State {
+export function authReducer(
+  state = initialState,
+  action: AuthActions
+): AuthState {
   switch (action.type) {
     case AuthActionTypes.LOAD_PROFILE_BEGIN: {
       return {

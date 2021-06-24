@@ -20,7 +20,7 @@ export class DevelopersListComponent implements OnInit {
   developers: any;
   constructor(
     private authenticationService: AuthService,
-    private store: Store<fromRoot.State>,
+    private store: Store<fromRoot.AppState>,
     private router: Router,
     private actionsSubj: ActionsSubject
   ) {

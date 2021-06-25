@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { Observable, of, merge } from "rxjs";
+import { Observable, of, merge, BehaviorSubject } from "rxjs";
 import {
   mergeMap,
   switchMap,
@@ -14,6 +14,7 @@ import {
 
 import { AuthService } from "../../core/services/user.service";
 import { AlertService } from "../../core/services/alert.service";
+import * as userActions from "../../admin/state/user.actions";
 
 /* NgRx */
 import { Action } from "@ngrx/store";
@@ -23,12 +24,19 @@ import { User } from "src/app/core/models/user";
 
 @Injectable()
 export class AuthEffects {
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
   constructor(
     private authService: AuthService,
     private actions$: Actions,
     private router: Router,
     private alertService: AlertService
-  ) {}
+  ) {
+    this.currentUserSubject = new BehaviorSubject<User>(
+      JSON.parse(localStorage.getItem("currentUser"))
+    );
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
   @Effect({ dispatch: false })
   loadProfile$: Observable<any> = this.actions$.pipe(
@@ -54,11 +62,10 @@ export class AuthEffects {
     switchMap((payload) => {
       return this.authService.login(payload.email, payload.password).pipe(
         map((user) => {
-          // console.log("user", user.token);
-          return new AuthActions.LogInSuccess({
-            token: user.token,
-            email: payload.email,
-          });
+          console.log("user", user);
+          localStorage.setItem("currentUser", JSON.stringify(user));
+          this.currentUserSubject.next(user);
+          return new AuthActions.LogInSuccess(user);
         }),
         catchError((err) => of(new AuthActions.LoginFail(err)))
       );
@@ -69,8 +76,9 @@ export class AuthEffects {
   LogInSuccess: Observable<any> = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.LOGIN_SUCCESS),
     tap((user) => {
+      console.log("user", user);
       localStorage.setItem("token", user.payload.token);
-      this.router.navigateByUrl("/");
+      this.router.navigateByUrl("/admin");
     })
   );
 
@@ -96,6 +104,7 @@ export class AuthEffects {
   SignUpSuccess: Observable<any> = this.actions$.pipe(
     ofType(AuthActions.AuthActionTypes.SIGNUP_SUCCESS),
     tap((user) => {
+      console.log("user", user);
       localStorage.setItem("token", user.payload.token);
       this.router.navigateByUrl("/");
     })

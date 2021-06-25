@@ -21,13 +21,24 @@ export const reducers: ActionReducerMap<AppState> = {
   user: fromUser.userReducer,
 };
 
-// La première fonction amène vers le state matieres
-// export const selectUserListState$ = (state: State) => state.user;
-// export const selectAuthListState$ = (state: State) => state.auth;
-// export const selectUsersLoaded$ = createSelector(
-//   selectUserListState$,
-//   (users) => users.users
+// export const getAppState = createFeatureSelector<AppState>("auth");
+
+// export const getAuthState = createSelector(
+//   getAppState,
+//   (state: AppState) => state.auth
 // );
+// export const getAuthenticateStatus = createSelector(
+//   getAuthState,
+//   fromAuth.getAuthStatus
+// );
+
+// La première fonction amène vers le state matieres
+export const selectUserListState$ = (state: AppState) => state.auth;
+// export const selectAuthListState$ = (state: State) => state.auth;
+export const selectUsersLoaded$ = createSelector(
+  selectUserListState$,
+  (users) => users.isAuthenticated
+);
 // export const selectUserLoaded$ = createSelector(
 //   selectUserListState$,
 //   (user) => user.selectedUser

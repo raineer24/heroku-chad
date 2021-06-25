@@ -20,14 +20,16 @@ import { Action } from "@ngrx/store";
 import { Actions, Effect, ofType, act } from "@ngrx/effects";
 import * as DevActions from "./user.actions";
 import { User } from "src/app/core/models/user";
-
+import * as fromRoot from "../../store/reducers/index";
+import { Store, select, ActionsSubject } from "@ngrx/store";
 @Injectable()
 export class DevEffects {
   constructor(
     private authService: AuthService,
     private actions$: Actions,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private store: Store<fromRoot.AppState>
   ) {}
 
   @Effect()
@@ -48,6 +50,16 @@ export class DevEffects {
   );
 
   // @Effect({ dispatch: false })
+  // getProfileSuccess: Observable<any> = this.actions$.pipe(
+  //   ofType(DevActions.DevActionTypes.LOAD_DEVELOPER_BEGIN),
+  //   tap((user) => {
+  //     const data = JSON.parse(localStorage.getItem("currentUser"));
+  //     console.log("user", data.user);
+  //     this.store.dispatch(new DevActions.LoadDeveloperSuccess(data.user));
+  //   })
+  // );
+
+  // @Effect({ dispatch: false })
   // loadDevelopersSuccess$: Observable<any> = this.actions$.pipe(
   //   ofType(DevActions.DevActionTypes.LOAD_DEVELOPERS_SUCCESS),
   //   tap((user) => {
@@ -55,4 +67,22 @@ export class DevEffects {
   //     console.log("user load developer SUCCESS", user);
   //   })
   // );
+
+  @Effect({ dispatch: false })
+  loadDeveloper$: Observable<any> = this.actions$.pipe(
+    ofType(DevActions.DevActionTypes.LOAD_DEVELOPER_BEGIN),
+
+    switchMap(() => {
+      return this.authService.getUserDetail().pipe(
+        take(1),
+        map((data) => {
+          console.log("map effect", data["user"]);
+          this.store.dispatch(new DevActions.LoadDeveloperSuccess(data.user));
+          // return new DevActions.LoadDeveloperSuccess(data["user"]);
+          //return new userActions.LoadProfileSuccess(data["user"]);
+        }),
+        catchError((error) => of(new DevActions.loadDevelopersFail(error)))
+      );
+    })
+  );
 }

@@ -82,10 +82,7 @@ export function authReducer(
       return {
         ...state,
         isAuthenticated: true,
-        user: {
-          token: action.payload.token,
-          email: action.payload.email,
-        },
+        user: action.payload,
         errorMessage: null,
       };
 
@@ -122,3 +119,5 @@ export function authReducer(
       return state;
   }
 }
+
+//export const getAuthStatus = (state: AuthState) => state.isAuthenticated;

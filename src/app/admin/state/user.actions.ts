@@ -5,6 +5,8 @@ import { Action } from "@ngrx/store";
 //import { AuthEffects } from "./auth.effects";
 
 export enum DevActionTypes {
+  LOAD_DEVELOPER_BEGIN = "[User] Load Developer Begin",
+  LOAD_DEVELOPER_SUCCESS = "[User] Load Developer Success",
   LOAD_DEVELOPERS = "[User] Load Developers Begin",
   LOAD_DEVELOPERS_SUCCESS = "[DEVELOPERS] Load Developers Success",
   LOAD_DEVELOPERS_FAIL = "[DEVELOPERS] Load Developers Success",
@@ -14,6 +16,15 @@ export enum DevActionTypes {
 export class SelectUserAction implements Action {
   readonly type = DevActionTypes.SELECT_USER;
   constructor(public payload: User) {}
+}
+
+export class LoadProfileBegin implements Action {
+  readonly type = DevActionTypes.LOAD_DEVELOPER_BEGIN;
+}
+
+export class LoadDeveloperSuccess implements Action {
+  readonly type = DevActionTypes.LOAD_DEVELOPER_SUCCESS;
+  constructor(public payload: any) {}
 }
 
 export class loadDevelopersAction implements Action {
@@ -35,4 +46,5 @@ export type DevActions =
   | loadDevelopersAction
   | loadDevelopersSuccessAction
   | loadDevelopersFail
+  | LoadDeveloperSuccess
   | SelectUserAction;

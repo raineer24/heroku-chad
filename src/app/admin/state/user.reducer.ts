@@ -28,9 +28,17 @@ export function userReducer(
       console.log("actions", action.payload);
       return { ...state, users: action.payload };
     }
-    case DevActionTypes.SELECT_USER: {
-      return { ...state, selectedUser: Object.assign({}, action.payload) };
+
+    case DevActionTypes.LOAD_DEVELOPER_SUCCESS: {
+      console.log("state: ", state);
+
+      return {
+        ...state,
+        //   loading: true,
+        selectedUser: action.payload,
+      };
     }
+
     default: {
       return state;
     }

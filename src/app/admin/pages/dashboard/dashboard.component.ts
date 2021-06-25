@@ -5,7 +5,7 @@ import { Store, select, ActionsSubject } from "@ngrx/store";
 import { ofType } from "@ngrx/effects";
 import * as fromRoot from "../../../store/reducers";
 import { Router, ActivatedRoute } from "@angular/router";
-import * as userActions from "../../state/user.actions";
+import * as DevActions from "../../state/user.actions";
 import { Subscription, Observable, of, Subject } from "rxjs";
 import { skipWhile, skip, take, filter, takeUntil } from "rxjs/operators";
 import { MatTableDataSource } from "@angular/material/table";
@@ -16,6 +16,7 @@ import { MatTableDataSource } from "@angular/material/table";
   styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
+  data: Observable<any>;
   users$: User[];
   destroyed$ = new Subject<boolean>();
   title = "";
@@ -42,6 +43,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private router: Router,
     private actionsSubj: ActionsSubject
   ) {
+    this.data = this.store.select(fromRoot.selectUserListState$);
     // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
     //   (user) => {
     //     const data = user;
@@ -54,7 +56,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
     // this.profile$.subscribe((data) => {
     //   console.log("data", data);
     // });
-    this.store.dispatch(new userActions.loadDevelopersAction());
+    this.actionsSubj
+      .pipe(
+        ofType(DevActions.DevActionTypes.LOAD_DEVELOPER_SUCCESS),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe((data) => {
+        console.log("datas", data);
+        console.log("data", data["payload"]);
+        /* hooray, success, show notification alert etc.. */
+        // console.log("DATA", data["payload"]);
+        this.noData = data["payload"];
+        console.log("thisnodata", this.noData);
+        // // this.initializeData(data["payload"]);
+        // this.dataSource = new MatTableDataSource(this.noData);
+        // console.log("this.datasource", this.dataSource);
+      });
+    this.store.dispatch(new DevActions.LoadProfileBegin());
     // this.store
     //   .pipe(
     //     select(fromUser.getUserProfile),
@@ -71,6 +89,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.data.subscribe((state) => {
+      console.log("data", state);
+      // this.error = state.errorMessage;
+    });
+
     // this.store
     //   .select((state) => state.user)
     //   .subscribe((users) => {
@@ -78,12 +101,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //     //  this.users$ = users;
     //   });
 
-    this.currentUserSubscription = this.store
-      .select((state) => state.user.selectedUser)
-      .subscribe((user) => {
-        console.log("got users", user);
-        //  this.user$ = user;
-      });
+    // this.currentUserSubscription = this.store
+    //   .select((state) => state.user.selectedUser)
+    //   .subscribe((user) => {
+    //     console.log("got users", user);
+    //     //  this.user$ = user;
+    //   });
+
     // this.store.pipe(select(getCurrentUser)).subscribe((users) => {
     //   console.log("USERS:", users);
     //   this.noData = users;
@@ -91,20 +115,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //   // let data = users[0];
     //   //  this.initializeData(this.noData);
     // });
-    // this.actionsSubj
-    //   .pipe(
-    //     ofType(userActions.UserActionTypes.LOAD_PROFILE_SUCCESS),
-    //     takeUntil(this.destroyed$)
-    //   )
-    //   .subscribe((data: UserFetch) => {
-    //     /* hooray, success, show notification alert etc.. */
-    //     console.log("DATA", data["payload"]);
-    //     this.noData = data["payload"];
-    //     console.log("thisnodata", this.noData);
-    //     // this.initializeData(data["payload"]);
-    //     this.dataSource = new MatTableDataSource(this.noData);
-    //     console.log("this.datasource", this.dataSource);
-    //   });
   }
 
   deleteRow(x) {

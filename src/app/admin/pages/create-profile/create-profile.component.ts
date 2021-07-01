@@ -20,7 +20,7 @@ import {
   FormControl,
   FormArray,
 } from "@angular/forms";
-import { forEach } from "@angular/router/src/utils/collection";
+//import { forEach } from "@angular/router/src/utils/collection";
 import { UserFetch } from "src/app/core/models";
 
 export interface Position {

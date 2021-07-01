@@ -6,12 +6,12 @@ import { v4 as uuidv4 } from "uuid";
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
 export interface UserState {
-  users: User[];
+  userse: User[];
   selectedUser: User | null;
 }
 
 export const initialState: UserState = {
-  users: null,
+  userse: null,
   selectedUser: null,
 };
 
@@ -23,10 +23,29 @@ export function userReducer(
   action: DevActions
 ): UserState {
   switch (action.type) {
+    case DevActionTypes.CREATE_DEVELOPER: {
+      //return Object.assign({}, state, { loading: true });
+      //  console.log('state create profile: ', state.entities[state.selectedUserId]);
+      console.log("state create", state);
+      console.log("state.profile", action.payload);
+
+      // return {
+      //   ...state,
+      //  profile: action.payload
+
+      // }
+
+      // return userAdapter.addOne(action.payload, {
+      //   ...state,
+
+      //   // profile: action.payload,
+      //   profile: action.payload,
+      // });
+    }
     case DevActionTypes.LOAD_DEVELOPERS_SUCCESS: {
       console.log("state");
       console.log("actions", action.payload);
-      return { ...state, users: action.payload };
+      return { ...state, userse: action.payload };
     }
 
     case DevActionTypes.LOAD_DEVELOPER_SUCCESS: {

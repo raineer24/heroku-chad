@@ -25,7 +25,7 @@ import {
 @NgModule({
   imports: [
     // StoreModule.forFeature("dev", reducer),
-    EffectsModule.forFeature([DevEffects]),
+    //  EffectsModule.forFeature([DevEffects]),
     DevelopersRoutingModule,
     SharedModule,
     CommonModule,

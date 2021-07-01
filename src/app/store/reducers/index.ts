@@ -11,14 +11,14 @@ import * as fromUser from "../../admin/state/user.reducer";
 //import * as fromDev from "../../developers/state/dev.reducer";
 export interface AppState {
   auth: fromAuth.AuthState;
-  user: fromUser.UserState;
+  userss: fromUser.UserState;
   // dev: fromDev.State;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   //dev: fromDev.reducer,
   auth: fromAuth.authReducer,
-  user: fromUser.userReducer,
+  userss: fromUser.userReducer,
 };
 
 // export const getAppState = createFeatureSelector<AppState>("auth");
@@ -37,7 +37,7 @@ export const selectUserListState$ = (state: AppState) => state.auth;
 // export const selectAuthListState$ = (state: State) => state.auth;
 export const selectUsersLoaded$ = createSelector(
   selectUserListState$,
-  (users) => users.isAuthenticated
+  (user$) => user$.isAuthenticated
 );
 // export const selectUserLoaded$ = createSelector(
 //   selectUserListState$,

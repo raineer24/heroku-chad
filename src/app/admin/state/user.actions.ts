@@ -11,11 +11,22 @@ export enum DevActionTypes {
   LOAD_DEVELOPERS_SUCCESS = "[DEVELOPERS] Load Developers Success",
   LOAD_DEVELOPERS_FAIL = "[DEVELOPERS] Load Developers Success",
   SELECT_USER = "[User] Select",
+  CREATE_DEVELOPER = "[User] Create Developer ",
+  CREATE_DEVELOPER_SUCCESS = "[User] Create Developer Success",
 }
 
 export class SelectUserAction implements Action {
   readonly type = DevActionTypes.SELECT_USER;
   constructor(public payload: User) {}
+}
+export class createDeveloper implements Action {
+  readonly type = DevActionTypes.CREATE_DEVELOPER;
+  constructor(public payload: any) {}
+}
+
+export class createDeveloperSuccess implements Action {
+  readonly type = DevActionTypes.CREATE_DEVELOPER_SUCCESS;
+  constructor(public payload: any) {}
 }
 
 export class LoadProfileBegin implements Action {
@@ -47,4 +58,6 @@ export type DevActions =
   | loadDevelopersSuccessAction
   | loadDevelopersFail
   | LoadDeveloperSuccess
-  | SelectUserAction;
+  | SelectUserAction
+  | createDeveloper
+  | createDeveloperSuccess;

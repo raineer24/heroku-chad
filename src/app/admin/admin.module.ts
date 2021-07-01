@@ -61,7 +61,7 @@ import { DevEffects } from "../admin/state/user.effects";
   ],
   imports: [
     AdminRoutingModule,
-    StoreModule.forFeature("users", userReducer),
+    // StoreModule.forFeature("users!", userReducer),
     EffectsModule.forFeature([DevEffects]),
     MatCardModule,
     MatToolbarModule,

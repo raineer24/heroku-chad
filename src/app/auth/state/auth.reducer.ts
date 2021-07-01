@@ -11,8 +11,9 @@ import { v4 as uuidv4 } from "uuid";
 export interface AuthState {
   // is a user authenticated?
   isAuthenticated: boolean;
+  //isInitializing: boolean;
   // if authenticated, there should be a user object
-  user: User | null;
+  usere: User | null;
   // error message
   errorMessage: null;
   id: null;
@@ -23,7 +24,7 @@ export interface AuthState {
 
 export const initialState: AuthState = {
   isAuthenticated: false,
-  user: null,
+  usere: null,
   errorMessage: null,
   id: null,
   selectedUser: null,
@@ -40,11 +41,11 @@ export const getError = createSelector(getAuthFeatureState, (state) => {
   return state.errorMessage;
 });
 
-export const getProfile = (state: AuthState) => state.user;
+export const getProfile = (state: AuthState) => state.usere;
 
 export const getUserProfile = createSelector(getAuthFeatureState, (state) => {
-  console.log("state", state.user);
-  return state.user;
+  console.log("state", state.usere);
+  return state.usere;
 });
 
 export function authReducer(
@@ -74,7 +75,7 @@ export function authReducer(
         ...state,
         isAuthenticated: true,
         loading: true,
-        user: action.payload,
+        usere: action.payload,
       };
     }
 
@@ -82,7 +83,7 @@ export function authReducer(
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload,
+        usere: action.payload,
         errorMessage: null,
       };
 
@@ -100,7 +101,7 @@ export function authReducer(
       return {
         ...state,
         isAuthenticated: true,
-        user: {
+        usere: {
           token: action.payload.token,
           email: action.payload.email,
         },

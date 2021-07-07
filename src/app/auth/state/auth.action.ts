@@ -3,6 +3,7 @@ import { User } from "../../core/models/user";
 /* NgRx */
 import { Action } from "@ngrx/store";
 import { AuthEffects } from "./auth.effects";
+import { createAction, props } from "@ngrx/store";
 
 export enum AuthActionTypes {
   LOGIN = "[User] Login",
@@ -16,6 +17,24 @@ export enum AuthActionTypes {
   LOAD_PROFILE_SUCCESS = "[User] Load Profile Success",
   LOAD_PROFILE_FAILURE = "[User] Load Profile failure",
 }
+
+export const signup = createAction("[Auth] Signup", (payload: User) => ({
+  payload,
+}));
+
+export const signupSuccess = createAction(
+  "[Auth] Signup Success",
+  (payload: any) => ({ payload })
+);
+
+export const login = createAction("[Auth] Login Start", (payload: any) => ({
+  payload,
+}));
+
+export const loginComplete = createAction(
+  "[Auth] Login SUccess",
+  (payload: any) => ({ payload })
+);
 
 export class LoadProfileFailure implements Action {
   readonly type = AuthActionTypes.LOAD_PROFILE_FAILURE;
@@ -70,12 +89,6 @@ export class LogOut implements Action {
 }
 
 export type AuthActions =
-  | LogIn
-  | LogInSuccess
-  | LoginFail
-  | SignUp
-  | SignUpSuccess
-  | SignUpFailure
   | LogOut
   | LoadProfileBegin
   | LoadProfileSuccess

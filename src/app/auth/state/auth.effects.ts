@@ -18,7 +18,7 @@ import * as userActions from "../../admin/state/user.actions";
 
 /* NgRx */
 import { Action } from "@ngrx/store";
-import { Actions, Effect, ofType, act } from "@ngrx/effects";
+import { Actions, Effect, ofType, createEffect } from "@ngrx/effects";
 import * as AuthActions from "./auth.action";
 import { User } from "src/app/core/models/user";
 

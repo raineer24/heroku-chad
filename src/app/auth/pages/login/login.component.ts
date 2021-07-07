@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
       email: ["", [Validators.required, Validators.email]],
       password: ["", Validators.required],
     });
-    this.errorMessage$ = this.store.pipe(select(fromUser.getError));
+    // this.errorMessage$ = this.store.pipe(select(fromUser.getError));
     console.log(this.errorMessage$);
     this.authenticationService.currentUserValue;
     this.authenticationService.logout();

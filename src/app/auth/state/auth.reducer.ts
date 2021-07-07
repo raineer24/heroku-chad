@@ -1,124 +1,78 @@
 import { User } from "../../core/models/user";
 //import * as fromRoot from "../../state/app.state";
 import { AuthActions, AuthActionTypes } from "./auth.action";
-import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { v4 as uuidv4 } from "uuid";
+import * as fromRoot from "../../store/reducers";
+import { loginComplete, signupSuccess } from "./auth.action";
+
+import {
+  createFeatureSelector,
+  createSelector,
+  createReducer,
+  on,
+  createAction,
+  props,
+} from "@ngrx/store";
+import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
 // export interface State extends fromRoot.AppState {
 //   auth: AuthState;
 // }
 
-export interface AuthState {
-  // is a user authenticated?
-  isAuthenticated: boolean;
-  //isInitializing: boolean;
-  // if authenticated, there should be a user object
-  usere: User | null;
-  // error message
-  errorMessage: null;
-  id: null;
-  selectedUser: User;
+export interface AuthState extends EntityState<User> {
+  selectedAuthId: number | null;
   loading: boolean;
-  //userprofile: User | null;
+  loaded: boolean;
+  error: string;
+  user: User | null;
+  isAuthenticated: boolean;
 }
 
-export const initialState: AuthState = {
-  isAuthenticated: false,
-  usere: null,
-  errorMessage: null,
-  id: null,
-  selectedUser: null,
+export interface AppState extends fromRoot.AppState {
+  auth: AuthState;
+}
+export const authAdapter: EntityAdapter<User> = createEntityAdapter<User>();
+
+export const defaultEmployee: AuthState = {
+  user: null,
+  ids: [],
+  entities: {},
+  selectedAuthId: null,
   loading: false,
-  //userprofile: null,
+  loaded: false,
+  error: "",
+  isAuthenticated: false,
 };
 
+export const initialAuthState = authAdapter.getInitialState(defaultEmployee);
+
+export const authReducer = createReducer(
+  initialAuthState,
+  on(loginComplete, (state, { payload }) => ({
+    ...state,
+    isAuthenticated: true,
+    loading: true,
+    user: payload,
+  })),
+  on(signupSuccess, (state, { payload }) => ({
+    ...state,
+    selectedAuthId: payload,
+    isAuthenticated: true,
+    loading: true,
+    user: payload,
+  }))
+);
+
+// export const initialState: AuthState = {
+//   isAuthenticated: false,
+//   usere: null,
+//   errorMessage: null,
+//   id: null,
+//   selectedUser: null,
+//   loading: false,
+//   //userprofile: null,
+// };
+
 // Selector functions
-const getAuthFeatureState = createFeatureSelector<AuthState>("auth");
-
-export const getError = createSelector(getAuthFeatureState, (state) => {
-  console.log(state);
-
-  return state.errorMessage;
-});
-
-export const getProfile = (state: AuthState) => state.usere;
-
-export const getUserProfile = createSelector(getAuthFeatureState, (state) => {
-  console.log("state", state.usere);
-  return state.usere;
-});
-
-export function authReducer(
-  state = initialState,
-  action: AuthActions
-): AuthState {
-  switch (action.type) {
-    case AuthActionTypes.LOAD_PROFILE_BEGIN: {
-      return {
-        ...state,
-        isAuthenticated: true,
-        loading: true,
-      };
-    }
-    case AuthActionTypes.LOAD_PROFILE_FAILURE: {
-      return {
-        ...state,
-        loading: false,
-        errorMessage: action.payload,
-      };
-    }
-
-    case AuthActionTypes.LOAD_PROFILE_SUCCESS: {
-      //console.log(state);
-
-      return {
-        ...state,
-        isAuthenticated: true,
-        loading: true,
-        usere: action.payload,
-      };
-    }
-
-    case AuthActionTypes.LOGIN_SUCCESS:
-      return {
-        ...state,
-        isAuthenticated: true,
-        usere: action.payload,
-        errorMessage: null,
-      };
-
-    case AuthActionTypes.LoginFail:
-      //  console.log("state");
-      const id = uuidv4();
-      // console.log(action.payload);
-      return {
-        ...state,
-        id,
-        errorMessage: action.payload,
-      };
-
-    case AuthActionTypes.SIGNUP_SUCCESS: {
-      return {
-        ...state,
-        isAuthenticated: true,
-        usere: {
-          token: action.payload.token,
-          email: action.payload.email,
-        },
-        errorMessage: null,
-      };
-    }
-
-    case AuthActionTypes.SIGNUP_FAILURE: {
-      return {
-        ...state,
-        errorMessage: action.payload,
-      };
-    }
-
-    default:
-      return state;
-  }
-}
 
 //export const getAuthStatus = (state: AuthState) => state.isAuthenticated;

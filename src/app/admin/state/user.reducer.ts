@@ -5,15 +5,31 @@ import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { v4 as uuidv4 } from "uuid";
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
-export interface UserState {
-  userse: User[];
-  selectedUser: User | null;
+import * as fromRoot from "../../store/reducers";
+
+export interface UserState extends EntityState<User> {
+  selectedUserId: number | null;
+  loading: boolean;
+  loaded: boolean;
+  error: string;
 }
 
-export const initialState: UserState = {
-  userse: null,
-  selectedUser: null,
+export interface AppState extends fromRoot.AppState {
+  users: UserState;
+}
+
+export const userAdapter: EntityAdapter<User> = createEntityAdapter<User>();
+
+export const defaultEmployee: UserState = {
+  ids: [],
+  entities: {},
+  selectedUserId: null,
+  loading: false,
+  loaded: false,
+  error: "",
 };
+
+export const initialState = userAdapter.getInitialState(defaultEmployee);
 
 // Selector functions
 const getUserFeatureState = createFeatureSelector<UserState>("users");
@@ -45,17 +61,25 @@ export function userReducer(
     case DevActionTypes.LOAD_DEVELOPERS_SUCCESS: {
       console.log("state");
       console.log("actions", action.payload);
-      return { ...state, userse: action.payload };
+      // return { ...state, userse: action.payload };
+      return userAdapter.addAll(action.payload, {
+        ...state,
+        loading: false,
+        loaded: true,
+      });
     }
 
     case DevActionTypes.LOAD_DEVELOPER_SUCCESS: {
       console.log("state: ", state);
-
-      return {
+      return userAdapter.addOne(action.payload, {
         ...state,
-        //   loading: true,
-        selectedUser: action.payload,
-      };
+        selectedUserId: action.payload.id,
+      });
+      // return {
+      //   ...state,
+      //   //   loading: true,
+      //   selectedUserId: action.payload,
+      // };
     }
 
     default: {

@@ -35,7 +35,7 @@ export class LoadProfileBegin implements Action {
 
 export class LoadDeveloperSuccess implements Action {
   readonly type = DevActionTypes.LOAD_DEVELOPER_SUCCESS;
-  constructor(public payload: any) {}
+  constructor(public payload: User) {}
 }
 
 export class loadDevelopersAction implements Action {

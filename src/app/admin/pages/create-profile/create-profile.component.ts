@@ -3,7 +3,7 @@ import { User } from "../../../core/models/user";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select } from "@ngrx/store";
 import * as fromUser from "../../state/user.reducer";
-import * as userActions from "../../state/user.actions";
+import * as DevActions from "../../state/user.actions";
 import { Subscription, Observable } from "rxjs";
 import { skipWhile, skip, take, filter, first } from "rxjs/operators";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -249,7 +249,7 @@ export class CreateProfileComponent implements OnInit {
     //     }
     //   );
 
-    //this.store.dispatch(new userActions.createProfile(this.profForm.value));
+    this.store.dispatch(new DevActions.createDeveloper(this.profForm.value));
   }
 
   private updateUser() {

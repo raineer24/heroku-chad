@@ -1,16 +1,24 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { User } from "../../../core/models/user";
 import { AuthService } from "../../../core/services/user.service";
-import { Store, select } from "@ngrx/store";
+import { Store, select, ActionsSubject } from "@ngrx/store";
 import * as fromUser from "../../state/user.reducer";
 import * as DevActions from "../../state/user.actions";
-import { Subscription, Observable } from "rxjs";
-import { skipWhile, skip, take, filter, first } from "rxjs/operators";
+import { Subscription, Observable, of, Subject } from "rxjs";
+import {
+  skipWhile,
+  skip,
+  take,
+  filter,
+  first,
+  takeUntil,
+} from "rxjs/operators";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MatIconRegistry } from "@angular/material";
 import { Status } from "../../../core/models/positions";
 import { AlertService } from "../../../core/services/alert.service";
 import { Router, ActivatedRoute } from "@angular/router";
+import { ofType } from "@ngrx/effects";
 
 import {
   FormBuilder,
@@ -32,7 +40,8 @@ export interface Position {
   templateUrl: "./create-profile.component.html",
   styleUrls: ["./create-profile.component.scss"],
 })
-export class CreateProfileComponent implements OnInit {
+export class CreateProfileComponent implements OnInit, OnDestroy {
+  destroy$ = new Subject<boolean>();
   @Input() disableForm: boolean;
   profForm: FormGroup;
   filteredStatus: Status[];
@@ -49,8 +58,10 @@ export class CreateProfileComponent implements OnInit {
   submitted = false;
   dropdownSelected: string;
   profile$: Observable<UserFetch>;
+  destroyed$ = new Subject<boolean>();
 
   constructor(
+    private actionsSubj: ActionsSubject,
     private authenticationService: AuthService,
     private alertService: AlertService,
     private route: ActivatedRoute,
@@ -59,6 +70,21 @@ export class CreateProfileComponent implements OnInit {
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer
   ) {
+    this.actionsSubj
+      .pipe(
+        ofType(DevActions.DevActionTypes.LOAD_DEVELOPER_SUCCESS),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe((data) => {
+        console.log("datas", data);
+        console.log("data", data["payload"]);
+        /* hooray, success, show notification alert etc.. */
+        // console.log("DATA", data["payload"]);
+
+        // // this.initializeData(data["payload"]);
+        // this.dataSource = new MatTableDataSource(this.noData);
+        // console.log("this.datasource", this.dataSource);
+      });
     iconRegistry.addSvgIcon(
       "thumbs-up",
       sanitizer.bypassSecurityTrustResourceUrl(
@@ -78,7 +104,10 @@ export class CreateProfileComponent implements OnInit {
       sanitizer.bypassSecurityTrustResourceUrl("assets/img/facebook.svg")
     );
   }
-
+  ngOnDestroy() {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
   ngOnInit() {
     //this.userData = JSON.parse(localStorage.getItem("currentUser"));
     console.log(this.allStatus);

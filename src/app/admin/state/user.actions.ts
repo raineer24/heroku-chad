@@ -29,6 +29,11 @@ export class createDeveloperSuccess implements Action {
   constructor(public payload: any) {}
 }
 
+// export class createDeveloperSuccess implements Action {
+//   readonly type = DevActionTypes.CREATE_DEVELOPER_SUCCESS;
+//   constructor(user_profileId: number, articleSku: string) {}
+// }
+
 export class LoadProfileBegin implements Action {
   readonly type = DevActionTypes.LOAD_DEVELOPER_BEGIN;
 }

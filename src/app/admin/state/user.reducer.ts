@@ -1,4 +1,4 @@
-import { User } from "../../core/models/user";
+import { User, UserFetch } from "../../core/models/";
 //import * as fromRoot from "../../state/app.state";
 import { DevActions, DevActionTypes } from "./user.actions";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
@@ -12,6 +12,7 @@ export interface UserState extends EntityState<User> {
   loading: boolean;
   loaded: boolean;
   error: string;
+  user_profile: EntityState<UserFetch>;
 }
 
 export interface AppState extends fromRoot.AppState {
@@ -27,9 +28,15 @@ export const defaultEmployee: UserState = {
   loading: false,
   loaded: false,
   error: "",
+  user_profile: null,
 };
 
 export const initialState = userAdapter.getInitialState(defaultEmployee);
+
+export const userprofileAdapter: EntityAdapter<UserFetch> =
+  createEntityAdapter<UserFetch>({
+    selectId: (userprofile) => userprofile.id,
+  });
 
 // Selector functions
 const getUserFeatureState = createFeatureSelector<UserState>("users");

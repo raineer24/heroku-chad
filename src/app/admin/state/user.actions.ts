@@ -1,4 +1,4 @@
-import { User } from "../../core/models/user";
+import { User, UserFetch } from "../../core/models";
 
 /* NgRx */
 import { Action } from "@ngrx/store";
@@ -29,10 +29,10 @@ export class createDeveloperSuccess implements Action {
   constructor(public payload: any) {}
 }
 
-// export class createDeveloperSuccess implements Action {
-//   readonly type = DevActionTypes.CREATE_DEVELOPER_SUCCESS;
-//   constructor(user_profileId: number, articleSku: string) {}
-// }
+export class CreateDeveloperdeAction implements Action {
+  public readonly type = DevActionTypes.CREATE_DEVELOPER;
+  constructor(public payload: { userId: string; userprofile: UserFetch }) {}
+}
 
 export class LoadProfileBegin implements Action {
   readonly type = DevActionTypes.LOAD_DEVELOPER_BEGIN;
@@ -65,4 +65,5 @@ export type DevActions =
   | LoadDeveloperSuccess
   | SelectUserAction
   | createDeveloper
-  | createDeveloperSuccess;
+  | createDeveloperSuccess
+  | CreateDeveloperdeAction;

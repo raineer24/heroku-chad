@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { User } from "../../../core/models/user";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select, ActionsSubject } from "@ngrx/store";
@@ -59,6 +59,7 @@ export class CreateProfileComponent implements OnInit, OnDestroy {
   dropdownSelected: string;
   profile$: Observable<UserFetch>;
   destroyed$ = new Subject<boolean>();
+  userData: any;
 
   constructor(
     private actionsSubj: ActionsSubject,
@@ -70,21 +71,10 @@ export class CreateProfileComponent implements OnInit, OnDestroy {
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer
   ) {
-    this.actionsSubj
-      .pipe(
-        ofType(DevActions.DevActionTypes.LOAD_DEVELOPER_SUCCESS),
-        takeUntil(this.destroyed$)
-      )
-      .subscribe((data) => {
-        console.log("datas", data);
-        console.log("data", data["payload"]);
-        /* hooray, success, show notification alert etc.. */
-        // console.log("DATA", data["payload"]);
-
-        // // this.initializeData(data["payload"]);
-        // this.dataSource = new MatTableDataSource(this.noData);
-        // console.log("this.datasource", this.dataSource);
-      });
+    // this.userData = JSON.parse(localStorage.getItem("currentUser"));
+    // console.log("this userData", this.userData.user.id);
+    // let userId = this.userData.user.id;
+    // this.store.dispatch(new DevActions.LoadProfileBegin());
     iconRegistry.addSvgIcon(
       "thumbs-up",
       sanitizer.bypassSecurityTrustResourceUrl(
@@ -264,6 +254,19 @@ export class CreateProfileComponent implements OnInit, OnDestroy {
   }
 
   private createUser() {
+    // this.actionsSubj
+    //   .pipe(
+    //     ofType(DevActions.DevActionTypes.LOAD_DEVELOPER_SUCCESS),
+    //     takeUntil(this.destroyed$)
+    //   )
+    //   .subscribe((data) => {
+    //     console.log("datas", data);
+    //     console.log("data", data["payload"]);
+
+    //     //  this.store.dispatch(
+    //     //    articleAdded({ customerId, articleSku: skuElement.value })
+    //     //  );
+    //   });
     //const values = this.profForm.value;
     console.log("values form", this.profForm.value);
     // this.createSubs = this.authenticationService
@@ -277,8 +280,10 @@ export class CreateProfileComponent implements OnInit, OnDestroy {
     //       this.alertService.error("error: ", error);
     //     }
     //   );
-
-    this.store.dispatch(new DevActions.createDeveloper(this.profForm.value));
+    this.store.dispatch(
+      new DevActions.CreateDeveloperdeAction(this.profForm.value)
+    );
+    // this.store.dispatch(new DevActions.createDeveloper(this.profForm.value));
   }
 
   private updateUser() {

@@ -31,7 +31,7 @@ export class createDeveloperSuccess implements Action {
 
 export class CreateDeveloperdeAction implements Action {
   public readonly type = DevActionTypes.CREATE_DEVELOPER;
-  constructor(public payload: { userId: string; userprofile: UserFetch }) {}
+  constructor(public payload: UserFetch) {}
 }
 
 export class LoadProfileBegin implements Action {

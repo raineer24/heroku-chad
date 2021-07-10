@@ -52,6 +52,32 @@ export function userReducer(
       console.log("state create", state);
       console.log("state.profile", action.payload);
 
+      return userAdapter.updateOne(
+        {
+          id: action.payload.id,
+          changes: action.payload,
+        },
+        {
+          ...state,
+          loading: false,
+        }
+      );
+
+      //       on(articleAdded, (state, action) =>
+      //   adapter.updateOne(
+      //     {
+      //       id: action.customerId,
+      //       changes: {
+      //         articles: articleAdapter.addOne(
+      //           { sku: action.articleSku, amount: 1 },
+      //           state.entities[action.customerId].articles
+      //         )
+      //       }
+      //     },
+      //     state
+      //   )
+      // ),
+
       // return {
       //   ...state,
       //  profile: action.payload

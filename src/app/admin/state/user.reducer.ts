@@ -21,17 +21,26 @@ export interface AppState extends fromRoot.AppState {
 
 export const userAdapter: EntityAdapter<User> = createEntityAdapter<User>();
 
-export const defaultEmployee: UserState = {
-  ids: [],
-  entities: {},
+// export const defaultEmployee: UserState = {
+//   ids: [],
+//   entities: {},
+//   selectedUserId: null,
+//   loading: false,
+//   loaded: false,
+//   error: "",
+//   user_profile: null,
+// };
+
+//export const initialState = userAdapter.getInitialState(defaultEmployee);
+
+export const initialUserState: UserState = userAdapter.getInitialState({
+  user: null,
   selectedUserId: null,
   loading: false,
   loaded: false,
   error: "",
   user_profile: null,
-};
-
-export const initialState = userAdapter.getInitialState(defaultEmployee);
+});
 
 export const userprofileAdapter: EntityAdapter<UserFetch> =
   createEntityAdapter<UserFetch>({
@@ -42,7 +51,7 @@ export const userprofileAdapter: EntityAdapter<UserFetch> =
 const getUserFeatureState = createFeatureSelector<UserState>("users");
 
 export function userReducer(
-  state = initialState,
+  state = initialUserState,
   action: DevActions
 ): UserState {
   switch (action.type) {
@@ -62,6 +71,13 @@ export function userReducer(
           loading: false,
         }
       );
+
+      // changes: {
+      //   articles: articleAdapter.addOne(
+      //     { sku: action.articleSku, amount: 1 },
+      //     state.entities[action.customerId].articles
+      //   );
+      // }
 
       //       on(articleAdded, (state, action) =>
       //   adapter.updateOne(

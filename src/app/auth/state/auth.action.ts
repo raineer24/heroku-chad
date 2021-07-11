@@ -92,4 +92,8 @@ export type AuthActions =
   | LogOut
   | LoadProfileBegin
   | LoadProfileSuccess
-  | LoadProfileFailure;
+  | LoadProfileFailure
+  | LogInSuccess
+  | LoginFail
+  | SignUpFailure
+  | SignUpSuccess;

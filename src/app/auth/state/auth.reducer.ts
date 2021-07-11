@@ -33,35 +33,124 @@ export interface AppState extends fromRoot.AppState {
 }
 export const authAdapter: EntityAdapter<User> = createEntityAdapter<User>();
 
-export const defaultEmployee: AuthState = {
+// export const defaultEmployee: AuthState = {
+//   user: null,
+//   selectedAuthId: null,
+//   loading: false,
+//   loaded: false,
+//   error: "",
+//   isAuthenticated: false,
+// };
+
+//  export interface MessageState extends EntityState<Message> {
+//    // additional entities state properties
+//    selectedMessageId: number | null;
+//    loaded: boolean;
+//    loading: boolean;
+//    saveMessage?: {
+//      loaded: boolean;
+//      loading: boolean;
+//      msg?: Message;
+//    };
+//  }
+
+//  export const adapter: EntityAdapter<Message> = createEntityAdapter<Message>({
+//    selectId: (msg: Message) => msg.messageId,
+//  });
+
+//  export const initialState: MessageState = adapter.getInitialState({
+//    // additional entity state properties
+//    selectedMessageId: null,
+//    loaded: false,
+//    loading: false,
+//    saveMessage: {
+//      loaded: false,
+//      loading: false,
+//    },
+//  });
+
+//export const initialAuthState = authAdapter.getInitialState(defaultEmployee);
+
+export const initialAuthSate: AuthState = authAdapter.getInitialState({
   user: null,
-  ids: [],
-  entities: {},
   selectedAuthId: null,
   loading: false,
   loaded: false,
   error: "",
   isAuthenticated: false,
-};
+  user_profile: null,
+});
 
-export const initialAuthState = authAdapter.getInitialState(defaultEmployee);
+export function authReducer(
+  state = initialAuthSate,
+  action: AuthActions
+): AuthState {
+  switch (action.type) {
+    case AuthActionTypes.LOAD_PROFILE_BEGIN: {
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: true,
+      };
+    }
+    case AuthActionTypes.LOAD_PROFILE_FAILURE: {
+      return {
+        ...state,
+        loading: false,
+        //  errorMessage: action.payload,
+      };
+    }
 
-export const authReducer = createReducer(
-  initialAuthState,
-  on(loginComplete, (state, { payload }) => ({
-    ...state,
-    isAuthenticated: true,
-    loading: true,
-    user: payload,
-  })),
-  on(signupSuccess, (state, { payload }) => ({
-    ...state,
-    selectedAuthId: payload,
-    isAuthenticated: true,
-    loading: true,
-    user: payload,
-  }))
-);
+    case AuthActionTypes.LOAD_PROFILE_SUCCESS: {
+      //console.log(state);
+
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: true,
+        user: action.payload,
+      };
+    }
+
+    case AuthActionTypes.LOGIN_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: action.payload,
+
+        // errorMessage: null,
+      };
+
+    case AuthActionTypes.LoginFail:
+      //  console.log("state");
+      const id = uuidv4();
+      // console.log(action.payload);
+      return {
+        ...state,
+        //id,
+        // errorMessage: action.payload,
+      };
+
+    case AuthActionTypes.SIGNUP_SUCCESS: {
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: action.payload,
+        //errorMessage: null,
+      };
+    }
+
+    case AuthActionTypes.SIGNUP_FAILURE: {
+      return {
+        ...state,
+        //errorMessage: action.payload,
+      };
+    }
+
+    default:
+      return state;
+  }
+}
 
 // export const initialState: AuthState = {
 //   isAuthenticated: false,

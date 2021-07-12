@@ -2,7 +2,7 @@ import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 
 import { UserFetch } from "./userfetch";
 export interface User {
-  id?: number;
+  id?: any;
   email?: string;
   password?: string;
   token?: string;

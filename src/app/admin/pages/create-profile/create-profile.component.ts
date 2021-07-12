@@ -280,9 +280,7 @@ export class CreateProfileComponent implements OnInit, OnDestroy {
     //       this.alertService.error("error: ", error);
     //     }
     //   );
-    this.store.dispatch(
-      new DevActions.CreateDeveloperdeAction(this.profForm.value)
-    );
+    this.store.dispatch(new DevActions.createDeveloper(this.profForm.value));
     // this.store.dispatch(new DevActions.createDeveloper(this.profForm.value));
   }
 

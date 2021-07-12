@@ -33,34 +33,65 @@ export class DevEffects {
   ) {}
 
   @Effect()
-  getProfile: Observable<any> = this.actions$.pipe(
+  createDev$: Observable<any> = this.actions$.pipe(
     ofType(DevActions.DevActionTypes.CREATE_DEVELOPER),
-    map((action: DevActions.CreateDeveloperdeAction) => action.payload),
-    switchMap((payload) => {
-      console.log("payload create profile: ", payload);
-      return this.authService.createProfile(payload).pipe(
-        take(1),
-        map((user) => {
-          console.log("get profile effect", user.profileCreate);
 
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-
-          console.log("get profile Effect", user.body);
-
-          // let user_profile = user.body
-          // this.currentUserSubject.next(user);
-          // return new AuthActions.LogInSuccess({
-          //   token: user.token,
-          //   username: payload.username,
-          //    firstName: user.firstName
-          // });
-          //return new AuthActions.LogInSuccess(user);
-          return new DevActions.createDeveloperSuccess(user.profileCreate);
+    concatMap(() => {
+      return this.authService.getDevelopers().pipe(
+        map((data) => {
+          console.log("developer data:", data["user"]);
+          let devs = data["user"];
+          //return new DevActions.loadDevelopersSuccessAction(data["user"]);
+          //return new userActions.LoadProfileSuccess(data["user"]);
         }),
-        catchError((err) => of(new DevActions.loadDevelopersFail(err)))
+        catchError((error) => of(new DevActions.loadDevelopersFail(error)))
       );
     })
   );
+
+  // @Effect()
+  // getProfile: Observable<any> = this.actions$.pipe(
+  //   ofType(DevActions.DevActionTypes.CREATE_DEVELOPER),
+  //   // map((action: DevActions.CreateDeveloperdeAction) => action.payload),
+  //   // switchMap((payload) => {
+  //   //   console.log("payload create profile: ", payload);
+  //   //   return this.authService.createProfile(payload).pipe(
+  //   //     take(1),
+  //   //     map((user) => {
+  //   //       console.log("get profile effect", user.profileCreate);
+
+  //   //       // store user details and jwt token in local storage to keep user logged in between page refreshes
+
+  //   //       console.log("get profile Effect", user.body);
+
+  //   //       // let user_profile = user.body
+  //   //       // this.currentUserSubject.next(user);
+  //   //       // return new AuthActions.LogInSuccess({
+  //   //       //   token: user.token,
+  //   //       //   username: payload.username,
+  //   //       //    firstName: user.firstName
+  //   //       // });
+  //   //       //return new AuthActions.LogInSuccess(user);
+  //   //       return new DevActions.createDeveloperSuccess(user.profileCreate);
+  //   //     }),
+  //   //     catchError((err) => of(new DevActions.loadDevelopersFail(err)))
+  //   //   );
+  //   // })
+
+  //   switchMap(() => {
+  //     return this.authService.getUserDetail().pipe(
+  //       take(1),
+  //       map((data) => {
+  //         console.log("map effect", data["user"]);
+  //         localStorage.setItem("currentUser", JSON.stringify(data["user"]));
+  //         //this.store.dispatch(new DevActions.LoadDeveloperSuccess(data.user));
+  //         // return new DevActions.LoadDeveloperSuccess(data["user"]);
+  //         //return new userActions.LoadProfileSuccess(data["user"]);
+  //       }),
+  //       catchError((error) => of(new DevActions.loadDevelopersFail(error)))
+  //     );
+  //   })
+  // );
 
   @Effect()
   loadDevelopers$: Observable<any> = this.actions$.pipe(

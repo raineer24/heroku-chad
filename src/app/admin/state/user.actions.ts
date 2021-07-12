@@ -29,10 +29,10 @@ export class createDeveloperSuccess implements Action {
   constructor(public payload: any) {}
 }
 
-export class CreateDeveloperdeAction implements Action {
-  public readonly type = DevActionTypes.CREATE_DEVELOPER;
-  constructor(public payload: UserFetch) {}
-}
+// export class CreateDeveloperdeAction implements Action {
+//   public readonly type = DevActionTypes.CREATE_DEVELOPER;
+//   constructor(public payload: UserFetch) {}
+// }
 
 export class LoadProfileBegin implements Action {
   readonly type = DevActionTypes.LOAD_DEVELOPER_BEGIN;
@@ -65,5 +65,4 @@ export type DevActions =
   | LoadDeveloperSuccess
   | SelectUserAction
   | createDeveloper
-  | createDeveloperSuccess
-  | CreateDeveloperdeAction;
+  | createDeveloperSuccess;

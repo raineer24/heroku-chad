@@ -12,7 +12,6 @@ export interface UserState extends EntityState<User> {
   loading: boolean;
   loaded: boolean;
   error: string;
-  user_profile: EntityState<UserFetch>;
 }
 
 export interface AppState extends fromRoot.AppState {
@@ -61,16 +60,16 @@ export function userReducer(
       console.log("state create", state);
       console.log("state.profile", action.payload);
 
-      return userAdapter.updateOne(
-        {
-          id: action.payload.id,
-          changes: action.payload,
-        },
-        {
-          ...state,
-          loading: false,
-        }
-      );
+      // return userAdapter.updateOne(
+      //   {
+      //     id: state.entities[state.selectedUserId],
+      //     changes: action.payload,
+      //   },
+      //   {
+      //     ...state,
+      //     loading: false,
+      //   }
+      // );
 
       // changes: {
       //   articles: articleAdapter.addOne(

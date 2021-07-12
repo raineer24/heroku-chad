@@ -11,6 +11,7 @@ import {
   flatMap,
   take,
 } from "rxjs/operators";
+import { normalize, denormalize, schema } from "normalizr";
 
 import { AuthService } from "../../core/services/user.service";
 import { AlertService } from "../../core/services/alert.service";
@@ -22,6 +23,9 @@ import * as DevActions from "./user.actions";
 import { User } from "src/app/core/models/user";
 import * as fromRoot from "../../store/reducers/index";
 import { Store, select, ActionsSubject } from "@ngrx/store";
+
+const userSchema = new schema.Entity("users");
+
 @Injectable()
 export class DevEffects {
   constructor(
@@ -138,6 +142,7 @@ export class DevEffects {
         take(1),
         map((data) => {
           console.log("map effect", data["user"]);
+          console.log("normalize", normalize(data["user"], userSchema));
           localStorage.setItem("currentUser", JSON.stringify(data["user"]));
           this.store.dispatch(new DevActions.LoadDeveloperSuccess(data.user));
           // return new DevActions.LoadDeveloperSuccess(data["user"]);

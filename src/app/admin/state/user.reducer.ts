@@ -23,28 +23,28 @@ export interface AppState extends fromRoot.AppState {
 
 export const userAdapter: EntityAdapter<User> = createEntityAdapter<User>();
 
-// export const defaultEmployee: UserState = {
-//   ids: [],
-//   entities: {},
-//   selectedUserId: null,
-//   loading: false,
-//   loaded: false,
-//   error: "",
-//   user_profile: null,
-// };
-
-//export const initialState = userAdapter.getInitialState(defaultEmployee);
-
-export const initialUserState: UserState = userAdapter.getInitialState({
-  user: null,
+export const defaultEmployee: UserState = {
+  ids: [],
+  entities: {},
   selectedUserId: null,
   loading: false,
   loaded: false,
-  entities: {},
   error: "",
+  // user_profile: null,
+};
 
-  user_profile: null,
-});
+export const initialState = userAdapter.getInitialState(defaultEmployee);
+
+// export const initialUserState: UserState = userAdapter.getInitialState({
+//   user: null,
+//   selectedUserId: null,
+//   loading: false,
+//   loaded: false,
+//   entities: {},
+//   error: "",
+
+//   user_profile: null,
+// });
 
 // export const userprofileAdapter: EntityAdapter<UserFetch> =
 //   createEntityAdapter<UserFetch>({
@@ -55,7 +55,7 @@ export const initialUserState: UserState = userAdapter.getInitialState({
 const getUserFeatureState = createFeatureSelector<UserState>("users");
 
 export function userReducer(
-  state = initialUserState,
+  state = initialState,
   action: DevActions
 ): UserState {
   switch (action.type) {
@@ -72,18 +72,34 @@ export function userReducer(
         state.entities[state.selectedUserId].user_profile
       );
 
-      return userAdapter.addOne(action.payload, {
-        ...state,
+      let actions = action.payload;
+      let entity = state.entities[state.selectedUserId].user_profile;
+      entity.push(actions);
+      console.log("entity:", entity);
 
-        // profile: action.payload,
-        // profile: action.payload,
-        // user_profile: action.payload,
-        user_profile: Object.assign(
-          {},
-          state.entities[state.selectedUserId].user_profile,
-          action.payload
-        ),
-      });
+      // return userAdapter.addOne(action.payload, {
+      //   ...state,
+
+      //   // profile: action.payload,
+      //   // profile: action.payload,
+      //     entities: action.payload,
+      // });
+
+      //  return featureAdapter.updateOne(
+      //    {
+      //      id: action.payload.routeId,
+      //      changes: droneRoute,
+      //    },
+      //    state
+      //  );
+
+      return userAdapter.updateOne(
+        {
+          id: action.payload.id,
+          changes: action.payload,
+        },
+        state
+      );
     }
     case DevActionTypes.CREATE_DEVELOPER: {
       //return Object.assign({}, state, { loading: true });
@@ -131,12 +147,12 @@ export function userReducer(
 
       // }
 
-      // return userAdapter.addOne(action.payload, {
-      //   ...state,
+      return userAdapter.addOne(action.payload, {
+        ...state,
 
-      //   // profile: action.payload,
-      //   profile: action.payload,
-      // });
+        // profile: action.payload,
+        // profile: action.payload,
+      });
     }
     case DevActionTypes.LOAD_DEVELOPERS_SUCCESS: {
       console.log("state");

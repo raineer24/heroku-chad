@@ -90,8 +90,9 @@ export class DevEffects {
     tap((user) => {
       console.log("effects get profile success!");
       // localStorage.setItem("token", user.payload.token);
-      localStorage.setItem("currentUser", JSON.stringify(user));
+      //localStorage.setItem("currentUser", JSON.stringify(user));
       // this.currentUserSubject.next(user);
+      this.store.dispatch(new DevActions.LoadProfileBegin());
       this.router.navigateByUrl("/");
       console.log("get profile success: ", user);
       this.alertService.success("Profile Created", true);
@@ -109,14 +110,15 @@ export class DevEffects {
   //   })
   // );
 
-  // @Effect({ dispatch: false })
-  // loadDevelopersSuccess$: Observable<any> = this.actions$.pipe(
-  //   ofType(DevActions.DevActionTypes.LOAD_DEVELOPERS_SUCCESS),
-  //   tap((user) => {
-  //     // this.store.dispatch(new userActions.LoadProfileBegin());
-  //     console.log("user load developer SUCCESS", user);
-  //   })
-  // );
+  @Effect({ dispatch: false })
+  loadDevelopersSuccess$: Observable<any> = this.actions$.pipe(
+    ofType(DevActions.DevActionTypes.LOAD_DEVELOPERS_SUCCESS),
+    tap((user) => {
+      // this.store.dispatch(new userActions.LoadProfileBegin());
+      console.log("user load developer SUCCESS", user);
+      this.router.navigateByUrl("/");
+    })
+  ); // this.router.navigateByUrl("/");
 
   @Effect({ dispatch: false })
   loadDeveloper$: Observable<any> = this.actions$.pipe(

@@ -6,7 +6,7 @@ export interface User {
   email?: string;
   password?: string;
   token?: string;
-  // user_profile?: Array<any>;
-  user_profile: EntityState<UserFetch>;
+  user_profile?: Array<any>;
+  // user_profile: EntityState<UserFetch>;
   bio?: string;
 }

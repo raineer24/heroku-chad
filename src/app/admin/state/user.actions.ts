@@ -27,12 +27,13 @@ export class createDeveloper implements Action {
 export class createDeveloperSuccess implements Action {
   readonly type = DevActionTypes.CREATE_DEVELOPER_SUCCESS;
   constructor(public payload: any) {}
+  //constructor(public payload: { entities: any; result: any }) {}
 }
 
-// export class CreateDeveloperdeAction implements Action {
-//   public readonly type = DevActionTypes.CREATE_DEVELOPER;
-//   constructor(public payload: UserFetch) {}
-// }
+export class CreateDeveloperdeAction implements Action {
+  public readonly type = DevActionTypes.CREATE_DEVELOPER;
+  constructor(public payload: UserFetch) {}
+}
 
 export class LoadProfileBegin implements Action {
   readonly type = DevActionTypes.LOAD_DEVELOPER_BEGIN;
@@ -41,6 +42,7 @@ export class LoadProfileBegin implements Action {
 export class LoadDeveloperSuccess implements Action {
   readonly type = DevActionTypes.LOAD_DEVELOPER_SUCCESS;
   constructor(public payload: User) {}
+  //constructor(public payload: { entities: any; result: any }) {}
 }
 
 export class loadDevelopersAction implements Action {

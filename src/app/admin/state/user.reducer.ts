@@ -4,13 +4,16 @@ import { DevActions, DevActionTypes } from "./user.actions";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { v4 as uuidv4 } from "uuid";
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
-
+import { normalize, denormalize, schema } from "normalizr";
 import * as fromRoot from "../../store/reducers";
+
+const userSchema = new schema.Entity("users");
 
 export interface UserState extends EntityState<User> {
   selectedUserId: number | null;
   loading: boolean;
   loaded: boolean;
+  entities: {};
   error: string;
 }
 
@@ -37,14 +40,16 @@ export const initialUserState: UserState = userAdapter.getInitialState({
   selectedUserId: null,
   loading: false,
   loaded: false,
+  entities: {},
   error: "",
+
   user_profile: null,
 });
 
-export const userprofileAdapter: EntityAdapter<UserFetch> =
-  createEntityAdapter<UserFetch>({
-    selectId: (userprofile) => userprofile.id,
-  });
+// export const userprofileAdapter: EntityAdapter<UserFetch> =
+//   createEntityAdapter<UserFetch>({
+//     selectId: (userprofile) => userprofile.id,
+//   });
 
 // Selector functions
 const getUserFeatureState = createFeatureSelector<UserState>("users");
@@ -54,10 +59,37 @@ export function userReducer(
   action: DevActions
 ): UserState {
   switch (action.type) {
+    case DevActionTypes.CREATE_DEVELOPER_SUCCESS: {
+      console.log(
+        "STATE PAYLOAD SUCCESS",
+        state.entities[state.selectedUserId]
+      );
+      let datus = normalize(state.entities[state.selectedUserId], userSchema);
+      console.log("normalize reducer", datus);
+      console.log("action payload create success", action.payload);
+      console.log(
+        "state selecteduserid success",
+        state.entities[state.selectedUserId].user_profile
+      );
+
+      return userAdapter.addOne(action.payload, {
+        ...state,
+
+        // profile: action.payload,
+        // profile: action.payload,
+        // user_profile: action.payload,
+        user_profile: Object.assign(
+          {},
+          state.entities[state.selectedUserId].user_profile,
+          action.payload
+        ),
+      });
+    }
     case DevActionTypes.CREATE_DEVELOPER: {
       //return Object.assign({}, state, { loading: true });
       //  console.log('state create profile: ', state.entities[state.selectedUserId]);
       console.log("state create", state);
+      console.log("state selecteduserid", state.entities[state.selectedUserId]);
       console.log("state.profile", action.payload);
 
       // return userAdapter.updateOne(
@@ -110,23 +142,27 @@ export function userReducer(
       console.log("state");
       console.log("actions", action.payload);
       // return { ...state, userse: action.payload };
-      return userAdapter.addAll(action.payload, {
-        ...state,
-        loading: false,
-        loaded: true,
-      });
+      // return userAdapter.addAll(action.payload, {
+      //   ...state,
+      //   loading: false,
+      //   loaded: true,
+      // });
     }
 
     case DevActionTypes.LOAD_DEVELOPER_SUCCESS: {
+      // console.log("action sucess", action.payload.entities.users);
       console.log("state: ", state);
+      // console.log("state: ", entities);
       return userAdapter.addOne(action.payload, {
         ...state,
         selectedUserId: action.payload.id,
+        //  entities: action.payload.entities.users,
       });
       // return {
-      //   ...state,
+      //  // ...state,
       //   //   loading: true,
-      //   selectedUserId: action.payload,
+      //   //selectedUserId: action.payload,
+      //   entities: action.payload.entities.users)
       // };
     }
 

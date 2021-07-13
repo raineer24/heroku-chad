@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         /* hooray, success, show notification alert etc.. */
         // console.log("DATA", data["payload"]);
         this.noData = data["payload"];
-        console.log("thisnodata", this.noData);
+        //  console.log("thisnodata", this.noData["entities"]["users"]);
         // // this.initializeData(data["payload"]);
         // this.dataSource = new MatTableDataSource(this.noData);
         // console.log("this.datasource", this.dataSource);
@@ -104,7 +104,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     // this.currentUserSubscription = this.store
     //   .select((state) => state.user.selectedUser)
     //   .subscribe((user) => {
-    //     console.log("got users", user);
+    //     console.log("got users", u
+    // ),
+
+    // return {ser);
     //     //  this.user$ = user;
     //   });
 

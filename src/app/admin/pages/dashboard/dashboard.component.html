@@ -15,7 +15,7 @@
   <h4>test</h4>
   <h3 *ngIf="currentUser?.user_profile[0]?.bio !== undefined">userprofile[0] exist</h3>
 </div> -->
-  <div *ngFor=" let profile of (user)?.user_profile">
+  <div *ngFor=" let profile of (noData)?.user_profile">
     <mat-toolbar class="nav" fxLayout="row" fxLayoutAlign="start">
 
       <a mat-button routerLink="edit/{{profile.id}}">Edit Profile</a>

@@ -20,9 +20,10 @@ import { AlertService } from "../../core/services/alert.service";
 import { Action } from "@ngrx/store";
 import { Actions, Effect, ofType, act } from "@ngrx/effects";
 import * as DevActions from "./user.actions";
-import { User } from "src/app/core/models/user";
+import { User, UserFetch } from "src/app/core/models/";
 import * as fromRoot from "../../store/reducers/index";
 import { Store, select, ActionsSubject } from "@ngrx/store";
+import { DevActionTypes } from "src/app/developers/state/dev.action";
 
 const userSchema = new schema.Entity("users");
 
@@ -35,6 +36,29 @@ export class DevEffects {
     private alertService: AlertService,
     private store: Store<fromRoot.AppState>
   ) {}
+
+  @Effect()
+  UpdateProfile$: Observable<any> = this.actions$.pipe(
+    ofType(DevActions.DevActionTypes.UPDATE_PROFILE),
+    map((action: DevActions.UpdateProfile) => action.payload),
+    mergeMap((user: UserFetch) =>
+      this.authService.updateProfile(user).pipe(
+        map(
+          (updateProfile: UserFetch) =>
+            // new DevActions.DevActionTypes.UPDATE_PROFILE_SUCCESS({
+            //   id: updateProfile.id,
+            //   changes: updateProfile,
+            // })
+
+            new DevActions.UpdateProfileSucess({
+              id: updateProfile.id,
+              changes: updateProfile,
+            })
+        ),
+        catchError((error) => of(new DevActions.UpdateProfileFail(error)))
+      )
+    )
+  );
 
   @Effect()
   getProfile: Observable<any> = this.actions$.pipe(
@@ -79,7 +103,7 @@ export class DevEffects {
           return new DevActions.loadDevelopersSuccessAction(data["user"]);
           //return new userActions.LoadProfileSuccess(data["user"]);
         }),
-        catchError((error) => of(new DevActions.loadDevelopersFail(error)))
+        catchError((error) => of(new DevActions.UpdateProfileFail(error)))
       );
     })
   );

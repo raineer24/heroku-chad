@@ -3,7 +3,7 @@ import { User, UserFetch } from "../../core/models";
 /* NgRx */
 import { Action } from "@ngrx/store";
 //import { AuthEffects } from "./auth.effects";
-
+import { Update } from "@ngrx/entity";
 export enum DevActionTypes {
   LOAD_DEVELOPER_BEGIN = "[User] Load Developer Begin",
   LOAD_DEVELOPER_SUCCESS = "[User] Load Developer Success",
@@ -13,6 +13,26 @@ export enum DevActionTypes {
   SELECT_USER = "[User] Select",
   CREATE_DEVELOPER = "[User] Create Developer ",
   CREATE_DEVELOPER_SUCCESS = "[User] Create Developer Success",
+  UPDATE_PROFILE = "[User] Update Profile",
+  UPDATE_PROFILE_SUCCESS = "[User] Update Success",
+  UPDATE_PROFILE_FAIL = "[Profile] Update Profile Fail",
+}
+
+export class UpdateProfileFail implements Action {
+  readonly type = DevActionTypes.UPDATE_PROFILE_FAIL;
+
+  constructor(public payload: string) {}
+}
+export class UpdateProfile implements Action {
+  readonly type = DevActionTypes.UPDATE_PROFILE;
+  constructor(public payload: UserFetch) {}
+  // constructor(public payload: any) {}
+}
+
+export class UpdateProfileSucess implements Action {
+  readonly type = DevActionTypes.UPDATE_PROFILE_SUCCESS;
+  constructor(public payload: Update<UserFetch>) {}
+  //constructor(public payload: any) {}
 }
 
 export class SelectUserAction implements Action {
@@ -67,4 +87,7 @@ export type DevActions =
   | LoadDeveloperSuccess
   | SelectUserAction
   | createDeveloper
-  | createDeveloperSuccess;
+  | createDeveloperSuccess
+  | UpdateProfile
+  | UpdateProfileSucess
+  | UpdateProfileFail;

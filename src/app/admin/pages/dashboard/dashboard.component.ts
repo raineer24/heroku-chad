@@ -4,9 +4,10 @@ import { AuthService } from "../../../core/services/user.service";
 import { Store, select, ActionsSubject } from "@ngrx/store";
 import { ofType } from "@ngrx/effects";
 import * as fromRoot from "../../../store/reducers";
+import * as fromUser from "../../state/user.reducer";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as DevActions from "../../state/user.actions";
-import { Subscription, Observable, of, Subject } from "rxjs";
+import { Subscription, Observable, of, Subject, from } from "rxjs";
 import { skipWhile, skip, take, filter, takeUntil } from "rxjs/operators";
 import { MatTableDataSource } from "@angular/material/table";
 //import { getCurrentUser, getAllUsers } from "../../state/user.reducer";
@@ -43,7 +44,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private router: Router,
     private actionsSubj: ActionsSubject
   ) {
-    this.data = this.store.select(fromRoot.selectUserListState$);
+    // this.data = this.store.select(fromRoot.selectUserListState$);
     // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
     //   (user) => {
     //     const data = user;
@@ -51,11 +52,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //   }
     // );
     //this.currentUser$ = this.store.pipe(select(getUserData));
-    // this.profile$ = this.store.pipe(select(fromUser.getCurrentUser));
+    //this.profile$ = this.store.pipe(select(fromRoot.SU));
     // console.log("profile", this.profile$);
     // this.profile$.subscribe((data) => {
     //   console.log("data", data);
     // });
+
+    this.store.dispatch(new DevActions.LoadProfileBegin());
     this.actionsSubj
       .pipe(
         ofType(DevActions.DevActionTypes.LOAD_DEVELOPER_SUCCESS),
@@ -72,7 +75,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         // this.dataSource = new MatTableDataSource(this.noData);
         // console.log("this.datasource", this.dataSource);
       });
-    this.store.dispatch(new DevActions.LoadProfileBegin());
+
     // this.store
     //   .pipe(
     //     select(fromUser.getUserProfile),
@@ -89,35 +92,30 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.data.subscribe((state) => {
-      console.log("data", state);
-      // this.error = state.errorMessage;
-    });
-
+    //   this.data = JSON.parse(localStorage.getItem("currentUser"));
+    // console.log("user", this.data);
     // this.store
     //   .select((state) => state.user)
     //   .subscribe((users) => {
     //     console.log("got users", users);
     //     //  this.users$ = users;
     //   });
-
     // this.currentUserSubscription = this.store
     //   .select((state) => state.user.selectedUser)
     //   .subscribe((user) => {
     //     console.log("got users", u
     // ),
-
     // return {ser);
     //     //  this.user$ = user;
     //   });
-
-    // this.store.pipe(select(getCurrentUser)).subscribe((users) => {
-    //   console.log("USERS:", users);
-    //   this.noData = users;
-    //   console.log("this no data", this.noData.id);
-    //   // let data = users[0];
-    //   //  this.initializeData(this.noData);
-    // });
+    this.data = this.store.pipe(select(fromUser.getCurrentUser));
+    this.data.subscribe((users) => {
+      console.log("USERS:", users);
+      // this.noData = users;
+      // console.log("this no data", this.noData.id);
+      // let data = users[0];
+      //  this.initializeData(this.noData);
+    });
   }
 
   deleteRow(x) {

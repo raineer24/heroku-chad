@@ -61,7 +61,7 @@ export class LoadProfileBegin implements Action {
 
 export class LoadDeveloperSuccess implements Action {
   readonly type = DevActionTypes.LOAD_DEVELOPER_SUCCESS;
-  constructor(public payload: User) {}
+  constructor(public payload: any) {}
   //constructor(public payload: { entities: any; result: any }) {}
 }
 
@@ -90,4 +90,5 @@ export type DevActions =
   | createDeveloperSuccess
   | UpdateProfile
   | UpdateProfileSucess
-  | UpdateProfileFail;
+  | UpdateProfileFail
+  | LoadProfileBegin;

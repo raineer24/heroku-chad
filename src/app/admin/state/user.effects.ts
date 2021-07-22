@@ -10,6 +10,7 @@ import {
   concatMap,
   flatMap,
   take,
+  startWith,
 } from "rxjs/operators";
 import { normalize, denormalize, schema } from "normalizr";
 
@@ -37,27 +38,66 @@ export class DevEffects {
     private store: Store<fromRoot.AppState>
   ) {}
 
+  // @Effect()
+  // UpdateProfile$: Observable<any> = this.actions$.pipe(
+  //   ofType(DevActions.DevActionTypes.UPDATE_PROFILE),
+  //   map((action: DevActions.UpdateProfile) => action.payload),
+  //   mergeMap((user: UserFetch) =>
+  //     this.authService.updateProfile(user).pipe(
+  //       map(
+  //         (updateProfile: UserFetch) => {
+  //           console.log("updateprofile", updateProfile);
+  //           let userprofile = updateProfile;
+  //           //new DevActions.UpdateProfileSucess(userprofile);
+  //         }
+  //         // new DevActions.DevActionTypes.UPDATE_PROFILE_SUCCESS({
+  //         //   id: updateProfile.id,
+  //         //   changes: updateProfile,
+  //         // })
+  //       ),
+  //       catchError((error) => of(new DevActions.UpdateProfileFail(error)))
+  //     )
+  //   )
+  // );
+
   @Effect()
-  UpdateProfile$: Observable<any> = this.actions$.pipe(
+  updateProfile: Observable<any> = this.actions$.pipe(
     ofType(DevActions.DevActionTypes.UPDATE_PROFILE),
     map((action: DevActions.UpdateProfile) => action.payload),
-    mergeMap((user: UserFetch) =>
-      this.authService.updateProfile(user).pipe(
-        map(
-          (updateProfile: UserFetch) =>
-            // new DevActions.DevActionTypes.UPDATE_PROFILE_SUCCESS({
-            //   id: updateProfile.id,
-            //   changes: updateProfile,
-            // })
+    mergeMap((payload: UserFetch) => {
+      console.log("payload create profile: ", payload);
+      return this.authService.updateProfile(payload).pipe(
+        map((user: UserFetch) => {
+          console.log("get profile effect", user);
 
-            new DevActions.UpdateProfileSucess({
-              id: updateProfile.id,
-              changes: updateProfile,
-            })
-        ),
-        catchError((error) => of(new DevActions.UpdateProfileFail(error)))
-      )
-    )
+          // return new DevActions.DevActionTypes.UPDATE_PROFILE_SUCCESS({
+          //   id: user.id,
+          //   changes: user,
+          // });
+
+          return new DevActions.UpdateProfileSucess({
+            id: user.id,
+            changes: user,
+          });
+
+          // let datus = normalize(user.profileCreate, userSchema);
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+
+          // console.log("get profile Effect", datus);
+
+          // let user_profile = user.body
+          // this.currentUserSubject.next(user);
+          // return new AuthActions.LogInSuccess({
+          //   token: user.token,
+          //   username: payload.username,
+          //    firstName: user.firstName
+          // });
+          //return new AuthActions.LogInSuccess(user);
+          // return new DevActions.createDeveloperSuccess(user.profileCreate);
+        }),
+        catchError((err) => of(new DevActions.loadDevelopersFail(err)))
+      );
+    })
   );
 
   @Effect()
@@ -144,23 +184,27 @@ export class DevEffects {
     })
   ); // this.router.navigateByUrl("/");
 
-  @Effect({ dispatch: false })
+  // loadMaterials$ = this._actions.ofType(materials.MaterialActionTypes.LOAD)
+  //   .startWith(new LoadMaterialsAction())
+  //   .switchMap(() => this._service.query()
+  //   .map((materials) => { ... })
+
+  @Effect()
   loadDeveloper$: Observable<any> = this.actions$.pipe(
     ofType(DevActions.DevActionTypes.LOAD_DEVELOPER_BEGIN),
-
-    switchMap(() => {
+    mergeMap((action: DevActions.LoadProfileBegin) => {
       return this.authService.getUserDetail().pipe(
-        take(1),
+        // take(1),
         map((data) => {
           console.log("map effect", data["user"]);
           //  console.log("normalize", normalize(data["user"], userSchema));
           //  let datus = normalize(data["user"], userSchema);
           // console.log("datus", datus.entities.users);
           // localStorage.setItem("currentUser", JSON.stringify(data["user"]));
-          this.store.dispatch(
-            new DevActions.LoadDeveloperSuccess(data["user"])
-          );
-          // return new DevActions.LoadDeveloperSuccess(data["user"]);
+          // this.store.dispatch(
+          //   new DevActions.LoadDeveloperSuccess(data["user"])
+          // );
+          return new DevActions.LoadDeveloperSuccess(data["user"]);
           //return new userActions.LoadProfileSuccess(data["user"]);
         }),
         catchError((error) => of(new DevActions.loadDevelopersFail(error)))

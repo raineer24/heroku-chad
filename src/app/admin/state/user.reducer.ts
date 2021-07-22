@@ -59,6 +59,32 @@ export function userReducer(
   action: DevActions
 ): UserState {
   switch (action.type) {
+    case DevActionTypes.UPDATE_PROFILE_SUCCESS: {
+      const index = state.entities[state.selectedUserId].user_profile.findIndex(
+        (entity) => entity.id !== action.payload
+      );
+
+      console.log("INDEX: ", index);
+
+      //   console.log("action payload update profile success", action.payload);
+      let actions = action.payload;
+      console.log("actions payload", actions);
+      console.log("update profile SUCCESS", actions.changes["updated_user"][0]);
+      //let entity = actions.changes["updated_user"][0];
+      const entity = state.entities[state.selectedUserId].user_profile;
+
+      entity[index] = actions.changes["updated_user"][0];
+
+      // entity.push(actions);
+      console.log("STATE: ", state);
+      console.log("state update profile", state.entities[state.selectedUserId]);
+
+      return userAdapter.updateOne(action.payload, state);
+
+      // return {
+      //   ...state, //copying the orignal state
+      // };
+    }
     case DevActionTypes.CREATE_DEVELOPER_SUCCESS: {
       console.log(
         "STATE PAYLOAD SUCCESS",
@@ -172,6 +198,7 @@ export function userReducer(
       return userAdapter.addOne(action.payload, {
         ...state,
         selectedUserId: action.payload.id,
+        loaded: true,
         //  entities: action.payload.entities.users,
       });
       // return {
@@ -187,3 +214,28 @@ export function userReducer(
     }
   }
 }
+
+export const getUserLoaded = createSelector(
+  getUserFeatureState,
+  (state: UserState) => state.loaded
+);
+
+export const getCurrentUserId = createSelector(
+  getUserFeatureState,
+  // (state: UserState) => {
+  //   console.log("click");
+  //   console.log("state", state);
+  //   state.selectedUserId;
+  // }
+  (state: UserState) => state.selectedUserId
+);
+export const getCurrentUser = createSelector(
+  getUserFeatureState,
+  getCurrentUserId,
+  // (state) => {
+  //   state.entities[state.selectedUserId];
+  //   console.log("getCUrrentuser", state);
+  //   console.log("state.entities", state.entities[state.selectedUserId]);
+  // }
+  (state) => state.entities[state.selectedUserId]
+);

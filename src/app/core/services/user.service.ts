@@ -349,16 +349,13 @@ export class AuthService {
   //   return this.http.put(`${url}`, params);
   // }
 
-  updateProfile(profile: UserFetch): Observable<UserFetch> {
+  updateProfile(profile: UserFetch): Observable<any> {
     console.log("update click");
 
     return this.http
-      .patch<UserFetch>(
-        `${this.baseUrl}/api/v2/users/profile/${profile.id}`,
-        profile
-      )
+      .patch<any>(`${this.baseUrl}/api/v2/users/profile/${profile.id}`, profile)
       .pipe(
-        tap((data) => {
+        map((data) => {
           console.log("UPDATE PROFILE DATA :", data);
           console.log("clicked");
           this.router.navigate(["/admin"]);

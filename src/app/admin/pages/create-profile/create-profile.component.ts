@@ -3,6 +3,7 @@ import { User } from "../../../core/models/user";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select, ActionsSubject } from "@ngrx/store";
 import * as fromUser from "../../state/user.reducer";
+import * as fromApp from "../../../store/reducers";
 import * as DevActions from "../../state/user.actions";
 import { Subscription, Observable, of, Subject } from "rxjs";
 import {
@@ -66,15 +67,11 @@ export class CreateProfileComponent implements OnInit, OnDestroy {
     private authenticationService: AuthService,
     private alertService: AlertService,
     private route: ActivatedRoute,
-    private store: Store<fromUser.UserState>,
+    private store: Store<fromApp.AppState>,
     private formBuilder: FormBuilder,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer
   ) {
-    // this.userData = JSON.parse(localStorage.getItem("currentUser"));
-    // console.log("this userData", this.userData.user.id);
-    // let userId = this.userData.user.id;
-    // this.store.dispatch(new DevActions.LoadProfileBegin());
     iconRegistry.addSvgIcon(
       "thumbs-up",
       sanitizer.bypassSecurityTrustResourceUrl(
@@ -99,12 +96,16 @@ export class CreateProfileComponent implements OnInit, OnDestroy {
     this.destroyed$.complete();
   }
   ngOnInit() {
-    //this.userData = JSON.parse(localStorage.getItem("currentUser"));
-    console.log(this.allStatus);
-    this.id = this.route.snapshot.params["id"];
-    console.log("id", this.id);
-    this.isAddMode = !this.id;
-
+    this.actionsSubj
+      .pipe(
+        ofType(DevActions.DevActionTypes.LOAD_DEVELOPER_SUCCESS),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe((data: any) => {
+        console.log("xdatas", data);
+        console.log("xdata", data["payload"]);
+        /* hooray, success, show notification alert etc.. */
+      });
     this.profForm = this.formBuilder.group({
       status: [null, Validators.required],
       website: ["", Validators.required],
@@ -119,52 +120,83 @@ export class CreateProfileComponent implements OnInit, OnDestroy {
       twitter_handle: [""],
       id: (this.id = this.route.snapshot.params["id"]),
     });
+    this.store.dispatch(new DevActions.LoadProfileBegin());
+    //this.userData = JSON.parse(localStorage.getItem("currentUser"));
+    console.log(this.allStatus);
+    this.id = this.route.snapshot.params["id"];
+    console.log("id", this.id);
+    this.isAddMode = !this.id;
 
-    if (!this.isAddMode) {
-      // this.authenticationService
-      //   .getUser(this.id)
-      //   .pipe(first())
-      //   .subscribe((x) => {
-      //     console.log("get user id ", x);
-      //     console.log("x", x.bio);
-      //     this.profForm.patchValue(x);
-      //   });
-      // const profile$: Observable<UserFetch> = this.store.select(
-      //   fromUser.getCurrentUser
-      // );
-      // profile$.subscribe((currentProfile) => {
-      //   console.log("currentuserprofile", currentProfile);
-      //   console.log("currentuserprofile", currentProfile["user_profile"][0]);
-      //   let userProfile = currentProfile["user_profile"][0];
-      //   console.log(
-      //     "user skill set array :",
-      //     currentProfile["user_skill"][0].skills[0]
-      //   );
-      //   // let skills = currentProfile["user_profile"][0];
-      //   let skills = currentProfile["user_skill"][0].skills[0];
-      //   if (currentProfile) {
-      //     this.profForm.patchValue({
-      //       company_name: userProfile.company_name,
-      //       website: userProfile.website,
-      //       job_location: userProfile.job_location,
-      //       status: userProfile.status,
-      //       bio: userProfile.bio,
-      //       areas_of_expertise: skills,
-      //       youtube_handle: userProfile.youtube_handle,
-      //       twitter_handle: userProfile.twitter_handle,
-      //       instagram_handle: userProfile.instagram_handle,
-      //       facebook_handle: userProfile.facebook_handle,
-      //       id: currentProfile.id,
-      //     });
-      //     this.profForm.patchValue(currentProfile);
-      //   }
-      // });
-    }
     //console.log("edit");
 
     //  const customer$: Observable<Customer> = this.store.select(
     //    fromCustomer.getCurrentCustomer
     //  );
+
+    this.store.select(fromUser.getCurrentUser).subscribe((data) => {
+      console.log("getcurrentUser data", data);
+
+      if (!this.isAddMode) {
+        console.log("data email", data.user_profile[0]);
+
+        let userProfile = data.user_profile[0];
+        let skills = data["user_skill"][0].skills[0];
+        console.log("skills", skills);
+        console.log("profFOrm", this.profForm);
+        this.profForm.patchValue({
+          company_name: userProfile.company_name,
+          website: userProfile.website,
+          job_location: userProfile.job_location,
+          status: userProfile.status,
+          bio: userProfile.bio,
+          areas_of_expertise: skills,
+          youtube_handle: userProfile.youtube_handle,
+          twitter_handle: userProfile.twitter_handle,
+          instagram_handle: userProfile.instagram_handle,
+          facebook_handle: userProfile.facebook_handle,
+          id: data.id,
+        });
+        //  this.profForm.patchValue(currentProfile);
+        // this.authenticationService
+        //   .getUser(this.id)
+        //   .pipe(first())
+        //   .subscribe((x) => {
+        //     console.log("get user id ", x);
+        //     console.log("x", x.bio);
+        //     this.profForm.patchValue(x);
+        //   });
+        // this.store
+        //   .select(fromUser.getCurrentUser)
+        //   .subscribe((currentProfile) => {
+        //     console.log("currentuserprofile", currentProfile);
+        //     // console.log("currentuserprofile", currentProfile["user_profile"][0]);
+        //     let userProfile = currentProfile["user_profile"][0];
+        //     console.log(
+        //       "user skill set array :",
+        //       currentProfile["user_skill"][0].skills[0]
+        //     );
+        //     //   // let skills = currentProfile["user_profile"][0];
+        //     let skills = currentProfile["user_skill"][0].skills[0];
+        //     console.log("this profForm", this.profForm);
+        //     if (currentProfile) {
+        //       // this.profForm.patchValue({
+        //       //   company_name: userProfile.company_name,
+        //       //   website: userProfile.website,
+        //       //   job_location: userProfile.job_location,
+        //       //   status: userProfile.status,
+        //       //   bio: userProfile.bio,
+        //       //   areas_of_expertise: skills,
+        //       //   youtube_handle: userProfile.youtube_handle,
+        //       //   twitter_handle: userProfile.twitter_handle,
+        //       //   instagram_handle: userProfile.instagram_handle,
+        //       //   facebook_handle: userProfile.facebook_handle,
+        //       //   id: currentProfile.id,
+        //       // });
+        //       // this.profForm.patchValue(currentProfile);
+        //     }
+        //   });
+      }
+    });
   }
 
   get status() {
@@ -323,8 +355,9 @@ export class CreateProfileComponent implements OnInit, OnDestroy {
       instagram_handle: this.ig.value,
       facebook_handle: this.fb.value,
     };
+    console.log("updatedprofile,", updatedProfile);
 
-    //  this.store.dispatch(new userActions.UpdateProfile(updatedProfile));
+    this.store.dispatch(new DevActions.UpdateProfile(updatedProfile));
   }
 
   // convenience getter for easy access to form fields

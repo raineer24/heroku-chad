@@ -2,6 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { SharedModule } from "./shared/shared.module";
+import { AuthModule } from "./auth/auth.module";
 import { HashLocationStrategy, LocationStrategy } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -39,6 +40,8 @@ import { AlertComponent } from "./shared/layout/alert/alert.component";
 import { LoadingService } from "./shared/layout/loading/loading.service";
 import { EffectsModule } from "@ngrx/effects";
 
+import { clearState } from "./clear.reducer";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -59,8 +62,10 @@ import { EffectsModule } from "@ngrx/effects";
     MatExpansionModule,
     MatInputModule,
     CoreModule,
+    AuthModule,
     EffectsModule.forRoot([]),
-    StoreModule.forRoot(reducers, {}),
+    StoreModule.forRoot({}, { metaReducers: [clearState] }),
+    // StoreModule.forRoot(reducers, {}),
     //StoreModule.forFeature("users", reducer),
     //EffectsModule.forFeature([UserEffects]),
     StoreDevtoolsModule.instrument({

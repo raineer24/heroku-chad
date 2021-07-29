@@ -42,7 +42,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private authenticationService: AuthService,
     private store: Store<fromRoot.AppState>,
     private router: Router,
-    private actionsSubj: ActionsSubject
+    private actionsSubj: ActionsSubject,
+    private route: ActivatedRoute
   ) {
     // this.data = this.store.select(fromRoot.selectUserListState$);
     // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
@@ -58,7 +59,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //   console.log("data", data);
     // });
 
-    this.store.dispatch(new DevActions.LoadProfileBegin());
+    const route$ = this.route.params.subscribe((params) => {
+      console.log("params", params);
+      if (params.id.length > 0) {
+        // this.store.dispatch(
+        //   profileActions.loadProfileData({ userId: params.id })
+        // );
+        this.store.dispatch(new DevActions.LoadProfileBegin(params.id));
+      }
+    });
+
+    // this.store.dispatch(new DevActions.LoadProfileBegin());
     this.actionsSubj
       .pipe(
         ofType(DevActions.DevActionTypes.LOAD_DEVELOPER_SUCCESS),

@@ -72,6 +72,14 @@ export class CreateProfileComponent implements OnInit, OnDestroy {
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer
   ) {
+    const route$ = this.route.params.subscribe((params) => {
+      console.log("params", params);
+      //  if (params.id.length > 0) {
+      //    this.store.dispatch(
+      //      profileActions.loadProfileData({ userId: params.id })
+      //    );
+      //  }
+    });
     iconRegistry.addSvgIcon(
       "thumbs-up",
       sanitizer.bypassSecurityTrustResourceUrl(
@@ -120,7 +128,7 @@ export class CreateProfileComponent implements OnInit, OnDestroy {
       twitter_handle: [""],
       id: (this.id = this.route.snapshot.params["id"]),
     });
-    this.store.dispatch(new DevActions.LoadProfileBegin());
+    //   this.store.dispatch(new DevActions.LoadProfileBegin());
     //this.userData = JSON.parse(localStorage.getItem("currentUser"));
     console.log(this.allStatus);
     this.id = this.route.snapshot.params["id"];

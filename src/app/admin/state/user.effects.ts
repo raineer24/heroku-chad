@@ -156,7 +156,7 @@ export class DevEffects {
       // localStorage.setItem("token", user.payload.token);
       //localStorage.setItem("currentUser", JSON.stringify(user));
       // this.currentUserSubject.next(user);
-      this.store.dispatch(new DevActions.LoadProfileBegin());
+      //this.store.dispatch(new DevActions.LoadProfileBegin());
       this.router.navigateByUrl("/");
       console.log("get profile success: ", user);
       this.alertService.success("Profile Created", true);

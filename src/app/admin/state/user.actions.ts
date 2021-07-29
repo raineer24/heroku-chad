@@ -57,7 +57,15 @@ export class CreateDeveloperdeAction implements Action {
 
 export class LoadProfileBegin implements Action {
   readonly type = DevActionTypes.LOAD_DEVELOPER_BEGIN;
+
+  constructor(public payload: number) {}
 }
+
+// export const LOAD_PROFILE = "[Profile] Load Profile";
+// export class LoadProfile implements Action {
+//   readonly type = LOAD_PROFILE;
+//   constructor(public userId: string) {}
+// }
 
 export class LoadDeveloperSuccess implements Action {
   readonly type = DevActionTypes.LOAD_DEVELOPER_SUCCESS;

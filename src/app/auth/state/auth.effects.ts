@@ -38,6 +38,24 @@ export class AuthEffects {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
+  login$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.login),
+      switchMap((action) =>
+        this.authService.login(action.data).pipe(
+          map((res) => {
+            //  this.router.navigate([ROUTES.home.path]);
+            return AuthActions.loginSuccess({ user: res });
+          }),
+          catchError(() => {
+            // this.popupService.error("Podałeś błędne dane");
+            return of(AuthActions.loginFail());
+          })
+        )
+      )
+    )
+  );
+
   //   @Effect({ dispatch: false })
   //   loadProfile$: Observable<any> = this.actions$.pipe(
   //     ofType(AuthActions.AuthActionTypes.LOAD_PROFILE_BEGIN),

@@ -11,7 +11,7 @@ import { first } from "rxjs/operators";
 import { Subscription, BehaviorSubject, Observable } from "rxjs";
 import { User } from "../../../core/models/user";
 import { AlertService } from "../../../core/services/alert.service";
-import * as userActions from "../../state/auth.action";
+import * as authActions from "../../state/auth.action";
 import { HttpErrorResponse } from "@angular/common/http";
 import { map, tap, catchError } from "rxjs/operators";
 import * as fromUser from "../../state/auth.reducer";
@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit {
       email: values.email,
       password: values.password,
     };
-    this.store.dispatch(new userActions.LogIn(payload));
+    this.store.dispatch(authActions.login(payload));
     // this.authenticationService.login(payload.email, payload.password).subscribe(
     //   (data) => {
     //     this.router.navigate([this.returnUrl]);

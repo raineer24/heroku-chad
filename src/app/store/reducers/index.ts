@@ -35,10 +35,10 @@ export const reducers: ActionReducerMap<AppState> = {
 // La première fonction amène vers le state matieres
 export const selectUserListState$ = (state: AppState) => state.auth;
 // export const selectAuthListState$ = (state: State) => state.auth;
-export const selectUsersLoaded$ = createSelector(
-  selectUserListState$,
-  (user$) => user$.loaded
-);
+// export const selectUsersLoaded$ = createSelector(
+//   selectUserListState$,
+//   (user$) => user$.loaded
+// );
 // export const selectUserLoaded$ = createSelector(
 //   selectUserListState$,
 //   (user) => user.selectedUser

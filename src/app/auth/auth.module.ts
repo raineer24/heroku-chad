@@ -24,6 +24,7 @@ import { RegisterComponent } from "./pages";
 import { LoginComponent } from "./pages";
 import { EffectsModule } from "@ngrx/effects";
 import { AuthEffects } from "./state/auth.effects";
+import { STORE_FEATURES } from "../consts";
 
 /* NgRx */
 import { StoreModule } from "@ngrx/store";
@@ -31,7 +32,7 @@ import { StoreModule } from "@ngrx/store";
   declarations: [RegisterComponent, LoginComponent],
   imports: [
     CommonModule,
-    // StoreModule.forFeature("auth", authReducer),
+    StoreModule.forFeature(STORE_FEATURES.auth, authReducer),
     EffectsModule.forFeature([AuthEffects]),
     AuthRoutingModule,
     MatCardModule,

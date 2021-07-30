@@ -62,7 +62,7 @@ import { clearState } from "./clear.reducer";
     MatExpansionModule,
     MatInputModule,
     CoreModule,
-    AuthModule,
+    //AuthModule,
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}, { metaReducers: [clearState] }),
     // StoreModule.forRoot(reducers, {}),

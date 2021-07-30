@@ -77,7 +77,7 @@ export class RegisterComponent implements OnInit {
         email: values.email,
         password: values.password,
       };
-      this.store.dispatch(new userActions.SignUp(this.fd));
+      //  this.store.dispatch(new userActions.SignUp(this.fd));
       // this.registerSubs = this.authService.registerUsers(this.fd).subscribe(
       //   (data) => {
       //     this.fd = new FormData();

@@ -7,7 +7,7 @@ import * as AuthActions from "./auth.action";
 //import { loginComplete, signupSuccess } from "../state";
 
 import {
-  createFeatureSelector,
+  createFeatureSelector, //on(authActions.login, (state: AuthState) => ({ ...state, loginLoading: true, currentUser: null })),
   createSelector,
   createReducer,
   on,
@@ -42,6 +42,11 @@ export const AUTH_REDUCER = createReducer(
     ...state,
     loginLoading: true,
     currentUser: null,
+  })),
+  on(AuthActions.loginSuccess, (state: AuthState, { user }) => ({
+    ...state,
+    loginLoading: false,
+    currentUser: user,
   }))
 );
 

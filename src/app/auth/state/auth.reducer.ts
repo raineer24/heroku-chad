@@ -1,9 +1,10 @@
 import { User } from "../../core/models/user";
 //import * as fromRoot from "../../state/app.state";
-import { AuthActions, AuthActionTypes } from "./auth.action";
+//import { AuthActions, AuthActionTypes } from "./auth.action";
 import { v4 as uuidv4 } from "uuid";
 import * as fromRoot from "../../store/reducers";
-import { loginComplete, signupSuccess } from "../state";
+import * as AuthActions from "./auth.action";
+//import { loginComplete, signupSuccess } from "../state";
 
 import {
   createFeatureSelector,
@@ -12,6 +13,7 @@ import {
   on,
   createAction,
   props,
+  Action,
 } from "@ngrx/store";
 import { EntityState, EntityAdapter, createEntityAdapter } from "@ngrx/entity";
 import { IUser } from "../../interfaces/user.interface";
@@ -25,4 +27,24 @@ export interface AuthState {
   currentUser: IUser;
   registerLoading: boolean;
   userLoading: boolean;
+}
+
+export const initialState: AuthState = {
+  loginLoading: false,
+  currentUser: null,
+  registerLoading: false,
+  userLoading: false,
+};
+
+export const AUTH_REDUCER = createReducer(
+  initialState,
+  on(AuthActions.login, (state: AuthState) => ({
+    ...state,
+    loginLoading: true,
+    currentUser: null,
+  }))
+);
+
+export function authReducer(state: AuthState | undefined, action: Action) {
+  return AUTH_REDUCER(state, action);
 }

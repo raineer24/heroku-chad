@@ -16,6 +16,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { map, tap, catchError } from "rxjs/operators";
 import * as fromUser from "../../state/auth.reducer";
 import { ErrorService } from "../../../core/services/error.service";
+import { ILoginUser } from "../../../interfaces/user.interface";
 
 /* NgRx */
 import { Store, select } from "@ngrx/store";
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   submitted = false;
   loading = false;
-  data: any;
+
   loginSubs: Subscription;
   currentUser: User;
 
@@ -96,13 +97,21 @@ export class LoginComponent implements OnInit {
     return form.get(fieldName);
   }
 
-  onSubmit() {
+  get data(): ILoginUser {
     const values = this.loginForm.value;
-    const payload = {
+    return {
       email: values.email,
       password: values.password,
     };
-    this.store.dispatch(authActions.login(payload));
+  }
+
+  onSubmit() {
+    // const values = this.loginForm.value;
+    // const payload = {
+    //   email: values.email,
+    //   password: values.password,
+    // };
+    this.store.dispatch(authActions.login({ data: this.data }));
     // this.authenticationService.login(payload.email, payload.password).subscribe(
     //   (data) => {
     //     this.router.navigate([this.returnUrl]);

@@ -6,11 +6,18 @@ export interface ILoginUser {
 export interface IUser {
   id: number;
   email: string;
-  firstName: string;
+  first_name: string;
   lastName: string;
   image: string;
   active?: boolean;
   token?: string;
-
+  username: string;
   bio?: string;
+}
+
+export interface IRegisterUser {
+  email: string;
+  first_name: string;
+  password: string;
+  image: string;
 }

@@ -1,12 +1,18 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl,
+} from "@angular/forms";
 import { AuthService } from "../../../core/services/user.service";
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import { AlertService } from "../../../core/services/alert.service";
-import * as userActions from "../../state/auth.action";
+import * as AuthActions from "../../state/auth.action";
 import { Store } from "@ngrx/store";
 import * as fromUser from "../../state/auth.reducer";
+import { IUser } from "../../../interfaces";
 
 @Component({
   selector: "app-register",
@@ -18,6 +24,8 @@ export class RegisterComponent implements OnInit {
   registerSubs: Subscription;
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$";
   fd = new FormData();
+  profile: IUser;
+  sendForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -27,6 +35,14 @@ export class RegisterComponent implements OnInit {
     private store: Store<fromUser.AuthState>
   ) {
     this.initForm();
+
+    this.sendForm = new FormGroup({
+      first_name: new FormControl(null, [Validators.required]),
+      lastName: new FormControl(null, [Validators.required]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      username: new FormControl(null, [Validators.required]),
+      image: new FormControl(null, [Validators.required]),
+    });
   }
 
   ngOnInit() {
@@ -59,10 +75,6 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(e) {
     const values = this.signUpForm.value;
-    if (e.target !== undefined) {
-      this.fd.append("image", e.target.files[0]);
-      return (this.signUpForm.value.image = this.fd);
-    }
 
     this.fd.append("email", this.signUpForm.value.email);
     this.fd.append("password", this.signUpForm.value.password);
@@ -73,11 +85,27 @@ export class RegisterComponent implements OnInit {
     console.log("email", this.signUpForm.value.email);
 
     if (this.signUpForm.valid) {
-      const data = {
-        email: values.email,
-        password: values.password,
-      };
-      //  this.store.dispatch(new userActions.SignUp(this.fd));
+      // const data = {
+      //   email: values.email, // this.fd.append("image", e.target.files[0]);
+      // return (this.signUpForm.value.image = this.fd);
+      //   password: values.password,
+      // };
+      //  this.store.dispatch(AuthActions.register(this.fd));
+
+      if (e.target !== undefined) {
+        this.fd.append("image", e.target.files[0]);
+        return (this.signUpForm.value.image = this.fd);
+      }
+      console.log("value.image", this.signUpForm.value.image);
+      console.log("value signup form", this.signUpForm.value);
+      console.log("value signup form data", this.fd);
+      console.log("fd", this.fd.get("image"));
+
+      this.store.dispatch(
+        AuthActions.register({
+          data: this.fd,
+        })
+      );
       // this.registerSubs = this.authService.registerUsers(this.fd).subscribe(
       //   (data) => {
       //     this.fd = new FormData();

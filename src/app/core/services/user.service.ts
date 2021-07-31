@@ -13,7 +13,11 @@ import { LoginComponent } from "src/app/auth/pages";
 import { User, UserFetch } from "../models";
 import { Status } from "../models/positions";
 //import { UserFetch } from "../models/userfetch";
-import { ILoginUser, IUser } from "../../interfaces/user.interface";
+import {
+  ILoginUser,
+  IUser,
+  IRegisterUser,
+} from "../../interfaces/user.interface";
 import {
   Router,
   CanActivate,
@@ -98,10 +102,10 @@ export class AuthService {
     );
   }
 
-  public registerUsers(obj) {
+  public registerUsers(data) {
     const url = `${this.baseUrl}/api/v2/users/register`;
     //const url = `api/v2/users/register`;
-    return this.http.post(url, obj).pipe(map((data) => data));
+    return this.http.post(url, data).pipe(map((data) => data));
   }
 
   public deleteEdu(id: number): Observable<any> {

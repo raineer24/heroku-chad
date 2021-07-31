@@ -57,6 +57,23 @@ export class AuthEffects {
     )
   );
 
+  register$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.register),
+      switchMap((action) =>
+        this.authService.registerUsers(action.data).pipe(
+          map((res) => {
+            this.router.navigate(["/auth/login"]);
+            return AuthActions.registerSuccess();
+          }),
+          catchError((error) => {
+            return of(AuthActions.registerFail());
+          })
+        )
+      )
+    )
+  );
+
   //   @Effect({ dispatch: false })
   //   loadProfile$: Observable<any> = this.actions$.pipe(
   //     ofType(AuthActions.AuthActionTypes.LOAD_PROFILE_BEGIN),

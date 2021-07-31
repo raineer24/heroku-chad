@@ -76,6 +76,14 @@ export class RegisterComponent implements OnInit {
   onSubmit(e) {
     const values = this.signUpForm.value;
 
+    if (e.target !== undefined) {
+      // const postData = new FormData();
+      this.fd.append("image", e.target.files[0]);
+      console.log("fd", this.fd.get("image"));
+
+      return (this.signUpForm.value.image = this.fd);
+      //console.log("value signup form data", postData);
+    }
     this.fd.append("email", this.signUpForm.value.email);
     this.fd.append("password", this.signUpForm.value.password);
     this.fd.append("username", this.signUpForm.value.username);
@@ -92,15 +100,22 @@ export class RegisterComponent implements OnInit {
       // };
       //  this.store.dispatch(AuthActions.register(this.fd));
 
-      if (e.target !== undefined) {
-        this.fd.append("image", e.target.files[0]);
-        return (this.signUpForm.value.image = this.fd);
-      }
+      // if (e.target !== undefined) {
+      //   const postData = new FormData();
+      //   postData.append("image", e.target.files[0]);
+      //   console.log("fd", postData.get("image"));
+
+      //   // return (this.signUpForm.value.image = this.fd);\
+      //   console.log("value signup form data", postData);
+      //   this.store.dispatch(
+      //     AuthActions.register({
+      //       data: this.fd,
+      //     })
+      //   );
+      // }
+
       console.log("value.image", this.signUpForm.value.image);
       console.log("value signup form", this.signUpForm.value);
-      console.log("value signup form data", this.fd);
-      console.log("fd", this.fd.get("image"));
-
       this.store.dispatch(
         AuthActions.register({
           data: this.fd,

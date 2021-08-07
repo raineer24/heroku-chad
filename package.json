@@ -34,6 +34,7 @@
     "express": "^4.16.4",
     "jquery": "^3.4.1",
     "moment": "^2.29.1",
+    "ngrx-store-localstorage": "^7.0.0",
     "ngx-toastr": "^10.0.4",
     "normalizr": "^3.6.0",
     "popper": "^1.0.1",

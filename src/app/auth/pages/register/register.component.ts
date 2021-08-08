@@ -116,12 +116,11 @@ export class RegisterComponent implements OnInit {
 
       console.log("value.image", this.signUpForm.value.image);
       console.log("value signup form", this.signUpForm.value);
-      this.store.dispatch(
-        AuthActions.register({
-          //data: this.fd,
-          data: { password: this.password.value, id: this.profile.id },
-        })
-      );
+      // this.store.dispatch(
+      //   AuthActions.register({
+      //     data: { this.signUpForm.value.email ,this.fd},
+      //   })
+      // );
       // this.registerSubs = this.authService.registerUsers(this.fd).subscribe(
       //   (data) => {
       //     this.fd = new FormData();

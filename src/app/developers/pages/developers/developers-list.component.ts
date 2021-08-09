@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select, ActionsSubject } from "@ngrx/store";
 import { ofType } from "@ngrx/effects";
-import * as fromRoot from "../../../store/reducers";
+//import * as fromRoot from "../../../store/reducers";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as DevActions from "../../state/dev.action";
 import { Subscription, Observable, of, Subject } from "rxjs";
@@ -20,7 +20,7 @@ export class DevelopersListComponent implements OnInit {
   developers: any;
   constructor(
     private authenticationService: AuthService,
-    private store: Store<fromRoot.AppState>,
+    //private store: Store<fromRoot.AppState>,
     private router: Router,
     private actionsSubj: ActionsSubject
   ) {

@@ -3,8 +3,8 @@ import { UserFetch, Experience, User } from "../../../core/models/";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select, ActionsSubject } from "@ngrx/store";
 import { ofType } from "@ngrx/effects";
-import * as fromRoot from "../../../store/reducers";
-import * as fromUser from "../../state/user.reducer";
+//import * as fromRoot from "../../../store/reducers";
+//import * as fromUser from "../../state/user.reducer";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as DevActions from "../../state/user.actions";
 import { Subscription, Observable, of, Subject, from } from "rxjs";
@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<boolean>();
   constructor(
     private authenticationService: AuthService,
-    private store: Store<fromRoot.AppState>,
+    // private store: Store<fromRoot.AppState>,
     private router: Router,
     private actionsSubj: ActionsSubject,
     private route: ActivatedRoute
@@ -62,10 +62,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const route$ = this.route.params.subscribe((params) => {
       console.log("params", params);
       if (params.id.length > 0) {
-        // this.store.dispatch(
-        //   profileActions.loadProfileData({ userId: params.id })
-        // );
-        this.store.dispatch(new DevActions.LoadProfileBegin(params.id));
+        //this.store.dispatch(new DevActions.LoadProfileBegin(params.id));
       }
     });
 
@@ -103,30 +100,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    //   this.data = JSON.parse(localStorage.getItem("currentUser"));
-    // console.log("user", this.data);
-    // this.store
-    //   .select((state) => state.user)
-    //   .subscribe((users) => {
-    //     console.log("got users", users);
-    //     //  this.users$ = users;
-    //   });
-    // this.currentUserSubscription = this.store
-    //   .select((state) => state.user.selectedUser)
-    //   .subscribe((user) => {
-    //     console.log("got users", u
-    // ),
-    // return {ser);
-    //     //  this.user$ = user;
-    //   });
-    this.data = this.store.pipe(select(fromUser.getCurrentUser));
-    this.data.subscribe((users) => {
-      console.log("USERS:", users);
-      // this.noData = users;
-      // console.log("this no data", this.noData.id);
-      // let data = users[0];
-      //  this.initializeData(this.noData);
-    });
+    // this.data = this.store.pipe(select(fromUser.getCurrentUser));
+    // this.data.subscribe((users) => {
+    //   console.log("USERS:", users);
+    // });
   }
 
   deleteRow(x) {

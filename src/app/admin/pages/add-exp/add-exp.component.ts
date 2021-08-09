@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { User } from "../../../core/models/user";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select } from "@ngrx/store";
-import * as fromUser from "../../state/user.reducer";
+//import * as fromUser from "../../state/user.reducer";
 import * as userActions from "../../state/user.actions";
 import { Subscription, Observable } from "rxjs";
 import { skipWhile, skip, take, filter } from "rxjs/operators";
@@ -55,9 +55,9 @@ export class AddExperienceComponent implements OnInit {
     private formBuilder: FormBuilder,
     private datePipe: DatePipe,
     private authenticationService: AuthService,
-    private route: ActivatedRoute,
-    private store: Store<fromUser.UserState>
-  ) {}
+    private route: ActivatedRoute
+  ) // private store: Store<fromUser.UserState>
+  {}
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({

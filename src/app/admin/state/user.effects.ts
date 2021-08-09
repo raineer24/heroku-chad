@@ -22,7 +22,7 @@ import { Action } from "@ngrx/store";
 import { Actions, Effect, ofType, act } from "@ngrx/effects";
 import * as DevActions from "./user.actions";
 import { User, UserFetch } from "src/app/core/models/";
-import * as fromRoot from "../../store/reducers/index";
+//import * as fromRoot from "../../store/reducers/index";
 import { Store, select, ActionsSubject } from "@ngrx/store";
 import { DevActionTypes } from "src/app/developers/state/dev.action";
 
@@ -34,9 +34,9 @@ export class DevEffects {
     private authService: AuthService,
     private actions$: Actions,
     private router: Router,
-    private alertService: AlertService,
-    private store: Store<fromRoot.AppState>
-  ) {}
+    private alertService: AlertService
+  ) //  private store: Store<fromRoot.AppState>
+  {}
 
   // @Effect()
   // UpdateProfile$: Observable<any> = this.actions$.pipe(

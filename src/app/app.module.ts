@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToastrModule } from "ngx-toastr";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
-import { reducers } from "./store/reducers";
+//import { reducers } from "./store/reducers";
 import { AuthEffects } from "./auth/state/auth.effects";
 import {
   MatCardModule,
@@ -41,10 +41,12 @@ import { LoadingService } from "./shared/layout/loading/loading.service";
 import { EffectsModule } from "@ngrx/effects";
 
 import { clearState } from "./clear.reducer";
+import { MyAppModule } from "./localStorageSyncReducer";
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    MyAppModule,
     BrowserModule,
     //EffectsModule.forRoot([]),
     AppRoutingModule,

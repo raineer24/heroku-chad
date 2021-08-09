@@ -39,7 +39,7 @@ import {
 /* NgRx */
 import { StoreModule } from "@ngrx/store";
 //import { reducer } from "./state/post.reducer";
-import { userReducer } from "../admin/state/user.reducer";
+//import { userReducer } from "../admin/state/user.reducer";
 import { AuthService } from "../core/services/user.service";
 import { EffectsModule } from "@ngrx/effects";
 import { DevEffects } from "../admin/state/user.effects";

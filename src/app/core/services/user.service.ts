@@ -297,36 +297,11 @@ export class AuthService {
     return localStorage.getItem("token");
   }
 
-  // login(email: string, password: string): Observable<any> {
-  //   const json = JSON.stringify({ email: email, password: password });
-  //   const url = `${this.baseUrl}/api/v2/users/login`;
-  //   //const url = `api/v2/users/login`;
-  //   return this.http.post<User>(url, json, { headers: this.headers }).pipe(
-  //     map((user) => {
-  //       //   console.log(user);
-
-  //       if (user && user.token) {
-  //         //  console.log("user", user);
-
-  //         // store user details and jwt token in local storage to keep user logged in between page refreshes
-  //         localStorage.setItem("currentUser", JSON.stringify(user));
-
-  //         this.currentUserSubject.next(user);
-  //       }
-
-  //       return user;
-  //     }),
-  //     catchError((err: HttpErrorResponse) => {
-  //       return throwError(err);
-  //     })
-  //   );
-  // }
-
-  login(data: ILoginUser): Observable<any> {
-    //const json = JSON.stringify({ email: email, password: password });
+  login(email: string, password: string): Observable<any> {
+    const json = JSON.stringify({ email: email, password: password });
     const url = `${this.baseUrl}/api/v2/users/login`;
     //const url = `api/v2/users/login`;
-    return this.http.post<User>(url, data, { headers: this.headers }).pipe(
+    return this.http.post<User>(url, json, { headers: this.headers }).pipe(
       map((user) => {
         //   console.log(user);
 
@@ -346,6 +321,31 @@ export class AuthService {
       })
     );
   }
+
+  // login(data: ILoginUser): Observable<any> {
+  //   //const json = JSON.stringify({ email: email, password: password });
+  //   const url = `${this.baseUrl}/api/v2/users/login`;
+  //   //const url = `api/v2/users/login`;
+  //   return this.http.post<User>(url, data, { headers: this.headers }).pipe(
+  //     map((user) => {
+  //       //   console.log(user);
+
+  //       if (user && user.token) {
+  //         //  console.log("user", user);
+
+  //         // store user details and jwt token in local storage to keep user logged in between page refreshes
+  //         localStorage.setItem("currentUser", JSON.stringify(user));
+
+  //         this.currentUserSubject.next(user);
+  //       }
+
+  //       return user;
+  //     }),
+  //     catchError((err: HttpErrorResponse) => {
+  //       return throwError(err);
+  //     })
+  //   );
+  // }
 
   getUser(id: string): Observable<UserFetch> {
     //const url = `${this.apiurl}/${id}`;

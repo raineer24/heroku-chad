@@ -12,7 +12,7 @@ import { first } from "rxjs/operators";
 import { Subscription, BehaviorSubject, Observable } from "rxjs";
 import { User } from "../../../core/models/user";
 import { AlertService } from "../../../core/services/alert.service";
-import * as authActions from "../../state/auth.action";
+import { LogIn } from "../../../store/actions/auth.actions";
 import { HttpErrorResponse } from "@angular/common/http";
 import { map, tap, catchError } from "rxjs/operators";
 import * as fromUser from "../../state/auth.reducer";
@@ -52,7 +52,8 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthService,
     private alertService: AlertService,
     // private store: Store<fromUser.AuthModuleState>,
-    public errorService: ErrorService
+    public errorService: ErrorService,
+    private store: Store<AppState>
   ) {
     this.authenticationService.currentUser.subscribe(
       (x) => (this.currentUser = x)
@@ -107,11 +108,12 @@ export class LoginComponent implements OnInit {
   // }
 
   onSubmit() {
-    // const values = this.loginForm.value;
-    // const payload = {
-    //   email: values.email,
-    //   password: values.password,
-    // };
+    const values = this.loginForm.value;
+    const payload = {
+      email: values.email,
+      password: values.password,
+    };
+    this.store.dispatch(new LogIn(payload));
     // this.store.dispatch(authActions.login({ data: this.data }));
     // this.authenticationService.login(payload.email, payload.password).subscribe(
     //   (data) => {

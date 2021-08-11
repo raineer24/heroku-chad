@@ -11,7 +11,7 @@ import {
   flatMap,
   take,
 } from "rxjs/operators";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { AuthService } from "../../core/services/user.service";
 import {
   AuthActionTypes,
@@ -48,7 +48,12 @@ export class AuthEffects {
     ofType(AuthActionTypes.LOGIN),
     map((action: LogIn) => action.payload),
     switchMap((payload) => {
-      return this.authService.login(payload.email, payload.password);
+      return this.authService.login(payload.email, payload.password).pipe(
+        map((user) => {
+          return new LogInSuccess(user);
+        }),
+        catchError((err) => of(new LogInFailure(err)))
+      );
     })
   );
 

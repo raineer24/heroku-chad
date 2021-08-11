@@ -38,24 +38,24 @@ export class AuthEffects {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  login$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.login),
-      switchMap((action) =>
-        this.authService.login(action.data).pipe(
-          map((res) => {
-            //  this.router.navigate([ROUTES.home.path]);
-            this.router.navigateByUrl("/admin");
-            return AuthActions.loginSuccess({ user: res });
-          }),
-          catchError(() => {
-            // this.popupService.error("Podałeś błędne dane");
-            return of(AuthActions.loginFail());
-          })
-        )
-      )
-    )
-  );
+  // login$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(AuthActions.login),
+  //     switchMap((action) =>
+  //       this.authService.login(action.data).pipe(
+  //         map((res) => {
+  //           //  this.router.navigate([ROUTES.home.path]);
+  //           this.router.navigateByUrl("/admin");
+  //           return AuthActions.loginSuccess({ user: res });
+  //         }),
+  //         catchError(() => {
+  //           // this.popupService.error("Podałeś błędne dane");
+  //           return of(AuthActions.loginFail());
+  //         })
+  //       )
+  //     )
+  //   )
+  // );
 
   register$ = createEffect(() =>
     this.actions$.pipe(

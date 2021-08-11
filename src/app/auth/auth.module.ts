@@ -8,7 +8,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AuthService } from "../core/services/user.service";
 import { AuthGuardService } from "../core/guards/auth-guard.service";
-import { authReducer } from "./state/auth.reducer";
+import { reducer } from "../store/reducers/auth.reducer";
 
 import {
   MatCardModule,
@@ -23,7 +23,7 @@ import {
 import { RegisterComponent } from "./pages";
 import { LoginComponent } from "./pages";
 import { EffectsModule } from "@ngrx/effects";
-import { AuthEffects } from "./state/auth.effects";
+import { AuthEffects } from "../store/effects/auth.effects";
 import { STORE_FEATURES } from "../consts";
 
 /* NgRx */
@@ -32,7 +32,7 @@ import { StoreModule } from "@ngrx/store";
   declarations: [RegisterComponent, LoginComponent],
   imports: [
     CommonModule,
-    StoreModule.forFeature(STORE_FEATURES.auth, authReducer),
+    StoreModule.forFeature(STORE_FEATURES.auth, reducer),
     EffectsModule.forFeature([AuthEffects]),
     AuthRoutingModule,
     MatCardModule,

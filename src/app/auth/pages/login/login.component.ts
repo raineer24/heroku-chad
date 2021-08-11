@@ -108,6 +108,7 @@ export class LoginComponent implements OnInit {
   // }
 
   onSubmit() {
+    console.log("clicked");
     const values = this.loginForm.value;
     const payload = {
       email: values.email,

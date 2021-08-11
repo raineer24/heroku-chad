@@ -18,6 +18,7 @@ import {
   LogIn,
   LogInFailure,
   LogInSuccess,
+  LogOut,
 } from "../actions/auth.actions";
 
 @Injectable()
@@ -74,6 +75,15 @@ export class AuthEffects {
   //       );
   //     })
   //   );
+
+  @Effect({ dispatch: false })
+  public LogOut: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.LOGOUT),
+    tap((user) => {
+      localStorage.removeItem("currentUser");
+      this.router.navigate(["/auth/login"]);
+    })
+  );
 
   @Effect({ dispatch: false })
   LogInSuccess: Observable<any> = this.actions.pipe(

@@ -33,4 +33,23 @@ export class LogOut implements Action {
   readonly type = AuthActionTypes.LOGOUT;
 }
 
+export class SignUp implements Action {
+  readonly type = AuthActionTypes.SIGNUP;
+
+  constructor(public payload: any) {}
+}
+
+export class SignUpSuccess implements Action {
+  readonly type = AuthActionTypes.SIGNUP_SUCCESS;
+
+  constructor(public payload: any) {}
+}
+
+export class SignUpFailure implements Action {
+  readonly const;
+  type = AuthActionTypes.SIGNUP_FAILURE;
+
+  constructor(public payload: any) {}
+}
+
 export type All = LogIn | LogInSuccess | LogInFailure | LogOut | userActions;

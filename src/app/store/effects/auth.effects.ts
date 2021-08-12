@@ -19,6 +19,9 @@ import {
   LogInFailure,
   LogInSuccess,
   LogOut,
+  SignUp,
+  SignUpFailure,
+  SignUpSuccess,
 } from "../actions/auth.actions";
 
 @Injectable()
@@ -68,4 +71,50 @@ export class AuthEffects {
       //  this.notifyService.showError("Email/mot de passe incorrectes", "Erreur");
     })
   );
+
+  @Effect()
+  SignUp: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.SIGNUP),
+    map((action: SignUp) => action.payload),
+    switchMap((payload) => {
+      return this.authService.registerUsers(payload).pipe(
+        map((user) => {
+          console.log("user", user);
+          this.router.navigate(["/auth/login"]);
+          // return new AuthActions.SignUpSuccess({ user });
+          return new SignUpSuccess(user);
+        }),
+        catchError((err) => of(new SignUpFailure(err)))
+      );
+    })
+  );
+
+  @Effect({ dispatch: false })
+  SignUpSuccess: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.SIGNUP_SUCCESS),
+    tap((user) => {
+      localStorage.setItem("token", user.payload.token);
+      this.router.navigateByUrl("/");
+    })
+  );
+
+  @Effect({ dispatch: false })
+  SignUpFailure: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.SIGNUP_FAILURE)
+  );
+
+  // @Effect()
+  // SignUp: Observable<any> = this.actions
+  //   .pipe(ofType(AuthActionTypes.SIGNUP))
+  //   .map((action: SignUp) => action.payload)
+  //   .switchMap((payload) => {
+  //     return this.authService
+  //       .signUp(payload)
+  //       .map((response) => {
+  //         return new SignUpSuccess(response);
+  //       })
+  //       .catch((response) => {
+  //         return Observable.of(new SignUpFailure(response.error));
+  //       });
+  //   });
 }

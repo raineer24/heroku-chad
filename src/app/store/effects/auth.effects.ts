@@ -29,21 +29,6 @@ export class AuthEffects {
     private router: Router
   ) {}
 
-  //   @Effect()
-  //   LogIn: Observable<any> = this.actions
-  //     .pipe(ofType(AuthActionTypes.LOGIN)),
-  //     map((action: LogIn) => action.payload),
-  //     switchMap((payload) => {
-  //       return this.authService
-  //         .logIn(payload.email, payload.password)
-  //         .map((user) => {
-  //           return new LogInSuccess(user);
-  //         })
-  //         .catch((error) => {
-  //           return Observable.of(new LogInFailure({ error: error }));
-  //         });
-  //     });
-
   @Effect()
   LogIn: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGIN),
@@ -57,24 +42,6 @@ export class AuthEffects {
       );
     })
   );
-
-  //   @Effect()
-  //   LogIn: Observable<any> = this.actions$.pipe(
-  //     ofType(AuthActions.AuthActionTypes.LOGIN),
-  //     map((action: AuthActions.LogIn) => action.payload),
-  //     switchMap((payload) => {
-  //       return this.authService.login(payload.email, payload.password).pipe(
-  //         map((user) => {
-  //           // console.log("user", user.token);
-  //           return new AuthActions.LogInSuccess({
-  //             token: user.token,
-  //             email: payload.email,
-  //           });
-  //         }),
-  //         catchError((err) => of(new AuthActions.LoginFail(err)))
-  //       );
-  //     })
-  //   );
 
   @Effect({ dispatch: false })
   public LogOut: Observable<any> = this.actions.pipe(

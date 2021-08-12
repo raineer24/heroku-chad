@@ -6,7 +6,7 @@
     <form class="my-form" [formGroup]="signUpForm" #f="ngForm" (ngSubmit)="onSubmit(f)">
       <mat-label>Profile Picture: </mat-label>
       <img src="https://www.w3schools.com/howto/img_avatar.png" /> <br />
-      <input class="input-file" type="file" (change)="onSubmit($event)" formControlName="image" class="form-control" />
+      <input class="input-file" type="file" (change)="onImageChange($event)" class="form-control" />
       <mat-form-field class="full-width">
         <mat-label>Username</mat-label>
         <input matInput placeholder="Username" name="username" formControlName="username" />

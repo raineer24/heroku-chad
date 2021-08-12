@@ -11,8 +11,9 @@ import { Router } from "@angular/router";
 import { AlertService } from "../../../core/services/alert.service";
 import * as AuthActions from "../../state/auth.action";
 import { Store } from "@ngrx/store";
-import * as fromUser from "../../state/auth.reducer";
+import { SignUp } from "../../../store/actions/auth.actions";
 import { IUser } from "../../../interfaces";
+import { AppState, selectAuthState } from "../../../store/app.states";
 
 @Component({
   selector: "app-register",
@@ -32,7 +33,7 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private alertService: AlertService,
-    private store: Store<fromUser.AuthState>
+    private store: Store<AppState>
   ) {
     this.initForm();
 
@@ -73,26 +74,45 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  onImageChange(event) {
+    const reader = new FileReader();
+    console.log("iimage clicked");
+    console.log("reader", reader);
+
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        this.signUpForm.patchValue({
+          image: reader.result,
+        });
+      };
+    }
+  }
+
   onSubmit(e) {
     const values = this.signUpForm.value;
 
-    if (e.target !== undefined) {
-      // const postData = new FormData();
-      this.fd.append("image", e.target.files[0]);
-      console.log("fd", this.fd.get("image"));
+    // if (e.target !== undefined) {
+    //   // const postData = new FormData();
+    //   this.fd.append("image", e.target.files[0]);
+    //   console.log("fd", this.fd.get("image"));
 
-      return (this.signUpForm.value.image = this.fd);
-      //console.log("value signup form data", postData);
-    }
-    this.fd.append("email", this.signUpForm.value.email);
-    this.fd.append("password", this.signUpForm.value.password);
-    this.fd.append("username", this.signUpForm.value.username);
-    this.fd.append("first_name", this.signUpForm.value.first_name);
-    this.fd.append("password2", this.signUpForm.value.password2);
+    //   return (this.signUpForm.value.image = this.fd);
+    //   //console.log("value signup form data", postData);
+    // }
+    // this.fd.append("email", this.signUpForm.value.email);
+    // this.fd.append("password", this.signUpForm.value.password);
+    // this.fd.append("username", this.signUpForm.value.username);
+    // this.fd.append("first_name", this.signUpForm.value.first_name);
+    // this.fd.append("password2", this.signUpForm.value.password2);
 
-    console.log("email", this.signUpForm.value.email);
+    // console.log("email", this.signUpForm.value.email);
 
     if (this.signUpForm.valid) {
+      const payload = this.signUpForm.getRawValue();
+      this.store.dispatch(new SignUp(payload));
       // const data = {
       //   email: values.email, // this.fd.append("image", e.target.files[0]);
       // return (this.signUpForm.value.image = this.fd);
@@ -114,8 +134,8 @@ export class RegisterComponent implements OnInit {
       //   );
       // }
 
-      console.log("value.image", this.signUpForm.value.image);
-      console.log("value signup form", this.signUpForm.value);
+      // console.log("value.image", this.signUpForm.value.image);
+      // console.log("value signup form", this.signUpForm.value);
       // this.store.dispatch(
       //   AuthActions.register({
       //     data: { this.signUpForm.value.email ,this.fd},

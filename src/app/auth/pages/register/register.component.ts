@@ -74,85 +74,41 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  onImageChange(event) {
-    const reader = new FileReader();
-    console.log("iimage clicked");
-    console.log("reader", reader);
-
-    if (event.target.files && event.target.files.length) {
-      const file = event.target.files[0];
-      reader.readAsDataURL(file);
-
-      reader.onload = () => {
-        this.signUpForm.patchValue({
-          image: reader.result,
-        });
-      };
-    }
-  }
-
   onSubmit(e) {
     const values = this.signUpForm.value;
 
-    // if (e.target !== undefined) {
-    //   // const postData = new FormData();
-    //   this.fd.append("image", e.target.files[0]);
-    //   console.log("fd", this.fd.get("image"));
-
-    //   return (this.signUpForm.value.image = this.fd);
-    //   //console.log("value signup form data", postData);
-    // }
-    // this.fd.append("email", this.signUpForm.value.email);
-    // this.fd.append("password", this.signUpForm.value.password);
-    // this.fd.append("username", this.signUpForm.value.username);
-    // this.fd.append("first_name", this.signUpForm.value.first_name);
-    // this.fd.append("password2", this.signUpForm.value.password2);
-
-    // console.log("email", this.signUpForm.value.email);
-
     if (this.signUpForm.valid) {
-      const payload = this.signUpForm.getRawValue();
-      this.store.dispatch(new SignUp(payload));
-      // const data = {
-      //   email: values.email, // this.fd.append("image", e.target.files[0]);
-      // return (this.signUpForm.value.image = this.fd);
-      //   password: values.password,
-      // };
-      //  this.store.dispatch(AuthActions.register(this.fd));
-
-      // if (e.target !== undefined) {
-      //   const postData = new FormData();
-      //   postData.append("image", e.target.files[0]);
-      //   console.log("fd", postData.get("image"));
-
-      //   // return (this.signUpForm.value.image = this.fd);\
-      //   console.log("value signup form data", postData);
-      //   this.store.dispatch(
-      //     AuthActions.register({
-      //       data: this.fd,
-      //     })
-      //   );
-      // }
-
-      // console.log("value.image", this.signUpForm.value.image);
-      // console.log("value signup form", this.signUpForm.value);
-      // this.store.dispatch(
-      //   AuthActions.register({
-      //     data: { this.signUpForm.value.email ,this.fd},
-      //   })
-      // );
-      // this.registerSubs = this.authService.registerUsers(this.fd).subscribe(
-      //   (data) => {
-      //     this.fd = new FormData();
-      //     console.log(this.fd);
-      //     this.alertService.success("Registration successful", true);
-      //     this.router.navigate(["/auth/login"]);
-      //   },
-      //   (error) => {
-      //     this.alertService.error(error);
-      //     // this.loading = false;
-      //   }
-      // );
+      //const payload = this.signUpForm.getRawValue();
+      const formData: FormData = this.formattingData(
+        this.signUpForm.getRawValue()
+      );
+      this.store.dispatch(new SignUp(formData));
     }
+  }
+
+  formattingData(payload): FormData {
+    const formData = new FormData();
+    // Object.entries(payload).forEach(([key, value]) => formData.append(key, payload[key]));
+
+    formData.append("email", payload.email);
+    formData.append("username", payload.username);
+    formData.append("firstName", payload.first_name);
+    formData.append("password2", payload.password2);
+    formData.append("password", payload.password);
+    // if (payload.height && payload.weight) {
+    //   formData.append(
+    //     "detail",
+    //     JSON.stringify({
+    //       height: payload.height ? payload.height : "N/C",
+    //       weight: payload.weight ? payload.weight : "N/C",
+    //     })
+    //   );
+    // }
+
+    // if (payload.profilePicture !== null) {
+    //   formData.append('profilePicture', payload.profilePicture, payload.profilePicture.name);
+    // }
+    console.log(formData);
+    return formData;
   }
 }

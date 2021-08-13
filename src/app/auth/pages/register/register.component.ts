@@ -73,6 +73,20 @@ export class RegisterComponent implements OnInit {
       password2: [null, Validators.required],
     });
   }
+  onImageChange(event) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      reader.readAsDataURL(file);
+      //this.signUpForm.get("image").setValue(file);
+      reader.onload = () => {
+        // this.signUpForm.patchValue({
+        //   image: reader.result,
+        // });
+        this.signUpForm.get("image").setValue(reader.result);
+      };
+    }
+  }
 
   onSubmit(e) {
     const values = this.signUpForm.value;
@@ -82,7 +96,12 @@ export class RegisterComponent implements OnInit {
       const formData: FormData = this.formattingData(
         this.signUpForm.getRawValue()
       );
+
+      formData.forEach((value, key) => {
+        console.log(key + " " + value);
+      });
       this.store.dispatch(new SignUp(formData));
+      console.log("formData", formData);
     }
   }
 
@@ -95,6 +114,7 @@ export class RegisterComponent implements OnInit {
     formData.append("firstName", payload.first_name);
     formData.append("password2", payload.password2);
     formData.append("password", payload.password);
+    formData.append("image", payload.image);
     // if (payload.height && payload.weight) {
     //   formData.append(
     //     "detail",

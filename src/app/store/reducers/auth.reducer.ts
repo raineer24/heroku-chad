@@ -30,6 +30,17 @@ export function reducer(state = initialState, action: All): State {
     case AuthActionTypes.LOGOUT: {
       return initialState;
     }
+    case AuthActionTypes.SIGNUP_SUCCESS: {
+      return {
+        ...state,
+      };
+    }
+    case AuthActionTypes.SIGNUP_FAILURE: {
+      console.log(action.payload);
+      return {
+        ...state,
+      };
+    }
 
     default: {
       return state;

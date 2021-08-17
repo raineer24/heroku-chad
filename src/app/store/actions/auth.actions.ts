@@ -52,4 +52,12 @@ export class SignUpFailure implements Action {
   constructor(public payload: any) {}
 }
 
-export type All = LogIn | LogInSuccess | LogInFailure | LogOut | userActions;
+export type All =
+  | LogIn
+  | LogInSuccess
+  | LogInFailure
+  | LogOut
+  | userActions
+  | SignUp
+  | SignUpSuccess
+  | SignUpFailure;

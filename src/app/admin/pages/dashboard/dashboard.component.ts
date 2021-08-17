@@ -18,7 +18,7 @@ import { MatTableDataSource } from "@angular/material/table";
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   data: Observable<any>;
-  users$: User[];
+  // users$: User[];
   destroyed$ = new Subject<boolean>();
   title = "";
   currentUser: any;

@@ -10,7 +10,7 @@ export const initialState: State = {
   selectedUser: null,
   userList: [],
 };
-export function reducer(state = initialState, action: All): State {
+export function userReducer(state = initialState, action: All): State {
   switch (action.type) {
     case UserActionTypes.LOAD_SUCCESS: {
       return {

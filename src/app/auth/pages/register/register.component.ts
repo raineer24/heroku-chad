@@ -12,7 +12,7 @@ import { AlertService } from "../../../core/services/alert.service";
 import * as AuthActions from "../../state/auth.action";
 import { Store } from "@ngrx/store";
 import { SignUp } from "../../../store/actions/auth.actions";
-import { IUser } from "../../../interfaces";
+//import { IUser } from "../../../interfaces";
 import { AppState, selectAuthState } from "../../../store/app.states";
 
 @Component({
@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
   registerSubs: Subscription;
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$";
   fd = new FormData();
-  profile: IUser;
+  //profile: IUser;
   sendForm: FormGroup;
 
   constructor(

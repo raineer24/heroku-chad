@@ -3,6 +3,7 @@ import { UserFetch, Experience, User } from "../../../core/models/";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select, ActionsSubject } from "@ngrx/store";
 import { ofType } from "@ngrx/effects";
+import { selectUserState } from "../../../store/app.states";
 //import * as fromRoot from "../../../store/reducers";
 //import * as fromUser from "../../state/user.reducer";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -11,6 +12,7 @@ import { Subscription, Observable, of, Subject, from } from "rxjs";
 import { skipWhile, skip, take, filter, takeUntil } from "rxjs/operators";
 import { MatTableDataSource } from "@angular/material/table";
 //import { getCurrentUser, getAllUsers } from "../../state/user.reducer";
+import { AppState } from "../../../store/app.states";
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -18,6 +20,7 @@ import { MatTableDataSource } from "@angular/material/table";
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   data: Observable<any>;
+  user$: Observable<any>;
   // users$: User[];
   destroyed$ = new Subject<boolean>();
   title = "";
@@ -40,11 +43,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<boolean>();
   constructor(
     private authenticationService: AuthService,
-    // private store: Store<fromRoot.AppState>,
+    private store: Store<AppState>,
     private router: Router,
     private actionsSubj: ActionsSubject,
     private route: ActivatedRoute
   ) {
+    this.user$ = this.store.select(selectUserState);
     // this.data = this.store.select(fromRoot.selectUserListState$);
     // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
     //   (user) => {

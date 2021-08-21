@@ -1,4 +1,4 @@
-import { All, UserActionTypes } from "../actions/user.actions";
+import * as userActions from "../actions/user.actions";
 import { User } from "../../core/models";
 
 export interface State {
@@ -19,19 +19,36 @@ export interface State {
 export const initialState: State = {
   userInfo: {
     id: 0,
-    email: ""
+    email: "",
   },
   isLoading: false,
   showError: false,
   error: "",
 };
-// export function userReducer(state = initialState, action: All): State {
-//   switch (action.type) {
-//     case UserActionTypes.LOAD_SUCCESS: {
-//       return {
-//         ...state,
-//         selectedUser: action.payload,
-//       };
-//     }
-//   }
+
+export function reducer(state = initialState, action): State {
+  switch (action.type) {
+    case userActions.UserActionTypes.GET_USER:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case userActions.UserActionTypes.GET_USER_SUCCESS:
+      //action.payload.profileImageUrl += '?'+ new Date().getMilliseconds();
+      return {
+        ...state,
+        userInfo: action.payload,
+        isLoading: false,
+      };
+    case userActions.UserActionTypes.GET_USER_FAIL:
+      return {
+        ...state,
+        showError: true,
+        error: "Oopss.. an error has occured.",
+        isLoading: false,
+      };
+    default: {
+      return state;
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import * as userActions from "../actions/user.actions";
 import { User } from "../../core/models";
+import { createSelector, createFeatureSelector } from "@ngrx/store";
 
 export interface State {
   userInfo: User;
@@ -52,3 +53,5 @@ export function reducer(state = initialState, action): State {
     }
   }
 }
+
+export const getUserState = createFeatureSelector<State>("user");

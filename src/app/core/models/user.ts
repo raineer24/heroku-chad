@@ -9,4 +9,6 @@ export interface User {
   user_profile?: Array<any>;
   // user_profile: EntityState<UserFetch>;
   bio?: string;
+  username: string;
+  first_name: string;
 }

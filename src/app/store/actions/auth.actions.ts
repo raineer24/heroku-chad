@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { All as userActions } from "./user.actions";
+//import { All as userActions } from "./user.actions";
 
 export enum AuthActionTypes {
   LOGIN = "[Auth] Login",
@@ -57,7 +57,6 @@ export type All =
   | LogInSuccess
   | LogInFailure
   | LogOut
-  | userActions
   | SignUp
   | SignUpSuccess
   | SignUpFailure;

@@ -40,7 +40,7 @@ import { STORE_FEATURES } from "../consts";
 /* NgRx */
 import { StoreModule } from "@ngrx/store";
 //import { reducer } from "./state/post.reducer";
-import { userReducer } from "../store/reducers/user.reducer";
+import { reducer } from "../store/reducers/user.reducer";
 import { AuthService } from "../core/services/user.service";
 import { EffectsModule } from "@ngrx/effects";
 import { DevEffects } from "../admin/state/user.effects";
@@ -63,7 +63,7 @@ import { DevEffects } from "../admin/state/user.effects";
   imports: [
     AdminRoutingModule,
     // StoreModule.forFeature(STORE_FEATURES.posts, userReducer),
-    StoreModule.forFeature(STORE_FEATURES.user, userReducer),
+    StoreModule.forFeature(STORE_FEATURES.user, reducer),
     EffectsModule.forFeature([DevEffects]),
     MatCardModule,
     MatToolbarModule,

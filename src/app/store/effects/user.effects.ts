@@ -10,6 +10,7 @@ import {
   concatMap,
   flatMap,
   take,
+  withLatestFrom,
 } from "rxjs/operators";
 import { Action, Store} from '@ngrx/store';
 import { Observable, of } from "rxjs";
@@ -45,14 +46,33 @@ export class AuthEffects {
 //     })
 //   );
 
+//   getDoc$ = createEffect(() => {
+//     return this.actions$.pipe(
+//       ofType(fromDocs.getDocument),
+//       switchMap(action =>
+//         of(action).pipe(
+//           withLatestFrom(
+//             this.store.select(fromDocs.getById, { id: action.payload.id })
+//           ),
+//           map(([action, latest]) => {
+//             return fromDocs.someAction();
+//           })
+//         )
+//       )
+//     );
+//   });
+
   @Effect() onGetUserInfo$ = this.actions.pipe(
-      ofType(userInfoActions.UserActionTypes.GET_USER)
+      ofType(userInfoActions.UserActionTypes.GET_USER),
+      switchMap(action => of(action).pipe(
+          withLatestFrom(this.store.select((u => u["user"])))
+      ))
   )
     // .ofType<userInfoActions.GetUserAction>(
     //   userInfoActions.UserActionTypes.GET_USER
     // )
-    withLatestFrom(this.store.select((p) => p["profile"]))
-    .mergeMap(([action, state]) => {
+    
+    mergeMap(([action, state]) => {
       // If Username Is not changed dont fetch data
       if (state.userInfo.userInfo.username === action.payload.userName) {
         return Observable.of({ type: "NO_ACTION" });

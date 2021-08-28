@@ -21,6 +21,8 @@ export const initialState: State = {
   userInfo: {
     id: 0,
     email: "",
+    username: "",
+    first_name: "",
   },
   isLoading: false,
   showError: false,

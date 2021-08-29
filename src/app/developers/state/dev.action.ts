@@ -20,7 +20,7 @@ export class loadDevelopersSuccessAction implements Action {
   constructor(public payload: any) {}
 }
 
-export class loadDevelopersFail implements Action {
+export class loadDevelopersFail implements Action {A
   readonly type = DevActionTypes.LOAD_DEVELOPERS_FAIL;
 
   constructor(public payload: any) {}

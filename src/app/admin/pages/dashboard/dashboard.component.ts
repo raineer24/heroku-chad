@@ -13,6 +13,10 @@ import { skipWhile, skip, take, filter, takeUntil } from "rxjs/operators";
 import { MatTableDataSource } from "@angular/material/table";
 //import { getCurrentUser, getAllUsers } from "../../state/user.reducer";
 import { State } from "../../../store/reducers/user.reducer";
+import {
+  UserActions,
+  GetUserAction,
+} from "../../../store/actions/user.actions";
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -30,15 +34,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
   //users: User[] = [];
   // profile$: Observable<UserFetch>;
   profile$: Observable<UserFetch>;
-  userData: {
-    first_name: string;
-  };
+  // userData: {
+  //   first_name: string;
+  // };
   isAddMode: boolean;
   public dataSource: MatTableDataSource<UserFetch>;
   displayedColumns = ["email", "username"];
   //public noData: Observable<UserFetch>;
   //public noData: UserFetch;
   public noData: UserFetch[] = [<UserFetch>{}];
+  userData: {
+    id: number;
+    email: string;
+    lastName: string;
+    firstName: string;
+    gender: string;
+    mobileNumber: string;
+    birthdate: string;
+  };
 
   statusArray: any;
   destroy$ = new Subject<boolean>();
@@ -106,6 +119,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.userData = JSON.parse(localStorage.getItem("currentUser"));
+    console.log("userData", typeof this.userData["user"].id);
+
+    this.store.dispatch(new GetUserAction({ id: this.userData["user"].id }));
     // this.data = this.store.pipe(select(fromUser.getCurrentUser));
     // this.data.subscribe((users) => {
     //   console.log("USERS:", users);

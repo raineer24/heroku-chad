@@ -19,7 +19,6 @@ import { AuthService } from "../../core/services/user.service";
 import { State } from "../reducers/user.reducer";
 
 import * as userInfoActions from "../actions/user.actions";
-import { userInfo } from "os";
 
 @Injectable()
 export class AuthEffects {
@@ -101,7 +100,8 @@ export class AuthEffects {
         return of({ type: "NO_ACTION" });
       }
       return this.authService.getUser(action.payload.id).pipe(
-        concatMap((data) => {
+        map((data) => {
+          console.log("data", data);
           return from([
             { type: "CLEAR_PROFILE_STATE" },
             new userInfoActions.GetUserSuccessAction(data),

@@ -57,3 +57,7 @@ export function reducer(state = initialState, action): State {
 }
 
 export const getUserState = createFeatureSelector<State>("user");
+export const getUserInfoState = createSelector(
+  getUserState,
+  (state) => state.userInfo
+);

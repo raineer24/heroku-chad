@@ -350,13 +350,36 @@ export class AuthService {
   getUser(id: number): Observable<any> {
     //const url = `${this.apiurl}/${id}`;
     // return this.http.get<User>(`${baseUrl}/${id}`);
-    const url = `${this.baseUrl}/api/v2/users/profile/${id}`;
+    const url = `${this.baseUrl}/api/v2/users/${id}`;
+
+    // return this.http.get<any>(url).pipe(
+    //   map((user) => {
+    //     console.log("USER SKILL SEST: ", user);
+    //     // console.log("user", user["user"].user_skill_set[0]);
+
+    //     let areas_of_expertise = user["user"].user_skill_set[0].skills[0];
+    //     // user.forEach((eachData) => {
+    //     //   // console.log('Employee Name ---> ',eachData.addEmployee.firstName);
+    //     //   // eachData.attendances.forEach(atten => {
+    //     //   //   console.log('attendance Object -->',atten);
+
+    //     //   //  return Object.assign({}, json, { skills });
+    //     //   console.log("foreach", eachData);
+    //     // });
+    //     console.log(Object.assign({}, user["user"], { areas_of_expertise }));
+    //     return Object.assign({}, user["user"], { areas_of_expertise });
+
+    //     //return user["user"];
+    //   }),
+    //   catchError(this.errorMgmt)
+    // );
+
     return this.http.get<any>(url).pipe(
       map((user) => {
         console.log("USER SKILL SEST: ", user);
-        console.log("user", user["user"].user_skill_set[0]);
+        // console.log("user", user["user"].user_skill_set[0]);
 
-        let areas_of_expertise = user["user"].user_skill_set[0].skills[0];
+        // let areas_of_expertise = user["user"].user_skill_set[0].skills[0];
         // user.forEach((eachData) => {
         //   // console.log('Employee Name ---> ',eachData.addEmployee.firstName);
         //   // eachData.attendances.forEach(atten => {
@@ -365,10 +388,10 @@ export class AuthService {
         //   //  return Object.assign({}, json, { skills });
         //   console.log("foreach", eachData);
         // });
-        console.log(Object.assign({}, user["user"], { areas_of_expertise }));
-        return Object.assign({}, user["user"], { areas_of_expertise });
+        // console.log(Object.assign({}, user["user"], { areas_of_expertise }));
+        // return Object.assign({}, user["user"], { areas_of_expertise });
 
-        //return user["user"];
+        return user["user"];
       }),
       catchError(this.errorMgmt)
     );

@@ -21,7 +21,7 @@ import { State } from "../reducers/user.reducer";
 import * as userInfoActions from "../actions/user.actions";
 
 @Injectable()
-export class AuthEffects {
+export class UserEffects {
   constructor(
     private actions: Actions,
     private authService: AuthService,
@@ -95,12 +95,24 @@ export class AuthEffects {
     ),
     debounceTime(0),
     withLatestFrom(this.store.select((p) => p["userInfo"])),
-    mergeMap(([action, state]) => {
-      if (state.id === action.payload.id) {
-        return of({ type: "NO_ACTION" });
-      }
+    switchMap(([action, state]) => {
+      // if (state.id === action.payload.id) {
+      //   return of({ type: "NO_ACTION" });
+      // }
+      // return this.authService.getUser(action.payload.id).pipe(
+      //   concatMap((data) => {
+      //     console.log("data", data.value);
+      //     return from([
+      //       { type: "CLEAR_PROFILE_STATE" },
+      //       new userInfoActions.GetUserSuccessAction(data),
+      //     ]);
+      //   }),
+      //   catchError((err) =>
+      //     of(new userInfoActions.GetUserFailAction({ showError: true }))
+      //   )
+      // );
       return this.authService.getUser(action.payload.id).pipe(
-        map((data) => {
+        concatMap((data) => {
           console.log("data", data);
           return from([
             { type: "CLEAR_PROFILE_STATE" },

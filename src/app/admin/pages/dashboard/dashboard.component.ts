@@ -1,4 +1,9 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+} from "@angular/core";
 import { UserFetch, Experience, User } from "../../../core/models/";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select, ActionsSubject } from "@ngrx/store";
@@ -12,19 +17,22 @@ import { Subscription, Observable, of, Subject, from } from "rxjs";
 import { skipWhile, skip, take, filter, takeUntil } from "rxjs/operators";
 import { MatTableDataSource } from "@angular/material/table";
 //import { getCurrentUser, getAllUsers } from "../../state/user.reducer";
-import { State } from "../../../store/reducers/user.reducer";
+import { State, getUserInfoState } from "../../../store/reducers/user.reducer";
 import {
   UserActions,
   GetUserAction,
+  UserActionTypes,
 } from "../../../store/actions/user.actions";
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   data: Observable<any>;
-  user$: Observable<any>;
+  user$: Observable<User>;
+  userInfo$: Observable<User>;
   userId: string;
   // users$: User[];
   destroyed$ = new Subject<boolean>();
@@ -62,7 +70,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private actionsSubj: ActionsSubject,
     private route: ActivatedRoute
   ) {
-    this.user$ = this.store.select(selectUserState);
+    this.userData = JSON.parse(localStorage.getItem("currentUser"));
+    console.log("userData", this.userData["user"].id);
+
+    this.store.dispatch(new GetUserAction({ id: this.userData["user"].id }));
+    this.userInfo$ = this.store.select((str) => str.userInfo);
+    //  this.userInfo$ = this.store.select((str) => str.userInfo);
+
+    console.log("userInfo$", this.userInfo$);
+    //  this.user$ = this.store.select(selectUserState);
     // this.data = this.store.select(fromRoot.selectUserListState$);
     // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
     //   (user) => {
@@ -80,15 +96,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const route$ = this.route.params.subscribe((params) => {
       console.log("params", params);
       this.userId = params["userId"];
-      if (params.id.length > 0) {
-        //this.store.dispatch(new DevActions.LoadProfileBegin(params.id));
-      }
+      // if (params.id.length > 0) {
+      //   //this.store.dispatch(new DevActions.LoadProfileBegin(params.id));
+      // }
     });
 
     // this.store.dispatch(new DevActions.LoadProfileBegin());
     this.actionsSubj
       .pipe(
-        ofType(DevActions.DevActionTypes.LOAD_DEVELOPER_SUCCESS),
+        ofType(UserActionTypes.GET_USER_SUCCESS),
         takeUntil(this.destroyed$)
       )
       .subscribe((data) => {
@@ -96,7 +112,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         console.log("data", data["payload"]);
         /* hooray, success, show notification alert etc.. */
         // console.log("DATA", data["payload"]);
-        this.noData = data["payload"];
+        this.user$ = data["payload"];
+        console.log("nodata", this.user$);
         //  console.log("thisnodata", this.noData["entities"]["users"]);
         // // this.initializeData(data["payload"]);
         // this.dataSource = new MatTableDataSource(this.noData);
@@ -119,10 +136,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.userData = JSON.parse(localStorage.getItem("currentUser"));
-    console.log("userData", typeof this.userData["user"].id);
-
-    this.store.dispatch(new GetUserAction({ id: this.userData["user"].id }));
     // this.data = this.store.pipe(select(fromUser.getCurrentUser));
     // this.data.subscribe((users) => {
     //   console.log("USERS:", users);

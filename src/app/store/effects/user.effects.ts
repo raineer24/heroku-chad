@@ -14,7 +14,7 @@ import {
   debounceTime,
 } from "rxjs/operators";
 import { Action, Store } from "@ngrx/store";
-import { combineLatest, Observable, of } from "rxjs";
+import { combineLatest, from, Observable, of } from "rxjs";
 import { AuthService } from "../../core/services/user.service";
 import { State } from "../reducers/user.reducer";
 
@@ -63,25 +63,25 @@ export class AuthEffects {
   //     );
   //   });
 
-  @Effect()
-  getInventory$ = this.actions$.pipe(
-    ofType(GET_INVENTORY),
-    mergeMap((action) =>
-      combineLatest(
-        of(action),
-        this.store$.pipe(
-          select(getIsStoreInventoryLoaded, { branchId: action.branchId })
-        )
-      )
-    ),
-    tap(([action, loaded]) => {
-      // The rest of your code...
-    })
-  );
+  // @Effect()
+  // getInventory$ = this.actions$.pipe(
+  //   ofType(GET_INVENTORY),
+  //   mergeMap((action) =>
+  //     combineLatest(
+  //       of(action),
+  //       this.store$.pipe(
+  //         select(getIsStoreInventoryLoaded, { branchId: action.branchId })
+  //       )
+  //     )
+  //   ),
+  //   tap(([action, loaded]) => {
+  //     // The rest of your code...
+  //   })
+  // );
 
   // @Effect()
   //   getSomething$ = this.actions$.pipe(
-  //       ofType<GetMyRecords>(MyType.GET_RECORDS),
+  //       ofType<GetMyRecords>(MyType.GET_RECORDS),bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
   //       debounceTime(0),
   //       withLatestFrom(this.store.select(getId)),
   //       switchMap(([action, id]) => {
@@ -91,16 +91,27 @@ export class AuthEffects {
   //   );
 
   @Effect() onGetUserInfo = this.actions.pipe(
-    ofType(userInfoActions.UserActionTypes.GET_USER),
+    ofType<userInfoActions.GetUserAction>(
+      userInfoActions.UserActionTypes.GET_USER
+    ),
     debounceTime(0),
-    withLatestFrom(
-      this.store.select((p) => p["userInfo"]),
-      mergeMap(([action, state]) => {
-        if (state.userInfo.userInfo.username === action.payload.userName) {
-          return of({ type: "NO_ACTION" });
-        }
-      })
-    )
+    withLatestFrom(this.store.select((p) => p["userInfo"])),
+    mergeMap(([action, state]) => {
+      if (state.id === action.payload.id) {
+        return of({ type: "NO_ACTION" });
+      }
+      return this.authService.getUser(action.payload.id).pipe(
+        concatMap((data) => {
+          return from([
+            { type: "CLEAR_PROFILE_STATE" },
+            new userInfoActions.GetUserSuccessAction(data),
+          ]);
+        }),
+        catchError((err) =>
+          of(new userInfoActions.GetUserFailAction({ showError: true }))
+        )
+      );
+    })
   );
   //   @Effect() onGetUserInfo$ = this.actions$
   //     .ofType<userInfoActions.GetUserAction>(

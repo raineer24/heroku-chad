@@ -347,7 +347,7 @@ export class AuthService {
   //   );
   // }
 
-  getUser(id: string): Observable<UserFetch> {
+  getUser(id: string): Observable<any> {
     //const url = `${this.apiurl}/${id}`;
     // return this.http.get<User>(`${baseUrl}/${id}`);
     const url = `${this.baseUrl}/api/v2/users/profile/${id}`;

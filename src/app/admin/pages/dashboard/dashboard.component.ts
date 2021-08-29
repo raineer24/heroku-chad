@@ -12,7 +12,7 @@ import { Subscription, Observable, of, Subject, from } from "rxjs";
 import { skipWhile, skip, take, filter, takeUntil } from "rxjs/operators";
 import { MatTableDataSource } from "@angular/material/table";
 //import { getCurrentUser, getAllUsers } from "../../state/user.reducer";
-import { AppState } from "../../../store/app.states";
+import { State } from "../../../store/reducers/user.reducer";
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -21,6 +21,7 @@ import { AppState } from "../../../store/app.states";
 export class DashboardComponent implements OnInit, OnDestroy {
   data: Observable<any>;
   user$: Observable<any>;
+  userId: string;
   // users$: User[];
   destroyed$ = new Subject<boolean>();
   title = "";
@@ -43,7 +44,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<boolean>();
   constructor(
     private authenticationService: AuthService,
-    private store: Store<AppState>,
+    private store: Store<State>,
     private router: Router,
     private actionsSubj: ActionsSubject,
     private route: ActivatedRoute
@@ -65,6 +66,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     const route$ = this.route.params.subscribe((params) => {
       console.log("params", params);
+      this.userId = params["userId"];
       if (params.id.length > 0) {
         //this.store.dispatch(new DevActions.LoadProfileBegin(params.id));
       }

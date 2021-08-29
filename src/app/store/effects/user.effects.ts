@@ -11,13 +11,15 @@ import {
   flatMap,
   take,
   withLatestFrom,
+  debounceTime,
 } from "rxjs/operators";
 import { Action, Store } from "@ngrx/store";
-import { Observable, of } from "rxjs";
+import { combineLatest, Observable, of } from "rxjs";
 import { AuthService } from "../../core/services/user.service";
 import { State } from "../reducers/user.reducer";
 
 import * as userInfoActions from "../actions/user.actions";
+import { userInfo } from "os";
 
 @Injectable()
 export class AuthEffects {
@@ -77,6 +79,29 @@ export class AuthEffects {
     })
   );
 
+  // @Effect()
+  //   getSomething$ = this.actions$.pipe(
+  //       ofType<GetMyRecords>(MyType.GET_RECORDS),
+  //       debounceTime(0),
+  //       withLatestFrom(this.store.select(getId)),
+  //       switchMap(([action, id]) => {
+  //           this.log.debug('Get ID', id);
+  //           ... calling my service here
+  //       })
+  //   );
+
+  @Effect() onGetUserInfo = this.actions.pipe(
+    ofType(userInfoActions.UserActionTypes.GET_USER),
+    debounceTime(0),
+    withLatestFrom(
+      this.store.select((p) => p["userInfo"]),
+      mergeMap(([action, state]) => {
+        if (state.userInfo.userInfo.username === action.payload.userName) {
+          return of({ type: "NO_ACTION" });
+        }
+      })
+    )
+  );
   //   @Effect() onGetUserInfo$ = this.actions$
   //     .ofType<userInfoActions.GetUserAction>(
   //       userInfoActions.UserActionTypes.GET_USER

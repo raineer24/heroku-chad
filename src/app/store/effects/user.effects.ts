@@ -29,66 +29,6 @@ export class UserEffects {
     private store: Store<State>
   ) {}
 
-  //   @Effect({ dispatch: false })
-  //   loadProfile$: Observable<any> = this.actions$.pipe(
-  //     ofType(AuthActions.AuthActionTypes.LOAD_PROFILE_BEGIN),
-
-  //     switchMap(() => {
-  //       return this.authService.currentUser.pipe(
-  //         take(1),
-  //         map((data) => {
-  //           console.log("map effect");
-  //           return new AuthActions.LoadProfileSuccess(data);
-  //           //return new userActions.LoadProfileSuccess(data["user"]);
-  //         }),
-  //         catchError((error) => of(new AuthActions.LoadProfileFailure(error)))
-  //       );
-  //     })
-  //   );
-
-  //   getDoc$ = createEffect(() => {
-  //     return this.actions$.pipe(
-  //       ofType(fromDocs.getDocument),
-  //       switchMap(action =>
-  //         of(action).pipe(
-  //           withLatestFrom(
-  //             this.store.select(fromDocs.getById, { id: action.payload.id })
-  //           ),
-  //           map(([action, latest]) => {
-  //             return fromDocs.someAction();
-  //           })
-  //         )
-  //       )
-  //     );
-  //   });
-
-  // @Effect()
-  // getInventory$ = this.actions$.pipe(
-  //   ofType(GET_INVENTORY),
-  //   mergeMap((action) =>
-  //     combineLatest(
-  //       of(action),
-  //       this.store$.pipe(
-  //         select(getIsStoreInventoryLoaded, { branchId: action.branchId })
-  //       )
-  //     )
-  //   ),
-  //   tap(([action, loaded]) => {
-  //     // The rest of your code...
-  //   })
-  // );
-
-  // @Effect()
-  //   getSomething$ = this.actions$.pipe(
-  //       ofType<GetMyRecords>(MyType.GET_RECORDS),bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-  //       debounceTime(0),
-  //       withLatestFrom(this.store.select(getId)),
-  //       switchMap(([action, id]) => {
-  //           this.log.debug('Get ID', id);
-  //           ... calling my service here
-  //       })
-  //   );
-
   @Effect() onGetUserInfo = this.actions.pipe(
     ofType<userInfoActions.GetUserAction>(
       userInfoActions.UserActionTypes.GET_USER
@@ -96,21 +36,6 @@ export class UserEffects {
     debounceTime(0),
     withLatestFrom(this.store.select((p) => p["userInfo"])),
     switchMap(([action, state]) => {
-      // if (state.id === action.payload.id) {
-      //   return of({ type: "NO_ACTION" });
-      // }
-      // return this.authService.getUser(action.payload.id).pipe(
-      //   concatMap((data) => {
-      //     console.log("data", data.value);
-      //     return from([
-      //       { type: "CLEAR_PROFILE_STATE" },
-      //       new userInfoActions.GetUserSuccessAction(data),
-      //     ]);
-      //   }),
-      //   catchError((err) =>
-      //     of(new userInfoActions.GetUserFailAction({ showError: true }))
-      //   )
-      // );
       return this.authService.getUser(action.payload.id).pipe(
         concatMap((data) => {
           console.log("data", data);
@@ -125,32 +50,4 @@ export class UserEffects {
       );
     })
   );
-  //   @Effect() onGetUserInfo$ = this.actions$
-  //     .ofType<userInfoActions.GetUserAction>(
-  //       userInfoActions.UserActionTypes.GET_USER
-  //     )
-  //     .withLatestFrom(this.store.select((p) => p["profile"]))
-  //     .mergeMap(([action, state]) => {
-  //       // If Username Is not changed dont fetch data
-  //       if (state.userInfo.userInfo.username === action.payload.userName) {
-  //         return Observable.of({ type: "NO_ACTION" });
-  //       }
-  //       return this.userInfoService
-  //         .GetUserInfo(action.payload.userName)
-  //         .concatMap((data) => {
-  //           this.seoService.updateUserPage(data.value);
-  //           return Observable.from([
-  //             { type: "CLEAR_PROFILE_STATE" },
-  //             new userInfoActions.GetUserSuccessAction(data.value),
-  //             new interestActions.GetInterestAction({
-  //               userName: action.payload.userName,
-  //             }),
-  //           ]);
-  //         })
-  //         .catch((error) => {
-  //           return Observable.of(
-  //             new userInfoActions.GetUserFailAction({ showError: true })
-  //           );
-  //         });
-  //     });
 }

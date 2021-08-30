@@ -78,6 +78,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //  this.userInfo$ = this.store.select((str) => str.userInfo);
 
     console.log("userInfo$", this.userInfo$);
+    this.userInfo$.subscribe((data) => {
+      console.log("data userinfo", data);
+    });
     //  this.user$ = this.store.select(selectUserState);
     // this.data = this.store.select(fromRoot.selectUserListState$);
     // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(

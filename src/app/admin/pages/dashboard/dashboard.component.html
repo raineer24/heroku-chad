@@ -4,67 +4,10 @@
 > -->
 <!-- <router-outlet></router-outlet> -->
 <h4>test</h4>
-<div *ngIf="userInfo$">
-  <h1>Welcome {{ userInfo$.first_name}}!</h1>
-
-  <div class="col-sm-12" *ngIf="noData?.user_profile == 0">
-    <h4>You have not yet setup a profile, please add some info</h4>
-    <button [routerLink]="['/add']">CREATE PROFILE</button>
-  </div>
-  <!-- <div class="col-sm-12"><router-outlet></router-outlet>
-  <h4>test</h4>
-  <h3 *ngIf="currentUser?.user_profile[0]?.bio !== undefined">userprofile[0] exist</h3>
-</div> -->
-  <div *ngFor=" let profile of (noData)?.user_profile">
-    <mat-toolbar class="nav" fxLayout="row" fxLayoutAlign="start">
-
-      <a mat-button routerLink="edit/{{profile.id}}">Edit Profile</a>
-      <a mat-button routerLink="add-exp">Add Experience</a>
-      <a mat-button routerLink="add-edu">Add Education</a>
+<div *ngIf="user$">
 
 
-    </mat-toolbar>
 
-  </div>
-  <h2 class='my-2'>Experience Credentials</h2>
-  <div class="table">
-    <div class="table-row">
-      <div class="table-head">Company</div>
-      <div class="table-head">Title</div>
-      <div class="table-head">Years</div>
-      <div class="table-head"></div>
-    </div>
-    <div *ngFor="let data of (noData)?.user_experience; let i = index" class="table-row">
-      <div class="table-cell">{{data.company_name}}</div>
-      <div class="table-cell">{{data.job_title }}</div>
-      <div class="table-cell">
-        {{ data.start_date | date: 'M/d/yyyy' }}-{{ (data.end_date === null) ? 'Now' :  data.end_date | date: 'M/d/yyyy' 
-        }}
-      </div>
-      <div class="table-cell"> <button (click)="deleteUser(data.user_experience_detail_id)"><i
-            class="fa fa-trash"></i></button></div>
 
-    </div>
-  </div>
-
-  <h2>Education Credentials</h2>
-  <div class="table">
-    <div class="table-row">
-      <div class="table-head">School</div>
-      <div class="table-head">Degree</div>
-      <div class="table-head">Years</div>
-      <div class="table-head"></div>
-    </div>
-    <div *ngFor="let data of (noData)?.user_education; let i = index" class="table-row">
-      <div class="table-cell">{{data.school_name}}</div>
-      <div class="table-cell">{{data.degree_name }}</div>
-      <div class="table-cell">
-        {{ data.start_date | date: 'M/d/yyyy' }}-{{ (data.end_date === null) ? 'Now' :  data.end_date | date: 'M/d/yyyy' 
-        }}
-      </div>
-      <div class="table-cell"> <button (click)="deleteEdu(data.user_education_detail_id)"><i
-            class="fa fa-trash"></i></button></div>
-
-    </div>
-  </div>
+  Hi {{user$ | json}}
 </div>

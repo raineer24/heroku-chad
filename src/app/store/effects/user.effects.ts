@@ -29,20 +29,56 @@ export class UserEffects {
     private store: Store<State>
   ) {}
 
-  @Effect() onGetUserInfo = this.actions.pipe(
+  // @Effect() onGetUserInfo = this.actions.pipe(
+  //   ofType<userInfoActions.GetUserAction>(
+  //     userInfoActions.UserActionTypes.GET_USER
+  //   ),
+  //   debounceTime(0),
+  //   withLatestFrom(this.store.select((p) => p["userInfo"])),
+  //   switchMap(([action, state]) => {
+  //     return this.authService.getUser(action.payload.id).pipe(
+  //       concatMap((data) => {
+  //         console.log("data", data);
+  //         return from([
+  //           { type: "CLEAR_PROFILE_STATE" },
+  //           new userInfoActions.GetUserSuccessAction(data),
+  //         ]);
+  //       }),
+  //       catchError((err) =>
+  //         of(new userInfoActions.GetUserFailAction({ showError: true }))
+  //       )
+  //     );
+  //   })
+  // );
+
+  @Effect()
+  onGetUserInfo = this.actions.pipe(
     ofType<userInfoActions.GetUserAction>(
       userInfoActions.UserActionTypes.GET_USER
     ),
-    debounceTime(0),
-    withLatestFrom(this.store.select((p) => p["userInfo"])),
-    switchMap(([action, state]) => {
-      return this.authService.getUser(action.payload.id).pipe(
-        concatMap((data) => {
-          console.log("data", data);
-          return from([
-            { type: "CLEAR_PROFILE_STATE" },
-            new userInfoActions.GetUserSuccessAction(data),
-          ]);
+    map((action: userInfoActions.GetUserAction) => action.payload),
+    mergeMap((payload) => {
+      console.log("payload create profile: ", payload);
+      return this.authService.getUser(payload.id).pipe(
+        take(1),
+        map((user) => {
+          console.log("user: ", user);
+
+          // let datus = normalize(user.profileCreate, userSchema);
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+
+          // console.log("get profile Effect", datus);
+
+          // let user_profile = user.body
+          // this.currentUserSubject.next(user);
+          // return new AuthActions.LogInSuccess({
+          //   token: user.token,
+          //   username: payload.username,
+          //    firstName: user.firstName
+          // });
+          //return new AuthActions.LogInSuccess(user);
+          // return new DevActions.createDeveloperSuccess(user.profileCreate);
+          return new userInfoActions.GetUserSuccessAction(user);
         }),
         catchError((err) =>
           of(new userInfoActions.GetUserFailAction({ showError: true }))

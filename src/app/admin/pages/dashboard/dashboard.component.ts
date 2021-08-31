@@ -23,6 +23,7 @@ import {
   GetUserAction,
   UserActionTypes,
 } from "../../../store/actions/user.actions";
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: "app-dashboard",
@@ -30,9 +31,13 @@ import {
   styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  data: Observable<any>;
-  user$: Observable<User>;
-  userInfo$: Observable<User>;
+  public user$: Observable<User> = this.store.pipe(
+    select((str) => str.userInfo)
+  );
+
+  data: Observable<User>;
+  //user$: Observable<User>;
+  userInfo$: Observable<any>;
   userId: string;
   // users$: User[];
   destroyed$ = new Subject<boolean>();
@@ -74,13 +79,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     console.log("userData", this.userData["user"].id);
 
     this.store.dispatch(new GetUserAction({ id: this.userData["user"].id }));
-    this.userInfo$ = this.store.select((str) => str.userInfo);
+    // this.userInfo$ = this.store.select((str) => str.userInfo);
     //  this.userInfo$ = this.store.select((str) => str.userInfo);
 
-    console.log("userInfo$", this.userInfo$);
-    this.userInfo$.subscribe((data) => {
-      console.log("data userinfo", data);
-    });
     //  this.user$ = this.store.select(selectUserState);
     // this.data = this.store.select(fromRoot.selectUserListState$);
     // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
@@ -111,12 +112,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
         takeUntil(this.destroyed$)
       )
       .subscribe((data) => {
-        console.log("datas", data);
+        console.log("datas", typeof data);
         console.log("data", data["payload"]);
+
+        ///this.user$ = data["payload"];
+        //this.user$ = JSON.stringify(data["payload"]);
+        console.log("the users: ", (this.user$ = data["payload"]));
+        console.log("USERS!", JSON.stringify(this.user$));
         /* hooray, success, show notification alert etc.. */
         // console.log("DATA", data["payload"]);
-        this.user$ = data["payload"];
-        console.log("nodata", this.user$);
+        ///  this.user$ = data["payload"];
+        // console.log("nodata", this.user$);
         //  console.log("thisnodata", this.noData["entities"]["users"]);
         // // this.initializeData(data["payload"]);
         // this.dataSource = new MatTableDataSource(this.noData);
@@ -139,10 +145,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.data = this.store.pipe(select(fromUser.getCurrentUser));
-    // this.data.subscribe((users) => {
-    //   console.log("USERS:", users);
-    // });
+    this.userInfo$ = this.store.select(getUserInfoState);
+    console.log("userinfo", this.userInfo$);
+    this.store.subscribe((store) => {
+      console.log("store : ", store.isLoading);
+    });
+    this.userInfo$.subscribe((currentUser) => {
+      console.log("currentUser : ", currentUser);
+    });
   }
 
   deleteRow(x) {

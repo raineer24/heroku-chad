@@ -43,6 +43,8 @@ import { EffectsModule } from "@ngrx/effects";
 import { clearState } from "./clear.reducer";
 import { MyAppModule } from "./localStorageSyncReducer";
 
+import { reducers, metaReducers, State } from "./reducers";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -66,7 +68,8 @@ import { MyAppModule } from "./localStorageSyncReducer";
     CoreModule,
     //AuthModule,
     EffectsModule.forRoot([]),
-    StoreModule.forRoot({}, { metaReducers: [clearState] }),
+    // StoreModule.forRoot({}, { metaReducers: [clearState] }),
+    StoreModule.forRoot(reducers, { metaReducers }),
     // StoreModule.forRoot(reducers, {}),
     //StoreModule.forFeature("users", reducer),
     //EffectsModule.forFeature([UserEffects]),

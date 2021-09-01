@@ -1,18 +1,18 @@
-import { User } from "../../core/models";
-import { All, AuthActionTypes } from "../actions/auth.actions";
-import { UserActionTypes } from "../actions/user.actions";
+import { User } from "../../../core/models";
+import { All, AuthActionTypes } from "../../actions/auth.actions";
+import { UserActionTypes } from "../../actions/user.actions";
 
-export interface State {
+export interface AuthState {
   isAuthenticated: boolean;
   user: User | null;
 }
 
-export const initialState: State = {
+export const initialState: AuthState = {
   isAuthenticated: false,
   user: null,
 };
 
-export function reducer(state = initialState, action: All): State {
+export function reducer(state = initialState, action: All): AuthState {
   switch (action.type) {
     case AuthActionTypes.LOGIN_SUCCESS: {
       return {

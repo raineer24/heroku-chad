@@ -57,7 +57,7 @@ export class UserEffects {
       userInfoActions.UserActionTypes.GET_USER
     ),
     map((action: userInfoActions.GetUserAction) => action.payload),
-    mergeMap((payload) => {
+    flatMap((payload) => {
       console.log("payload create profile: ", payload);
       return this.authService.getUser(payload.id).pipe(
         take(1),

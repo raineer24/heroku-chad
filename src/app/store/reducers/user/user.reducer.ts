@@ -18,12 +18,7 @@ export interface State {
 //   bio?: string;
 
 export const initialState: State = {
-  userInfo: {
-    id: 0,
-    email: "",
-    username: "",
-    first_name: "",
-  },
+  userInfo: null,
   isLoading: false,
   showError: false,
   error: "",
@@ -37,6 +32,7 @@ export function reducer(state = initialState, action): State {
         isLoading: true,
       };
     case userActions.UserActionTypes.GET_USER_SUCCESS:
+      console.log("action payload", action.payload);
       //action.payload.profileImageUrl += '?'+ new Date().getMilliseconds();
       return {
         ...state,
@@ -57,7 +53,7 @@ export function reducer(state = initialState, action): State {
 }
 
 export const getUserState = createFeatureSelector<State>("user");
-export const getUserInfoState = createSelector(
-  getUserState,
-  (state) => state.userInfo
-);
+// export const getUserInfoState = createSelector(
+//   getUserState,
+//   (state) => state["userInfo"]
+// );

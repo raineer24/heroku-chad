@@ -31,12 +31,12 @@ import {
   styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  public user$: Observable<User> = this.store.pipe(
-    select((str) => str.userInfo)
-  );
+  // public user$: Observable<User> = this.store.pipe(
+  //   select((str) => str.userInfo)
+  // );
 
   data: Observable<User>;
-  //user$: Observable<User>;
+  user$: Observable<User>;
   userInfo$: Observable<any>;
   userId: string;
   // users$: User[];
@@ -79,6 +79,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
     console.log("userData", this.userData["user"].id);
 
     this.store.dispatch(new GetUserAction({ id: this.userData["user"].id }));
+    this.userInfo$ = this.store
+      .select(getUserInfoState)
+      .pipe(takeUntil(this.destroyed$));
+    console.log("userinfo", this.userInfo$);
+    // this.store.subscribe((store) => {
+    //   console.log("store : ", store.isLoading);
+    // });
+    this.currentUserSubscription = this.userInfo$.subscribe((currentUser) => {
+      console.log("currentUser : ", currentUser["userInfo"]);
+      this.user$ = currentUser["userInfo"];
+    });
     // this.userInfo$ = this.store.select((str) => str.userInfo);
     //  this.userInfo$ = this.store.select((str) => str.userInfo);
 
@@ -105,68 +116,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
       // }
     });
 
-    // this.store.dispatch(new DevActions.LoadProfileBegin());
-    this.actionsSubj
-      .pipe(
-        ofType(UserActionTypes.GET_USER_SUCCESS),
-        takeUntil(this.destroyed$)
-      )
-      .subscribe((data) => {
-        console.log("datas", typeof data);
-        console.log("data", data["payload"]);
-
-        ///this.user$ = data["payload"];
-        //this.user$ = JSON.stringify(data["payload"]);
-        console.log("the users: ", (this.user$ = data["payload"]));
-        console.log("USERS!", JSON.stringify(this.user$));
-        /* hooray, success, show notification alert etc.. */
-        // console.log("DATA", data["payload"]);
-        ///  this.user$ = data["payload"];
-        // console.log("nodata", this.user$);
-        //  console.log("thisnodata", this.noData["entities"]["users"]);
-        // // this.initializeData(data["payload"]);
-        // this.dataSource = new MatTableDataSource(this.noData);
-        // console.log("this.datasource", this.dataSource);
-      });
-
-    // this.store
+    // this.actionsSubj
     //   .pipe(
-    //     select(fromUser.getUserProfile),
-    //     filter((user) => !!user)
+    //     ofType(UserActionTypes.GET_USER_SUCCESS),
+    //     takeUntil(this.destroyed$)
     //   )
     //   .subscribe((data) => {
-    //     console.log("data: ", data);
-    //     this.currentUser = data;getCustomers
-    //     // console.log("currentuser", this.currentUser);
-    //     // this.statusArray = data.user_profile[0];
-    //     // console.log("statusarray", this.statusArray.length);
-    //     // console.log("data1", this.statusArray.bio);
+    //     console.log("datas", typeof data);
+    //     console.log("data", data["payload"]);
     //   });
   }
 
   ngOnInit() {
-    this.userInfo$ = this.store.select(getUserInfoState);
-    console.log("userinfo", this.userInfo$);
-    this.store.subscribe((store) => {
-      console.log("store : ", store.isLoading);
-    });
-    this.userInfo$.subscribe((currentUser) => {
-      console.log("currentUser : ", currentUser);
-    });
-  }
-
-  deleteRow(x) {
-    var delBtn = confirm(" Do you want to delete ?");
-    if (delBtn == true) {
-      // this.row.splice(x, 1);
-    }
-  }
-  deleteUser(id: number) {
-    //alert("In Delete");
-    // this.authenticationService.deleteExp(id).subscribe((data) => {
-    //   console.log("delete data", data);
-    // });
-    //this.store.dispatch(new userActions.deleteExpProfile(id));
+    // console.log("sub", this.currentUserSubscription);
   }
 
   deleteEdu(id: number) {
@@ -180,6 +142,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroyed$.next();
     this.destroyed$.complete();
+    this.currentUserSubscription.unsubscribe();
   }
   private initializeData(users: any): void {
     console.log("this initial", this.noData);

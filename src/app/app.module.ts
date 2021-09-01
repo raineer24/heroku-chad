@@ -48,7 +48,6 @@ import { reducers, metaReducers, State } from "./reducers";
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    MyAppModule,
     BrowserModule,
     //EffectsModule.forRoot([]),
     AppRoutingModule,

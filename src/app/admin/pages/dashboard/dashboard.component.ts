@@ -8,7 +8,7 @@ import { UserFetch, Experience, User } from "../../../core/models/";
 import { AuthService } from "../../../core/services/user.service";
 import { Store, select, ActionsSubject } from "@ngrx/store";
 import { ofType } from "@ngrx/effects";
-import { selectUserState } from "../../../store/app.states";
+//import { selectUserState } from "../../../store/app.states";
 //import * as fromRoot from "../../../store/reducers";
 //import * as fromUser from "../../state/user.reducer";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -17,7 +17,10 @@ import { Subscription, Observable, of, Subject, from } from "rxjs";
 import { skipWhile, skip, take, filter, takeUntil } from "rxjs/operators";
 import { MatTableDataSource } from "@angular/material/table";
 //import { getCurrentUser, getAllUsers } from "../../state/user.reducer";
-import { State, getUserInfoState } from "../../../store/reducers/user.reducer";
+import {
+  State,
+  getUserInfoState,
+} from "../../../store/reducers/user/user.reducer";
 import {
   UserActions,
   GetUserAction,

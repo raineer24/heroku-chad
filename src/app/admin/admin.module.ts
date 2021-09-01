@@ -40,11 +40,11 @@ import { STORE_FEATURES } from "../consts";
 /* NgRx */
 import { StoreModule } from "@ngrx/store";
 //import { reducer } from "./state/post.reducer";
-import { reducer } from "../store/reducers/user.reducer";
+import { reducer } from "../store/reducers/user/user.reducer";
 import { AuthService } from "../core/services/user.service";
 import { EffectsModule } from "@ngrx/effects";
 import { UserEffects } from "../store/effects/user.effects";
-
+import { reducers, metaReducer } from "../store/reducers/user";
 @NgModule({
   declarations: [
     UsersComponent,
@@ -63,7 +63,10 @@ import { UserEffects } from "../store/effects/user.effects";
   imports: [
     AdminRoutingModule,
     // StoreModule.forFeature(STORE_FEATURES.posts, userReducer),
-    StoreModule.forFeature(STORE_FEATURES.user, reducer),
+    // StoreModule.forFeature(STORE_FEATURES.user, reducer, {
+    //   metaReducers: metaReducer,
+    // }),
+    StoreModule.forFeature("user", reducers, { metaReducers: metaReducer }),
     EffectsModule.forFeature([UserEffects]),
     MatCardModule,
     MatToolbarModule,

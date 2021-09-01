@@ -7,7 +7,8 @@ import {
   AbstractControl,
 } from "@angular/forms";
 import { AuthService } from "../../../core/services/user.service";
-import { AppState, selectAuthState } from "../../../store/app.states";
+//import { AppState, selectAuthState } from "../../../store/app.states";
+import { State } from "../../../reducers/";
 import { first } from "rxjs/operators";
 import { Subscription, BehaviorSubject, Observable } from "rxjs";
 import { User } from "../../../core/models/user";
@@ -53,7 +54,7 @@ export class LoginComponent implements OnInit {
     private alertService: AlertService,
     // private store: Store<fromUser.AuthModuleState>,
     public errorService: ErrorService,
-    private store: Store<AppState>
+    private store: Store<State>
   ) {
     this.authenticationService.currentUser.subscribe(
       (x) => (this.currentUser = x)

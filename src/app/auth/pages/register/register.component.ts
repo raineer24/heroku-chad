@@ -13,8 +13,8 @@ import * as AuthActions from "../../state/auth.action";
 import { Store } from "@ngrx/store";
 import { SignUp } from "../../../store/actions/auth.actions";
 //import { IUser } from "../../../interfaces";
-import { AppState, selectAuthState } from "../../../store/app.states";
-
+//import { AppState, selectAuthState } from "../../../store/app.states";
+import { State } from "../../../reducers/";
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private alertService: AlertService,
-    private store: Store<AppState>
+    private store: Store<State>
   ) {
     this.initForm();
   }

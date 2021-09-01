@@ -1,5 +1,5 @@
-import * as userActions from "../actions/user.actions";
-import { User } from "../../core/models";
+import * as userActions from "../../actions/user.actions";
+import { User } from "../../../core/models";
 import { createSelector, createFeatureSelector } from "@ngrx/store";
 
 export interface State {

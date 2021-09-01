@@ -41,7 +41,7 @@ import { LoadingService } from "./shared/layout/loading/loading.service";
 import { EffectsModule } from "@ngrx/effects";
 
 import { clearState } from "./clear.reducer";
-import { MyAppModule } from "./localStorageSyncReducer";
+//import { MyAppModule } from "./localStorageSyncReducer";
 
 import { reducers, metaReducers, State } from "./reducers";
 

@@ -16,7 +16,7 @@ import {
 import { Action, Store } from "@ngrx/store";
 import { combineLatest, from, Observable, of } from "rxjs";
 import { AuthService } from "../../core/services/user.service";
-import { State } from "../reducers/user.reducer";
+import { State } from "../../store/reducers/user";
 
 import * as userInfoActions from "../actions/user.actions";
 

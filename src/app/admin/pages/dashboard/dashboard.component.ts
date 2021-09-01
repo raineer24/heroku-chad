@@ -17,10 +17,7 @@ import { Subscription, Observable, of, Subject, from } from "rxjs";
 import { skipWhile, skip, take, filter, takeUntil } from "rxjs/operators";
 import { MatTableDataSource } from "@angular/material/table";
 //import { getCurrentUser, getAllUsers } from "../../state/user.reducer";
-import {
-  State,
-  getUserInfoState,
-} from "../../../store/reducers/user/user.reducer";
+import { State, getUserInfoState } from "../../../store/reducers/user";
 import {
   UserActions,
   GetUserAction,

@@ -33,7 +33,7 @@ import { StoreModule } from "@ngrx/store";
   imports: [
     CommonModule,
     //StoreModule.forFeature(STORE_FEATURES.auth, reducer),
-    EffectsModule.forFeature([AuthEffects]),
+    //EffectsModule.forFeature([AuthEffects]),
     AuthRoutingModule,
     MatCardModule,
     MatToolbarModule,

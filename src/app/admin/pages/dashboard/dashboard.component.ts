@@ -17,7 +17,8 @@ import { Subscription, Observable, of, Subject, from } from "rxjs";
 import { skipWhile, skip, take, filter, takeUntil } from "rxjs/operators";
 import { MatTableDataSource } from "@angular/material/table";
 //import { getCurrentUser, getAllUsers } from "../../state/user.reducer";
-import { State, getUserInfoState } from "../../../store/reducers/user";
+//import { State, getUserInfoState } from "../../../store/reducers/user";
+import { State, selectUserData } from "../../../reducers/";
 import {
   UserActions,
   GetUserAction,
@@ -75,20 +76,27 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private actionsSubj: ActionsSubject,
     private route: ActivatedRoute
   ) {
+    console.log("store staste", this.store.select(selectUserData));
     this.userData = JSON.parse(localStorage.getItem("currentUser"));
     console.log("userData", this.userData["user"].id);
 
     this.store.dispatch(new GetUserAction({ id: this.userData["user"].id }));
     this.userInfo$ = this.store
-      .select(getUserInfoState)
+      .select(selectUserData)
       .pipe(takeUntil(this.destroyed$));
     console.log("userinfo", this.userInfo$);
     // this.store.subscribe((store) => {
     //   console.log("store : ", store.isLoading);
     // });
-    this.currentUserSubscription = this.userInfo$.subscribe((currentUser) => {
-      console.log("currentUser : ", currentUser["userInfo"]);
-      this.user$ = currentUser["userInfo"];
+    // this.currentUserSubscription = this.userInfo$.subscribe((currentUser) => {
+    //   // console.log("currentUser : ", currentUser["userInfo"]);
+    //   console.log("current user: ", currentUser);
+    //   //   this.user$ = currentUser["userInfo"];
+    // });
+    this.userInfo$.subscribe((currentUser) => {
+      //   // console.log("currentUser : ", currentUser["userInfo"]);
+      console.log("current user: ", currentUser);
+      //   this.user$ = currentUser["userInfo"];
     });
     // this.userInfo$ = this.store.select((str) => str.userInfo);
     //  this.userInfo$ = this.store.select((str) => str.userInfo);
@@ -142,7 +150,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroyed$.next();
     this.destroyed$.complete();
-    this.currentUserSubscription.unsubscribe();
+    //this.currentUserSubscription.unsubscribe();
   }
   private initializeData(users: any): void {
     console.log("this initial", this.noData);

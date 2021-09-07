@@ -25,4 +25,10 @@ export function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
   };
 }
 
+export const getAuthState = createFeatureSelector<AuthState>("auth");
+export const selectUserData = createSelector(
+  getAuthState,
+  (state) => state.user
+);
+
 export const metaReducers: MetaReducer<State>[] = [stateSetter];

@@ -44,7 +44,7 @@ import { reducer } from "../store/reducers/user/user.reducer";
 import { AuthService } from "../core/services/user.service";
 import { EffectsModule } from "@ngrx/effects";
 import { UserEffects } from "../store/effects/user.effects";
-import { reducers, metaReducer } from "../store/reducers/user";
+import { reducers, metaReducers } from "../reducers/";
 @NgModule({
   declarations: [
     UsersComponent,
@@ -66,7 +66,7 @@ import { reducers, metaReducer } from "../store/reducers/user";
     // StoreModule.forFeature(STORE_FEATURES.user, reducer, {
     //   metaReducers: metaReducer,
     // }),
-    StoreModule.forFeature("user", reducers, { metaReducers: metaReducer }),
+    StoreModule.forFeature("auth", reducers, { metaReducers }),
     EffectsModule.forFeature([UserEffects]),
     MatCardModule,
     MatToolbarModule,
